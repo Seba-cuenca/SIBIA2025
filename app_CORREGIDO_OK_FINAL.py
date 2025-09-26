@@ -25,9 +25,28 @@ import uuid
 import base64
 from io import BytesIO
 
-# SOLO ASISTENTE EXPERTO (EL ÚNICO QUE SE USA)
-from asistente_sibia_experto import procesar_pregunta_completa as experto_procesar
-from asistente_sibia_experto import ToolContext as ExpertoToolContext
+# ASISTENTE EXPERTO - MANEJO SEGURO DE IMPORTS
+try:
+    from asistente_sibia_experto import procesar_pregunta_completa as experto_procesar
+    from asistente_sibia_experto import ToolContext as ExpertoToolContext
+    ASISTENTE_EXPERTO_DISPONIBLE = True
+    print("✅ Asistente experto cargado correctamente")
+except ImportError:
+    print("⚠️ Asistente experto no disponible - usando modo básico")
+    ASISTENTE_EXPERTO_DISPONIBLE = False
+    
+    # Funciones de fallback
+    def experto_procesar(pregunta, contexto=None):
+        return {
+            'respuesta': 'Asistente en modo básico - función no disponible',
+            'tipo': 'texto',
+            'datos': None
+        }
+    
+    class ExpertoToolContext:
+        def __init__(self):
+            self.herramientas = []
+            self.contexto = {}
 
 # Configuración para Railway - AutoLinkSolutions SRL
 if os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('PORT'):
@@ -10988,38 +11007,85 @@ def get_db_connection():
 # INICIALIZACIÓN FINAL
 if __name__ == "__main__":
     try:
-        # Verificar que todos los archivos necesarios existan
-        archivos_necesarios = [STOCK_FILE, PARAMETROS_FILE, SEGUIMIENTO_FILE]
-        for archivo in archivos_necesarios:
-            if not os.path.exists(archivo):
-                logger.info(f"Creando archivo faltante: {archivo}")
-                if archivo == STOCK_FILE:
-                    guardar_json_seguro(archivo, {"materiales": {}})
-                elif archivo == PARAMETROS_FILE:
-                    guardar_json_seguro(archivo, CONFIG_DEFAULTS)
-                elif archivo == SEGUIMIENTO_FILE:
-                    guardar_json_seguro(archivo, {"fecha": datetime.now().strftime('%Y-%m-%d'), "biodigestores": {}})
+        # Inicialización simplificada para Railway
+        print("🚀 Iniciando SIBIA...")
+        print("© 2025 AutoLinkSolutions SRL")
         
-        # Inicializar seguimiento horario
-        cargar_seguimiento_horario()
+        # Verificar archivos básicos (sin errores críticos)
+        try:
+            archivos_necesarios = [STOCK_FILE, PARAMETROS_FILE, SEGUIMIENTO_FILE]
+            for archivo in archivos_necesarios:
+                if not os.path.exists(archivo):
+                    logger.info(f"Creando archivo faltante: {archivo}")
+                    if archivo == STOCK_FILE:
+                        guardar_json_seguro(archivo, {"materiales": {}})
+                    elif archivo == PARAMETROS_FILE:
+                        guardar_json_seguro(archivo, CONFIG_DEFAULTS)
+                    elif archivo == SEGUIMIENTO_FILE:
+                        guardar_json_seguro(archivo, {"fecha": datetime.now().strftime('%Y-%m-%d'), "biodigestores": {}})
+        except Exception as e:
+            logger.warning(f"Error creando archivos básicos: {e}")
         
-        # Agregar registro diario si es necesario
+        # Inicialización opcional (no crítica)
+        try:
+            cargar_seguimiento_horario()
+        except Exception as e:
+            logger.warning(f"Error cargando seguimiento: {e}")
+        
         try:
             agregar_registro_diario()
-            logger.info("Registro diario inicializado correctamente")
         except Exception as e:
             logger.warning(f"Error inicializando registro diario: {e}")
         
-        logger.info("🚀 Aplicación iniciada correctamente")
-        logger.info(f"📊 Modo local: {MODO_LOCAL}")
-        logger.info(f"🔗 MySQL disponible: {MYSQL_DISPONIBLE}")
-        logger.info(f"📁 Directorio de trabajo: {SCRIPT_DIR}")
+        # Configuración de Railway
+        port = int(os.environ.get('PORT', 5000))
+        host = os.environ.get('HOST', '0.0.0.0')
+        debug = os.environ.get('DEBUG', 'false').lower() == 'true'
+        
+        print(f"🌐 Servidor: {host}:{port}")
+        print(f"🔧 Debug: {debug}")
+        print(f"📊 Modo local: {MODO_LOCAL}")
+        print(f"🔗 MySQL disponible: {MYSQL_DISPONIBLE}")
         
         # Iniciar la aplicación
-        app.run(debug=False, host="0.0.0.0", port=5000)
+        app.run(debug=debug, host=host, port=port)
         
     except Exception as e:
         logger.error(f"Error crítico al iniciar la aplicación: {e}", exc_info=True)
         print(f"❌ ERROR CRÍTICO: {e}")
         print("🔧 Revisa los logs para más detalles")
+        
+        # Intentar iniciar en modo de emergencia
+        try:
+            print("🚨 Iniciando en modo de emergencia...")
+            port = int(os.environ.get('PORT', 5000))
+            host = os.environ.get('HOST', '0.0.0.0')
+            
+            # Crear una app mínima de emergencia
+            from flask import Flask
+            app_emergencia = Flask(__name__)
+            
+            @app_emergencia.route('/')
+            def emergencia():
+                return jsonify({
+                    'status': 'emergencia',
+                    'message': 'SIBIA en modo de emergencia',
+                    'company': 'AutoLinkSolutions SRL',
+                    'error': str(e)
+                })
+            
+            @app_emergencia.route('/salud')
+            def salud_emergencia():
+                return jsonify({'status': 'ok', 'modo': 'emergencia'})
+            
+            @app_emergencia.route('/health')
+            def health_emergencia():
+                return jsonify({'status': 'ok', 'modo': 'emergencia'})
+            
+            print(f"🚀 Modo emergencia iniciado en {host}:{port}")
+            app_emergencia.run(debug=False, host=host, port=port)
+            
+        except Exception as e2:
+            print(f"❌ Error en modo emergencia: {e2}")
+            print("🔧 La aplicación no puede iniciar")
         exit(1)
