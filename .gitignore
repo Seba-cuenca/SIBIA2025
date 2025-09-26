@@ -1,0 +1,163 @@
+# SIBIA - Archivos a subir a GitHub
+# Copyright © 2025 AutoLinkSolutions SRL
+
+# ARCHIVOS ESENCIALES PARA LA APLICACIÓN (SÍ SUBIR)
+# app_CORREGIDO_OK_FINAL.py
+# requirements_production.txt
+# railway.toml
+# Procfile
+# railway_config.py
+# data_protection.py
+# templates/
+# static/
+# config.json
+# parametros.json
+# materiales_base_config.json
+# knowledge_base.json
+# base_conocimientos_sibia_completa.json
+
+# ARCHIVOS INNECESARIOS (NO SUBIR)
+# Archivos de prueba y testing
+test_*.py
+*_test.py
+tests/
+prueba_*.py
+probar_*.py
+medir_*.py
+check_*.py
+
+# Archivos de backup y temporales
+*.backup
+*.bak
+backup/
+backups/
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Logs y archivos de sistema
+*.log
+*.log.*
+app.log*
+asistente_*.log
+*.log.1
+*.log.2
+*.log.5
+
+# Archivos de datos grandes e innecesarios
+*.xlsx
+*.xls
+DIETA*.xlsx
+~$*.xlsx
+
+# Archivos de cache y compilación
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos del sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de configuración local
+local_config.py
+local_settings.py
+.env
+.env.local
+.env.production
+
+# Archivos de datos sensibles
+datos_*.json
+stock.json
+registros_*.json
+historial_*.json
+*.json.backup*
+
+# Modelos ML grandes (opcional, pueden ser necesarios)
+# *.pkl
+# *.joblib
+# *.h5
+# *.model
+
+# Archivos de documentación temporal
+docs/temp/
+*.md.bak
+
+# Archivos de Railway/Heroku
+.railway/
+.heroku/
+
+# Archivos de Docker
+Dockerfile.local
+docker-compose.local.yml
+
+# Archivos de Android (no necesarios para web)
+android_app/
+android_setup.py
+buildozer*.spec
+crear_apk*.py
+
+# Archivos de implementación de sensores (no necesarios)
+implementaciones_sensores/
+sensores_criticos/
+
+# Archivos de migración y configuración de DB
+migrate_*.py
+configurar_*.py
+setup_*.py
+
+# Archivos de sincronización
+sincronizacion_*.py
+forzar_*.py
+
+# Archivos de reportes y análisis
+reporte_*.json
+mapeo_*.json
+queries_*.json
+
+# Archivos de aprendizaje automático (opcionales)
+aprendizaje_*.json
+modelo_*.json
+sistema_*.py
+
+# Archivos de seguimiento
+seguimiento_*.json
+balance_*.json
