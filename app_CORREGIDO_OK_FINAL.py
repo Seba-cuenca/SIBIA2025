@@ -3823,6 +3823,18 @@ def health():
         'version': '2.0'
     })
 
+@app.route('/salud')
+def salud():
+    """Health check endpoint en español para Railway"""
+    return jsonify({
+        'status': 'ok',
+        'message': 'SIBIA funcionando correctamente',
+        'company': 'AutoLinkSolutions SRL',
+        'copyright': '© 2025 AutoLinkSolutions SRL',
+        'timestamp': datetime.now().isoformat(),
+        'version': '2.0'
+    })
+
 @app.route('/ml_dashboard')
 def ml_dashboard():
     """Dashboard de Monitoreo ML en Tiempo Real"""
