@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBIA - Sistema Inteligente de Biogestión Agrícola</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .alert {
+            margin-top: 10px;
+        }
+        .table th {
+            background-color: #f8f9fa;
+        }
+        .progress {
+            height: 25px;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .efficiency-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .efficiency-high {
+            background-color: #28a745;
+        }
+        .efficiency-medium {
+            background-color: #ffc107;
+        }
+        .efficiency-low {
+            background-color: #dc3545;
+        }
+        .dosificacion-real {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .diferencia-positiva {
+            color: #28a745;
+        }
+        .diferencia-negativa {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="position: fixed; top: 40px; left: 0; right: 0; z-index: 1030;">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-leaf me-2"></i>Control de Biodigestores
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/gestion_materiales_admin">Gestión Materiales</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4" style="padding-top: 120px;">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfkit/0.13.0/pdfkit.standalone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blob-stream/0.1.3/blob-stream.js"></script>
+
+    <!-- Scripts locales con cache-busting -->
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=1.3"></script>
+    <script src="{{ url_for('static', filename='js/kpi.js') }}?v=1.3"></script>
+    <script src="{{ url_for('static', filename='js/actualizacion.js') }}?v=1.3"></script>
+
+    <!-- Sistema de Optimización Frontend SIBIA -->
+    <script src="{{ url_for('static', filename='js/sistema_optimizacion_frontend.js') }}?v=1.0"></script>
+    
+    <!-- Optimizaciones Específicas para Asistente y Calculadora -->
+    <script src="{{ url_for('static', filename='js/optimizaciones_especificas.js') }}?v=1.0"></script>
+    
+    <!-- Optimizaciones Agresivas para Problemas Reales -->
+    <script src="{{ url_for('static', filename='js/optimizaciones_agresivas.js') }}?v=1.0"></script>
+    
+    <!-- Pruebas de Velocidad Específicas -->
+    <script src="{{ url_for('static', filename='js/prueba_velocidad_especifica.js') }}?v=1.0"></script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

@@ -1,0 +1,61 @@
+{
+  "respuestas_aprendidas": {
+    "e6d8993a54ba3bbf411292af4225f3c4": {
+      "pregunta_original": "temperatura del bio 1",
+      "respuesta_personalizada": "El biodigestor 1 está funcionando perfectamente a 43.5 grados centígrados, temperatura óptima para la producción de biogás.",
+      "fecha_aprendizaje": "2025-09-20T11:04:21.104530",
+      "usos": 1
+    },
+    "7124efce39e8a8f8a0e62abff72c6e7c": {
+      "pregunta_original": "como te llamas",
+      "respuesta_personalizada": "sibia",
+      "fecha_aprendizaje": "2025-09-21T08:56:48.357791",
+      "usos": 2
+    },
+    "de34d8c92cfec2d244bfa9f60aecf6c2": {
+      "pregunta_original": "cuanto es 2 x 4",
+      "respuesta_personalizada": "es 8",
+      "fecha_aprendizaje": "2025-09-21T09:14:58.750186",
+      "usos": 2
+    },
+    "63d780191ac03ea7702ebbeda0fc7fa7": {
+      "pregunta_original": "cual es la raiz cuadrada de 2",
+      "respuesta_personalizada": "la raiz cuadrada de 2 es 4",
+      "fecha_aprendizaje": "2025-09-21T09:26:38.715081",
+      "usos": 0
+    },
+    "8f6ecaf2973580228eff1379ed1474e6": {
+      "pregunta_original": "que alertas tengo",
+      "respuesta_personalizada": "no puedo ver alertas aun",
+      "fecha_aprendizaje": "2025-09-21T10:01:36.143977",
+      "usos": 0
+    },
+    "d22802ef6bfd2eb4d014d66d2ca92484": {
+      "pregunta_original": "buen dia",
+      "respuesta_personalizada": "buen dia como estas todo bien por ahi",
+      "fecha_aprendizaje": "2025-09-22T08:01:24.785354",
+      "usos": 3
+    },
+    "a6d610d98205c4844f0c2708de965f6c": {
+      "pregunta_original": "cuanto 34 por 2",
+      "respuesta_personalizada": "sesenta y ocho",
+      "fecha_aprendizaje": "2025-09-22T16:22:20.270214",
+      "usos": 1
+    },
+    "f22856b2dbe7e3662ef374c27df59c32": {
+      "pregunta_original": "donde esta la luna",
+      "respuesta_personalizada": "la luna esta a 2000000 km de la tierra",
+      "fecha_aprendizaje": "2025-09-25T15:40:57.196806",
+      "usos": 0
+    }
+  },
+  "estadisticas": {
+    "total_respuestas": 8,
+    "ultima_actualizacion": "2025-09-25T15:40:57.196851"
+  },
+  "configuracion": {
+    "prioridad_aprendizaje": true,
+    "mostrar_botones_feedback": true,
+    "auto_guardar": true
+  }
+}

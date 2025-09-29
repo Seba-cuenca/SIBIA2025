@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Manual de Biodigestor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .material-row {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .results-section {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .results-card {
+            margin-bottom: 15px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">Calculadora Manual de Biodigestor</h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <form id="calculatorForm">
+                    <div id="materialesContainer">
+                        <!-- Los materiales se agregarán aquí dinámicamente -->
+                    </div>
+                    
+                    <button type="button" class="btn btn-success mb-3" onclick="agregarMaterial()">
+                        Agregar Material
+                    </button>
+                    
+                    <button type="submit" class="btn btn-primary mb-3">
+                        Calcular
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="resultadosContainer" class="results-section hidden">
+            <h3 class="mb-3">Resultados</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card results-card">
+                        <div class="card-header">
+                            Totales
+                        </div>
+                        <div class="card-body">
+                            <p>Sólidos: <span id="totalSolidos">0</span> kg</p>
+                            <p>Líquidos: <span id="totalLiquidos">0</span> kg</p>
+                            <p>Potencial energético: <span id="totalKw">0</span> kW</p>
+                            <p>Producción de CH4: <span id="totalCh4">0</span> kg</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card results-card">
+                        <div class="card-header">
+                            Composición
+                        </div>
+                        <div class="card-body">
+                            <p>Carbohidratos: <span id="totalCarbohidratos">0</span> kg</p>
+                            <p>Lípidos: <span id="totalLipidos">0</span> kg</p>
+                            <p>Proteínas: <span id="totalProteinas">0</span> kg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    Detalles por Material
+                </div>
+                <div class="card-body">
+                    <div id="detallesMateriales"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lista de materiales disponibles
+        const materialesBase = {{ materiales_base|tojson|safe }};
+        
+        function agregarMaterial() {
+            const container = document.getElementById('materialesContainer');
+            const materialRow = document.createElement('div');
+            materialRow.className = 'material-row';
+            
+            const html = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <select class="form-select material-select" required>
+                            <option value="">Seleccione un material</option>
+                            ${materialesBase.map(m => `<option value="${m.nombre}">${m.nombre}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="number" class="form-control material-cantidad" placeholder="Cantidad en kg" required min="0" step="0.01">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-danger" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                    </div>
+                </div>
+            `;
+            
+            materialRow.innerHTML = html;
+            container.appendChild(materialRow);
+        }
+
+        document.getElementById('calculatorForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const materiales = [];
+            const materialRows = document.getElementsByClassName('material-row');
+            
+            for (const row of materialRows) {
+                const nombre = row.querySelector('.material-select').value;
+                const cantidad = row.querySelector('.material-cantidad').value;
+                
+                if (nombre && cantidad) {
+                    materiales.push({
+                        nombre: nombre,
+                        cantidad: parseFloat(cantidad)
+                    });
+                }
+            }
+            
+            try {
+                const response = await fetch('/calculadora_manual', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ materiales })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    mostrarResultados(data);
+                } else {
+                    alert('Error: ' + (data.error || 'Error desconocido'));
+                }
+            } catch (error) {
+                alert('Error al realizar el cálculo: ' + error);
+            }
+        });
+
+        function mostrarResultados(data) {
+            // Mostrar contenedor de resultados
+            document.getElementById('resultadosContainer').classList.remove('hidden');
+            
+            // Actualizar totales
+            document.getElementById('totalSolidos').textContent = data.totales.solidos;
+            document.getElementById('totalLiquidos').textContent = data.totales.liquidos;
+            document.getElementById('totalKw').textContent = data.totales.kw;
+            document.getElementById('totalCh4').textContent = data.totales.ch4;
+            
+            // Actualizar composición
+            document.getElementById('totalCarbohidratos').textContent = data.composicion.carbohidratos;
+            document.getElementById('totalLipidos').textContent = data.composicion.lipidos;
+            document.getElementById('totalProteinas').textContent = data.composicion.proteinas;
+            
+            // Mostrar detalles por material
+            const detallesContainer = document.getElementById('detallesMateriales');
+            detallesContainer.innerHTML = '';
+            
+            data.detalles_por_material.forEach(material => {
+                const detalleHtml = `
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            ${material.nombre} - ${material.cantidad} kg
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>Sólidos: ${material.solidos.toFixed(2)} kg</p>
+                                    <p>Líquidos: ${material.liquidos.toFixed(2)} kg</p>
+                                    <p>Potencial energético: ${material.kw.toFixed(2)} kW</p>
+                                    <p>Producción de CH4: ${material.ch4.toFixed(2)} kg</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Carbohidratos: ${material.carbohidratos.toFixed(2)} kg</p>
+                                    <p>Lípidos: ${material.lipidos.toFixed(2)} kg</p>
+                                    <p>Proteínas: ${material.proteinas.toFixed(2)} kg</p>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <a href="/ver_calculo/${encodeURIComponent(material.nombre)}/${material.cantidad}" 
+                                   class="btn btn-sm btn-info" target="_blank">
+                                    Ver cálculo detallado
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                detallesContainer.innerHTML += detalleHtml;
+            });
+        }
+
+        // Agregar el primer material automáticamente
+        agregarMaterial();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

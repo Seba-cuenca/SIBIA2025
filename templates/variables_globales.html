@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Variables Globales - SIBIA{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card" id="parametros-globales-card">
+        <div class="card-header">
+            <h2 class="card-title mb-0"><i class="fas fa-cogs"></i> Variables Globales del Sistema</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-muted">Ajusta los parámetros operativos clave que afectan todos los cálculos y proyecciones del sistema.</p>
+            <form id="parametros-globales-form" class="ajax-form" action="/actualizar_parametros" method="POST">
+                <div class="row g-3">
+                    <!-- Columna 1 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="kw_objetivo" class="form-label"><strong>Potencia Objetivo (KW)</strong></label>
+                            <input type="number" class="form-control" id="kw_objetivo" name="kw_objetivo" value="{{ parametros.kw_objetivo }}" required>
+                            <div class="form-text">La meta de producción de energía para los biodigestores.</div>
+                        </div>
+                         <div class="mb-3">
+                            <label for="num_biodigestores" class="form-label"><strong>Número de Biodigestores</strong></label>
+                            <input type="number" class="form-control" id="num_biodigestores" name="num_biodigestores" value="{{ parametros.num_biodigestores }}" required>
+                            <div class="form-text">Cantidad de biodigestores en operación.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="consumo_chp_global" class="form-label"><strong>Consumo CHP Global (m³/KW)</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="consumo_chp_global" name="consumo_chp_global" value="{{ parametros.consumo_chp_global or 504 }}" required>
+                            <div class="form-text">Consumo de gas del generador para producir 1 KW de energía.</div>
+                        </div>
+                    </div>
+                    <!-- Columna 2 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="porcentaje_purin" class="form-label"><strong>% Objetivo Purín</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="porcentaje_purin" name="porcentaje_purin" value="{{ parametros.porcentaje_purin }}" required>
+                            <div class="form-text">Porcentaje deseado de purín en la mezcla líquida.</div>
+                        </div>
+                         <div class="mb-3">
+                            <label for="porcentaje_sa7" class="form-label"><strong>% Reemplazo SA7</strong></label>
+                             <input type="number" step="0.01" class="form-control" id="porcentaje_sa7" name="porcentaje_sa7" value="{{ parametros.porcentaje_sa7 or 100 }}" required>
+                             <div class="form-text">Porcentaje de SA7 que puede ser reemplazado si hay excedente de purín.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="porcentaje_metano" class="form-label"><strong>Rendimiento Metano (%)</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="porcentaje_metano" name="porcentaje_metano" value="{{ parametros.porcentaje_metano or 60 }}" required>
+                            <div class="form-text">Eficiencia estimada de conversión a metano.</div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Si tienes algún script específico para esta página, puedes ponerlo aquí.
+    // Por ejemplo, el manejo del envío del formulario con AJAX si es necesario.
+    console.log("Página de variables globales cargada.");
+});
+</script>
+{% endblock %} 

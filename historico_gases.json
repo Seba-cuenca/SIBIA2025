@@ -1,0 +1,322 @@
+[
+  {
+    "fecha_hora": "2025-06-28 18:00:52",
+    "metano_ch4": 53.81,
+    "h2s_ppm": 147.95,
+    "oxigeno_o2": 1.49,
+    "dioxido_co2": 34.74,
+    "otros_gases": 9.959999999999994,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 18:00:50",
+    "metano_ch4": 53.06,
+    "h2s_ppm": 146.34,
+    "oxigeno_o2": 1.17,
+    "dioxido_co2": 34.07,
+    "otros_gases": 11.700000000000003,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 18:00:28",
+    "metano_ch4": 56.13,
+    "h2s_ppm": 137.12,
+    "oxigeno_o2": 0.83,
+    "dioxido_co2": 34.49,
+    "otros_gases": 8.549999999999997,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 18:00:27",
+    "metano_ch4": 55.36,
+    "h2s_ppm": 149.85,
+    "oxigeno_o2": 1.2,
+    "dioxido_co2": 37.64,
+    "otros_gases": 5.799999999999997,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 12:00:52",
+    "metano_ch4": 55.59,
+    "h2s_ppm": 141.11,
+    "oxigeno_o2": 0.97,
+    "dioxido_co2": 39.88,
+    "otros_gases": 3.5600000000000023,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 12:00:50",
+    "metano_ch4": 53.7,
+    "h2s_ppm": 138.29,
+    "oxigeno_o2": 1.28,
+    "dioxido_co2": 32.29,
+    "otros_gases": 12.72999999999999,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 12:00:28",
+    "metano_ch4": 52.66,
+    "h2s_ppm": 143.04,
+    "oxigeno_o2": 1.5,
+    "dioxido_co2": 32.17,
+    "otros_gases": 13.670000000000002,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-28 12:00:27",
+    "metano_ch4": 54.86,
+    "h2s_ppm": 147.87,
+    "oxigeno_o2": 1.3,
+    "dioxido_co2": 35.41,
+    "otros_gases": 8.430000000000007,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 18:00:35",
+    "metano_ch4": 55.68,
+    "h2s_ppm": 72.48,
+    "oxigeno_o2": 0.81,
+    "dioxido_co2": 34.86,
+    "otros_gases": 8.650000000000006,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 18:00:34",
+    "metano_ch4": 55.68,
+    "h2s_ppm": 72.48,
+    "oxigeno_o2": 0.96,
+    "dioxido_co2": 34.15,
+    "otros_gases": 9.210000000000008,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 18:00:34",
+    "metano_ch4": 55.68,
+    "h2s_ppm": 72.48,
+    "oxigeno_o2": 1.22,
+    "dioxido_co2": 31.18,
+    "otros_gases": 11.920000000000002,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 18:00:34",
+    "metano_ch4": 55.68,
+    "h2s_ppm": 72.48,
+    "oxigeno_o2": 1.26,
+    "dioxido_co2": 30.65,
+    "otros_gases": 12.409999999999997,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 12:00:37",
+    "metano_ch4": 54.91,
+    "h2s_ppm": 124.78,
+    "oxigeno_o2": 1.29,
+    "dioxido_co2": 34.6,
+    "otros_gases": 9.200000000000003,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 12:00:37",
+    "metano_ch4": 54.91,
+    "h2s_ppm": 124.78,
+    "oxigeno_o2": 1.3,
+    "dioxido_co2": 36.88,
+    "otros_gases": 6.910000000000011,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 12:00:30",
+    "metano_ch4": 54.91,
+    "h2s_ppm": 124.78,
+    "oxigeno_o2": 1.34,
+    "dioxido_co2": 33.68,
+    "otros_gases": 10.069999999999993,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 12:00:20",
+    "metano_ch4": 54.91,
+    "h2s_ppm": 124.78,
+    "oxigeno_o2": 0.99,
+    "dioxido_co2": 30.48,
+    "otros_gases": 13.620000000000005,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 06:00:54",
+    "metano_ch4": 55.93,
+    "h2s_ppm": 125.72,
+    "oxigeno_o2": 1.09,
+    "dioxido_co2": 39.72,
+    "otros_gases": 3.259999999999991,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 06:00:47",
+    "metano_ch4": 55.93,
+    "h2s_ppm": 125.72,
+    "oxigeno_o2": 1.34,
+    "dioxido_co2": 31.51,
+    "otros_gases": 11.219999999999999,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 00:00:51",
+    "metano_ch4": 55.79,
+    "h2s_ppm": 124.64,
+    "oxigeno_o2": 1.36,
+    "dioxido_co2": 36.2,
+    "otros_gases": 6.6499999999999915,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-22 00:00:43",
+    "metano_ch4": 55.79,
+    "h2s_ppm": 124.64,
+    "oxigeno_o2": 1.38,
+    "dioxido_co2": 35.72,
+    "otros_gases": 7.110000000000014,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 18:00:47",
+    "metano_ch4": 55.59,
+    "h2s_ppm": 92.52,
+    "oxigeno_o2": 1.12,
+    "dioxido_co2": 34.88,
+    "otros_gases": 8.409999999999997,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 18:00:39",
+    "metano_ch4": 55.59,
+    "h2s_ppm": 92.52,
+    "oxigeno_o2": 0.86,
+    "dioxido_co2": 38.16,
+    "otros_gases": 5.390000000000001,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 12:00:52",
+    "metano_ch4": 55.43,
+    "h2s_ppm": 126.52,
+    "oxigeno_o2": 1.19,
+    "dioxido_co2": 32.41,
+    "otros_gases": 10.969999999999999,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 12:00:50",
+    "metano_ch4": 55.43,
+    "h2s_ppm": 126.52,
+    "oxigeno_o2": 1.3,
+    "dioxido_co2": 37.21,
+    "otros_gases": 6.060000000000002,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 06:01:02",
+    "metano_ch4": 56.04,
+    "h2s_ppm": 133.1,
+    "oxigeno_o2": 1.45,
+    "dioxido_co2": 37.24,
+    "otros_gases": 5.269999999999996,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 06:00:04",
+    "metano_ch4": 56.04,
+    "h2s_ppm": 133.1,
+    "oxigeno_o2": 1.33,
+    "dioxido_co2": 34.75,
+    "otros_gases": 7.88000000000001,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 00:01:00",
+    "metano_ch4": 55.53,
+    "h2s_ppm": 103.2,
+    "oxigeno_o2": 1.39,
+    "dioxido_co2": 30.43,
+    "otros_gases": 12.649999999999991,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-21 00:00:58",
+    "metano_ch4": 55.53,
+    "h2s_ppm": 103.2,
+    "oxigeno_o2": 1.49,
+    "dioxido_co2": 36.85,
+    "otros_gases": 6.13000000000001,
+    "estado_general": "normal",
+    "tipo_registro": "automatico"
+  },
+  {
+    "fecha_hora": "2025-06-20 19:36:34",
+    "metano_ch4": 55.27,
+    "h2s_ppm": 93.1,
+    "oxigeno_o2": 0.97,
+    "dioxido_co2": 35.7,
+    "otros_gases": 8.060000000000002,
+    "estado_general": "normal",
+    "tipo_registro": "manual"
+  },
+  {
+    "fecha_hora": "2025-06-20 19:35:25",
+    "metano_ch4": 55.27,
+    "h2s_ppm": 93.1,
+    "oxigeno_o2": 1.06,
+    "dioxido_co2": 30.48,
+    "otros_gases": 13.189999999999998,
+    "estado_general": "normal",
+    "tipo_registro": "manual"
+  },
+  {
+    "fecha_hora": "2025-06-20 19:32:23",
+    "metano_ch4": 55.27,
+    "h2s_ppm": 93.1,
+    "oxigeno_o2": 0.86,
+    "dioxido_co2": 33.68,
+    "otros_gases": 10.189999999999998,
+    "estado_general": "normal",
+    "tipo_registro": "manual"
+  },
+  {
+    "fecha_hora": "2025-06-20 19:27:00",
+    "metano_ch4": 55.27,
+    "h2s_ppm": 93.1,
+    "oxigeno_o2": 0.85,
+    "dioxido_co2": 37.46,
+    "otros_gases": 6.420000000000002,
+    "estado_general": "normal",
+    "tipo_registro": "manual"
+  }
+]

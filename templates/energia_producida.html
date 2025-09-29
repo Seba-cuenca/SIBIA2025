@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            padding: 30px;
+        }
+        .energy-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        .energy-card:hover {
+            transform: translateY(-5px);
+        }
+        .energy-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .status-badge {
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+        }
+        .historico-table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .kpi-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .kpi-card:hover {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .progress-custom {
+            height: 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-container">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="display-4 mb-0">⚡ Energía Producida</h1>
+                            <p class="lead text-muted">Sistema Integral de Monitoreo Energético - SIBIA</p>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-primary me-2" onclick="actualizarDatos()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                            <a href="/" class="btn btn-outline-secondary">
+                                <i class="fas fa-home"></i> Inicio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indicadores Principales en Tiempo Real -->
+            <div class="section-header">
+                <h3><i class="fas fa-bolt"></i> Datos en Tiempo Real</h3>
+            </div>
+            
+            <div class="row mb-4">
+                <!-- Generación Actual -->
+                <div class="col-md-4 mb-3">
+                    <div class="energy-card card p-4 text-center">
+                        <h5><i class="fas fa-industry"></i> Generación Actual</h5>
+                        <div class="energy-value" id="generacion-actual">
+                            {{ "%.1f"|format(datos_energia.generacion_tiempo_real.kw_actual) }}
+                        </div>
+                        <small>KW</small>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>{{ datos_energia.generacion_tiempo_real.fecha_lectura }}</small>
+                            <span class="status-badge 
+                                {% if datos_energia.generacion_tiempo_real.estado_conexion == 'conectado' %}bg-success
+                                {% elif datos_energia.generacion_tiempo_real.estado_conexion == 'simulado_grafana' %}bg-warning
+                                {% else %}bg-danger{% endif %}" id="estado-generacion">
+                                {{ datos_energia.generacion_tiempo_real.estado_conexion|title }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Energía Inyectada a la Red -->
+                <div class="col-md-4 mb-3">
+                    <div class="energy-card card p-4 text-center" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <h5><i class="fas fa-plug"></i> Inyectada a Red</h5>
+                        <div class="energy-value" id="energia-inyectada">
+                            {{ "%.1f"|format(datos_energia.energia_inyectada_red.kw_inyectado) }}
+                        </div>
+                        <small>KW</small>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small>{{ datos_energia.energia_inyectada_red.fecha_lectura }}</small>
+                            <span class="status-badge 
+                                {% if datos_energia.energia_inyectada_red.estado_conexion == 'conectado' %}bg-success
+                                {% elif datos_energia.energia_inyectada_red.estado_conexion == 'simulado_grafana' %}bg-warning
+                                {% else %}bg-danger{% endif %}" id="estado-inyectada">
+                                {{ datos_energia.energia_inyectada_red.estado_conexion|title }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consumo de Planta -->
+                <div class="col-md-4 mb-3">
+                    <div class="energy-card card p-4 text-center" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        <h5><i class="fas fa-cogs"></i> Consumo Planta</h5>
+                        <div class="energy-value" id="consumo-planta">
+                            {{ "%.1f"|format(datos_energia.consumo_planta.kw_consumo_estimado) }}
+                        </div>
+                        <small>KW (Estimado)</small>
+                        <hr>
+                        <small class="text-dark">{{ datos_energia.consumo_planta.calculo }}</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eficiencia y Cumplimiento -->
+            <div class="section-header">
+                <h3><i class="fas fa-chart-line"></i> Eficiencia de Producción</h3>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="kpi-card card p-4">
+                        <h5 class="card-title">📊 Cumplimiento del Objetivo</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="text-primary" id="porcentaje-cumplido">
+                                    {{ "%.1f"|format(datos_energia.eficiencia_produccion.porcentaje_cumplido) }}%
+                                </h3>
+                                <small class="text-muted">Cumplimiento</small>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-info" id="kw-objetivo">
+                                    {{ "%.0f"|format(datos_energia.eficiencia_produccion.kw_objetivo) }}
+                                </h4>
+                                <small class="text-muted">KW Objetivo</small>
+                            </div>
+                        </div>
+                        <div class="progress progress-custom mt-3">
+                            <div class="progress-bar bg-success" role="progressbar" 
+                                 style="width: {{ datos_energia.eficiencia_produccion.porcentaje_cumplido|min(100) }}%"
+                                 id="barra-progreso">
+                            </div>
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            Estado: <span class="badge 
+                                {% if datos_energia.eficiencia_produccion.estado_cumplimiento == 'excelente' %}bg-success
+                                {% elif datos_energia.eficiencia_produccion.estado_cumplimiento == 'bueno' %}bg-info
+                                {% elif datos_energia.eficiencia_produccion.estado_cumplimiento == 'regular' %}bg-warning
+                                {% else %}bg-danger{% endif %}" id="estado-cumplimiento">
+                                {{ datos_energia.eficiencia_produccion.estado_cumplimiento|title }}
+                            </span>
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="kpi-card card p-4">
+                        <h5 class="card-title">🎯 Diferencia vs Objetivo</h5>
+                        <div class="text-center">
+                            <h2 class="
+                                {% if datos_energia.eficiencia_produccion.diferencia_vs_objetivo >= 0 %}text-success
+                                {% else %}text-danger{% endif %}" id="diferencia-objetivo">
+                                {% if datos_energia.eficiencia_produccion.diferencia_vs_objetivo >= 0 %}+{% endif %}{{ "%.1f"|format(datos_energia.eficiencia_produccion.diferencia_vs_objetivo) }}
+                            </h2>
+                            <small class="text-muted">KW vs Objetivo</small>
+                        </div>
+                        <hr>
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <strong>{{ "%.1f"|format(datos_energia.generacion_tiempo_real.kw_actual) }}</strong>
+                                <br><small class="text-muted">Actual</small>
+                            </div>
+                            <div class="col-6">
+                                <strong>{{ "%.1f"|format(datos_energia.eficiencia_produccion.kw_objetivo) }}</strong>
+                                <br><small class="text-muted">Objetivo</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Datos Diarios y Automáticos -->
+            <div class="section-header">
+                <h3><i class="fas fa-calendar-day"></i> Resumen Diario</h3>
+            </div>
+            
+            <div class="row mb-4">
+                <!-- Datos Reales del Día -->
+                <div class="col-md-6">
+                    <div class="kpi-card card p-4">
+                        <h5 class="card-title">📋 Datos Reales del Día</h5>
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>KW Generados:</span>
+                                    <strong class="text-success" id="kw-generados-dia">
+                                        {{ "{:,.0f}"|format(datos_energia.datos_diarios.kw_generado_real) }}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>KW Inyectados:</span>
+                                    <strong class="text-primary" id="kw-inyectados-dia">
+                                        {{ "{:,.0f}"|format(datos_energia.datos_diarios.kw_inyectado_real) }}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>KW Consumo Planta:</span>
+                                    <strong class="text-warning" id="kw-consumo-dia">
+                                        {{ "{:,.0f}"|format(datos_energia.datos_diarios.kw_consumido_planta_real) }}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <small class="text-muted">
+                            Última actualización: {{ datos_energia.datos_diarios.fecha_actualizacion }}
+                        </small>
+                    </div>
+                </div>
+
+                <!-- KW Automáticos Calculados -->
+                <div class="col-md-6">
+                    <div class="kpi-card card p-4">
+                        <h5 class="card-title">🤖 Cálculos Automáticos (15min)</h5>
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>KW Generados:</span>
+                                    <strong class="text-success" id="kw-generados-auto">
+                                        {{ "{:,.0f}"|format(datos_energia.kw_automaticos_calculados.kw_generados_calculado) }}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>KW Inyectados:</span>
+                                    <strong class="text-primary" id="kw-inyectados-auto">
+                                        {{ "{:,.0f}"|format(datos_energia.kw_automaticos_calculados.kw_inyectados_calculado) }}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Consumo Planta:</span>
+                                    <strong class="text-warning" id="consumo-auto">
+                                        {{ "{:,.0f}"|format(datos_energia.kw_automaticos_calculados.consumo_planta_calculado) }}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <small class="text-muted">
+                                Registros: {{ datos_energia.kw_automaticos_calculados.total_registros }}
+                            </small>
+                            <small class="text-muted">
+                                Completado: {{ "%.1f"|format(datos_energia.kw_automaticos_calculados.porcentaje_completado) }}%
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Histórico de Lecturas -->
+            <div class="section-header">
+                <h3><i class="fas fa-history"></i> Histórico de Lecturas (Últimas 4)</h3>
+            </div>
+            
+            <div class="row mb-4">
+                <!-- Histórico Generación -->
+                <div class="col-md-6">
+                    <div class="historico-table card p-3">
+                        <h6 class="card-title">🏭 Generación Actual</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha/Hora</th>
+                                        <th>KW Generados</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historico-generacion">
+                                    {% for registro in datos_energia.generacion_tiempo_real.historico %}
+                                    <tr>
+                                        <td>{{ registro.fecha_hora }}</td>
+                                        <td><strong>{{ "%.1f"|format(registro.kwGen) }}</strong></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Histórico Energía Inyectada -->
+                <div class="col-md-6">
+                    <div class="historico-table card p-3">
+                        <h6 class="card-title">🔌 Energía Inyectada</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha/Hora</th>
+                                        <th>KW Inyectados</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historico-inyectada">
+                                    {% for registro in datos_energia.energia_inyectada_red.historico %}
+                                    <tr>
+                                        <td>{{ registro.fecha_hora }}</td>
+                                        <td><strong>{{ "%.1f"|format(registro.kwPta) }}</strong></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estado de Conexiones -->
+            <div class="section-header">
+                <h3><i class="fas fa-wifi"></i> Estado de Conexiones</h3>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="kpi-card card p-4">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div class="p-3">
+                                    <i class="fas fa-database fa-2x 
+                                        {% if datos_energia.resumen_estados.generacion_conectada %}text-success
+                                        {% else %}text-danger{% endif %}"></i>
+                                    <h6 class="mt-2">Generación</h6>
+                                    <span class="badge 
+                                        {% if datos_energia.resumen_estados.generacion_conectada %}bg-success
+                                        {% else %}bg-danger{% endif %}">
+                                        {% if datos_energia.resumen_estados.generacion_conectada %}Conectado{% else %}Desconectado{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3">
+                                    <i class="fas fa-plug fa-2x 
+                                        {% if datos_energia.resumen_estados.energia_inyectada_conectada %}text-success
+                                        {% else %}text-danger{% endif %}"></i>
+                                    <h6 class="mt-2">Energía Inyectada</h6>
+                                    <span class="badge 
+                                        {% if datos_energia.resumen_estados.energia_inyectada_conectada %}bg-success
+                                        {% else %}bg-danger{% endif %}">
+                                        {% if datos_energia.resumen_estados.energia_inyectada_conectada %}Conectado{% else %}Desconectado{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3">
+                                    <i class="fas fa-calendar-check fa-2x 
+                                        {% if datos_energia.resumen_estados.datos_diarios_disponibles %}text-success
+                                        {% else %}text-warning{% endif %}"></i>
+                                    <h6 class="mt-2">Datos Diarios</h6>
+                                    <span class="badge 
+                                        {% if datos_energia.resumen_estados.datos_diarios_disponibles %}bg-success
+                                        {% else %}bg-warning{% endif %}">
+                                        {% if datos_energia.resumen_estados.datos_diarios_disponibles %}Disponibles{% else %}Sin datos{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3">
+                                    <i class="fas fa-clock fa-2x 
+                                        {% if datos_energia.resumen_estados.registros_15min_disponibles %}text-success
+                                        {% else %}text-warning{% endif %}"></i>
+                                    <h6 class="mt-2">Registros 15min</h6>
+                                    <span class="badge 
+                                        {% if datos_energia.resumen_estados.registros_15min_disponibles %}bg-success
+                                        {% else %}bg-warning{% endif %}">
+                                        {% if datos_energia.resumen_estados.registros_15min_disponibles %}Activos{% else %}Sin registros{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <small class="text-muted">
+                        Última consulta: {{ datos_energia.timestamp_consulta }} | 
+                        <a href="/resumen_energia_completo" target="_blank">Ver JSON completo</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para actualizar todos los datos
+        function actualizarDatos() {
+            const btnActualizar = document.querySelector('button[onclick="actualizarDatos()"]');
+            const iconoOriginal = btnActualizar.innerHTML;
+            
+            btnActualizar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+            btnActualizar.disabled = true;
+            
+            fetch('/resumen_energia_completo')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error:', data.mensaje);
+                        return;
+                    }
+                    
+                    // Actualizar valores principales
+                    document.getElementById('generacion-actual').textContent = data.generacion_tiempo_real.kw_actual.toFixed(1);
+                    document.getElementById('energia-inyectada').textContent = data.energia_inyectada_red.kw_inyectado.toFixed(1);
+                    document.getElementById('consumo-planta').textContent = data.consumo_planta.kw_consumo_estimado.toFixed(1);
+                    
+                    // Actualizar eficiencia
+                    document.getElementById('porcentaje-cumplido').textContent = data.eficiencia_produccion.porcentaje_cumplido.toFixed(1) + '%';
+                    document.getElementById('kw-objetivo').textContent = data.eficiencia_produccion.kw_objetivo.toFixed(0);
+                    document.getElementById('diferencia-objetivo').textContent = 
+                        (data.eficiencia_produccion.diferencia_vs_objetivo >= 0 ? '+' : '') + 
+                        data.eficiencia_produccion.diferencia_vs_objetivo.toFixed(1);
+                    
+                    // Actualizar barra de progreso
+                    const barraProgreso = document.getElementById('barra-progreso');
+                    barraProgreso.style.width = Math.min(data.eficiencia_produccion.porcentaje_cumplido, 100) + '%';
+                    
+                    // Actualizar datos diarios
+                    document.getElementById('kw-generados-dia').textContent = data.datos_diarios.kw_generado_real.toLocaleString();
+                    document.getElementById('kw-inyectados-dia').textContent = data.datos_diarios.kw_inyectado_real.toLocaleString();
+                    document.getElementById('kw-consumo-dia').textContent = data.datos_diarios.kw_consumido_planta_real.toLocaleString();
+                    
+                    // Actualizar datos automáticos
+                    document.getElementById('kw-generados-auto').textContent = data.kw_automaticos_calculados.kw_generados_calculado.toLocaleString();
+                    document.getElementById('kw-inyectados-auto').textContent = data.kw_automaticos_calculados.kw_inyectados_calculado.toLocaleString();
+                    document.getElementById('consumo-auto').textContent = data.kw_automaticos_calculados.consumo_planta_calculado.toLocaleString();
+                    
+                    console.log('Datos actualizados correctamente');
+                })
+                .catch(error => {
+                    console.error('Error actualizando datos:', error);
+                })
+                .finally(() => {
+                    btnActualizar.innerHTML = iconoOriginal;
+                    btnActualizar.disabled = false;
+                });
+        }
+        
+        // Auto-actualizar cada 30 segundos
+        setInterval(actualizarDatos, 30000);
+        
+        console.log('Pantalla de Energía Producida inicializada');
+    </script>
+</body>
+</html> 

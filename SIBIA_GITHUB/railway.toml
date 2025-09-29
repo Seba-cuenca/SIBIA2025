@@ -1,0 +1,19 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python app_CORREGIDO_OK_FINAL.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+
+[env]
+PYTHON_VERSION = "3.11"
+FLASK_ENV = "production"
+DEBUG = "false"
+SECRET_KEY = "sibia-autolinksolutions-2025-secure-key"
+PORT = "5000"
+HOST = "0.0.0.0"
+CHATTTS_ENABLED = "false"
+TTS_FALLBACK = "edge-tts"
+AUTO_DEPLOY = "true"

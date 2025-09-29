@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBIA - Asistente IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            position: relative;
+        }
+        .user {
+            background: #007bff;
+            color: white;
+            margin-left: auto;
+        }
+        .assistant {
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+        .input-group {
+            margin-top: 20px;
+        }
+        .motor-badge {
+            font-size: 0.8em;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+        .motor-app { background-color: #28a745; color: white; }
+        .motor-ml { background-color: #17a2b8; color: white; }
+        .motor-local { background-color: #6610f2; color: white; }
+        .motor-error { background-color: #dc3545; color: white; }
+        
+        .btn-learn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 3px 10px;
+            font-size: 0.9em;
+            background-color: #6610f2;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        .btn-learn:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .btn-learn i {
+            margin-right: 5px;
+        }
+        
+        .mode-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background: #6610f2;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.9em;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="mode-indicator">
+        <i class="fas fa-brain"></i> Modo Local Activo
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-robot me-2"></i>Asistente de Inteligencia Artificial</h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                Este asistente puede ayudarte con consultas sobre operación, mezclas y solución de problemas.
+            </div>
+            
+            <div id="asistente-chat-container" class="border rounded p-3 mb-3" style="height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+                <div id="asistente-chatbox">
+                    <!-- Los mensajes del chat se insertarán aquí -->
+                    <div class="mensaje-asistente">
+                        <p>Hola, soy tu asistente. ¿En qué puedo ayudarte hoy?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="asistente-input" class="form-control" placeholder="Escribe tu pregunta...">
+                <button id="asistente-enviar-btn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Enviar
+                </button>
+                <button id="asistente-micro-btn" class="btn btn-success">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+            <div id="asistente-estado-micro" class="form-text mt-2">
+                Sin acceso al micrófono. Haz clic en el botón del micrófono para conceder permiso.
+            </div>
+        </div>
+    </div>
+
+    <!-- Mover la lógica de retroalimentación fuera del contenedor principal si es necesario -->
+    <div id="retroalimentacion-container" class="mt-3"></div>
+
+    <!-- Modal para editar respuesta -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-graduation-cap"></i> 
+                        Enseñar al Asistente
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Las respuestas que enseñes se guardarán localmente y ayudarán al asistente a responder preguntas similares en el futuro.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Pregunta:</label>
+                        <input type="text" class="form-control" id="edit-pregunta">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Respuesta a Enseñar:</label>
+                        <textarea class="form-control" id="edit-respuesta-nueva" rows="5" placeholder="Escribe aquí la respuesta correcta que quieres que el asistente aprenda..."></textarea>
+                        <small class="text-muted">
+                            Puedes usar variables como {kw}, {solidos}, etc. que el asistente reemplazará con valores reales al responder.
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-edit-btn">
+                        <i class="fas fa-save"></i> Guardar y Enseñar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables globales con los IDs correctos
+        const chatContainer = document.getElementById('asistente-chatbox');
+        const userInput = document.getElementById('asistente-input');
+        const sendBtn = document.getElementById('asistente-enviar-btn');
+        const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+        let currentMessageData = null;
+
+        function appendMessage(text, isUser, motor = 'LOCAL') {
+            const div = document.createElement('div');
+            div.className = isUser ? 'mensaje-usuario mb-3' : 'mensaje-asistente mb-3';
+            
+            if (isUser) {
+                div.innerHTML = `
+                    <div class="d-flex justify-content-end">
+                        <div class="bg-primary text-white p-2 rounded" style="max-width: 70%;">
+                            ${text}
+                        </div>
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="d-flex justify-content-start">
+                        <div class="bg-light p-2 rounded border" style="max-width: 70%;">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>${text}</div>
+                                <span class="badge bg-${motor.toLowerCase() === 'local' ? 'secondary' : 'info'} ms-2">${motor}</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="ensenarRespuesta('${text.replace(/'/g, "\\'")}')">
+                                <i class="fas fa-graduation-cap"></i> Enseñar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            chatContainer.appendChild(div);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function ensenarRespuesta(textoRespuesta) {
+            document.getElementById('edit-pregunta').value = userInput.value;
+            document.getElementById('edit-respuesta-nueva').value = '';
+            document.getElementById('edit-respuesta-nueva').placeholder = 'Escribe aquí la respuesta correcta...';
+            editModal.show();
+        }
+
+        document.getElementById('save-edit-btn').onclick = async () => {
+            const pregunta = document.getElementById('edit-pregunta').value;
+            const respuesta = document.getElementById('edit-respuesta-nueva').value;
+            
+            if (!pregunta || !respuesta) {
+                alert('Por favor, completa tanto la pregunta como la respuesta.');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/aprender_conocimiento', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pregunta: pregunta,
+                        respuesta: respuesta
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    alert('¡Gracias! He aprendido esta respuesta y la usaré para preguntas similares.');
+                } else {
+                    alert('Hubo un error al guardar la respuesta: ' + data.mensaje);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al procesar la solicitud.');
+            }
+            
+            editModal.hide();
+        };
+
+        async function enviarMensaje() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Deshabilitar el botón mientras se procesa
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+            appendMessage(message, true);
+            const preguntaOriginal = message;
+            userInput.value = '';
+
+            try {
+                const response = await fetch('/ask_assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pregunta: preguntaOriginal })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    appendMessage(data.respuesta, false, 'LOCAL');
+                } else {
+                    appendMessage('Error: ' + (data.respuesta || 'No se pudo procesar la pregunta'), false, 'ERROR');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                appendMessage('Lo siento, hubo un error de conexión al procesar tu pregunta.', false, 'ERROR');
+            } finally {
+                // Rehabilitar el botón
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
+            }
+        }
+
+        // Asignar eventos directamente sin conflictos
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Inicializando asistente...');
+            
+            if (sendBtn) {
+                sendBtn.addEventListener('click', enviarMensaje);
+                console.log('Event listener del botón añadido');
+            } else {
+                console.error('Botón de enviar no encontrado');
+            }
+
+            if (userInput) {
+                userInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        enviarMensaje();
+                    }
+                });
+                console.log('Event listener de Enter añadido');
+            } else {
+                console.error('Campo de input no encontrado');
+            }
+
+            // Agregar mensaje de bienvenida si el chat está vacío
+            if (chatContainer && chatContainer.children.length <= 1) {
+                appendMessage('¡Hola! Soy tu asistente de SIBIA. Puedo ayudarte con consultas sobre biodigestores, mezclas, cálculos energéticos y más. ¿En qué puedo ayudarte?', false, 'LOCAL');
+            }
+        });
+
+        // Función global para compatibilidad
+        window.consultarAsistente = function(inputElement) {
+            enviarMensaje();
+        };
+    </script>
+</body>
+</html> 

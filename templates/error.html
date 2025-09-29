@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h2 class="h4 m-0">Error</h2>
+        </div>
+        <div class="card-body">
+            <p>Se ha producido un error:</p>
+            <div class="alert alert-danger">
+                {{ mensaje }}
+            </div>
+            <div class="mt-3">
+                <a href="javascript:history.back()" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver atrás
+                </a>
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-home"></i> Ir al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

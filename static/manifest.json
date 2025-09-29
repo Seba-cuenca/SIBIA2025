@@ -1,0 +1,85 @@
+{
+  "name": "SIBIA Control - Sistema de Biodigestores",
+  "short_name": "SIBIA",
+  "description": "Sistema de control y monitoreo de biodigestores",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities"],
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/static/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Ver dashboard principal",
+      "url": "/#dashboard",
+      "icons": [{ "src": "/static/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "KPI",
+      "short_name": "KPI",
+      "description": "Ver indicadores KPI",
+      "url": "/#kpis",
+      "icons": [{ "src": "/static/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Seguimiento",
+      "short_name": "Seguimiento",
+      "description": "Seguimiento horario",
+      "url": "/#seguimiento-horario",
+      "icons": [{ "src": "/static/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+} 

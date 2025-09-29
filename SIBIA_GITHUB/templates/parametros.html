@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}Parámetros Globales - SIBIA{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="card-title mb-0"><i class="fas fa-cogs"></i> Parámetros Globales del Sistema</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-muted">Ajusta los parámetros operativos clave que afectan todos los cálculos y proyecciones del sistema SIBIA.</p>
+            
+            <form id="form-parametros-globales" method="POST" action="/actualizar_configuracion">
+                <div class="row g-3">
+                    <!-- Columna 1 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="kw_objetivo" class="form-label"><strong>Potencia Objetivo (KW)</strong></label>
+                            <input type="number" class="form-control" id="kw_objetivo" name="kw_objetivo" 
+                                   value="{{ config_actual.kw_objetivo or 28800 }}" step="0.01" required>
+                            <div class="form-text">La meta de producción de energía para los biodigestores.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="num_biodigestores" class="form-label"><strong>Número de Biodigestores</strong></label>
+                            <input type="number" class="form-control" id="num_biodigestores" name="num_biodigestores" 
+                                   value="{{ config_actual.num_biodigestores or 2 }}" required>
+                            <div class="form-text">Cantidad de biodigestores en operación.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="consumo_chp_global" class="form-label"><strong>Consumo CHP Global (m³/KW)</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="consumo_chp_global" name="consumo_chp_global" 
+                                   value="{{ config_actual.consumo_chp_global or 504 }}" required>
+                            <div class="form-text">Consumo de gas del generador para producir 1 KW de energía.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="max_porcentaje_material" class="form-label"><strong>% Máximo por Material</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="max_porcentaje_material" name="max_porcentaje_material" 
+                                   value="{{ config_actual.max_porcentaje_material or 80 }}" required>
+                            <div class="form-text">Porcentaje máximo que puede representar un material en la mezcla.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna 2 -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="porcentaje_purin" class="form-label"><strong>% Objetivo Purín</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="porcentaje_purin" name="porcentaje_purin" 
+                                   value="{{ config_actual.porcentaje_purin or 60 }}" required>
+                            <div class="form-text">Porcentaje deseado de purín en la mezcla líquida.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="porcentaje_sa7_reemplazo" class="form-label"><strong>% Reemplazo SA7</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="porcentaje_sa7_reemplazo" name="porcentaje_sa7_reemplazo" 
+                                   value="{{ config_actual.porcentaje_sa7_reemplazo or 100 }}" required>
+                            <div class="form-text">Porcentaje de SA7 que puede ser reemplazado si hay excedente de purín.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="porcentaje_metano" class="form-label"><strong>Rendimiento Metano (%)</strong></label>
+                            <input type="number" step="0.01" class="form-control" id="porcentaje_metano" name="porcentaje_metano" 
+                                   value="{{ config_actual.porcentaje_metano or 60 }}" required>
+                            <div class="form-text">Eficiencia estimada de conversión a metano.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="temperatura_optima" class="form-label"><strong>Temperatura Óptima (°C)</strong></label>
+                            <input type="number" step="0.1" class="form-control" id="temperatura_optima" name="temperatura_optima" 
+                                   value="{{ config_actual.temperatura_optima or 37 }}" required>
+                            <div class="form-text">Temperatura ideal de operación de los biodigestores.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Información adicional -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Información del Sistema</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Última actualización:</strong> {{ config_actual.ultima_actualizacion or 'N/A' }}</p>
+                    <p><strong>Modo de operación:</strong> {{ 'Local' if config_actual.modo_local else 'Online' }}</p>
+                    <p><strong>Base de datos:</strong> {{ 'Conectada' if config_actual.db_conectada else 'Desconectada' }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Recomendaciones</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success"></i> Mantén la temperatura entre 35-40°C</li>
+                        <li><i class="fas fa-check text-success"></i> El purín no debe superar el 70%</li>
+                        <li><i class="fas fa-check text-success"></i> Revisa los parámetros semanalmente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="modalConfirmacion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Cambios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas guardar estos cambios? Esto afectará todos los cálculos del sistema.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarGuardar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Página de parámetros cargada.");
+    
+    // Manejar el envío del formulario
+    const form = document.getElementById('form-parametros-globales');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Mostrar modal de confirmación
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+            modal.show();
+        });
+    }
+    
+    // Confirmar guardado
+    const btnConfirmar = document.getElementById('btnConfirmarGuardar');
+    if (btnConfirmar) {
+        btnConfirmar.addEventListener('click', function() {
+            guardarParametros();
+        });
+    }
+});
+
+function guardarParametros() {
+    const form = document.getElementById('form-parametros-globales');
+    const formData = new FormData(form);
+    const datos = Object.fromEntries(formData);
+    
+    // Convertir valores numéricos
+    for (let key in datos) {
+        if (datos[key] !== '') {
+            datos[key] = parseFloat(datos[key]);
+        }
+    }
+    
+    fetch('/actualizar_configuracion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            mostrarNotificacion('success', 'Parámetros guardados correctamente');
+            // Cerrar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmacion'));
+            modal.hide();
+        } else {
+            mostrarNotificacion('error', 'Error al guardar parámetros: ' + (data.error || 'Error desconocido'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        mostrarNotificacion('error', 'Error de conexión al guardar parámetros');
+    });
+}
+
+function mostrarNotificacion(tipo, mensaje) {
+    if (typeof toastr !== 'undefined') {
+        toastr[tipo](mensaje);
+    } else {
+        alert(mensaje);
+    }
+}
+</script>
+{% endblock %}

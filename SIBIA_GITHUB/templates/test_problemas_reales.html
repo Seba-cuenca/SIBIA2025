@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBIA - Prueba Problemas Reales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-card {
+            border-left: 4px solid #dc3545;
+            margin-bottom: 20px;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .error { color: #dc3545; }
+        .log-container {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .problem-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .solution-section {
+            background: #d1edff;
+            border: 1px solid #74c0fc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .spinner-custom {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">🚨 SIBIA - Prueba de Problemas Reales</h1>
+        
+        <div class="problem-section">
+            <h5><i class="fas fa-exclamation-triangle me-2"></i>Problemas Identificados</h5>
+            <ul>
+                <li><strong>Calculadora:</strong> "Redondel calculando" - Primera vez lenta, luego inconsistente</li>
+                <li><strong>Asistente:</strong> Primera respuesta lenta, a veces se cuelga</li>
+                <li><strong>Comportamiento:</strong> Inconsistente - a veces rápido, a veces muy lento</li>
+            </ul>
+        </div>
+        
+        <div class="solution-section">
+            <h5><i class="fas fa-tools me-2"></i>Soluciones Implementadas</h5>
+            <ul>
+                <li><strong>Timeouts Agresivos:</strong> Cancelación automática después de 5-8 segundos</li>
+                <li><strong>Caché Inteligente:</strong> Respuestas frecuentes desde caché</li>
+                <li><strong>Pre-carga:</strong> Recursos críticos cargados al inicio</li>
+                <li><strong>Estado de Bloqueo:</strong> Previene múltiples llamadas simultáneas</li>
+                <li><strong>Fallback:</strong> Sistema de recuperación automática</li>
+            </ul>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card test-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calculator me-2"></i>Calculadora - Pruebas Reales</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">KW Objetivo:</label>
+                            <input type="number" id="kw-objetivo-test" class="form-control" value="100" step="0.1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">% Sólidos:</label>
+                            <input type="number" id="porcentaje-solidos-test" class="form-control" value="50" step="0.1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">% Líquidos:</label>
+                            <input type="number" id="porcentaje-liquidos-test" class="form-control" value="50" step="0.1">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" onclick="probarCalculadoraReal()">
+                                <i class="fas fa-play me-2"></i>Probar Cálculo Real
+                            </button>
+                            <button class="btn btn-warning" onclick="probarCalculadoraMultiple()">
+                                <i class="fas fa-redo me-2"></i>Probar Múltiples Cálculos
+                            </button>
+                            <button class="btn btn-danger" onclick="probarCalculadoraTimeout()">
+                                <i class="fas fa-clock me-2"></i>Probar Timeout
+                            </button>
+                        </div>
+                        <div id="resultado-calc-test" class="mt-3" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card test-card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-robot me-2"></i>Asistente - Pruebas Reales</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Pregunta:</label>
+                            <select id="pregunta-test" class="form-select">
+                                <option value="¿Cuál es el estado actual del sistema?">¿Cuál es el estado actual del sistema?</option>
+                                <option value="¿Cómo está la producción de biogás?">¿Cómo está la producción de biogás?</option>
+                                <option value="¿Qué materiales están disponibles?">¿Qué materiales están disponibles?</option>
+                                <option value="¿Hay algún problema?">¿Hay algún problema?</option>
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" onclick="probarAsistenteReal()">
+                                <i class="fas fa-comment me-2"></i>Probar Respuesta Real
+                            </button>
+                            <button class="btn btn-warning" onclick="probarAsistenteMultiple()">
+                                <i class="fas fa-redo me-2"></i>Probar Múltiples Preguntas
+                            </button>
+                            <button class="btn btn-danger" onclick="probarAsistenteTimeout()">
+                                <i class="fas fa-clock me-2"></i>Probar Timeout
+                            </button>
+                        </div>
+                        <div id="resultado-asistente-test" class="mt-3" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line me-2"></i>Métricas en Tiempo Real</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="metric-value" id="estado-calculadora">Libre</div>
+                                    <small>Estado Calculadora</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="metric-value" id="estado-asistente">Libre</div>
+                                    <small>Estado Asistente</small>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="metric-value" id="cache-calculadora">0</div>
+                                    <small>Cache Calculadora</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <div class="metric-value" id="cache-asistente">0</small>
+                                    <small>Cache Asistente</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-list me-2"></i>Log de Pruebas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="log-container" id="log-pruebas-reales">
+                            <div class="text-muted">Esperando pruebas...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-cogs me-2"></i>Controles del Sistema</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button class="btn btn-primary" onclick="ejecutarTodasLasPruebasReales()">
+                                <i class="fas fa-play-circle me-2"></i>Ejecutar Todas las Pruebas
+                            </button>
+                            <button class="btn btn-success" onclick="mostrarEstadisticasReales()">
+                                <i class="fas fa-chart-bar me-2"></i>Mostrar Estadísticas
+                            </button>
+                            <button class="btn btn-warning" onclick="limpiarCachesReales()">
+                                <i class="fas fa-trash me-2"></i>Limpiar Cachés
+                            </button>
+                            <button class="btn btn-info" onclick="forzarCancelacion()">
+                                <i class="fas fa-stop me-2"></i>Forzar Cancelación
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts de optimización -->
+    <script src="static/js/sistema_optimizacion_frontend.js"></script>
+    <script src="static/js/optimizaciones_especificas.js"></script>
+    <script src="static/js/optimizaciones_agresivas.js"></script>
+    
+    <script>
+        // Variables para métricas
+        let pruebasCalculadora = 0;
+        let pruebasAsistente = 0;
+        let tiempoInicioCalculadora = 0;
+        let tiempoInicioAsistente = 0;
+        
+        // Función para agregar log
+        function agregarLog(mensaje, tipo = 'info') {
+            const logContainer = document.getElementById('log-pruebas-reales');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            
+            let icon = 'ℹ️';
+            if (tipo === 'success') icon = '✅';
+            else if (tipo === 'warning') icon = '⚠️';
+            else if (tipo === 'error') icon = '❌';
+            
+            logEntry.innerHTML = `<span class="text-muted">[${timestamp}]</span> ${icon} ${mensaje}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Mantener solo los últimos 50 logs
+            while (logContainer.children.length > 50) {
+                logContainer.removeChild(logContainer.firstChild);
+            }
+        }
+        
+        // Función para actualizar métricas
+        function actualizarMetricas() {
+            if (window.optimizacionesAgressivas) {
+                const stats = window.optimizacionesAgressivas.obtenerEstadisticas();
+                
+                document.getElementById('estado-calculadora').textContent = stats.calculadora.estado;
+                document.getElementById('estado-calculadora').className = `metric-value ${stats.calculadora.estado === 'libre' ? 'success' : 'warning'}`;
+                
+                document.getElementById('estado-asistente').textContent = stats.asistente.estado;
+                document.getElementById('estado-asistente').className = `metric-value ${stats.asistente.estado === 'libre' ? 'success' : 'warning'}`;
+                
+                document.getElementById('cache-calculadora').textContent = stats.calculadora.cacheSize;
+                document.getElementById('cache-asistente').textContent = stats.asistente.cacheSize;
+            }
+        }
+        
+        // Pruebas de la calculadora
+        async function probarCalculadoraReal() {
+            agregarLog('Iniciando prueba real de calculadora...', 'info');
+            
+            const kwObjetivo = document.getElementById('kw-objetivo-test').value;
+            const porcentajeSolidos = document.getElementById('porcentaje-solidos-test').value;
+            const porcentajeLiquidos = document.getElementById('porcentaje-liquidos-test').value;
+            
+            // Simular datos del formulario
+            document.getElementById('kw-objetivo').value = kwObjetivo;
+            document.getElementById('porcentaje-solidos').value = porcentajeSolidos;
+            document.getElementById('porcentaje-liquidos').value = porcentajeLiquidos;
+            
+            const inicio = performance.now();
+            tiempoInicioCalculadora = inicio;
+            
+            try {
+                // Usar la función optimizada
+                if (window.calcularMezcla) {
+                    await window.calcularMezcla();
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Cálculo completado en ${tiempo.toFixed(2)}ms`, 'success');
+                    pruebasCalculadora++;
+                } else {
+                    agregarLog('Función calcularMezcla no disponible', 'error');
+                }
+            } catch (error) {
+                const tiempo = performance.now() - inicio;
+                agregarLog(`Error en cálculo: ${error.message} (${tiempo.toFixed(2)}ms)`, 'error');
+            }
+            
+            actualizarMetricas();
+        }
+        
+        async function probarCalculadoraMultiple() {
+            agregarLog('Iniciando prueba múltiple de calculadora...', 'info');
+            
+            const valores = [
+                { kw: 100, solidos: 50, liquidos: 50 },
+                { kw: 120, solidos: 60, liquidos: 40 },
+                { kw: 80, solidos: 40, liquidos: 60 },
+                { kw: 150, solidos: 70, liquidos: 30 },
+                { kw: 90, solidos: 45, liquidos: 55 }
+            ];
+            
+            for (let i = 0; i < valores.length; i++) {
+                const valor = valores[i];
+                agregarLog(`Prueba ${i + 1}/5: ${valor.kw}KW, ${valor.solidos}% sólidos`, 'info');
+                
+                document.getElementById('kw-objetivo').value = valor.kw;
+                document.getElementById('porcentaje-solidos').value = valor.solidos;
+                document.getElementById('porcentaje-liquidos').value = valor.liquidos;
+                
+                const inicio = performance.now();
+                
+                try {
+                    if (window.calcularMezcla) {
+                        await window.calcularMezcla();
+                        const tiempo = performance.now() - inicio;
+                        agregarLog(`Prueba ${i + 1} completada en ${tiempo.toFixed(2)}ms`, 'success');
+                    }
+                } catch (error) {
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Prueba ${i + 1} falló: ${error.message} (${tiempo.toFixed(2)}ms)`, 'error');
+                }
+                
+                // Pequeña pausa entre pruebas
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            agregarLog('Pruebas múltiples completadas', 'success');
+            actualizarMetricas();
+        }
+        
+        async function probarCalculadoraTimeout() {
+            agregarLog('Probando timeout de calculadora...', 'warning');
+            
+            // Simular datos que podrían causar timeout
+            document.getElementById('kw-objetivo').value = 999999;
+            document.getElementById('porcentaje-solidos').value = 99.9;
+            document.getElementById('porcentaje-liquidos').value = 99.9;
+            
+            const inicio = performance.now();
+            
+            try {
+                if (window.calcularMezcla) {
+                    await window.calcularMezcla();
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Cálculo con datos extremos completado en ${tiempo.toFixed(2)}ms`, 'success');
+                }
+            } catch (error) {
+                const tiempo = performance.now() - inicio;
+                agregarLog(`Timeout esperado: ${error.message} (${tiempo.toFixed(2)}ms)`, 'warning');
+            }
+            
+            actualizarMetricas();
+        }
+        
+        // Pruebas del asistente
+        async function probarAsistenteReal() {
+            agregarLog('Iniciando prueba real de asistente...', 'info');
+            
+            const pregunta = document.getElementById('pregunta-test').value;
+            
+            const inicio = performance.now();
+            tiempoInicioAsistente = inicio;
+            
+            try {
+                const response = await fetch('/asistente_ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pregunta: pregunta })
+                });
+                
+                if (response.ok) {
+                    const resultado = await response.json();
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Respuesta del asistente en ${tiempo.toFixed(2)}ms`, 'success');
+                    pruebasAsistente++;
+                    
+                    // Mostrar respuesta
+                    const resultadoElement = document.getElementById('resultado-asistente-test');
+                    resultadoElement.style.display = 'block';
+                    resultadoElement.innerHTML = `
+                        <div class="alert alert-success">
+                            <h6>Respuesta del Asistente:</h6>
+                            <p>${resultado.respuesta || 'Sin respuesta'}</p>
+                            <small class="text-muted">Tiempo: ${tiempo.toFixed(2)}ms</small>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                const tiempo = performance.now() - inicio;
+                agregarLog(`Error en asistente: ${error.message} (${tiempo.toFixed(2)}ms)`, 'error');
+            }
+            
+            actualizarMetricas();
+        }
+        
+        async function probarAsistenteMultiple() {
+            agregarLog('Iniciando prueba múltiple de asistente...', 'info');
+            
+            const preguntas = [
+                '¿Cuál es el estado actual del sistema?',
+                '¿Cómo está la producción de biogás?',
+                '¿Qué materiales están disponibles?',
+                '¿Hay algún problema?',
+                '¿Cuál es la eficiencia actual?'
+            ];
+            
+            for (let i = 0; i < preguntas.length; i++) {
+                const pregunta = preguntas[i];
+                agregarLog(`Pregunta ${i + 1}/5: ${pregunta}`, 'info');
+                
+                const inicio = performance.now();
+                
+                try {
+                    const response = await fetch('/asistente_ia', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pregunta: pregunta })
+                    });
+                    
+                    if (response.ok) {
+                        const tiempo = performance.now() - inicio;
+                        agregarLog(`Pregunta ${i + 1} respondida en ${tiempo.toFixed(2)}ms`, 'success');
+                    } else {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                } catch (error) {
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Pregunta ${i + 1} falló: ${error.message} (${tiempo.toFixed(2)}ms)`, 'error');
+                }
+                
+                // Pequeña pausa entre preguntas
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+            agregarLog('Pruebas múltiples del asistente completadas', 'success');
+            actualizarMetricas();
+        }
+        
+        async function probarAsistenteTimeout() {
+            agregarLog('Probando timeout del asistente...', 'warning');
+            
+            const preguntaCompleja = 'Analiza todos los datos históricos del sistema, compara con los objetivos establecidos, identifica patrones de comportamiento, calcula tendencias futuras y proporciona recomendaciones detalladas para optimizar la producción de biogás considerando todos los factores ambientales y operativos.';
+            
+            const inicio = performance.now();
+            
+            try {
+                const response = await fetch('/asistente_ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pregunta: preguntaCompleja })
+                });
+                
+                if (response.ok) {
+                    const tiempo = performance.now() - inicio;
+                    agregarLog(`Pregunta compleja respondida en ${tiempo.toFixed(2)}ms`, 'success');
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                const tiempo = performance.now() - inicio;
+                agregarLog(`Timeout esperado: ${error.message} (${tiempo.toFixed(2)}ms)`, 'warning');
+            }
+            
+            actualizarMetricas();
+        }
+        
+        // Funciones de control
+        async function ejecutarTodasLasPruebasReales() {
+            agregarLog('Ejecutando todas las pruebas reales...', 'info');
+            
+            // Pruebas de calculadora
+            await probarCalculadoraReal();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await probarCalculadoraMultiple();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Pruebas de asistente
+            await probarAsistenteReal();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await probarAsistenteMultiple();
+            
+            agregarLog('Todas las pruebas completadas', 'success');
+        }
+        
+        function mostrarEstadisticasReales() {
+            if (window.optimizacionesAgressivas) {
+                const stats = window.optimizacionesAgressivas.obtenerEstadisticas();
+                agregarLog('Estadísticas del sistema:', 'info');
+                agregarLog(`- Calculadora: ${stats.calculadora.estado}, Cache: ${stats.calculadora.cacheSize}`, 'info');
+                agregarLog(`- Asistente: ${stats.asistente.estado}, Cache: ${stats.asistente.cacheSize}`, 'info');
+                agregarLog(`- Timeouts activos: Calc: ${stats.calculadora.timeoutsActivos}, Asist: ${stats.asistente.timeoutsActivos}`, 'info');
+            } else {
+                agregarLog('Optimizaciones agresivas no disponibles', 'error');
+            }
+        }
+        
+        function limpiarCachesReales() {
+            if (window.optimizacionesAgressivas) {
+                window.optimizacionesAgressivas.limpiarCaches();
+                agregarLog('Cachés limpiados', 'success');
+                actualizarMetricas();
+            }
+        }
+        
+        function forzarCancelacion() {
+            if (window.optimizacionesAgressivas) {
+                window.optimizacionesAgressivas.cancelarCalculoCalculadora();
+                window.optimizacionesAgressivas.cancelarProcesamientoAsistente();
+                agregarLog('Cancelación forzada ejecutada', 'warning');
+                actualizarMetricas();
+            }
+        }
+        
+        // Actualizar métricas cada 2 segundos
+        setInterval(actualizarMetricas, 2000);
+        
+        // Inicialización
+        setTimeout(() => {
+            agregarLog('Sistema de pruebas de problemas reales iniciado', 'success');
+            actualizarMetricas();
+        }, 1000);
+    </script>
+</body>
+</html>

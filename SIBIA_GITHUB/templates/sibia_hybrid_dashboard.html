@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIBIA - Dashboard Completo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Header igual al tuyo */
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            background: #fff;
+            color: #1e3c72;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .nav-tab.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .status-indicator {
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Layout principal */
+        .main-container {
+            display: flex;
+            margin-top: 70px;
+            height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 200px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #00d4ff;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 2px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+            border-left-color: #00d4ff;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* KPIs principales - mismo estilo que tu dashboard */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .kpi-header i {
+            color: #00d4ff;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .kpi-trend {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Grid de tarjetas funcionales */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .function-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .function-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+        }
+
+        .card-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-title i {
+            color: #00d4ff;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        /* Tarjetas específicas */
+        .biodigestor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .biodigestor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #28a745;
+            color: white;
+        }
+
+        .biodigestor-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Formularios */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 13px;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Botones */
+        .btn {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 6px;
+            padding: 8px 16px;
+            color: #00d4ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: rgba(40, 167, 69, 0.4);
+            color: #48bb78;
+        }
+
+        .btn-warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: rgba(255, 193, 7, 0.4);
+            color: #fbb03b;
+        }
+
+        /* Chat IA */
+        .ai-chat {
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .ai-message.ai-assistant {
+            background: rgba(0, 123, 255, 0.2);
+            border-left: 3px solid #007bff;
+        }
+
+        .ai-message.ai-user {
+            background: rgba(40, 167, 69, 0.2);
+            border-left: 3px solid #28a745;
+            text-align: right;
+        }
+
+        .ai-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Gráficos */
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+
+        .chart-container-medium {
+            height: 250px;
+        }
+
+        /* Vista de análisis histórico */
+        .analytics-view {
+            display: none;
+        }
+
+        .analytics-view.active {
+            display: block;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Tabla de datos */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+        }
+
+        .data-table th {
+            background: rgba(0, 0, 0, 0.2);
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Alertas */
+        .alert-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-item.alert-info {
+            background: rgba(0, 123, 255, 0.2);
+            border-left: 3px solid #007bff;
+        }
+
+        .alert-item.alert-warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-left: 3px solid #ffc107;
+        }
+
+        .alert-item.alert-danger {
+            background: rgba(220, 53, 69, 0.2);
+            border-left: 3px solid #dc3545;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .kpi-grid {
+                grid-template-columns: 1fr;
+                position: static;
+            }
+        }
+
+        /* Widget de alertas flotante */
+        .alerts-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 40vh;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .alerts-floating-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .alerts-floating-header strong {
+            color: #00d4ff;
+            font-size: 14px;
+        }
+
+        .alerts-counter {
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .alerts-floating-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .alert-floating-item {
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            border-left: 3px solid;
+        }
+
+        .alert-floating-item.info {
+            background: rgba(0, 123, 255, 0.2);
+            border-color: #007bff;
+        }
+
+        .alert-floating-item.warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .alert-floating-item.danger {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: #dc3545;
+        }
+
+        .alert-floating-item.success {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: #28a745;
+        }
+
+        /* Mejorar el contenido para que no se solape */
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            padding-bottom: 100px; /* Espacio para las alertas flotantes */
+            overflow-y: auto;
+        }
+
+        /* Asegurar que el sidebar no tenga problemas de scroll */
+        .sidebar {
+            width: 200px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Ajustar el z-index del header para que las alertas queden encima */
+        .header {
+            z-index: 1500;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">SCADA</div>
+            <h1 class="title">Planta de Biogás SIBIA</h1>
+        </div>
+        <div class="header-right">
+            <div class="nav-tabs">
+                <a href="#" class="nav-tab active" onclick="switchView('operational')">Control Operativo</a>
+                <a href="#" class="nav-tab" onclick="switchView('analytics')">Análisis Histórico</a>
+                <a href="#" class="nav-tab" onclick="switchView('reports')">Reportes</a>
+            </div>
+            <div class="status-indicator">
+                <div style="width: 8px; height: 8px; background: white; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                DB conectada
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <!-- Sección Operativa -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Control Tiempo Real</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showCard('biodigestores')" class="active">Biodigestores</a></li>
+                    <li><a href="#" onclick="showCard('calidad-gas')">Calidad Gas Motor</a></li>
+                    <li><a href="#" onclick="showCard('seguimiento-horario')">Seguimiento Horario</a></li>
+                    <li><a href="#" onclick="showCard('sensores-bombas')">Sala Bombas (060)</a></li>
+                    <li><a href="#" onclick="showCard('sensores-agua')">Agua Caliente (070)</a></li>
+                    <li><a href="#" onclick="showCard('otros-sistemas')">Otros Sistemas</a></li>
+                </ul>
+            </div>
+
+            <!-- Sección Herramientas -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Herramientas</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showCard('calculadora')">Calculadora Rápida</a></li>
+                    <li><a href="#" onclick="showCard('asistente-ia')">Asistente IA</a></li>
+                    <li><a href="#" onclick="showCard('registro-materiales')">Registro Materiales</a></li>
+                    <li><a href="#" onclick="showCard('stock-actual')">Stock Actual</a></li>
+                    <li><a href="#" onclick="showCard('alertas')">Alertas</a></li>
+                </ul>
+            </div>
+
+            <!-- Sección Gráficos -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Monitoreo</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showCard('generacion-tiempo-real')">Generación Tiempo Real</a></li>
+                    <li><a href="#" onclick="showCard('temperaturas')">Temperaturas</a></li>
+                    <li><a href="#" onclick="showCard('niveles')">Niveles Biodigestores</a></li>
+                </ul>
+            </div>
+
+            <!-- Sección Análisis -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Análisis Histórico</div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showAnalytics('kpis')">KPIs Ejecutivos</a></li>
+                    <li><a href="#" onclick="showAnalytics('tendencias')">Tendencias</a></li>
+                    <li><a href="#" onclick="showAnalytics('materiales')">Rendimiento Materiales</a></li>
+                    <li><a href="#" onclick="showAnalytics('eficiencia')">Eficiencia</a></li>
+                    <li><a href="#" onclick="showAnalytics('predicciones')">Predicciones IA</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <!-- KPIs Principales siempre visibles -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <i class="fas fa-bolt"></i>
+                        <span>Generación</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-generacion">0.0 kW</div>
+                    <div class="kpi-trend">Sin datos</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <i class="fas fa-plug"></i>
+                        <span>Inyectada</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-inyectada">0.0 kW</div>
+                    <div class="kpi-trend">Sin datos</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <i class="fas fa-cog"></i>
+                        <span>Consumo</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-consumo">0.0 kW</div>
+                    <div class="kpi-trend">Sin datos</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <i class="fas fa-percentage"></i>
+                        <span>Eficiencia</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-eficiencia">51.2%</div>
+                    <div class="kpi-trend">Sin datos</div>
+                </div>
+            </div>
+
+            <!-- Vista Operativa -->
+            <div id="operational-view" class="operational-view">
+                <div class="cards-grid">
+                    <!-- Biodigestores -->
+                    <div class="function-card" id="card-biodigestores">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-flask"></i>
+                                Biodigestores
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="biodigestor-card">
+                                <div class="biodigestor-header">
+                                    <h6>Biodigestor 1</h6>
+                                    <span class="status-badge">Operativo</span>
+                                </div>
+                                <div class="biodigestor-metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Nivel</span>
+                                        <span class="metric-value" id="nivel-b1">0%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Temperatura</span>
+                                        <span class="metric-value" id="temp-b1">0°C</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">pH</span>
+                                        <span class="metric-value" id="ph-b1">0.0</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Presión</span>
+                                        <span class="metric-value" id="presion-b1">-- bar</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="biodigestor-card">
+                                <div class="biodigestor-header">
+                                    <h6>Biodigestor 2</h6>
+                                    <span class="status-badge">Operativo</span>
+                                </div>
+                                <div class="biodigestor-metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Nivel</span>
+                                        <span class="metric-value" id="nivel-b2">0%</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Temperatura</span>
+                                        <span class="metric-value" id="temp-b2">0°C</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">pH</span>
+                                        <span class="metric-value" id="ph-b2">0.0</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Presión</span>
+                                        <span class="metric-value" id="presion-b2">-- bar</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asistente IA -->
+                    <div class="function-card" id="card-asistente-ia">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-robot"></i>
+                                Asistente IA
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="ai-chat">
+                                <div class="ai-messages" id="ai-messages">
+                                    <div class="ai-message ai-assistant">
+                                        <p>¡Hola! Soy tu asistente para la planta de biogás. ¿En qué puedo ayudarte?</p>
+                                    </div>
+                                </div>
+                                <div class="ai-input">
+                                    <input type="text" class="form-control" id="ai-input" placeholder="Pregunta algo...">
+                                    <button class="btn" onclick="enviarPregunta()">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculadora Rápida -->
+                    <div class="function-card" id="card-calculadora">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-calculator"></i>
+                                Calculadora Rápida
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label>KW Objetivo</label>
+                                <input type="number" class="form-control" id="kw-objetivo" value="28800">
+                            </div>
+                            <div class="form-group">
+                                <label>Número de Biodigestores</label>
+                                <select class="form-control" id="num-biodigestores">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>% Metano Objetivo</label>
+                                <input type="number" class="form-control" id="metano-objetivo" value="65">
+                            </div>
+                            <button class="btn btn-warning" onclick="calcularMezcla()">
+                                <i class="fas fa-magic"></i> Calcular Mezcla
+                            </button>
+                            <div id="resultado-calc" style="margin-top: 15px; display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Registro de Materiales -->
+                    <div class="function-card" id="card-registro-materiales">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-truck-loading"></i>
+                                Registro de Materiales
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group">
+                                <label>Patente</label>
+                                <input type="text" class="form-control" id="rm-patente" placeholder="ABC123">
+                            </div>
+                            <div class="form-group">
+                                <label>Material</label>
+                                <select class="form-control" id="rm-material">
+                                    <option>Estiércol Bovino</option>
+                                    <option>Residuos Orgánicos</option>
+                                    <option>Purín Porcino</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>TN Descargadas</label>
+                                <input type="number" class="form-control" id="rm-tn" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>% ST (Sólidos Totales)</label>
+                                <input type="number" class="form-control" id="rm-st" step="0.01">
+                            </div>
+                            <button class="btn btn-success" onclick="registrarMaterial()">
+                                <i class="fas fa-save"></i> Registrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Generación en Tiempo Real -->
+                    <div class="function-card" id="card-generacion-tiempo-real">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-chart-line"></i>
+                                Generación en Tiempo Real
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container">
+                                <canvas id="chartGeneracion"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stock Actual -->
+                    <div class="function-card" id="card-stock-actual">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-boxes"></i>
+                                Stock Actual
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div id="stock-list">
+                                <div class="metric">
+                                    <span class="metric-label">Estiércol Bovino</span>
+                                    <span class="metric-value">245.3 TN</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Residuos Orgánicos</span>
+                                    <span class="metric-value">123.7 TN</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Purín Porcino</span>
+                                    <span class="metric-value">89.2 TN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alertas -->
+                    <div class="function-card" id="card-alertas">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-bell"></i>
+                                Alertas del Sistema
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="alert-item alert-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Sistema operando normalmente</span>
+                            </div>
+                            <div class="alert-item alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Temperatura Biodigestor 2 ligeramente elevada</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguimiento Horario -->
+                    <div class="function-card" id="card-seguimiento-horario">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-clock"></i>
+                                Seguimiento Horario
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <h6 style="color: #00d4ff; margin-bottom: 10px;">Hora Actual</h6>
+                                    <div class="metric">
+                                        <span class="metric-label">Sólidos</span>
+                                        <span class="metric-value">2.45 TN</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Líquidos</span>
+                                        <span class="metric-value">1.23 TN</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 style="color: #00d4ff; margin-bottom: 10px;">Próxima Hora</h6>
+                                    <div class="metric">
+                                        <span class="metric-label">Sólidos</span>
+                                        <span class="metric-value">2.50 TN</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Líquidos</span>
+                                        <span class="metric-value">1.25 TN</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-warning" style="width: 100%; margin-top: 15px;" onclick="verSeguimientoCompleto()">
+                                <i class="fas fa-clock"></i> Ver Seguimiento Completo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Calidad Gas Motor -->
+                    <div class="function-card" id="card-calidad-gas">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-engine"></i>
+                                Calidad Gas Motor
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div style="display: grid; gap: 10px;">
+                                <div class="metric">
+                                    <span class="metric-label">CH4</span>
+                                    <span class="metric-value">65.2%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">H2S</span>
+                                    <span class="metric-value">120 ppm</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">CO2</span>
+                                    <span class="metric-value">34.8%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">O2</span>
+                                    <span class="metric-value">0.5%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista Analítica -->
+            <div id="analytics-view" class="analytics-view">
+                <div class="analytics-grid">
+                    <!-- Gráfico de Tendencias Históricas -->
+                    <div class="function-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-chart-area"></i>
+                                Tendencias Históricas (30 días)
+                            </div>
+                            <div>
+                                <button class="btn" onclick="exportData()">
+                                    <i class="fas fa-download"></i> Exportar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="chart-container-medium">
+                                <canvas id="trendsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Predicciones IA -->
+                    <div class="function-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-brain"></i>
+                                Predicciones IA
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="alert-item alert-info">
+                                <strong>Próxima Semana:</strong><br>
+                                25,800 kW estimados (+4.8%)
+                            </div>
+                            <div class="alert-item alert-warning">
+                                <strong>Recomendación:</strong><br>
+                                Aumentar 15% material sólido
+                            </div>
+                            <div class="alert-item alert-danger">
+                                <strong>Mantenimiento:</strong><br>
+                                Revisar bomba B2 en 5 días
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Rendimiento por Materiales -->
+                <div class="function-card full-width">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-table"></i>
+                            Rendimiento por Material (Últimos 30 días)
+                        </div>
+                        <div>
+                            <button class="btn" onclick="exportTable()">
+                                <i class="fas fa-file-excel"></i> Excel
+                            </button>
+                            <button class="btn btn-success" onclick="generateReport()">
+                                <i class="fas fa-file-pdf"></i> Reporte PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>TN Procesadas</th>
+                                    <th>kW Generados</th>
+                                    <th>kW/TN</th>
+                                    <th>Eficiencia</th>
+                                    <th>% Metano</th>
+                                    <th>Tendencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Estiércol Bovino</strong></td>
+                                    <td>456.2</td>
+                                    <td>10,675</td>
+                                    <td>23.4</td>
+                                    <td>89.2%</td>
+                                    <td>67.8%</td>
+                                    <td style="color: #48bb78;">+2.3%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Residuos Orgánicos</strong></td>
+                                    <td>234.1</td>
+                                    <td>7,306</td>
+                                    <td>31.2</td>
+                                    <td>91.5%</td>
+                                    <td>69.4%</td>
+                                    <td style="color: #48bb78;">+4.1%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Purín Porcino</strong></td>
+                                    <td>345.6</td>
+                                    <td>6,843</td>
+                                    <td>19.8</td>
+                                    <td>82.1%</td>
+                                    <td>61.2%</td>
+                                    <td style="color: #f56565;">-1.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Lodos Activados</strong></td>
+                                    <td>123.4</td>
+                                    <td>1,925</td>
+                                    <td>15.6</td>
+                                    <td>78.3%</td>
+                                    <td>58.9%</td>
+                                    <td style="color: #48bb78;">+1.2%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Widget de Alertas flotante (siempre visible) -->
+    <div class="alerts-floating" id="alerts-floating">
+        <div class="alerts-floating-header">
+            <i class="fas fa-bell"></i>
+            <strong>Alertas del Sistema</strong>
+            <span id="alerts-counter" class="alerts-counter">3</span>
+        </div>
+        <div class="alerts-floating-list" id="alerts-floating-list">
+            <div class="alert-floating-item success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <strong>Sistema Operativo</strong><br>
+                    <small>Todos los parámetros dentro del rango normal</small>
+                </div>
+            </div>
+            <div class="alert-floating-item warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Temperatura Elevada</strong><br>
+                    <small>Biodigestor 2: 45.2°C (objetivo: 40-42°C)</small>
+                </div>
+            </div>
+            <div class="alert-floating-item info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Predicción IA</strong><br>
+                    <small>Posible mantenimiento requerido en 5 días</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración Chart.js
+        Chart.defaults.color = '#e2e8f0';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Gráfico de generación en tiempo real
+        const ctxGen = document.getElementById('chartGeneracion').getContext('2d');
+        const generationChart = new Chart(ctxGen, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Generación (kW)',
+                    data: [],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e2e8f0' } }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#e2e8f0' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#e2e8f0' }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de tendencias históricas
+        const ctxTrends = document.getElementById('trendsChart');
+        if (ctxTrends) {
+            const trendsChart = new Chart(ctxTrends.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 30}, (_, i) => {
+                        const date = new Date();
+                        date.setDate(date.getDate() - (29 - i));
+                        return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Generación Promedio',
+                            data: Array.from({length: 30}, () => 800 + Math.random() * 400),
+                            borderColor: '#00d4ff',
+                            backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                            borderWidth: 2,
+                            fill: true
+                        },
+                        {
+                            label: 'Eficiencia (%)',
+                            data: Array.from({length: 30}, () => 80 + Math.random() * 15),
+                            borderColor: '#48bb78',
+                            backgroundColor: 'rgba(72, 187, 120, 0.1)',
+                            borderWidth: 2,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#e2e8f0' } }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#e2e8f0' }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#e2e8f0' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#e2e8f0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Funciones de navegación
+        function switchView(view) {
+            // Actualizar tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Mostrar/ocultar vistas
+            const operationalView = document.getElementById('operational-view');
+            const analyticsView = document.getElementById('analytics-view');
+            
+            if (view === 'operational') {
+                operationalView.style.display = 'block';
+                analyticsView.style.display = 'none';
+            } else if (view === 'analytics') {
+                operationalView.style.display = 'none';
+                analyticsView.style.display = 'block';
+            } else if (view === 'reports') {
+                alert('Módulo de reportes - En desarrollo');
+            }
+        }
+
+        function showCard(cardId) {
+            // Actualizar menú
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Mostrar solo la tarjeta seleccionada
+            document.querySelectorAll('.function-card').forEach(card => {
+                card.style.display = card.id === `card-${cardId}` ? 'block' : 'none';
+            });
+            
+            // Asegurar que estamos en vista operativa
+            document.getElementById('operational-view').style.display = 'block';
+            document.getElementById('analytics-view').style.display = 'none';
+        }
+
+        function showAnalytics(section) {
+            // Actualizar menú
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Cambiar a vista analítica
+            document.getElementById('operational-view').style.display = 'none';
+            document.getElementById('analytics-view').style.display = 'block';
+            
+            console.log('Mostrando análisis:', section);
+        }
+
+        // Funciones de las tarjetas (tus funciones existentes)
+        function enviarPregunta() {
+            const input = document.getElementById('ai-input');
+            const pregunta = input.value.trim();
+            if (!pregunta) return;
+            
+            const messagesContainer = document.getElementById('ai-messages');
+            messagesContainer.innerHTML += `
+                <div class="ai-message ai-user">
+                    <p>${pregunta}</p>
+                </div>
+                <div class="ai-message ai-assistant">
+                    <p>Procesando tu consulta sobre: "${pregunta}". Esta funcionalidad se conectaría con tu backend actual.</p>
+                </div>
+            `;
+            
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function calcularMezcla() {
+            const kwObjetivo = document.getElementById('kw-objetivo').value;
+            const numBios = document.getElementById('num-biodigestores').value;
+            const metano = document.getElementById('metano-objetivo').value;
+            
+            const resultado = document.getElementById('resultado-calc');
+            resultado.innerHTML = `
+                <div style="background: rgba(40, 167, 69, 0.2); border: 1px solid rgba(40, 167, 69, 0.4); border-radius: 6px; padding: 10px; font-size: 13px;">
+                    <strong>Mezcla Calculada:</strong><br>
+                    KW: ${kwObjetivo}<br>
+                    Biodigestores: ${numBios}<br>
+                    % Metano: ${metano}%<br>
+                    <small>Esta función se conectaría con tu endpoint /calcular_mezcla_automatica</small>
+                </div>
+            `;
+            resultado.style.display = 'block';
+        }
+
+        function registrarMaterial() {
+            alert('Registrando material...\nEsta función se conectaría con tu endpoint /registrar_material');
+        }
+
+        function verSeguimientoCompleto() {
+            alert('Abriendo seguimiento horario completo...\nEsta función usaría tu modal existente de seguimiento_horario');
+        }
+
+        function exportData() {
+            alert('Exportando datos históricos...');
+        }
+
+        function exportTable() {
+            alert('Exportando tabla a Excel...');
+        }
+
+        function generateReport() {
+            alert('Generando reporte PDF...');
+        }
+
+        // Simulación de datos en tiempo real
+        setInterval(() => {
+            const now = new Date().toLocaleTimeString();
+            const value = 800 + Math.random() * 400;
+            
+            generationChart.data.labels.push(now);
+            generationChart.data.datasets[0].data.push(value);
+            
+            if (generationChart.data.labels.length > 20) {
+                generationChart.data.labels.shift();
+                generationChart.data.datasets[0].data.shift();
+            }
+            
+            generationChart.update('none');
+            
+            // Actualizar KPI de generación
+            document.getElementById('kpi-generacion').textContent = value.toFixed(1) + ' kW';
+        }, 5000);
+
+        // Mostrar todas las tarjetas por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.function-card').forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            // Inicializar alertas flotantes
+            updateFloatingAlerts();
+        });
+
+        // Función para actualizar alertas flotantes
+        function updateFloatingAlerts() {
+            const alertsList = document.getElementById('alerts-floating-list');
+            const counter = document.getElementById('alerts-counter');
+            
+            // Simular nuevas alertas cada 30 segundos
+            setInterval(() => {
+                const alertTypes = ['info', 'warning', 'success', 'danger'];
+                const messages = [
+                    { type: 'info', title: 'Datos Actualizados', message: 'Nuevos datos de sensores recibidos' },
+                    { type: 'warning', title: 'Presión Alta', message: 'Biodigestor 1: 2.1 bar (revisar)' },
+                    { type: 'success', title: 'Objetivo Alcanzado', message: 'Generación diaria: 100% completada' },
+                    { type: 'danger', title: 'Sensor Offline', message: '040PT01 sin comunicación hace 5 min' }
+                ];
+                
+                const randomAlert = messages[Math.floor(Math.random() * messages.length)];
+                
+                // Agregar nueva alerta
+                const newAlert = document.createElement('div');
+                newAlert.className = `alert-floating-item ${randomAlert.type}`;
+                newAlert.innerHTML = `
+                    <i class="fas fa-${randomAlert.type === 'success' ? 'check-circle' : 
+                                       randomAlert.type === 'warning' ? 'exclamation-triangle' :
+                                       randomAlert.type === 'danger' ? 'times-circle' : 'info-circle'}"></i>
+                    <div>
+                        <strong>${randomAlert.title}</strong><br>
+                        <small>${randomAlert.message}</small>
+                    </div>
+                `;
+                
+                alertsList.insertBefore(newAlert, alertsList.firstChild);
+                
+                // Limitar a máximo 5 alertas
+                const alerts = alertsList.querySelectorAll('.alert-floating-item');
+                if (alerts.length > 5) {
+                    alertsList.removeChild(alertsList.lastChild);
+                }
+                
+                // Actualizar contador
+                counter.textContent = alerts.length;
+                
+            }, 30000); // Cada 30 segundos
+        }
+
+        console.log('Dashboard Híbrido SIBIA cargado');
+    </script>
+</body>
+</html>

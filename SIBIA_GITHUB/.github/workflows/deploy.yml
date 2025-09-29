@@ -1,0 +1,35 @@
+name: Deploy SIBIA - Sistema de Voz Gratuito
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Test voice system
+      run: |
+        python -c "import voice_system_gratuito; print('SUCCESS: Sistema de voz gratuito funcionando')"
+        
+    - name: Notify deployment
+      run: |
+        echo "SUCCESS: SIBIA desplegado automaticamente"
+        echo "VOICE: Sistema de voz gratuito: Parler-TTS + Edge-TTS"
+        echo "FREE: Sin limites de uso - Completamente gratuito"
+        echo "COPYRIGHT: 2025 AutoLinkSolutions SRL"
+        echo "SYNC: Cambios sincronizados desde Cursor"

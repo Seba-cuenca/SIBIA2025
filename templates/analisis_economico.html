@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Análisis Económico - SIBIA</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Análisis Económico</h1>
+    <p>
+      Este análisis compara la cantidad de SA7 que se hubiera requerido para generar 5760 KW/día (por slot) 
+      con lo que se usó de otros materiales. El ahorro se calcula automáticamente, expresado en TN y en USD 
+      (usando la cotización actual del Banco Nación).<br>
+      Por ejemplo, si en un día se registraron varios slots de consumo con materiales distintos a SA7, 
+      se calcula el TN ideal total de SA7 (número de slots × TN ideal por slot) y se compara con la suma de 
+      TN utilizadas; la diferencia, si es positiva, es el ahorro en TN.
+    </p>
+    <form method="POST" action="/analisis_economico">
+      <div class="form-group">
+        <label for="valor_sa7">Valor económico del Silo SA7 (USD por tonelada)</label>
+        <input type="number" step="0.01" class="form-control" id="valor_sa7" name="valor_sa7" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Calcular Ahorro</button>
+    </form>
+    <hr>
+    {% if ahorro_mes is not none %}
+    <div class="alert alert-success">
+      <p><strong>Ahorro Mensual:</strong> {{ ahorro_mes | round(2) }} USD</p>
+    </div>
+    <h4>Ahorro Diario</h4>
+    {% if ahorro_diario %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Uso de SA7 (TN)</th>
+          <th>Ideal de SA7 (TN)</th>
+          <th>Ahorro (TN)</th>
+          <th>Ahorro (USD)</th>
+          <th>% Ahorro</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for registro in ahorro_diario %}
+        <tr>
+          <td>{{ registro['Fecha'] }}</td>
+          <td>{{ registro['TN Descargadas'] }}</td>
+          <td>{{ registro['Ideal_Total_TN'] | round(2) }}</td>
+          <td>{{ registro['Ahorro_TN'] | round(2) }}</td>
+          <td>{{ registro['Ahorro_USD'] | round(2) }}</td>
+          <td>{{ registro['Porcentaje_Ahorro'] | round(2) }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No hay datos diarios disponibles.</p>
+    {% endif %}
+    
+    <h4>Ahorro Semanal</h4>
+    {% if ahorro_semanal %}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Semana (Número ISO)</th>
+          <th>Ahorro (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for registro in ahorro_semanal %}
+        <tr>
+          <td>{{ registro['Semana'] }}</td>
+          <td>{{ registro['Ahorro_USD'] | round(2) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No hay datos semanales disponibles.</p>
+    {% endif %}
+    {% endif %}
+  </div>
+</body>
+</html>

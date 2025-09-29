@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - SIBIA</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h1>Dashboard de Consumo (Últimos 30 días)</h1>
+  <canvas id="myChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Cargar librería Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Al cargar la página, hacemos fetch a /dashboard (que retorna JSON)
+  fetch('/dashboard')
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+      // data = { fechas: [...], tn_descargadas: [...] }
+      const ctx = document.getElementById('myChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.fechas,  // ejes X
+          datasets: [{
+            label: 'TN Descargadas',
+            data: data.tn_descargadas, // valores Y
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    })
+    .catch(err => console.error(err));
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!-- Contenedor Principal del Asistente de IA -->
+<div id="asistente-chat-container" class="border rounded p-3 mb-3" style="height: 400px; overflow-y: auto; background-color: #f8f9fa; position: relative;">
+    
+    <!-- Placeholder del Icono de IA -->
+    <div id="ai-placeholder" class="text-center" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: opacity 0.5s ease-out; opacity: 1;">
+        <div id="ai-icon-container" style="width: 120px; height: 120px; margin: 0 auto; position: relative; cursor: pointer;" title="Activar SIBIA">
+            <svg id="ai-icon" viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                <defs>
+                    <radialGradient id="ai-gradient" cx="0.3" cy="0.3" r="0.7"><stop offset="0%" stop-color="#80DEEA" /><stop offset="100%" stop-color="#007BFF" /></radialGradient>
+                    <filter id="ai-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5" result="coloredBlur" /><feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+                </defs>
+                <circle id="ai-glow-circle" cx="50" cy="50" r="40" fill="url(#ai-gradient)" filter="url(#ai-glow)" style="transition: all 0.3s ease;" />
+                <path id="ai-mic-icon" d="M50 35a5 5 0 0 1 5 5v10a5 5 0 0 1-10 0V40a5 5 0 0 1 5-5zm-15 15a15 15 0 0 0 30 0" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+            </svg>
+        </div>
+        <p id="ai-status-text" class="mt-3 text-muted" style="transition: all 0.3s ease;">Haz clic para activar SIBIA</p>
+    </div>
+
+    <!-- Contenedor del Chat -->
+    <div id="asistente-chatbox" class="d-flex flex-column" style="display: none !important;"></div>
+</div>
+
+<!-- Barra de Entrada -->
+<div class="input-group">
+    <input type="text" id="asistente-input" class="form-control" placeholder="Escribe tu pregunta o usa el micrófono...">
+    <button class="btn btn-primary" id="asistente-send-btn" title="Enviar"><i class="fas fa-paper-plane"></i></button>
+    <button class="btn btn-info" id="asistente-mic-btn" title="Hablar con SIBIA"><i class="fas fa-microphone"></i></button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatContainer = document.getElementById('asistente-chat-container');
+    if (!chatContainer) return;
+
+    const chatBox = document.getElementById('asistente-chatbox');
+    const aiPlaceholder = document.getElementById('ai-placeholder');
+    const aiIconContainer = document.getElementById('ai-icon-container');
+    const aiGlowCircle = document.getElementById('ai-glow-circle');
+    const aiStatusText = document.getElementById('ai-status-text');
+    const userInput = document.getElementById('asistente-input');
+    const sendButton = document.getElementById('asistente-send-btn');
+    const micButton = document.getElementById('asistente-mic-btn');
+
+    let isActivated = false, isListening = false, isSpeaking = false, isProcessing = false;
+
+    const synth = window.speechSynthesis;
+    let recognition;
+    if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'es-AR';
+        recognition.continuous = false;
+    } else {
+        if(aiStatusText) aiStatusText.textContent = "Voz no soportada.";
+        if(micButton) micButton.disabled = true;
+    }
+
+    function setAiStatus(status, text) {
+        if (aiStatusText) aiStatusText.textContent = text;
+        if (!aiGlowCircle) return;
+        aiGlowCircle.style.transform = 'scale(1)';
+        aiGlowCircle.style.opacity = '1';
+        if (status === 'listening') aiGlowCircle.style.transform = 'scale(1.2)';
+        else if (status === 'processing') aiGlowCircle.style.transform = 'scale(0.9)';
+        else if (status === 'speaking') aiGlowCircle.style.transform = 'scale(1.1)';
+    }
+    
+    function hablar(texto) {
+        return new Promise(resolve => {
+            if (isSpeaking) synth.cancel();
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-AR';
+            utterance.onstart = () => { isSpeaking = true; setAiStatus('speaking', "Hablando..."); };
+            utterance.onend = () => { isSpeaking = false; setAiStatus('idle', "Pregúntame algo..."); resolve(); };
+            utterance.onerror = () => { isSpeaking = false; resolve(); };
+            synth.speak(utterance);
+        });
+    }
+
+    function startListening() {
+        if (!recognition || isListening || isSpeaking || isProcessing) return;
+        try { recognition.start(); } catch (e) { setAiStatus('idle', "Error de micrófono."); }
+    }
+
+    function agregarMensaje(texto, tipo) {
+        if (aiPlaceholder && aiPlaceholder.style.opacity !== '0') {
+            aiPlaceholder.style.opacity = '0';
+            setTimeout(() => {
+                if (aiPlaceholder) aiPlaceholder.style.display = 'none';
+                if (chatBox) chatBox.style.display = 'flex';
+            }, 500);
+        }
+        if(!chatBox) return;
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `d-flex mb-3 ${tipo === 'usuario' ? 'justify-content-end' : 'justify-content-start'}`;
+        msgDiv.innerHTML = `<div class="p-2 rounded mw-75 shadow-sm ${tipo === 'usuario' ? 'bg-primary text-white' : 'bg-light text-dark'}">${texto}</div>`;
+        chatBox.appendChild(msgDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    async function enviarPregunta(pregunta) {
+        if (!pregunta.trim()) return;
+        agregarMensaje(pregunta, 'usuario');
+        userInput.value = '';
+        isProcessing = true;
+        setAiStatus('processing', "Pensando...");
+
+        try {
+            const response = await fetch('/ask_assistant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pregunta, return_full_response: true })
+            });
+            const data = await response.json();
+            isProcessing = false;
+            const respuesta = data.respuesta_texto || "No pude procesar la pregunta.";
+            agregarMensaje(respuesta, 'asistente');
+            await hablar(respuesta);
+        } catch (error) {
+            isProcessing = false;
+            const errorMsg = "Hay un problema de conexión.";
+            agregarMensaje(errorMsg, 'asistente');
+            await hablar(errorMsg);
+        }
+    }
+
+    function activarAsistente() {
+        if (isActivated) {
+            if (isListening) recognition.stop();
+            else startListening();
+        } else {
+            isActivated = true;
+            setAiStatus('idle', "¡Hola! ¿En qué puedo ayudarte?");
+            hablar("Bienvenido a SIBIA. Estoy lista para escuchar.").finally(startListening);
+        }
+    }
+
+    if (aiIconContainer) aiIconContainer.addEventListener('click', activarAsistente);
+    if (micButton) micButton.addEventListener('click', activarAsistente);
+    if (sendButton) sendButton.addEventListener('click', () => enviarPregunta(userInput.value));
+    if (userInput) userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') enviarPregunta(userInput.value); });
+    
+    if (recognition) {
+        recognition.onstart = () => { isListening = true; setAiStatus('listening', "Escuchando..."); };
+        recognition.onresult = (e) => { enviarPregunta(e.results[0][0].transcript); };
+        recognition.onerror = (e) => {
+            let msg = e.error === 'not-allowed' ? "Necesito permiso para el micrófono." : "No te escuché bien.";
+            setAiStatus('idle', msg);
+        };
+        recognition.onend = () => {
+            isListening = false;
+            if (!isProcessing && !isSpeaking) setAiStatus('idle', "Toca para hablar.");
+        };
+    }
+});
+</script> 

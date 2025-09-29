@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Cálculo Detallado - {{ material }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Cálculo Detallado: {{ material }} ({{ cantidad }} TN)</h1>
+    
+    <div class="mb-3">
+        <a href="javascript:history.back()" class="btn btn-secondary mb-3">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 m-0">Explicación paso a paso del cálculo de kW</h2>
+        </div>
+        <div class="card-body">
+            <div id="calculo-detallado">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p>Cargando detalles del cálculo...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Cargar los detalles del cálculo mediante AJAX
+    fetch(`/calcular_detallado/{{ material }}/{{ cantidad }}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al cargar los detalles del cálculo');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const contenedor = document.getElementById('calculo-detallado');
+            contenedor.innerHTML = ''; // Limpiar el contenedor
+            
+            // Crear un div para cada paso del cálculo
+            data.pasos.forEach((paso, index) => {
+                const pasoDiv = document.createElement('div');
+                pasoDiv.className = 'mb-4 paso-calculo';
+                
+                // Crear título del paso
+                const titulo = document.createElement('h3');
+                titulo.className = 'h5 border-bottom pb-2 mb-3';
+                titulo.textContent = `Paso ${index + 1}: ${paso.titulo}`;
+                pasoDiv.appendChild(titulo);
+                
+                // Crear el contenido según el tipo de paso
+                const contenido = document.createElement('div');
+                contenido.className = 'ms-3';
+                
+                if (index === 0) { // Paso 1: Propiedades del material
+                    const tabla = document.createElement('table');
+                    tabla.className = 'table table-sm table-striped';
+                    tabla.innerHTML = `
+                        <tr><th>Propiedad</th><th>Valor</th></tr>
+                        <tr><td>ST (Sólidos Totales)</td><td>${paso.st}</td></tr>
+                        <tr><td>SV (Sólidos Volátiles)</td><td>${paso.sv}</td></tr>
+                        <tr><td>Carbohidratos</td><td>${paso.carbohidrato}</td></tr>
+                        <tr><td>Lípidos</td><td>${paso.lipido}</td></tr>
+                        <tr><td>Proteínas</td><td>${paso.proteina}</td></tr>
+                        <tr><td>Tipo</td><td>${paso.tipo}</td></tr>
+                        <tr><td>Porcentaje metano base</td><td>${paso.porcentaje_metano_base}</td></tr>
+                    `;
+                    contenido.appendChild(tabla);
+                } 
+                else if (index === 2 || index === 3 || index === 5) { // Pasos con múltiples componentes
+                    Object.entries(paso).forEach(([key, value]) => {
+                        if (key !== 'titulo') {
+                            const item = document.createElement('div');
+                            item.className = 'mb-2';
+                            
+                            if (typeof value === 'object') {
+                                item.innerHTML = `
+                                    <strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> 
+                                    ${value.formula} = <span class="text-success fw-bold">${value.resultado}</span>
+                                `;
+                            } else {
+                                item.innerHTML = `<strong>${key}:</strong> ${value}`;
+                            }
+                            contenido.appendChild(item);
+                        }
+                    });
+                }
+                else { // Pasos con fórmula simple
+                    if (paso.formula) {
+                        const formula = document.createElement('div');
+                        formula.innerHTML = `
+                            <span class="formula">${paso.formula}</span> = 
+                            <span class="text-success fw-bold">${paso.resultado}</span>
+                        `;
+                        contenido.appendChild(formula);
+                    }
+                }
+                
+                pasoDiv.appendChild(contenido);
+                contenedor.appendChild(pasoDiv);
+            });
+            
+            // Agregar el resultado final
+            const resultadoDiv = document.createElement('div');
+            resultadoDiv.className = 'alert alert-success mt-4';
+            resultadoDiv.innerHTML = `
+                <h3 class="h5">${data.resultado.titulo}</h3>
+                <p class="mb-0">
+                    Con <strong>${data.resultado.cantidad}</strong> de <strong>${data.resultado.material}</strong>,
+                    se obtiene un porcentaje de metano de <strong>${data.resultado.porcentaje_metano}</strong>,
+                    generando <strong>${data.resultado.kw_dia}</strong>.
+                </p>
+            `;
+            contenedor.appendChild(resultadoDiv);
+            
+            // Si hay alternativa, mostrarla
+            if (data.alternativa) {
+                const alternativaDiv = document.createElement('div');
+                alternativaDiv.className = 'alert alert-info mt-3';
+                alternativaDiv.innerHTML = `
+                    <h3 class="h5">${data.alternativa.titulo}</h3>
+                    <p>Para obtener exactamente 3.67 kW:</p>
+                    <p>Consumo CHP calculado: ${data.alternativa.consumo_chp_calculado.formula} = 
+                       <strong>${data.alternativa.consumo_chp_calculado.resultado}</strong></p>
+                    <p>Verificación: ${data.alternativa.verificacion.formula} = 
+                       <strong>${data.alternativa.verificacion.resultado}</strong></p>
+                `;
+                contenedor.appendChild(alternativaDiv);
+            }
+        })
+        .catch(error => {
+            document.getElementById('calculo-detallado').innerHTML = `
+                <div class="alert alert-danger">
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>No se pudo cargar los detalles del cálculo.</p>
+                </div>
+            `;
+            console.error('Error:', error);
+        });
+});
+</script>
+{% endblock %} 

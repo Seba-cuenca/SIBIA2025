@@ -1,0 +1,27 @@
+{
+  "sibia": {
+    "definicion": "SIBIA es un Sistema Integrado de Biodigestores con Inteligencia Artificial para optimizar plantas de biogás",
+    "funciones": [
+      "Control de biodigestores",
+      "Cálculo de mezclas óptimas",
+      "Gestión de stock de materiales",
+      "Monitoreo en tiempo real",
+      "Generación de informes"
+    ]
+  },
+  "biodigestores": {
+    "definicion": "Reactores que descomponen materia orgánica sin oxígeno para producir biogás",
+    "temperatura_optima": "35-40°C",
+    "ph_optimo": "6.8-7.2",
+    "tiempo_retencion": "15-30 días"
+  },
+  "biogas": {
+    "composicion": "50-70% metano, 30-40% CO2, trazas de H2S",
+    "poder_calorifico": "5000-7000 kcal/m³"
+  },
+  "calculos": {
+    "kw_por_m3_biogas": 1.8,
+    "m3_biogas_por_kg_sv": 0.35,
+    "eficiencia_motor": 0.35
+  }
+}

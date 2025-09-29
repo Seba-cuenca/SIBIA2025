@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Materiales Base - SIBIA</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body { padding: 20px; }
+        .table-responsive { margin-top: 20px; }
+        th, td { vertical-align: middle !important; text-align: center; }
+        .table thead th { background-color: #343a40; color: white; }
+        .btn-action { margin: 0 2px; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Gestión de Materiales Base</h1>
+            <div>
+                <a href="/scada" class="btn btn-secondary mr-2">
+                    <i class="fas fa-arrow-left"></i> Volver al Dashboard
+                </a>
+            </div>
+        </div>
+
+        <p>Configuración leída desde: <strong>{{ nombre_archivo_config }}</strong></p>
+
+        {% if error_carga %}
+            <div class="alert alert-danger">
+                <strong>Error al cargar el archivo de configuración de materiales:</strong> {{ error_carga }}
+            </div>
+        {% endif %}
+
+        <!-- Formulario para agregar/editar material -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Agregar/Editar Material</h5>
+            </div>
+            <div class="card-body">
+                <form id="formMaterial">
+                    <input type="hidden" id="editando" value="false">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre">Nombre del Material:</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipo">Tipo:</label>
+                                <select class="form-control" id="tipo" required>
+                                    <option value="solido">Sólido</option>
+                                    <option value="liquido">Líquido</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="st">ST (%):</label>
+                                <input type="number" step="0.01" class="form-control" id="st" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sv">SV (%):</label>
+                                <input type="number" step="0.01" class="form-control" id="sv" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="m3_tnsv">M³/TNSV:</label>
+                                <input type="number" step="0.01" class="form-control" id="m3_tnsv" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="carbohidrato">Carbohidratos (%):</label>
+                                <input type="number" step="0.01" class="form-control" id="carbohidrato" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lipido">Lípidos (%):</label>
+                                <input type="number" step="0.01" class="form-control" id="lipido" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="proteina">Proteínas (%):</label>
+                                <input type="number" step="0.01" class="form-control" id="proteina" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="porcentaje_metano">% Metano (Base):</label>
+                                <input type="number" step="0.01" class="form-control" id="porcentaje_metano" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Material</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if not materiales_base and not error_carga %}
+            <div class="alert alert-info">No hay materiales base configurados actualmente o el archivo está vacío.</div>
+        {% endif %}
+
+        {% if materiales_base %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Nombre del Material</th>
+                        <th>ST (%)</th>
+                        <th>SV (%)</th>
+                        <th>M³/TNSV</th>
+                        <th>Carbohidrato (%)</th>
+                        <th>Lípido (%)</th>
+                        <th>Proteína (%)</th>
+                        <th>Tipo</th>
+                        <th>% Metano (Base)</th>
+                        <th>KW/TN (Calculado)</th>
+                        <th>TNSV del Material</th>
+                        <th>Consumo CHP (Global)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nombre, props in materiales_base.items() %}
+                    <tr>
+                        <td>{{ nombre }}</td>
+                        <td>{{ (props.get('st', 0) * 100) | round(2) if props.get('st') is not none else 'N/A' }}</td>
+                        <td>{{ (props.get('sv', 0) * 100) | round(2) if props.get('sv') is not none else 'N/A' }}</td>
+                        <td>{{ props.get('m3_tnsv', 0) | round(2) if props.get('m3_tnsv') is not none else 'N/A' }}</td>
+                        <td>{{ (props.get('carbohidratos', 0) * 100) | round(2) if props.get('carbohidratos') is not none else 'N/A' }}</td>
+                        <td>{{ (props.get('lipidos', 0) * 100) | round(2) if props.get('lipidos') is not none else 'N/A' }}</td>
+                        <td>{{ (props.get('proteinas', 0) * 100) | round(2) if props.get('proteinas') is not none else 'N/A' }}</td>
+                        <td>{{ props.get('tipo', 'N/A') | capitalize if props.get('tipo') else 'N/A' }}</td>
+                        <td>{{ props.get('porcentaje_metano', 0) | round(1) if props.get('porcentaje_metano') is not none else 'N/A' }}</td>
+                        <td onclick="mostrarFormulaKwTn('{{ nombre }}')" style="cursor: pointer; text-decoration: underline;">
+                            {% if 'kw/tn' in props and props['kw/tn'] is not none %}
+                                {{ props['kw/tn'] | float | round(2) }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ (props.get('st', 0) * props.get('sv', 0)) | round(4) if props.get('st') is not none and props.get('sv') is not none else 'N/A' }}</td>
+                        <td>{{ config_global.get('consumo_chp_global', 0) | round(2) if config_global.get('consumo_chp_global') is not none else 'N/A' }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="editarMaterial('{{ nombre }}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger btn-action" onclick="eliminarMaterial('{{ nombre }}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let materiales = JSON.parse('{{ materiales_base|tojson|safe }}');
+
+        function limpiarFormulario() {
+            document.getElementById('formMaterial').reset();
+            document.getElementById('editando').value = 'false';
+        }
+
+        function editarMaterial(nombre) {
+            const material = materiales[nombre];
+            document.getElementById('nombre').value = nombre;
+            document.getElementById('tipo').value = material.tipo;
+            document.getElementById('st').value = (material.st * 100).toFixed(2);
+            document.getElementById('sv').value = (material.sv * 100).toFixed(2);
+            document.getElementById('m3_tnsv').value = material.m3_tnsv.toFixed(2);
+            document.getElementById('carbohidrato').value = (material.carbohidratos * 100).toFixed(2);
+            document.getElementById('lipido').value = (material.lipidos * 100).toFixed(2);
+            document.getElementById('proteina').value = (material.proteinas * 100).toFixed(2);
+            document.getElementById('porcentaje_metano').value = (material.porcentaje_metano || 0).toFixed(2);
+            document.getElementById('editando').value = 'true';
+        }
+
+        function mostrarFormulaKwTn(nombreMaterial) {
+            const material = materiales[nombreMaterial];
+            if (!material) {
+                alert('Material no encontrado.');
+                return;
+            }
+
+            const st = (material.st || 0);
+            const sv = (material.sv || 0);
+            const m3_tnsv_biogas = (material.m3_tnsv || 0);
+            const m3_ch4_tn_sv = (material.m3_ch4_tn_sv || 0);
+            const kw_tn_calculado = (material['kw/tn'] || 0);
+            
+            const configGlobal = JSON.parse('{{ config_global | tojson | safe }}');
+            const consumo_chp_global = configGlobal.consumo_chp_global || 505.00;
+
+            const formula = `Cálculo de ENERGÍA POTENCIAL (KWh) por TN de Material Tal Cual (SEGÚN FÓRMULA DE EXCEL D6*O6/R6):\n\n` +
+                            `Fórmula: KW/TN = (TNSV_del_material * M³_CH4/TNSV) / (Consumo CHP (m³_CH4/kWs))\n\n` +
+                            `Donde:\n` +
+                            `TNSV_del_material: Toneladas de Sólidos Volátiles que aporta 1 TN de este material.\n` +
+                            `                   Se calcula como: ST (dec) * SV (dec) * 1 TN de Material.\n` +
+                            `ST (dec): Porcentaje de Sólidos Totales del material (en decimal, ej. 0.35 para 35%)\n` +
+                            `SV (dec): Porcentaje de Sólidos Volátiles sobre ST (en decimal, ej. 0.96 para 96%)\n` +
+                            `M³_CH4/TNSV: Metros cúbicos de METANO por Tonelada de Sólidos Volátiles.\n` +
+                            `Consumo CHP (m³_CH4/kWs): Consumo específico de metano por kW-segundo de electricidad (igual a R6 en Excel, de Config. Global)\n` +
+                            `**NOTA IMPORTANTE:** Esta fórmula replica la lógica LITERAL del Excel, pero ahora con coherencia de unidades de Metano.\n\n` +
+                            `Valores para ${nombreMaterial}:\n` +
+                            `ST: ${st.toFixed(4)} (decimal) = ${ (st * 100).toFixed(2)}%\n` +
+                            `SV: ${sv.toFixed(4)} (decimal) = ${ (sv * 100).toFixed(2)}%\n` +
+                            `TNSV del Material (para 1 TN): ${(st * sv).toFixed(4)}\n` +
+                            `M³_CH4/TNSV: ${m3_ch4_tn_sv.toFixed(4)}\n` +
+                            `Consumo CHP Global: ${consumo_chp_global.toFixed(2)} m³/kWs\n\n` +
+                            `Cálculo: (${(st * sv).toFixed(4)} * ${m3_ch4_tn_sv.toFixed(4)}) / (${consumo_chp_global.toFixed(2)}) = ${kw_tn_calculado.toFixed(4)}\n` +
+                            `Resultado mostrado: ${kw_tn_calculado.toFixed(2)} KW/TN`;
+            
+            alert(formula);
+        }
+
+        function eliminarMaterial(nombre) {
+            if (confirm(`¿Está seguro de eliminar el material "${nombre}"?`)) {
+                fetch('/eliminar_material', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ nombre: nombre })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Material eliminado exitosamente');
+                        location.reload();
+                    } else {
+                        alert('Error al eliminar material: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar material');
+                });
+            }
+        }
+
+        document.getElementById('formMaterial').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                tipo: document.getElementById('tipo').value,
+                st: document.getElementById('st').value,
+                sv: document.getElementById('sv').value,
+                m3_tnsv: document.getElementById('m3_tnsv').value,
+                carbohidrato: document.getElementById('carbohidrato').value,
+                lipido: document.getElementById('lipido').value,
+                proteina: document.getElementById('proteina').value,
+                porcentaje_metano: document.getElementById('porcentaje_metano').value
+            };
+
+            fetch('/guardar_material', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Material guardado exitosamente');
+                    location.reload();
+                } else {
+                    alert('Error al guardar material: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al guardar material');
+            });
+        });
+    </script>
+</body>
+</html> 

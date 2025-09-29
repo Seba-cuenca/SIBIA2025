@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Mantenimiento - SIBIA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .maintenance-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .maintenance-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .maintenance-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+
+        .maintenance-subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Grid principal */
+        .maintenance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .maintenance-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .maintenance-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
+        }
+
+        .card-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-title i {
+            color: #00d4ff;
+            font-size: 20px;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        /* Tarjetas específicas */
+        .status-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-item.ok {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: rgba(40, 167, 69, 0.4);
+        }
+
+        .status-item.warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .status-item.critical {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: rgba(220, 53, 69, 0.4);
+        }
+
+        .status-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .status-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Lista de mantenimientos */
+        .maintenance-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .maintenance-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .maintenance-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .maintenance-item.urgent {
+            border-color: #dc3545;
+        }
+
+        .maintenance-item.soon {
+            border-color: #ffc107;
+        }
+
+        .maintenance-item.scheduled {
+            border-color: #28a745;
+        }
+
+        .maintenance-item.overdue {
+            border-color: #ff4757;
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { background: rgba(255, 71, 87, 0.1); }
+            50% { background: rgba(255, 71, 87, 0.2); }
+        }
+
+        .maintenance-header-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .maintenance-equipment {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .maintenance-priority {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: #dc3545;
+            color: white;
+        }
+
+        .priority-medium {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .priority-low {
+            background: #28a745;
+            color: white;
+        }
+
+        .maintenance-details {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .maintenance-date {
+            font-size: 12px;
+            color: #00d4ff;
+        }
+
+        /* Formulario de nuevo mantenimiento */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #00d4ff;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: white;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #00d4ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Botones */
+        .btn {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 6px;
+            padding: 10px 16px;
+            color: #00d4ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: rgba(40, 167, 69, 0.4);
+            color: #48bb78;
+        }
+
+        .btn-danger {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: rgba(220, 53, 69, 0.4);
+            color: #f56565;
+        }
+
+        .btn-warning {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: rgba(255, 193, 7, 0.4);
+            color: #fbb03b;
+        }
+
+        /* Historial */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+        }
+
+        .history-table th {
+            background: rgba(0, 0, 0, 0.2);
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .history-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Calendario */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-top: 15px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            font-size: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .calendar-day.has-maintenance {
+            background: rgba(255, 193, 7, 0.3);
+            border: 1px solid #ffc107;
+        }
+
+        .calendar-day.today {
+            background: rgba(0, 212, 255, 0.3);
+            border: 1px solid #00d4ff;
+        }
+
+        /* Indicadores de vida útil */
+        .lifespan-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lifespan-info {
+            flex: 1;
+        }
+
+        .lifespan-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .lifespan-details {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .lifespan-progress {
+            width: 100px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 15px;
+        }
+
+        .lifespan-bar {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .lifespan-bar.good {
+            background: linear-gradient(90deg, #28a745, #48bb78);
+        }
+
+        .lifespan-bar.warning {
+            background: linear-gradient(90deg, #ffc107, #fbb03b);
+        }
+
+        .lifespan-bar.critical {
+            background: linear-gradient(90deg, #dc3545, #f56565);
+        }
+
+        .lifespan-percentage {
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 35px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .maintenance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-overview {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Indicadores de estado */
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-ok {
+            background: #28a745;
+        }
+
+        .status-warning {
+            background: #ffc107;
+        }
+
+        .status-critical {
+            background: #dc3545;
+        }
+
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 15px 20px;
+            color: white;
+            z-index: 9999;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .notification.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .full-width-card {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-container">
+        <!-- Header -->
+        <div class="maintenance-header">
+            <h1 class="maintenance-title">
+                <i class="fas fa-tools"></i>
+                Módulo de Mantenimiento Predictivo
+            </h1>
+            <p class="maintenance-subtitle">
+                Gestión inteligente de mantenimiento para Planta de Biogás SIBIA
+            </p>
+        </div>
+
+        <!-- Grid principal -->
+        <div class="maintenance-grid">
+            <!-- Resumen de Estado -->
+            <div class="maintenance-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Estado General del Sistema
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="status-overview">
+                        <div class="status-item ok">
+                            <div class="status-number">8</div>
+                            <div class="status-label">Equipos OK</div>
+                        </div>
+                        <div class="status-item warning">
+                            <div class="status-number">3</div>
+                            <div class="status-label">Requieren Atención</div>
+                        </div>
+                        <div class="status-item critical">
+                            <div class="status-number">1</div>
+                            <div class="status-label">Críticos</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h6 style="color: #00d4ff; margin-bottom: 15px;">Próximos Vencimientos</h6>
+                        <div style="font-size: 13px; line-height: 1.6;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><span class="status-indicator status-warning"></span>Bomba Recirculación B1</span>
+                                <span style="color: #ffc107;">2 días</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><span class="status-indicator status-ok"></span>Filtro Gas Motor</span>
+                                <span style="color: #48bb78;">7 días</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span><span class="status-indicator status-critical"></span>Válvula Seguridad</span>
+                                <span style="color: #f56565;">Vencido</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mantenimientos Programados -->
+            <div class="maintenance-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-calendar-check"></i>
+                        Mantenimientos Programados
+                    </div>
+                    <button class="btn btn-success" onclick="showNewMaintenanceModal()">
+                        <i class="fas fa-plus"></i> Nuevo
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="maintenance-list" id="maintenanceList">
+                        <div class="maintenance-item overdue">
+                            <div class="maintenance-header-item">
+                                <span class="maintenance-equipment">Válvula Seguridad PSV-001</span>
+                                <span class="maintenance-priority priority-high">Alta</span>
+                            </div>
+                            <div class="maintenance-details">
+                                Calibración y prueba de funcionamiento - Vencida hace 3 días
+                            </div>
+                            <div class="maintenance-date">
+                                <i class="fas fa-clock"></i> Programado: 15/09/2025
+                            </div>
+                        </div>
+
+                        <div class="maintenance-item urgent">
+                            <div class="maintenance-header-item">
+                                <span class="maintenance-equipment">Bomba Recirculación PU-040-01</span>
+                                <span class="maintenance-priority priority-high">Alta</span>
+                            </div>
+                            <div class="maintenance-details">
+                                Inspección de rodamientos y cambio de aceite
+                            </div>
+                            <div class="maintenance-date">
+                                <i class="fas fa-clock"></i> Programado: 20/09/2025
+                            </div>
+                        </div>
+
+                        <div class="maintenance-item soon">
+                            <div class="maintenance-header-item">
+                                <span class="maintenance-equipment">Filtro Gas Motor FI-080-01</span>
+                                <span class="maintenance-priority priority-medium">Media</span>
+                            </div>
+                            <div class="maintenance-details">
+                                Cambio de elemento filtrante
+                            </div>
+                            <div class="maintenance-date">
+                                <i class="fas fa-clock"></i> Programado: 25/09/2025
+                            </div>
+                        </div>
+
+                        <div class="maintenance-item scheduled">
+                            <div class="maintenance-header-item">
+                                <span class="maintenance-equipment">Compresor Biogás CO-070-01</span>
+                                <span class="maintenance-priority priority-low">Baja</span>
+                            </div>
+                            <div class="maintenance-details">
+                                Mantenimiento preventivo mensual
+                            </div>
+                            <div class="maintenance-date">
+                                <i class="fas fa-clock"></i> Programado: 30/09/2025
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vida Útil de Componentes -->
+            <div class="maintenance-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Vida Útil de Componentes
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="lifespan-item">
+                        <div class="lifespan-info">
+                            <div class="lifespan-name">Motor Biogás MO-080-01</div>
+                            <div class="lifespan-details">8,760 hrs operación / 15,000 hrs total</div>
+                        </div>
+                        <div class="lifespan-progress">
+                            <div class="lifespan-bar good" style="width: 58%"></div>
+                        </div>
+                        <div class="lifespan-percentage">58%</div>
+                    </div>
+
+                    <div class="lifespan-item">
+                        <div class="lifespan-info">
+                            <div class="lifespan-name">Bomba Purín PU-040-02</div>
+                            <div class="lifespan-details">4,200 hrs operación / 5,000 hrs total</div>
+                        </div>
+                        <div class="lifespan-progress">
+                            <div class="lifespan-bar warning" style="width: 84%"></div>
+                        </div>
+                        <div class="lifespan-percentage">84%</div>
+                    </div>
+
+                    <div class="lifespan-item">
+                        <div class="lifespan-info">
+                            <div class="lifespan-name">Válvula Control VC-050-01</div>
+                            <div class="lifespan-details">4,800 hrs operación / 5,000 hrs total</div>
+                        </div>
+                        <div class="lifespan-progress">
+                            <div class="lifespan-bar critical" style="width: 96%"></div>
+                        </div>
+                        <div class="lifespan-percentage">96%</div>
+                    </div>
+
+                    <div class="lifespan-item">
+                        <div class="lifespan-info">
+                            <div class="lifespan-name">Sensor Temperatura TE-040-01</div>
+                            <div class="lifespan-details">2,100 hrs operación / 8,000 hrs total</div>
+                        </div>
+                        <div class="lifespan-progress">
+                            <div class="lifespan-bar good" style="width: 26%"></div>
+                        </div>
+                        <div class="lifespan-percentage">26%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendario de Mantenimiento -->
+            <div class="maintenance-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Calendario Septiembre 2025
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 10px; font-size: 12px; font-weight: 600;">
+                        <div style="text-align: center; color: #00d4ff;">L</div>
+                        <div style="text-align: center; color: #00d4ff;">M</div>
+                        <div style="text-align: center; color: #00d4ff;">X</div>
+                        <div style="text-align: center; color: #00d4ff;">J</div>
+                        <div style="text-align: center; color: #00d4ff;">V</div>
+                        <div style="text-align: center; color: #00d4ff;">S</div>
+                        <div style="text-align: center; color: #00d4ff;">D</div>
+                    </div>
+                    <div class="calendar-grid" id="maintenanceCalendar">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                    <div style="margin-top: 15px; font-size: 12px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                            <div style="width: 12px; height: 12px; background: rgba(255, 193, 7, 0.3); border: 1px solid #ffc107; border-radius: 2px;"></div>
+                            <span>Mantenimiento programado</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 12px; height: 12px; background: rgba(0, 212, 255, 0.3); border: 1px solid #00d4ff; border-radius: 2px;"></div>
+                            <span>Hoy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historial de Mantenimientos -->
+        <div class="maintenance-card full-width-card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-history"></i>
+                    Historial de Mantenimientos
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="exportHistory()">
+                        <i class="fas fa-file-excel"></i> Exportar
+                    </button>
+                    <button class="btn btn-warning" onclick="showPredictiveAnalysis()">
+                        <i class="fas fa-brain"></i> Análisis Predictivo
+                    </button>
+                </div>
+            </div>
+            <div class="card-content">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Equipo</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Técnico</th>
+                            <th>Duración</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12/09/2025</td>
+                            <td>PU-040-01</td>
+                            <td>Preventivo</td>
+                            <td>Cambio de rodamientos</td>
+                            <td>García, J.</td>
+                            <td>2.5 hrs</td>
+                            <td>$1,200</td>
+                            <td><span style="color: #48bb78;">Completado</span></td>
+                        </tr>
+                        <tr>
+                            <td>10/09/2025</td>
+                            <td>TE-040-01</td>
+                            <td>Correctivo</td>
+                            <td>Calibración sensor</td>
+                            <td>López, M.</td>
+                            <td>1.0 hrs</td>
+                            <td>$300</td>
+                            <td><span style="color: #48bb78;">Completado</span></td>
+                        </tr>
+                        <tr>
+                            <td>08/09/2025</td>
+                            <td>MO-080-01</td>
+                            <td>Preventivo</td>
+                            <td>Cambio de aceite</td>
+                            <td>Rodríguez, A.</td>
+                            <td>3.0 hrs</td>
+                            <td>$800</td>
+                            <td><span style="color: #48bb78;">Completado</span></td>
+                        </tr>
+                        <tr>
+                            <td>05/09/2025</td>
+                            <td>VC-050-01</td>
+                            <td>Correctivo</td>
+                            <td>Reparación actuador</td>
+                            <td>García, J.</td>
+                            <td>4.5 hrs</td>
+                            <td>$2,100</td>
+                            <td><span style="color: #fbb03b;">En revisión</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para nuevo mantenimiento -->
+    <div id="newMaintenanceModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 9999; padding: 20px;">
+        <div style="max-width: 600px; margin: 50px auto; background: rgba(30, 60, 114, 0.95); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fas fa-plus"></i>
+                    Programar Nuevo Mantenimiento
+                </div>
+                <button onclick="closeNewMaintenanceModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
+            </div>
+            <div class="card-content">
+                <form id="newMaintenanceForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Equipo</label>
+                            <select class="form-control" id="equipment" required>
+                                <option value="">Seleccionar equipo...</option>
+                                <option value="PU-040-01">Bomba Recirculación PU-040-01</option>
+                                <option value="PU-040-02">Bomba Purín PU-040-02</option>
+                                <option value="MO-080-01">Motor Biogás MO-080-01</option>
+                                <option value="VC-050-01">Válvula Control VC-050-01</option>
+                                <option value="PSV-001">Válvula Seguridad PSV-001</option>
+                                <option value="FI-080-01">Filtro Gas Motor FI-080-01</option>
+                                <option value="CO-070-01">Compresor Biogás CO-070-01</option>
+                                <option value="TE-040-01">Sensor Temperatura TE-040-01</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Mantenimiento</label>
+                            <select class="form-control" id="maintenanceType" required>
+                                <option value="">Seleccionar tipo...</option>
+                                <option value="preventivo">Preventivo</option>
+                                <option value="predictivo">Predictivo</option>
+                                <option value="correctivo">Correctivo</option>
+                                <option value="emergencia">Emergencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha Programada</label>
+                            <input type="date" class="form-control" id="scheduledDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Prioridad</label>
+                            <select class="form-control" id="priority" required>
+                                <option value="">Seleccionar prioridad...</option>
+                                <option value="low">Baja</option>
+                                <option value="medium">Media</option>
+                                <option value="high">Alta</option>
+                                <option value="critical">Crítica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Técnico Asignado</label>
+                            <select class="form-control" id="assignedTechnician">
+                                <option value="">Seleccionar técnico...</option>
+                                <option value="garcia">García, J.</option>
+                                <option value="lopez">López, M.</option>
+                                <option value="rodriguez">Rodríguez, A.</option>
+                                <option value="martinez">Martínez, C.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Duración Estimada (horas)</label>
+                            <input type="number" class="form-control" id="estimatedDuration" step="0.5" placeholder="2.5">
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Descripción del Trabajo</label>
+                        <textarea class="form-control" id="workDescription" rows="3" placeholder="Describe las tareas a realizar..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Repuestos Necesarios</label>
+                        <textarea class="form-control" id="requiredParts" rows="2" placeholder="Lista de repuestos y materiales..."></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn" onclick="closeNewMaintenanceModal()">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Programar Mantenimiento
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar calendario
+        function initializeCalendar() {
+            const calendar = document.getElementById('maintenanceCalendar');
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Primer día del mes
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            
+            // Días con mantenimiento programado (ejemplo)
+            const maintenanceDays = [15, 20, 25, 30];
+            
+            // Agregar días vacíos del mes anterior
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day';
+                calendar.appendChild(emptyDay);
+            }
+            
+            // Agregar días del mes actual
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                if (day === today.getDate()) {
+                    dayElement.classList.add('today');
+                }
+                
+                if (maintenanceDays.includes(day)) {
+                    dayElement.classList.add('has-maintenance');
+                    dayElement.title = `Mantenimiento programado para el ${day}`;
+                }
+                
+                dayElement.addEventListener('click', () => showDayDetails(day));
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        // Mostrar detalles del día
+        function showDayDetails(day) {
+            alert(`Detalles del ${day}/09/2025:\n\n• Mantenimiento programado\n• Revisar disponibilidad de técnicos\n• Verificar stock de repuestos`);
+        }
+
+        // Modal de nuevo mantenimiento
+        function showNewMaintenanceModal() {
+            document.getElementById('newMaintenanceModal').style.display = 'block';
+            // Establecer fecha mínima como hoy
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('scheduledDate').min = today;
+        }
+
+        function closeNewMaintenanceModal() {
+            document.getElementById('newMaintenanceModal').style.display = 'none';
+            document.getElementById('newMaintenanceForm').reset();
+        }
+
+        // Enviar nuevo mantenimiento
+        document.getElementById('newMaintenanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                equipment: document.getElementById('equipment').value,
+                type: document.getElementById('maintenanceType').value,
+                date: document.getElementById('scheduledDate').value,
+                priority: document.getElementById('priority').value,
+                technician: document.getElementById('assignedTechnician').value,
+                duration: document.getElementById('estimatedDuration').value,
+                description: document.getElementById('workDescription').value,
+                parts: document.getElementById('requiredParts').value
+            };
+            
+            // Aquí enviarías los datos a tu backend
+            console.log('Nuevo mantenimiento:', formData);
+            
+            // Simular guardado exitoso
+            showNotification('Mantenimiento programado exitosamente', 'success');
+            closeNewMaintenanceModal();
+            
+            // Agregar a la lista (simulado)
+            addMaintenanceToList(formData);
+        });
+
+        // Agregar mantenimiento a la lista
+        function addMaintenanceToList(data) {
+            const list = document.getElementById('maintenanceList');
+            const newItem = document.createElement('div');
+            newItem.className = 'maintenance-item scheduled';
+            
+            const priorityClass = {
+                'low': 'priority-low',
+                'medium': 'priority-medium',
+                'high': 'priority-high',
+                'critical': 'priority-high'
+            };
+            
+            const priorityText = {
+                'low': 'Baja',
+                'medium': 'Media',
+                'high': 'Alta',
+                'critical': 'Crítica'
+            };
+            
+            newItem.innerHTML = `
+                <div class="maintenance-header-item">
+                    <span class="maintenance-equipment">${data.equipment}</span>
+                    <span class="maintenance-priority ${priorityClass[data.priority]}">${priorityText[data.priority]}</span>
+                </div>
+                <div class="maintenance-details">
+                    ${data.description}
+                </div>
+                <div class="maintenance-date">
+                    <i class="fas fa-clock"></i> Programado: ${new Date(data.date).toLocaleDateString('es-ES')}
+                </div>
+            `;
+            
+            list.insertBefore(newItem, list.firstChild);
+        }
+
+        // Mostrar notificaciones
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Mostrar notificación
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        // Exportar historial
+        function exportHistory() {
+            showNotification('Exportando historial de mantenimientos...', 'success');
+            
+            // Simular descarga
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Historial de Mantenimientos SIBIA\n\nFecha\tEquipo\tTipo\tDescripción\tTécnico\tDuración\tCosto\tEstado');
+                link.download = 'historial_mantenimientos_sibia.csv';
+                link.click();
+            }, 1000);
+        }
+
+        // Análisis predictivo
+        function showPredictiveAnalysis() {
+            alert(`Análisis Predictivo de Mantenimiento - SIBIA
+
+📊 Resumen de Predicciones:
+
+🔴 Riesgo Alto (próximos 7 días):
+• Válvula VC-050-01: 96% vida útil
+• Bomba PU-040-02: Vibración anómala detectada
+
+🟡 Riesgo Medio (próximos 30 días):
+• Motor MO-080-01: Temperatura operativa elevada
+• Filtro FI-080-01: Presión diferencial alta
+
+🟢 Estado Óptimo:
+• Sensor TE-040-01: Funcionamiento normal
+• Compresor CO-070-01: Dentro de parámetros
+
+💡 Recomendaciones IA:
+• Programar inspección urgente de VC-050-01
+• Aumentar frecuencia de monitoreo en PU-040-02
+• Considerar reemplazo preventivo de componentes críticos
+
+Esta funcionalidad se integraría con tu sistema de sensores y algoritmos de ML para predicciones más precisas.`);
+        }
+
+        // Simular actualización de datos en tiempo real
+        function simulateRealTimeUpdates() {
+            setInterval(() => {
+                // Actualizar vida útil de componentes (simulado)
+                const lifespanBars = document.querySelectorAll('.lifespan-bar');
+                lifespanBars.forEach(bar => {
+                    const currentWidth = parseInt(bar.style.width);
+                    if (currentWidth < 100) {
+                        const newWidth = currentWidth + (Math.random() * 0.1);
+                        bar.style.width = Math.min(newWidth, 100) + '%';
+                        
+                        // Actualizar clase de color
+                        if (newWidth > 90) {
+                            bar.className = 'lifespan-bar critical';
+                        } else if (newWidth > 70) {
+                            bar.className = 'lifespan-bar warning';
+                        } else {
+                            bar.className = 'lifespan-bar good';
+                        }
+                        
+                        // Actualizar porcentaje
+                        const percentageElement = bar.closest('.lifespan-item').querySelector('.lifespan-percentage');
+                        percentageElement.textContent = Math.round(newWidth) + '%';
+                    }
+                });
+                
+                // Simular nueva alerta crítica ocasionalmente
+                if (Math.random() < 0.1) { // 10% probabilidad cada minuto
+                    showNotification('⚠️ Alerta: Componente requiere atención inmediata', 'error');
+                }
+            }, 60000); // Cada minuto
+        }
+
+        // Integración con tu sistema SCADA existente
+        function connectToSCADA() {
+            // Esta función se conectaría con tus endpoints existentes
+            console.log('Conectando con sistema SCADA...');
+            
+            // Ejemplo de integración:
+            // fetch('/sensores_criticos_resumen')
+            //     .then(r => r.json())
+            //     .then(data => updateMaintenanceAlerts(data));
+            
+            // fetch('/obtener_horas_operacion')
+            //     .then(r => r.json())
+            //     .then(data => updateLifespanCalculations(data));
+        }
+
+        // Funciones para integrar con tu código existente
+        function updateMaintenanceAlerts(sensorData) {
+            // Analizar datos de sensores para generar alertas de mantenimiento
+            Object.entries(sensorData.sensores || {}).forEach(([tag, sensor]) => {
+                if (sensor.estado === 'CRITICO') {
+                    // Generar alerta de mantenimiento urgente
+                    const equipment = getEquipmentFromTag(tag);
+                    showNotification(`Mantenimiento urgente requerido: ${equipment}`, 'error');
+                }
+            });
+        }
+
+        function getEquipmentFromTag(tag) {
+            // Mapear tags de sensores a equipos
+            const tagToEquipment = {
+                '040PT01': 'Bomba Recirculación PU-040-01',
+                '050PT01': 'Bomba Recirculación PU-050-01',
+                '040TT01': 'Sensor Temperatura TE-040-01',
+                // Agregar más mapeos según tu sistema
+            };
+            return tagToEquipment[tag] || tag;
+        }
+
+        // Inicializar módulo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Módulo de Mantenimiento SIBIA inicializado');
+            
+            initializeCalendar();
+            simulateRealTimeUpdates();
+            connectToSCADA();
+            
+            // Mostrar notificación de bienvenida
+            setTimeout(() => {
+                showNotification('Módulo de mantenimiento cargado correctamente', 'success');
+            }, 1000);
+        });
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNewMaintenanceModal();
+            }
+        });
+    </script>
+</body>
+</html>

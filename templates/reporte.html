@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Informe General de Planta - SIBIA{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+    :root {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --background-color: #ecf0f1;
+        --card-bg-color: #ffffff;
+        --text-color: #2c3e50;
+        --header-color: #34495e;
+        --kpi-value-color: #2980b9;
+        --ok-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+    }
+
+    .main-container {
+        background-color: var(--background-color);
+        padding: 25px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background-color: var(--card-bg-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .card-full-width {
+        grid-column: 1 / -1;
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    .card-header .icon {
+        font-size: 24px;
+        color: var(--primary-color);
+    }
+    .card-header h3 {
+        margin: 0;
+        color: var(--header-color);
+        font-size: 1.2rem;
+    }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        text-align: center;
+    }
+    .kpi {
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+    }
+    .kpi-label {
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        margin-bottom: 8px;
+    }
+    .kpi-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--kpi-value-color);
+    }
+    .kpi-unit {
+        font-size: 0.9rem;
+        margin-left: 4px;
+        color: #7f8c8d;
+    }
+
+    .status-badge {
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+    }
+    .status-ok { background-color: var(--ok-color); }
+    .status-warning { background-color: var(--warning-color); }
+    .status-danger { background-color: var(--danger-color); }
+    
+    .list-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .list-item:last-child {
+        border-bottom: none;
+    }
+
+    .gauge-container {
+        position: relative;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .gauge-text {
+        position: absolute;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--header-color);
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: var(--header-color); margin: 0;">📊 Informe General de Operaciones</h1>
+        <span style="font-size: 1rem; color: #7f8c8d;">Actualizado: {{ ahora.strftime('%d/%m/%Y %H:%M:%S') }}</span>
+    </div>
+
+    <div class="grid-container">
+
+        <!-- RESUMEN DEL DÍA -->
+        <div class="card card-full-width">
+            <div class="card-header">
+                <span class="icon">☀️</span>
+                <h3>Resumen del Día ({{ ahora.strftime('%d/%m/%Y') }})</h3>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <div class="kpi-label">Ingresos Totales</div>
+                    <div class="kpi-value">{{ "%.2f"|format(datos_dia.total_tn|default(0)) }}<span class="kpi-unit">Tn</span></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-label">Producción Planificada</div>
+                    <div class="kpi-value">{{ "%.0f"|format(datos_dia.kw_objetivo|default(0)) }}<span class="kpi-unit">kW</span></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-label">Producción Real</div>
+                    <div class="kpi-value">{{ "%.0f"|format(datos_dia.kw_generados_reales|default(0)) }}<span class="kpi-unit">kW</span></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-label">Cumplimiento</div>
+                    <div class="kpi-value">{{ "%.1f"|format(datos_dia.porcentaje_cumplido|default(0)) }}<span class="kpi-unit">%</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- PLANIFICACIÓN VS PRODUCCIÓN SEMANAL -->
+        <div class="card card-full-width">
+            <div class="card-header">
+                <span class="icon">📅</span>
+                <h3>Planificación vs. Producción Semanal</h3>
+            </div>
+            <div class="chart-container">
+                <canvas id="produccionSemanalChart"></canvas>
+            </div>
+    </div>
+
+        <!-- ESTADO DE GASES -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">💨</span>
+                <h3>Estado de Gases</h3>
+            </div>
+            <div>
+                {% if datos_gases and datos_gases['Bio-040'] and datos_gases['Bio-050'] %}
+                {% for bio in ['Bio-040', 'Bio-050'] %}
+                <h4>{{ bio }}</h4>
+                <div class="kpi-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="kpi">
+                        <div class="kpi-label">Metano (CH4)</div>
+                        <div class="kpi-value">{{ "%.1f"|format(datos_gases[bio]['ch4']|default(0)) }}<span class="kpi-unit">%</span></div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-label">Sulfhídrico (H2S)</div>
+                        <div class="kpi-value">{{ "%.0f"|format(datos_gases[bio]['h2s']|default(0)) }}<span class="kpi-unit">ppm</span></div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>Datos de gases no disponibles.</p>
+                {% endif %}
+            </div>
+    </div>
+
+        <!-- RESUMEN DE ENERGÍA -->
+        <div class="card">
+            <div class="card-header">
+                <span class="icon">⚡</span>
+                <h3>Resumen de Energía</h3>
+            </div>
+             {% if resumen_energia %}
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <div class="kpi-label">Producción Total</div>
+                    <div class="kpi-value">{{ "%.0f"|format(resumen_energia.produccion_total|default(0)) }}<span class="kpi-unit">kW</span></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-label">Inyectado a Red</div>
+                    <div class="kpi-value">{{ "%.0f"|format(resumen_energia.inyectado_red|default(0)) }}<span class="kpi-unit">kW</span></div>
+                </div>
+            </div>
+            <div class="chart-container" style="height: 200px; margin-top: 20px;">
+                <canvas id="energiaChart"></canvas>
+    </div>
+            {% else %}
+            <p>Datos de energía no disponibles.</p>
+    {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Helper para verificar si los datos del gráfico son válidos
+    function isValidChartData(data) {
+        return data && Array.isArray(data) && data.length > 0;
+    }
+
+    // 1. Gráfico de Producción Semanal
+    try {
+        const planificacionData = JSON.parse('{{ planificacion.planificacion|tojson|safe }}');
+        const produccionData = JSON.parse('{{ planificacion.produccion|tojson|safe }}');
+        const labels = JSON.parse('{{ planificacion.labels|tojson|safe }}');
+
+        if (isValidChartData(labels)) {
+            const ctxSemanal = document.getElementById('produccionSemanalChart').getContext('2d');
+            new Chart(ctxSemanal, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Producción Planificada (kW)',
+                            data: planificacionData,
+                            backgroundColor: 'rgba(52, 152, 219, 0.6)',
+                            borderColor: 'rgba(52, 152, 219, 1)',
+                            borderWidth: 1,
+                            type: 'line',
+                            tension: 0.3,
+                            pointRadius: 4,
+                            fill: false
+                        },
+                        {
+                            label: 'Producción Real (kW)',
+                            data: produccionData,
+                            backgroundColor: 'rgba(46, 204, 113, 0.8)',
+                            borderColor: 'rgba(46, 204, 113, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Producción (kW)' } } },
+                    plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false } }
+                }
+            });
+        }
+    } catch (e) {
+        console.error("Error al renderizar el gráfico semanal:", e);
+    }
+
+    // 2. Gráfico de Distribución de Energía
+    try {
+        const energiaProducida = parseFloat('{{ resumen_energia.produccion_total|default(0) }}');
+        const energiaInyectada = parseFloat('{{ resumen_energia.inyectado_red|default(0) }}');
+        
+        if (energiaProducida > 0) {
+            const consumoPlanta = energiaProducida - energiaInyectada;
+            const ctxEnergia = document.getElementById('energiaChart').getContext('2d');
+            new Chart(ctxEnergia, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Inyectado a Red', 'Consumo de Planta'],
+                    datasets: [{
+                        data: [energiaInyectada, consumoPlanta],
+                        backgroundColor: ['#2ecc71', '#f39c12'],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('es-AR', { style: 'decimal' }).format(context.parsed) + ' kW';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    } catch (e) {
+        console.error("Error al renderizar el gráfico de energía:", e);
+    }
+});
+</script>
+{% endblock %} 
