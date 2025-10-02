@@ -1,0 +1,26 @@
+{
+    "kw_objetivo": 28800.0,
+    "porcentaje_solidos": 70,
+    "porcentaje_liquidos": 30,
+    "num_biodigestores": 4,
+    "habilitar_evolucion": true,
+    "tolerancia_kw": 25,
+    "max_materiales_solidos": 12,
+    "max_materiales_liquidos": 12,
+    "modo_rapido_auto": true,
+    "max_rapido_solidos": 4,
+    "max_rapido_liquidos": 4,
+    "cuota_min_purin_liquidos": 0.05,
+    "capacidad_max_solidos_tn": 45,
+    "capacidad_max_liquidos_tn": 125,
+    "compensacion_dinamica": true,
+    "compensacion_porcentaje": 10,
+    "ultima_actualizacion": "",
+    "parametros_quimicos": {
+        "rango_metano": {
+            "min": 50,
+            "max": 70,
+            "objetivo": 65
+        }
+    }
+} 

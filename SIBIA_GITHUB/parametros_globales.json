@@ -1,0 +1,22 @@
+{
+    "kw_objetivo": 28800.0,
+    "num_biodigestores": 2,
+    "porcentaje_purin": 0.1,
+    "porcentaje_liquidos": 0.4,
+    "porcentaje_solidos": 0.6,
+    "porcentaje_sa7_reemplazo": 0.0,
+    "kw_generacion_sa7": 694.0,
+    "max_materiales_solidos": 5,
+    "min_materiales_solidos": 2,
+    "max_porcentaje_material": 0.6,
+    "factor_correccion_purin": 0.8,
+    "factor_correccion_formato_numerico": 0.001,
+    "consumo_chp_global": 505.0,
+    "compensacion_automatica_diaria": true,
+    "objetivo_metano_diario": 70.0,
+    "usar_optimizador_metano": true,
+    "compensacion_automatica": true,
+    "kw_objetivo_total": 35000.0,
+    "biodigestores": 3,
+    "consumo_chp": 504.0
+}

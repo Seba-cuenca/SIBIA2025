@@ -1,0 +1,84 @@
+@app.route('/api/calcular/energia', methods=['POST'])
+def calcular_energia_con_formula():
+    """Endpoint que retorna cálculo con fórmula"""
+    data = request.get_json()
+    
+    cantidad = data.get('cantidad')
+    material = data.get('material')
+    
+    # Obtener rendimiento del material
+    props = obtener_propiedades_material(material)
+    kw_tn = props.get('kw_tn', 0)
+    
+    # Calcular con fórmula
+    formula = sistema_formulas.calcular_energia_material(cantidad, kw_tn, material)
+    
+    # Calcular equivalencia hogares
+    formula_hogares = sistema_formulas.calcular_equivalencia_hogares(formula.resultado)
+    
+    return jsonify({
+        'exito': True,
+        'resultado': formula.resultado,
+        'unidad': formula.unidad,
+        'formula': {
+            'nombre': formula.nombre,
+            'formula_texto': formula.formula_texto,
+            'variables': formula.variables,
+            'pasos': formula.pasos,
+            'descripcion': formula.descripcion
+        },
+        'equivalencia_hogares': formula_hogares.resultado,
+        'energia_diaria_kwh': formula.resultado * 24
+    })
+
+@app.route('/api/calcular/prediccion', methods=['POST'])
+def calcular_prediccion_con_formulas():
+    """Endpoint para predicción con todas las fórmulas"""
+    data = request.get_json()
+    
+    temperatura = data.get('temperatura', 37.0)
+    presion = data.get('presion', 1.2)
+    energia_base = data.get('energia_base', 1000)
+    
+    # Calcular con fórmulas
+    formula_pred, formula_temp, formula_pres = sistema_formulas.calcular_prediccion_xgboost(
+        energia_base, temperatura, presion
+    )
+    
+    return jsonify({
+        'exito': True,
+        'prediccion_kwh': formula_pred.resultado,
+        'formulas': {
+            'temperatura': {
+                'factor': formula_temp.resultado,
+                'pasos': formula_temp.pasos,
+                'descripcion': formula_temp.descripcion
+            },
+            'presion': {
+                'factor': formula_pres.resultado,
+                'pasos': formula_pres.pasos,
+                'descripcion': formula_pres.descripcion
+            },
+            'prediccion': {
+                'formula': formula_pred.formula_texto,
+                'pasos': formula_pred.pasos,
+                'variables': formula_pred.variables
+            }
+        },
+        'confianza': 0.92
+    })
+
+@app.route('/api/formulas/listado', methods=['GET'])
+def obtener_listado_formulas():
+    """Endpoint que lista todas las fórmulas disponibles"""
+    return jsonify({
+        'formulas': [
+            {
+                'id': key,
+                'nombre': value['nombre'],
+                'formula_texto': value['formula_texto'],
+                'descripcion': value['descripcion']
+            }
+            for key, value in sistema_formulas.formulas_definidas.items()
+        ]
+    })

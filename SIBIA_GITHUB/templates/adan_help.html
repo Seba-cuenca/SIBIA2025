@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - Adán | Sistema SIBIA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1d2e;
+            color: #ffffff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-adan {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header-adan h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .help-section {
+            background: #252a3f;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+        
+        .help-content {
+            line-height: 1.6;
+        }
+        
+        .help-content h3 {
+            color: #4ecdc4;
+            margin: 20px 0 10px 0;
+        }
+        
+        .help-content p {
+            margin-bottom: 15px;
+        }
+        
+        .help-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .help-content li {
+            margin-bottom: 8px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid #4ecdc4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning-box {
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .code-block {
+            background: #1a1d2e;
+            border: 1px solid #3a4052;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .step {
+            background: #1a1d2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .step-number {
+            background: #4ecdc4;
+            color: #1a1d2e;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header de Adán -->
+        <div class="header-adan">
+            <h1>❓ Ayuda de Adán</h1>
+            <p>Guía completa para usar la calculadora avanzada</p>
+        </div>
+        
+        <!-- Navegación -->
+        <div class="nav-buttons">
+            <a href="/adan" class="nav-btn">🧮 Calculadora</a>
+            <a href="/adan/configuracion" class="nav-btn">⚙️ Configuración</a>
+            <a href="/" class="nav-btn">🏠 Volver a SIBIA</a>
+        </div>
+        
+        <!-- Introducción -->
+        <div class="help-section">
+            <div class="section-title">🚀 ¿Qué es Adán?</div>
+            <div class="help-content">
+                <p><strong>Adán</strong> es la calculadora avanzada del Sistema SIBIA, diseñada específicamente para optimizar mezclas de biodigestores anaerobios con motores de cogeneración.</p>
+                
+                <p>Utiliza métodos científicos validados internacionalmente para calcular la producción óptima de energía eléctrica a partir de sustratos orgánicos.</p>
+                
+                <div class="info-box">
+                    <h3>🎯 Características Principales:</h3>
+                    <ul>
+                        <li><strong>Modo Energético:</strong> Maximiza la generación de kWh</li>
+                        <li><strong>Modo Volumétrico:</strong> Considera proporciones físicas balanceadas</li>
+                        <li><strong>Integración Excel:</strong> Lee datos de materiales desde DIETA SEBA.xlsx</li>
+                        <li><strong>Motor Jenbacher J420:</strong> Optimizado para este motor específico</li>
+                        <li><strong>Validación Científica:</strong> Basado en ecuaciones de Buswell y Boyle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modos de Cálculo -->
+        <div class="help-section">
+            <div class="section-title">⚡ Modos de Cálculo</div>
+            <div class="help-content">
+                <h3>🔋 Modo Energético</h3>
+                <p>Optimiza la mezcla para <strong>máxima generación de energía eléctrica</strong> sin considerar restricciones de proporciones físicas.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Selección:</strong> Ordena materiales por kWh/Tn (descendente)
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Cálculo:</strong> Selecciona los mejores materiales hasta alcanzar el objetivo
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Resultado:</strong> Mezcla con máxima eficiencia energética
+                </div>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Consideraciones:</strong> Puede generar mezclas desequilibradas físicamente, con riesgo de sedimentación o flotación.
+                </div>
+                
+                <h3>🧪 Modo Volumétrico</h3>
+                <p>Considera las <strong>proporciones físicas</strong> entre sólidos, líquidos y purín para una digestión óptima.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Purín:</strong> Calcula aporte energético del purín disponible
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Distribución:</strong> Divide kWh restantes según porcentajes definidos
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Selección:</strong> Mejores materiales de cada categoría respetando proporciones
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Resultado:</strong> Mezcla balanceada físicamente
+                </div>
+                
+                <div class="info-box">
+                    <strong>✅ Beneficios:</strong> Mejor homogeneización, menor riesgo de inhibición, mayor estabilidad del proceso.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Parámetros de Entrada -->
+        <div class="help-section">
+            <div class="section-title">📊 Parámetros de Entrada</div>
+            <div class="help-content">
+                <h3>🔧 Configuración del Motor</h3>
+                <ul>
+                    <li><strong>Consumo CHP:</strong> Consumo de biogás del motor (L/s)</li>
+                    <li><strong>KW Objetivo:</strong> Energía eléctrica objetivo diaria (kWh)</li>
+                    <li><strong>Metano Objetivo:</strong> Porcentaje de CH4 en el biogás (%)</li>
+                </ul>
+                
+                <h3>🧪 Parámetros de Mezcla</h3>
+                <ul>
+                    <li><strong>Cantidad de Materiales:</strong> Número de materiales en la mezcla (3-8)</li>
+                    <li><strong>Incluir Purín:</strong> Activar/desactivar uso de purín</li>
+                    <li><strong>m³ de Purín:</strong> Cantidad de purín disponible (m³)</li>
+                </ul>
+                
+                <h3>📈 Parámetros Volumétricos</h3>
+                <ul>
+                    <li><strong>% Sólidos:</strong> Porcentaje de energía de materiales sólidos</li>
+                    <li><strong>% Líquidos:</strong> Porcentaje de energía de materiales líquidos</li>
+                    <li><strong>% Purín:</strong> Porcentaje de energía del purín</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Interpretación de Resultados -->
+        <div class="help-section">
+            <div class="section-title">📋 Interpretación de Resultados</div>
+            <div class="help-content">
+                <h3>📊 Estadísticas Principales</h3>
+                <ul>
+                    <li><strong>kWh Generados:</strong> Energía eléctrica total calculada</li>
+                    <li><strong>Cumplimiento:</strong> Porcentaje del objetivo alcanzado</li>
+                    <li><strong>Total Toneladas:</strong> Peso total de la mezcla</li>
+                    <li><strong>m³ Biogás:</strong> Volumen total de biogás generado</li>
+                    <li><strong>m³ CH4:</strong> Volumen de metano puro</li>
+                    <li><strong>Horas Operación:</strong> Tiempo de funcionamiento del motor</li>
+                </ul>
+                
+                <h3>📈 Proporciones Visuales</h3>
+                <p>La barra de proporciones muestra la distribución física de la mezcla:</p>
+                <ul>
+                    <li><strong>🔴 Rojo:</strong> Materiales sólidos</li>
+                    <li><strong>🔵 Azul:</strong> Materiales líquidos</li>
+                    <li><strong>🟡 Amarillo:</strong> Purín</li>
+                </ul>
+                
+                <h3>📋 Tabla de Dosificación</h3>
+                <p>Cada material muestra:</p>
+                <ul>
+                    <li><strong>Toneladas:</strong> Cantidad a usar</li>
+                    <li><strong>% Mezcla:</strong> Porcentaje en la mezcla total</li>
+                    <li><strong>kWh Total:</strong> Contribución energética</li>
+                    <li><strong>Datos Lab:</strong> Composición química detallada</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Métodos Científicos -->
+        <div class="help-section">
+            <div class="section-title">🔬 Fundamentos Científicos</div>
+            <div class="help-content">
+                <h3>📐 Ecuación de Buswell</h3>
+                <p>Método estándar internacional para calcular potencial teórico de metano basado en composición elemental.</p>
+                
+                <div class="code-block">
+CₙHₐOᵦNᶜ + (n - a/4 - b/2 + 3c/4)H₂O → 
+(n/2 + a/8 - b/4 - 3c/8)CH₄ + (n/2 - a/8 + b/4 + 3c/8)CO₂ + cNH₃
+                </div>
+                
+                <h3>⚗️ Método de Boyle</h3>
+                <p>Cálculo simplificado basado en macronutrientes fácilmente medibles:</p>
+                
+                <div class="code-block">
+CH₄ (m³/kg SV) = (Carb% × 0.415) + (Líp% × 1.014) + (Prot% × 0.496)
+                </div>
+                
+                <h3>🔬 Coeficientes Validados</h3>
+                <ul>
+                    <li><strong>Carbohidratos:</strong> 0.415 m³ CH₄/kg SV</li>
+                    <li><strong>Lípidos:</strong> 1.014 m³ CH₄/kg SV</li>
+                    <li><strong>Proteínas:</strong> 0.496 m³ CH₄/kg SV</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>✅ Validación:</strong> Los cálculos teóricos muestran desviaciones menores al 5% con respecto a pruebas experimentales BMP.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Solución de Problemas -->
+        <div class="help-section">
+            <div class="section-title">🔧 Solución de Problemas</div>
+            <div class="help-content">
+                <h3>❌ Error: "No se pueden cargar materiales"</h3>
+                <p><strong>Causa:</strong> El archivo DIETA SEBA.xlsx no se encuentra o tiene formato incorrecto.</p>
+                <p><strong>Solución:</strong> Verificar que el archivo Excel esté en el directorio raíz del proyecto.</p>
+                
+                <h3>⚠️ Cumplimiento bajo (< 80%)</h3>
+                <p><strong>Causa:</strong> Stock insuficiente de materiales de alto rendimiento.</p>
+                <p><strong>Solución:</strong> Aumentar stock de materiales o reducir objetivo energético.</p>
+                
+                <h3>🔄 Mezcla desequilibrada</h3>
+                <p><strong>Causa:</strong> Modo energético puede generar proporciones extremas.</p>
+                <p><strong>Solución:</strong> Cambiar a modo volumétrico con porcentajes balanceados.</p>
+                
+                <h3>📊 Resultados inconsistentes</h3>
+                <p><strong>Causa:</strong> Parámetros del motor incorrectos.</p>
+                <p><strong>Solución:</strong> Verificar configuración del motor en la página de configuración.</p>
+            </div>
+        </div>
+        
+        <!-- Contacto -->
+        <div class="help-section">
+            <div class="section-title">📞 Soporte Técnico</div>
+            <div class="help-content">
+                <p>Para soporte técnico adicional o reportar problemas:</p>
+                <ul>
+                    <li><strong>Sistema SIBIA:</strong> Departamento Técnico</li>
+                    <li><strong>Documentación:</strong> Consultar informe técnico científico</li>
+                    <li><strong>Actualizaciones:</strong> El sistema se actualiza automáticamente</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>💡 Tip:</strong> Guarda tus configuraciones personalizadas para uso futuro. El sistema recuerda tus preferencias.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

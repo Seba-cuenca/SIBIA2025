@@ -1,0 +1,149 @@
+<style>
+.formula-container {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.formula-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.formula-badge {
+    background: #007bff;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.formula-texto {
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.formula-texto code {
+    color: #d63384;
+    font-weight: bold;
+}
+
+.formula-pasos {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.formula-pasos pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-size: 13px;
+}
+
+.resultado-valor {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.btn-ver-formula {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.btn-ver-formula:hover {
+    background: #5a6268;
+}
+
+.formula-collapsed {
+    display: none;
+}
+
+.formula-expanded {
+    display: block;
+}
+</style>
+
+<script>
+// Parsear respuesta y extraer fórmulas
+function mostrarRespuestaConFormulas(data) {
+    const container = document.getElementById('respuesta-container');
+    
+    // Detectar si hay fórmulas en la respuesta
+    if (data.respuesta.includes('FÓRMULA UTILIZADA:') || 
+        data.respuesta.includes('PASOS:')) {
+        
+        // Crear estructura HTML con fórmula colapsable
+        const html = `
+            <div class="respuesta-principal">
+                ${formatearRespuesta(data.respuesta)}
+            </div>
+            <button class="btn-ver-formula" onclick="toggleFormula()">
+                📐 Ver Fórmula Detallada
+            </button>
+            <div id="formula-detalle" class="formula-collapsed">
+                ${extraerFormula(data.respuesta)}
+            </div>
+        `;
+        
+        container.innerHTML = html;
+    } else {
+        container.innerHTML = data.respuesta;
+    }
+}
+
+function formatearRespuesta(texto) {
+    // Resaltar el resultado final
+    texto = texto.replace(
+        /\*\*RESULTADO FINAL: ([\d.]+) KW\*\*/g,
+        '<div class="resultado-destacado">🎯 RESULTADO: <span class="resultado-valor">$1 KW</span></div>'
+    );
+    
+    // Resaltar fórmulas
+    texto = texto.replace(
+        /\*\*FÓRMULA UTILIZADA:\*\*\n(.+)/g,
+        '<div class="formula-inline"><strong>Fórmula:</strong> <code>$1</code></div>'
+    );
+    
+    return texto.replace(/\n/g, '<br>');
+}
+
+function extraerFormula(texto) {
+    // Extraer sección de pasos detallados
+    const match = texto.match(/PASOS:\n([\s\S]+?)\n\n/);
+    if (match) {
+        return `<pre>${match[1]}</pre>`;
+    }
+    return '<pre>Fórmula no disponible</pre>';
+}
+
+function toggleFormula() {
+    const detalle = document.getElementById('formula-detalle');
+    const btn = document.querySelector('.btn-ver-formula');
+    
+    if (detalle.classList.contains('formula-collapsed')) {
+        detalle.classList.remove('formula-collapsed');
+        detalle.classList.add('formula-expanded');
+        btn.textContent = '📐 Ocultar Fórmula';
+    } else {
+        detalle.classList.add('formula-collapsed');
+        detalle.classList.remove('formula-expanded');
+        btn.textContent = '📐 Ver Fórmula Detallada';
+    }
+}
+</script>

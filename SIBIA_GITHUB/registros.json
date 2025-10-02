@@ -1,0 +1,427 @@
+[
+    {
+        "fecha": "2025-06-12 14:42:45",
+        "material": "lactosa",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 12.0,
+        "operario": "Gustavo",
+        "patente": "huy890",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "0a6a287b-cc61-40ad-a457-5913d6e323ad"
+    },
+    {
+        "fecha": "2025-06-12 14:43:08",
+        "material": "Suero/Lactosa",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 12.0,
+        "operario": "Gustavo",
+        "patente": "huy890",
+        "empresa": "DESA",
+        "id_registro": "59cb05ce-b04a-4cd6-92f6-fd21fac6b800"
+    },
+    {
+        "fecha": "2025-06-12 14:51:12",
+        "material": "Gomas vegetales",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 45.0,
+        "operario": "Gustavo",
+        "patente": "JUHYTRE",
+        "empresa": "RASCA",
+        "id_registro": "f54cdcc6-e79c-4d96-b811-06ca115a85f6"
+    },
+    {
+        "fecha": "2025-06-12 15:01:18",
+        "material": "Descarte de grano",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 56.0,
+        "operario": "Gustavo",
+        "patente": "JUHYTRE",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "19b28b16-f7af-4dc2-acc7-d9caaa7d3f7c"
+    },
+    {
+        "fecha": "2025-06-12 15:02:14",
+        "material": "Gomas vegetales",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 45.0,
+        "operario": "Gustavo",
+        "patente": "huy890",
+        "empresa": "DESA",
+        "id_registro": "1111b5b3-5e42-4852-90dd-2897e866fb82"
+    },
+    {
+        "fecha": "2025-06-13 14:24:29",
+        "material": "Rumen",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 45.0,
+        "operario": "JUAN",
+        "patente": "MUX702",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "11859b92-8dd5-4f9f-bd61-0c491978d93b"
+    },
+    {
+        "fecha": "2025-06-13 16:05:30",
+        "material": "Descarte de grano",
+        "tn_descargadas": 1.0,
+        "st_analizado": 13.0,
+        "operario": "Gustavo",
+        "patente": "JUHYTRE",
+        "empresa": "MARIAELENA",
+        "id_registro": "993bf9d5-0693-45df-b31d-a5fad932fc9d"
+    },
+    {
+        "fecha": "2025-06-01T10:11:48.570117",
+        "material": "Rumen",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 35.0,
+        "operario": "agustin",
+        "patente": "MUX702",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "20250601101148570079"
+    },
+    {
+        "fecha": "2025-06-01T10:12:10.281294",
+        "material": "Grasa - Frigorifico La Anonima",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 5.0,
+        "operario": "agustin",
+        "patente": "TRE545",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "20250601101210281258"
+    },
+    {
+        "fecha": "2025-06-01T10:13:49.341526",
+        "material": "Gomas vegetales",
+        "tn_descargadas": 140.0,
+        "st_analizado": 55.0,
+        "operario": "JUAN",
+        "patente": "JUHYTRE",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "20250601101349341489"
+    },
+    {
+        "fecha": "2025-06-01T10:14:07.646901",
+        "material": "SA 7",
+        "tn_descargadas": 145678.0,
+        "st_analizado": 34.0,
+        "operario": "agustin",
+        "patente": "JUH345",
+        "empresa": "DESA",
+        "id_registro": "20250601101407646861"
+    },
+    {
+        "fecha": "2025-06-01T10:14:24.615903",
+        "material": "lactosa",
+        "tn_descargadas": 145678.0,
+        "st_analizado": 12.0,
+        "operario": "agustin",
+        "patente": "JUHYTRE",
+        "empresa": "RASCA",
+        "id_registro": "20250601101424615865"
+    },
+    {
+        "fecha": "2025-06-01T10:14:42.575706",
+        "material": "purin",
+        "tn_descargadas": 3535345.0,
+        "st_analizado": 4.0,
+        "operario": "agustin",
+        "patente": "huy890",
+        "empresa": "RESA",
+        "id_registro": "20250601101442575661"
+    },
+    {
+        "fecha": "2025-06-13 16:11:17",
+        "material": "Descarte de grano",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 45.0,
+        "operario": "Gustavo",
+        "patente": "huy890",
+        "empresa": "MARIAELENA",
+        "id_registro": "04480089-5a52-44c2-8d4d-6b3cfd3fc1a1"
+    },
+    {
+        "fecha": "2025-06-13 16:20:06",
+        "material": "SA 7",
+        "tn_descargadas": 15.0,
+        "st_analizado": 45.0,
+        "operario": "JUAN",
+        "patente": "MUX702",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "c22e9eb2-3821-45c5-b9f2-392d05525e61"
+    },
+    {
+        "fecha": "2025-06-13 16:20:50",
+        "material": "SA5-SA6 20-80",
+        "tn_descargadas": 1.0,
+        "st_analizado": 3.0,
+        "operario": "JUAN",
+        "patente": "MUX702",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "c152d6df-ee0f-4d3a-9372-1ff485b7481f"
+    },
+    {
+        "fecha": "2025-06-13 16:23:25",
+        "material": "Decomiso mucanga",
+        "tn_descargadas": 1.0,
+        "st_analizado": 67.0,
+        "operario": "JUAN",
+        "patente": "MUX702",
+        "empresa": "TRANSCEREAL",
+        "id_registro": "ce4d3928-39b2-4e19-869d-8730fa82f7ea"
+    },
+    {
+        "fecha": "2025-06-13 16:24:51",
+        "material": "Silaje de Maiz",
+        "tn_descargadas": 1.0,
+        "st_analizado": 5.0,
+        "operario": "JUAN",
+        "patente": "MUX702",
+        "empresa": "SEBA",
+        "id_registro": "fc53d0fc-c61a-4658-99dd-dd247933a2d1"
+    },
+    {
+        "fecha": "2025-06-14 13:04:11",
+        "material": "lactosa",
+        "tn_descargadas": 13123.0,
+        "st_analizado": 12.0,
+        "operario": "Gustavo",
+        "patente": "JUHYTRE",
+        "empresa": "DESA",
+        "id_registro": "83078cb3-222c-48ca-b498-0728b0691e12"
+    },
+    {
+        "fecha": "2025-09-10",
+        "timestamp": "2025-09-10T18:51:50.191573",
+        "patente": "arr432",
+        "material": "Grasa - Frigorifico La Anonima",
+        "tn_descargadas": 45.0,
+        "st_analizado": 53.0,
+        "empresa": "",
+        "operario": ""
+    },
+    {
+        "fecha": "2025-09-17",
+        "timestamp": "2025-09-17T16:50:24.847553",
+        "patente": "ret345",
+        "material": "Gomas vegetales",
+        "tn_descargadas": 45.0,
+        "st_analizado": 55.0,
+        "empresa": "Dashboard Híbrido",
+        "operario": "Usuario Dashboard"
+    },
+    {
+        "fecha": "2025-09-18",
+        "timestamp": "2025-09-18T15:03:16.682769",
+        "patente": "DER456",
+        "material": "Decomiso mucanga",
+        "tn_descargadas": 23400.0,
+        "st_analizado": 45.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-18",
+        "timestamp": "2025-09-18T15:04:07.289804",
+        "patente": "TYU342",
+        "material": "Descarte de grano",
+        "tn_descargadas": 3453534.0,
+        "st_analizado": 89.0,
+        "empresa": "RETA",
+        "operario": "JUAN PERESZ"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T08:38:55.056331",
+        "patente": "DER456",
+        "material": "Decomiso mucanga",
+        "tn_descargadas": 3453.0,
+        "st_analizado": 57.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T08:39:40.069783",
+        "patente": "arr432",
+        "material": "Decomiso mucanga",
+        "tn_descargadas": 34535.0,
+        "st_analizado": 78.0,
+        "empresa": "traful",
+        "operario": "GUTH"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T09:04:02.204632",
+        "patente": "RED",
+        "material": "purin",
+        "tn_descargadas": 52352353.0,
+        "st_analizado": 45.0,
+        "empresa": "RETA",
+        "operario": "HUGO"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T09:11:07.215665",
+        "patente": "DERT",
+        "material": "Silaje de Maiz",
+        "tn_descargadas": 45678.0,
+        "st_analizado": 57.0,
+        "empresa": "traful",
+        "operario": "TREJO"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T09:17:46.852574",
+        "patente": "arr436",
+        "material": "SA5-SA6 20-80",
+        "tn_descargadas": 23000.0,
+        "st_analizado": 40.0,
+        "empresa": "ANTON",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T09:33:29.673602",
+        "patente": "arr436",
+        "material": "Silaje de Maiz",
+        "tn_descargadas": 23000.0,
+        "st_analizado": 56.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T09:38:12.369979",
+        "patente": "arr436",
+        "material": "Lactosa",
+        "tn_descargadas": 1200.0,
+        "st_analizado": 17.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T15:04:27.865748",
+        "patente": "arr432",
+        "material": "Silaje de Maiz",
+        "tn_descargadas": 344.0,
+        "st_analizado": 80.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-22",
+        "timestamp": "2025-09-22T17:43:49.917932",
+        "patente": "arr436",
+        "material": "Silaje de Maiz A5",
+        "tn_descargadas": 3434.0,
+        "st_analizado": 34.0,
+        "empresa": "traful",
+        "operario": "roberto casas",
+        "numero_remito": "0034"
+    },
+    {
+        "fecha": "2025-09-24",
+        "timestamp": "2025-09-24T14:45:08.368016",
+        "patente": "456",
+        "material": "Lactosa",
+        "tn_descargadas": 25235252.0,
+        "st_analizado": 14.0,
+        "empresa": "rete",
+        "operario": "juan perez"
+    },
+    {
+        "fecha": "2025-09-24",
+        "timestamp": "2025-09-24T14:46:49.011299",
+        "patente": "243242",
+        "material": "Gomas vegetales",
+        "tn_descargadas": 34242424.0,
+        "st_analizado": 56.0,
+        "empresa": "tre",
+        "operario": "osvaldo"
+    },
+    {
+        "fecha": "2025-09-25",
+        "timestamp": "2025-09-25T16:05:50.807948",
+        "patente": "rete76657",
+        "material": "materiales",
+        "tn_descargadas": 123123.0,
+        "st_analizado": 121.0,
+        "empresa": "reta",
+        "operario": "juan"
+    },
+    {
+        "fecha": "2025-09-25",
+        "timestamp": "2025-09-25T16:55:27.739885",
+        "patente": "ABC123",
+        "material": "caca de perro",
+        "tn_descargadas": 23.0,
+        "st_analizado": 67.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-25",
+        "timestamp": "2025-09-25T16:57:01.323834",
+        "patente": "arr436",
+        "material": "nuevo_material",
+        "tn_descargadas": 1231231.0,
+        "st_analizado": 45.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-25",
+        "timestamp": "2025-09-25T17:01:27.367179",
+        "patente": "arr436",
+        "material": "caca de gato",
+        "tn_descargadas": 121231.0,
+        "st_analizado": 45.0,
+        "empresa": "traful",
+        "operario": "roberto casas"
+    },
+    {
+        "fecha": "2025-09-25",
+        "timestamp": "2025-09-25T19:26:32.369638",
+        "patente": "arr436",
+        "material": "Decomiso mucanga",
+        "tn_descargadas": 654767.0,
+        "st_analizado": 78.0,
+        "empresa": "traful",
+        "operario": "roberto casas",
+        "numero_remito": "90"
+    },
+    {
+        "fecha": "2025-09-29",
+        "timestamp": "2025-09-29T08:34:25.575114",
+        "patente": "RET345",
+        "material": "Vinasa",
+        "tn_descargadas": 345678.0,
+        "st_analizado": 5.0,
+        "empresa": "rte",
+        "operario": "juan carlos foyt",
+        "numero_remito": "0032"
+    },
+    {
+        "fecha": "2025-10-01",
+        "timestamp": "2025-10-01T15:32:33.711333",
+        "patente": "ret2312",
+        "material": "Purin",
+        "tn_descargadas": 1231212.0,
+        "st_analizado": 45.0,
+        "empresa": "reta",
+        "operario": "juan",
+        "numero_remito": "7890"
+    },
+    {
+        "fecha": "2025-10-02",
+        "timestamp": "2025-10-02T13:51:01.980112",
+        "patente": "RET 132",
+        "material": "Lactosa",
+        "tn_descargadas": 232353.0,
+        "st_analizado": 12.0,
+        "empresa": "ARREBEEF",
+        "operario": "JUAN",
+        "numero_remito": "9087"
+    }
+]

@@ -1,0 +1,17 @@
+@app.route('/api/aprendizaje/metricas')
+def metricas_aprendizaje():
+    stats = sistema_aprendizaje.obtener_estadisticas()
+    
+    # Calcular tasa de aprendizaje
+    if stats['total_consultas'] > 0:
+        tasa_aprendizaje = (stats['total_entradas'] / stats['total_consultas']) * 100
+    else:
+        tasa_aprendizaje = 0
+    
+    return jsonify({
+        'entradas_aprendidas': stats['total_entradas'],
+        'consultas_respondidas': stats['total_consultas'],
+        'tasa_aprendizaje': round(tasa_aprendizaje, 2),
+        'confianza_promedio': stats['confianza_promedio'],
+        'mejora_semanal': calcular_mejora_semanal()  # Tu función
+    })
