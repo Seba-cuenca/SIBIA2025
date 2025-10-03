@@ -390,5 +390,38 @@
         "empresa": "traful",
         "operario": "roberto casas",
         "numero_remito": "90"
+    },
+    {
+        "fecha": "2025-09-29",
+        "timestamp": "2025-09-29T08:34:25.575114",
+        "patente": "RET345",
+        "material": "Vinasa",
+        "tn_descargadas": 345678.0,
+        "st_analizado": 5.0,
+        "empresa": "rte",
+        "operario": "juan carlos foyt",
+        "numero_remito": "0032"
+    },
+    {
+        "fecha": "2025-10-01",
+        "timestamp": "2025-10-01T15:32:33.711333",
+        "patente": "ret2312",
+        "material": "Purin",
+        "tn_descargadas": 1231212.0,
+        "st_analizado": 45.0,
+        "empresa": "reta",
+        "operario": "juan",
+        "numero_remito": "7890"
+    },
+    {
+        "fecha": "2025-10-02",
+        "timestamp": "2025-10-02T13:51:01.980112",
+        "patente": "RET 132",
+        "material": "Lactosa",
+        "tn_descargadas": 232353.0,
+        "st_analizado": 12.0,
+        "empresa": "ARREBEEF",
+        "operario": "JUAN",
+        "numero_remito": "9087"
     }
 ]

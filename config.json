@@ -19,8 +19,8 @@
     "parametros_quimicos": {
         "rango_metano": {
             "min": 50,
-            "max": 55,
-            "objetivo": 52
+            "max": 70,
+            "objetivo": 65
         }
     }
 } 

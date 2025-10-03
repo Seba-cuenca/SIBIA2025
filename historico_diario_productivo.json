@@ -1,5 +1,47 @@
 [
     {
+        "fecha": "2025-09-30",
+        "timestamp": "2025-09-30T19:22:19.017368",
+        "kw_objetivo": 28800.0,
+        "kw_planificado": 28771.996098824395,
+        "kw_generado_real": 0.0,
+        "kw_inyectado_real": 0.0,
+        "kw_consumido_planta_real": 0.0,
+        "porcentaje_metano_planificado": 58.08372431885388,
+        "generacion_actual_grafana": 1352.0,
+        "metano_actual_grafana": 53.87,
+        "h2s_actual_grafana": 427.2,
+        "estado_conexion_grafana": "conectado",
+        "diferencia_vs_planificado_kw": -28771.996098824395,
+        "eficiencia_energetica": 0.0,
+        "totales_materiales": {
+            "tn_solidos": 183785.29972846303,
+            "tn_liquidos": 690293.8620636284,
+            "tn_total": 2328624.616337546
+        }
+    },
+    {
+        "fecha": "2025-09-29",
+        "timestamp": "2025-09-29T22:30:49.204057",
+        "kw_objetivo": 28800.0,
+        "kw_planificado": 28771.996098824395,
+        "kw_generado_real": 0.0,
+        "kw_inyectado_real": 0.0,
+        "kw_consumido_planta_real": 0.0,
+        "porcentaje_metano_planificado": 58.08372431885388,
+        "generacion_actual_grafana": 1352.0,
+        "metano_actual_grafana": 53.87,
+        "h2s_actual_grafana": 427.2,
+        "estado_conexion_grafana": "conectado",
+        "diferencia_vs_planificado_kw": -28771.996098824395,
+        "eficiencia_energetica": 0.0,
+        "totales_materiales": {
+            "tn_solidos": 183785.29972846303,
+            "tn_liquidos": 690293.8620636284,
+            "tn_total": 2328624.616337546
+        }
+    },
+    {
         "fecha": "2025-09-28",
         "timestamp": "2025-09-28T23:49:52.180010",
         "kw_objetivo": 28800.0,

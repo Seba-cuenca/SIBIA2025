@@ -1,23 +1,37 @@
 {
-    "optimizacion_genetica": {
-        "modelos_activos": [
-            "xgboost_calculadora",
-            "optimizacion_bayesiana"
-        ],
+    "asistente_ia": {
+        "modelos_activos": ["xgboost_calculadora", "redes_neuronales"],
+        "modelo_principal": "xgboost_calculadora",
+        "fallback": "redes_neuronales",
+        "prioridad": 1,
+        "descripcion": "Asistente IA principal para consultas generales"
+    },
+    "calculadora_energia": {
+        "modelos_activos": ["xgboost_calculadora", "optimizacion_bayesiana"],
         "modelo_principal": "xgboost_calculadora",
         "fallback": "optimizacion_bayesiana",
         "prioridad": 1,
-        "descripcion": "Configuración para optimizacion_genetica",
-        "timestamp": "2025-09-28T20:45:22.356688"
+        "descripcion": "Cálculos de energía KW/TN de materiales"
     },
-    "calculadora_energia": {
-        "modelos_activos": [
-            "xgboost_calculadora"
-        ],
-        "modelo_principal": "xgboost_calculadora",
+    "prediccion_sensores": {
+        "modelos_activos": ["cain_sibia", "redes_neuronales"],
+        "modelo_principal": "cain_sibia",
+        "fallback": "redes_neuronales",
+        "prioridad": 1,
+        "descripcion": "Predicción y análisis de sensores"
+    },
+    "optimizacion_genetica": {
+        "modelos_activos": ["algoritmo_genetico"],
+        "modelo_principal": "algoritmo_genetico",
         "fallback": null,
         "prioridad": 1,
-        "descripcion": "Configuración para calculadora_energia",
-        "timestamp": "2025-09-28T20:45:14.515530"
+        "descripcion": "Optimización de mezclas con algoritmo genético"
+    },
+    "optimizacion_metano": {
+        "modelos_activos": ["optimizacion_bayesiana", "xgboost_calculadora"],
+        "modelo_principal": "optimizacion_bayesiana",
+        "fallback": "xgboost_calculadora",
+        "prioridad": 1,
+        "descripcion": "Optimización específica para alcanzar objetivos de metano"
     }
 }

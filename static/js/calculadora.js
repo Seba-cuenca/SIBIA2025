@@ -159,25 +159,53 @@ function calcularMezcla() {
         return;
     }
     
+    // Obtener valores del formulario
+    const kwObjetivo = parseFloat(document.getElementById('kw-objetivo').value) || 28800;
+    const porcentajeSolidos = parseFloat(document.getElementById('porcentaje-solidos').value) || 40;
+    const porcentajeLiquidos = parseFloat(document.getElementById('porcentaje-liquidos').value) || 40;
+    const porcentajePurin = parseFloat(document.getElementById('porcentaje-purin').value) || 10;
+    const numBiodigestores = parseInt(document.getElementById('num-biodigestores').value) || 2;
+    const objetivoMetano = parseFloat(document.getElementById('objetivo-metano').value) || 65;
+    const cantidadMateriales = document.getElementById('cantidad-materiales').value || '5';
+    const modoCalculo = document.getElementById('modo-calculo').value || 'volumetrico';
+    const incluirPurin = document.getElementById('incluir-purin').checked;
+    
     // Enviar datos al servidor para cálculo
-    fetch(window.location.origin + '/calcular_mezcla_manual', {
+    fetch(window.location.origin + '/calcular_mezcla', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ solidos: datosMateriales.materiales_solidos, liquidos: datosMateriales.materiales_liquidos })
+        body: JSON.stringify({
+            kw_objetivo: kwObjetivo,
+            porcentaje_solidos: porcentajeSolidos,
+            porcentaje_liquidos: porcentajeLiquidos,
+            porcentaje_purin: porcentajePurin,
+            num_biodigestores: numBiodigestores,
+            objetivo_metano: objetivoMetano,
+            cantidad_materiales: cantidadMateriales,
+            modo_calculo: modoCalculo,
+            incluir_purin: incluirPurin
+        })
     })
     .then(response => response.json())
     .then(data => {
         document.getElementById('spinner-calculadora').style.display = 'none';
-        if (data.status === 'error' || !data.resultado) {
-            const errorMessage = data.message || 'Ocurrió un error desconocido.';
+        if (data.status === 'error' || !data.datos) {
+            const errorMessage = data.mensaje || 'Ocurrió un error desconocido.';
             mostrarAlerta(`Error: ${errorMessage}`, 'danger');
             ultimaRespuestaCalculadora = null; // Limpiar en caso de error
         } else {
             mostrarAlerta('Cálculo realizado con éxito.', 'success');
-            mostrarResultadosCalculadora(data.resultado);
-            ultimaRespuestaCalculadora = data.resultado; // Guardar solo la parte del resultado
+            mostrarResultadosCalculadora(data.datos);
+            ultimaRespuestaCalculadora = data.datos; // Guardar solo la parte del resultado
+            
+            // Reproducir audio si está disponible
+            if (data.datos.audio_base64 && data.datos.tts_disponible) {
+                if (window.sibiaVoice) {
+                    window.sibiaVoice.playAudioFromBase64(data.datos.audio_base64, data.datos.mensaje);
+                }
+            }
         }
     })
     .catch(error => {

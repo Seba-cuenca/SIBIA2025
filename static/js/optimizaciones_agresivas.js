@@ -108,7 +108,7 @@ class OptimizacionesAgressivasSIBIA {
             const controller = new AbortController();
             const timeoutSignal = setTimeout(() => controller.abort(), 3000); // 3 segundos
             
-            const response = await fetch('/calcular_mezcla_automatica', {
+            const response = await fetch('/calcular_mezcla', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos),
@@ -180,7 +180,7 @@ class OptimizacionesAgressivasSIBIA {
             const controller = new AbortController();
             setTimeout(() => controller.abort(), 2500);
             
-            const response = await fetch('/calcular_mezcla_automatica', {
+            const response = await fetch('/calcular_mezcla', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos),
@@ -279,13 +279,29 @@ class OptimizacionesAgressivasSIBIA {
     }
 
     obtenerDatosCalculadora() {
+        // Obtener modo de cálculo
+        const modoEnergetico = document.getElementById('adan-modo-energetico')?.checked;
+        const modoCalculo = modoEnergetico ? 'energetico' : 'volumetrico';
+        
+        // Obtener modelos ML seleccionados
+        const modelosSeleccionados = [];
+        if (document.getElementById('adan-ml-xgboost')?.checked) modelosSeleccionados.push('xgboost');
+        if (document.getElementById('adan-ml-redes')?.checked) modelosSeleccionados.push('redes_neuronales');
+        if (document.getElementById('adan-ml-random')?.checked) modelosSeleccionados.push('random_forest');
+        if (document.getElementById('adan-ml-bayesiana')?.checked) modelosSeleccionados.push('optimizacion_bayesiana');
+        if (document.getElementById('adan-ml-genetico')?.checked) modelosSeleccionados.push('algoritmo_genetico');
+        if (document.getElementById('adan-ml-cain')?.checked) modelosSeleccionados.push('cain');
+        
         return {
-            kw_objetivo: parseFloat(document.getElementById('kw-objetivo')?.value || 0),
-            porcentaje_solidos: parseFloat(document.getElementById('porcentaje-solidos')?.value || 0),
-            porcentaje_liquidos: parseFloat(document.getElementById('porcentaje-liquidos')?.value || 0),
-            modo_energetico: document.getElementById('modo-energetico')?.value || 'eficiencia',
-            num_biodigestores: parseInt(document.getElementById('num-biodigestores')?.value || 2),
-            incluir_purin: document.getElementById('incluir-purin')?.checked || false
+            kw_objetivo: parseFloat(document.getElementById('adan-kw-objetivo')?.value || 28800),
+            porcentaje_solidos: parseFloat(document.getElementById('adan-pct-solidos-kw')?.value || 60),
+            porcentaje_liquidos: parseFloat(document.getElementById('adan-pct-liquidos-kw')?.value || 30),
+            porcentaje_purin: parseFloat(document.getElementById('adan-pct-purin-kw')?.value || 10),
+            objetivo_metano: parseFloat(document.getElementById('adan-metano-objetivo')?.value || 65),
+            cantidad_materiales: document.getElementById('adan-num-materiales')?.value || '5',
+            modo_calculo: modoCalculo,
+            incluir_purin: document.getElementById('adan-incluir-purin')?.checked || true,
+            modelos_seleccionados: modelosSeleccionados.length > 0 ? modelosSeleccionados : ['xgboost']
         };
     }
 
@@ -301,7 +317,7 @@ class OptimizacionesAgressivasSIBIA {
     }
 
     mostrarSpinnerCalculadora() {
-        const resultado = document.getElementById('resultado-calc');
+        const resultado = document.getElementById('adan-resultado-calc');
         if (resultado) {
             resultado.style.display = 'block';
             resultado.innerHTML = `
@@ -322,8 +338,8 @@ class OptimizacionesAgressivasSIBIA {
     }
 
     mostrarResultadoCalculadora(resultado) {
-        const resultadoElement = document.getElementById('resultado-calc');
-        if (resultadoElement && resultado.resultado) {
+        const resultadoElement = document.getElementById('adan-resultado-calc');
+        if (resultadoElement && resultado.datos) {
             // Usar la función original para mostrar el resultado
             if (typeof window.mostrarResultadoCalculadoraOriginal === 'function') {
                 window.mostrarResultadoCalculadoraOriginal(resultado);
@@ -331,9 +347,9 @@ class OptimizacionesAgressivasSIBIA {
                 resultadoElement.innerHTML = `
                     <div class="alert alert-success">
                         <h6>✅ Cálculo Completado</h6>
-                        <p>KW Objetivo: ${resultado.resultado.kw_objetivo || 'N/A'}</p>
-                        <p>Materiales Sólidos: ${resultado.resultado.materiales_solidos || 'N/A'} TN</p>
-                        <p>Materiales Líquidos: ${resultado.resultado.materiales_liquidos || 'N/A'} TN</p>
+                        <p>KW Objetivo: ${resultado.datos.totales?.kw_total_generado || 'N/A'}</p>
+                        <p>Materiales Sólidos: ${resultado.datos.totales?.tn_solidos || 'N/A'} TN</p>
+                        <p>Materiales Líquidos: ${resultado.datos.totales?.tn_liquidos || 'N/A'} TN</p>
                     </div>
                 `;
             }
@@ -341,7 +357,7 @@ class OptimizacionesAgressivasSIBIA {
     }
 
     mostrarErrorCalculadora(mensaje) {
-        const resultado = document.getElementById('resultado-calc');
+        const resultado = document.getElementById('adan-resultado-calc');
         if (resultado) {
             resultado.innerHTML = `
                 <div class="alert alert-danger">
@@ -357,7 +373,7 @@ class OptimizacionesAgressivasSIBIA {
         console.log('🛑 Cancelando cálculo de calculadora');
         this.estadoCalculadora = 'libre';
         
-        const resultado = document.getElementById('resultado-calc');
+        const resultado = document.getElementById('adan-resultado-calc');
         if (resultado) {
             resultado.innerHTML = `
                 <div class="alert alert-warning">
