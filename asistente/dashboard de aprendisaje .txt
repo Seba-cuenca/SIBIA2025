@@ -1,0 +1,35 @@
+<!-- dashboard_aprendizaje.html -->
+<h1>Dashboard de Aprendizaje</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ stats.total_entradas }}</h3>
+        <p>Respuestas Aprendidas</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ stats.total_consultas }}</h3>
+        <p>Consultas Respondidas</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ (stats.confianza_promedio * 100)|int }}%</h3>
+        <p>Confianza Promedio</p>
+    </div>
+</div>
+
+<h2>Top Preguntas Aprendidas</h2>
+<table>
+    <tr>
+        <th>Pregunta</th>
+        <th>Veces Usada</th>
+        <th>Confianza</th>
+    </tr>
+    {% for top in stats.top_preguntas %}
+    <tr>
+        <td>{{ top.pregunta }}</td>
+        <td>{{ top.consultas }}</td>
+        <td>{{ (top.confianza * 100)|int }}%</td>
+    </tr>
+    {% endfor %}
+</table>

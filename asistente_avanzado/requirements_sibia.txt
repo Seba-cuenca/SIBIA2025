@@ -1,0 +1,30 @@
+# Dependencias para el Asistente SIBIA Avanzado
+# Instalar con: pip install -r requirements_sibia.txt
+
+# Framework web
+Flask==2.3.0
+Flask-CORS==4.0.0
+
+# Machine Learning
+numpy==1.24.3
+scikit-learn==1.3.0
+xgboost==2.0.0
+
+# Gráficos y visualización
+matplotlib==3.7.1
+
+# Web y APIs
+requests==2.31.0
+beautifulsoup4==4.12.2
+
+# Sistema de voz
+gtts==2.3.2
+edge-tts==6.1.9
+
+# Utilidades
+python-dotenv==1.0.0
+hashlib2==1.0.1
+
+# Desarrollo y testing
+pytest==7.4.0
+pytest-flask==1.2.0

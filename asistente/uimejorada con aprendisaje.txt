@@ -1,0 +1,127 @@
+<style>
+.respuesta-aprendida {
+    border-left: 4px solid #28a745;
+    background: #f0f9f4;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.respuesta-normal {
+    border-left: 4px solid #007bff;
+    background: #f0f7ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.badge-aprendido {
+    background: #28a745;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.sugerencias {
+    margin-top: 15px;
+    padding: 10px;
+    background: #fff3cd;
+    border-radius: 6px;
+}
+
+.sugerencia-item {
+    padding: 5px 10px;
+    margin: 5px 0;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.sugerencia-item:hover {
+    background: #e9ecef;
+}
+</style>
+
+<div id="chat-messages"></div>
+
+<script>
+async function enviarPregunta(pregunta) {
+    const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({pregunta: pregunta})
+    });
+    
+    const data = await res.json();
+    
+    // Crear elemento de respuesta
+    const respuestaDiv = document.createElement('div');
+    respuestaDiv.className = data.aprendido ? 'respuesta-aprendida' : 'respuesta-normal';
+    
+    let html = `<p>${data.respuesta}</p>`;
+    
+    // Badge si es aprendido
+    if (data.aprendido) {
+        html += `<span class="badge-aprendido">Aprendido (${data.veces_usada} veces)</span>`;
+    }
+    
+    // Botón de corrección
+    html += `
+        <button class="btn-corregir" onclick="corregirRespuesta('${pregunta}', '${data.respuesta}')">
+            Corregir esta respuesta
+        </button>
+    `;
+    
+    respuestaDiv.innerHTML = html;
+    document.getElementById('chat-messages').appendChild(respuestaDiv);
+    
+    // Mostrar sugerencias si hay
+    if (data.sugerencias && data.sugerencias.length > 0) {
+        const sugDiv = document.createElement('div');
+        sugDiv.className = 'sugerencias';
+        sugDiv.innerHTML = '<strong>También puedes preguntar:</strong><br>';
+        
+        data.sugerencias.forEach(sug => {
+            const sugItem = document.createElement('div');
+            sugItem.className = 'sugerencia-item';
+            sugItem.textContent = sug;
+            sugItem.onclick = () => enviarPregunta(sug);
+            sugDiv.appendChild(sugItem);
+        });
+        
+        document.getElementById('chat-messages').appendChild(sugDiv);
+    }
+    
+    // Audio
+    if (data.audio_base64) {
+        const audio = new Audio('data:audio/mpeg;base64,' + data.audio_base64);
+        audio.play();
+    }
+}
+
+function corregirRespuesta(pregunta, respuestaIncorrecta) {
+    const respuestaCorrecta = prompt(
+        `¿Cuál es la respuesta correcta para:\n"${pregunta}"?\n\nRespuesta actual:\n${respuestaIncorrecta}`
+    );
+    
+    if (respuestaCorrecta && respuestaCorrecta.trim()) {
+        fetch('/api/aprendizaje/corregir', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                pregunta: pregunta,
+                respuesta_incorrecta: respuestaIncorrecta,
+                respuesta_correcta: respuestaCorrecta
+            })
+        }).then(res => res.json())
+          .then(data => {
+              if (data.exito) {
+                  alert('Gracias por tu corrección. He aprendido esta respuesta.');
+              }
+          });
+    }
+}
+</script>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Adán | Sistema SIBIA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1d2e;
+            color: #ffffff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-adan {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header-adan h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .config-section {
+            background: #252a3f;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .config-item {
+            background: #1a1d2e;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .config-item h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+        }
+        
+        .config-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .config-item input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #3a4052;
+            border-radius: 6px;
+            background: #252a3f;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .config-item input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .btn-save {
+            background: #4ecdc4;
+            color: #1a1d2e;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-save:hover {
+            background: #3dbdb5;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid #4ecdc4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header de Adán -->
+        <div class="header-adan">
+            <h1>⚙️ Configuración de Adán</h1>
+            <p>Personaliza los parámetros del sistema</p>
+        </div>
+        
+        <!-- Navegación -->
+        <div class="nav-buttons">
+            <a href="/adan" class="nav-btn">🧮 Calculadora</a>
+            <a href="/adan/ayuda" class="nav-btn">❓ Ayuda</a>
+            <a href="/" class="nav-btn">🏠 Volver a SIBIA</a>
+        </div>
+        
+        <!-- Configuración del Motor -->
+        <div class="config-section">
+            <div class="section-title">🔧 Configuración del Motor Jenbacher J420</div>
+            
+            <div class="config-grid">
+                <div class="config-item">
+                    <h3>Potencia Eléctrica</h3>
+                    <label>Potencia Nominal (kW):</label>
+                    <input type="number" id="potencia_kw" value="{{ motor_config.potencia_kw }}" step="1">
+                    <small style="color: #a8b2d1;">Potencia eléctrica máxima del motor</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Consumo de Biogás</h3>
+                    <label>Consumo (L/s):</label>
+                    <input type="number" id="consumo_l_s" value="{{ motor_config.consumo_l_s }}" step="1">
+                    <small style="color: #a8b2d1;">Consumo de biogás en litros por segundo</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Eficiencia</h3>
+                    <label>Eficiencia Eléctrica (%):</label>
+                    <input type="number" id="eficiencia" value="40" step="0.1" min="0" max="100">
+                    <small style="color: #a8b2d1;">Eficiencia de conversión eléctrica</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Contenido de Metano</h3>
+                    <label>% CH4 en Biogás:</label>
+                    <input type="number" id="ch4_content" value="65" step="1" min="0" max="100">
+                    <small style="color: #a8b2d1;">Porcentaje de metano en el biogás</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Configuración de Cálculo -->
+        <div class="config-section">
+            <div class="section-title">🧮 Parámetros de Cálculo</div>
+            
+            <div class="config-grid">
+                <div class="config-item">
+                    <h3>Objetivo Energético</h3>
+                    <label>kWh Objetivo por Día:</label>
+                    <input type="number" id="kwh_objetivo" value="28800" step="100">
+                    <small style="color: #a8b2d1;">Energía eléctrica objetivo diaria</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Materiales por Mezcla</h3>
+                    <label>Número de Materiales:</label>
+                    <input type="number" id="num_materiales" value="5" step="1" min="1" max="10">
+                    <small style="color: #a8b2d1;">Cantidad de materiales en la mezcla</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Densidad Purín</h3>
+                    <label>Densidad Purín (kg/L):</label>
+                    <input type="number" id="densidad_purin" value="1.05" step="0.01" min="0.5" max="2.0">
+                    <small style="color: #a8b2d1;">Densidad del purín para conversión m³ a Tn</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Factor Biodegradabilidad</h3>
+                    <label>Factor de Corrección:</label>
+                    <input type="number" id="factor_bio" value="0.85" step="0.01" min="0.5" max="1.0">
+                    <small style="color: #a8b2d1;">Factor de biodegradabilidad real vs teórica</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Configuración Volumétrica -->
+        <div class="config-section">
+            <div class="section-title">🧪 Configuración Volumétrica</div>
+            
+            <div class="config-grid">
+                <div class="config-item">
+                    <h3>Proporciones por Defecto</h3>
+                    <label>% Sólidos (kW):</label>
+                    <input type="number" id="pct_solidos" value="60" step="1" min="0" max="100">
+                    <small style="color: #a8b2d1;">Porcentaje de energía de sólidos</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Proporciones por Defecto</h3>
+                    <label>% Líquidos (kW):</label>
+                    <input type="number" id="pct_liquidos" value="40" step="1" min="0" max="100">
+                    <small style="color: #a8b2d1;">Porcentaje de energía de líquidos</small>
+                </div>
+                
+                <div class="config-item">
+                    <h3>Proporciones por Defecto</h3>
+                    <label>% Purín (kW):</label>
+                    <input type="number" id="pct_purin" value="0" step="1" min="0" max="100">
+                    <small style="color: #a8b2d1;">Porcentaje de energía de purín</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Información -->
+        <div class="info-box">
+            <h3>ℹ️ Información Importante</h3>
+            <p><strong>Motor Jenbacher J420:</strong> Motor de cogeneración de alta eficiencia diseñado específicamente para biogás.</p>
+            <p><strong>Configuración por Defecto:</strong> Los valores mostrados son los recomendados para operación óptima.</p>
+            <p><strong>Validación:</strong> Todos los cálculos están basados en métodos científicos validados internacionalmente.</p>
+        </div>
+        
+        <!-- Botón Guardar -->
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn-save" onclick="guardarConfiguracion()">
+                💾 Guardar Configuración
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function guardarConfiguracion() {
+            const config = {
+                potencia_kw: parseFloat(document.getElementById('potencia_kw').value),
+                consumo_l_s: parseFloat(document.getElementById('consumo_l_s').value),
+                eficiencia: parseFloat(document.getElementById('eficiencia').value),
+                ch4_content: parseFloat(document.getElementById('ch4_content').value),
+                kwh_objetivo: parseFloat(document.getElementById('kwh_objetivo').value),
+                num_materiales: parseInt(document.getElementById('num_materiales').value),
+                densidad_purin: parseFloat(document.getElementById('densidad_purin').value),
+                factor_bio: parseFloat(document.getElementById('factor_bio').value),
+                pct_solidos: parseFloat(document.getElementById('pct_solidos').value),
+                pct_liquidos: parseFloat(document.getElementById('pct_liquidos').value),
+                pct_purin: parseFloat(document.getElementById('pct_purin').value)
+            };
+            
+            // Guardar en localStorage
+            localStorage.setItem('adan_config', JSON.stringify(config));
+            
+            alert('✅ Configuración guardada correctamente');
+        }
+        
+        function cargarConfiguracion() {
+            const config = localStorage.getItem('adan_config');
+            if (config) {
+                const data = JSON.parse(config);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = data[key];
+                    }
+                });
+            }
+        }
+        
+        // Cargar configuración al iniciar
+        cargarConfiguracion();
+    </script>
+</body>
+</html>
