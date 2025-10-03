@@ -99,8 +99,8 @@ if os.environ.get('PORT'):
 from flask_cors import CORS
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# XGBoost para calculadora (opcional)
-XGBOOST_DISPONIBLE = False
+# XGBoost para calculadora (SOLO DENTRO DE ADÁN)
+XGBOOST_DISPONIBLE = False  # ✅ XGBoost SOLO en Adán, NO en seguimiento horario
 xgb = None
 predecir_kw_tn_xgboost = None
 obtener_estadisticas_xgboost = None
@@ -123,6 +123,7 @@ try:
 except Exception as e:
     print(f"WARNING: XGBoost no disponible: {e}")
     print("INFO: Instalar con: pip install xgboost>=1.7.0")
+    XGBOOST_DISPONIBLE = False  # Solo deshabilitar si realmente no está disponible
 
 # Sistema de Aprendizaje Completo (Original)
 SISTEMA_APRENDIZAJE_DISPONIBLE = False
@@ -835,6 +836,12 @@ def cargar_seguimiento_horario() -> Dict[str, Any]:
         stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
         stock_actual = stock_data.get('materiales', {})
         
+        # ✅ USAR VALORES DEL HEADER para calcular seguimiento horario
+        logger.info(f"🔄 Recalculando seguimiento horario con valores del header:")
+        logger.info(f"   - KW Objetivo: {config_actual.get('kw_objetivo', 28800)}")
+        logger.info(f"   - Metano Objetivo: {config_actual.get('objetivo_metano_diario', 65)}%")
+        logger.info(f"   - Modo: {'Energético' if config_actual.get('modo_calculo', 'energetico') == 'energetico' else 'Volumétrico'}")
+        
         mezcla_calculada = calcular_mezcla_diaria(config_actual, stock_actual)
         num_biodigestores = int(config_actual.get('num_biodigestores', 1))
         
@@ -1230,7 +1237,8 @@ def ordenar_materiales_por_metano_y_kw(materiales_dict: Dict[str, Any], stock_ac
 def calcular_mezcla_diaria(config: Dict[str, Any], stock_actual: Dict[str, Any]) -> Dict[str, Any]:
     """
     Calcula la mezcla diaria automática para alcanzar el objetivo de KW.
-    VERSIÓN EVOLUTIVA con algoritmo genético que aprende y mejora con cada cálculo.
+    ✅ USA VALORES DEL HEADER pero NO ejecuta XGBoost directamente.
+    XGBoost solo se ejecuta dentro de Adán Calculator.
     """
     # OPTIMIZACIÓN: Usar parámetros más agresivos para llegar al objetivo
     parametros_evolutivos = {
@@ -2254,7 +2262,7 @@ def calcular_mezcla_diaria(config: Dict[str, Any], stock_actual: Dict[str, Any])
                 logger.info(f"🔧 Modelos activos: {modelos_activos}")
                 
                 if 'xgboost_calculadora' in modelos_activos:
-                    logger.info("🌳 Usando XGBoost para optimización de metano")
+                    logger.info("🚫 XGBoost deshabilitado en optimización de metano - Solo disponible en Adán Calculator")
                     
                     # Crear configuración específica para optimización de metano
                     config_metano = config.copy()
@@ -2263,8 +2271,8 @@ def calcular_mezcla_diaria(config: Dict[str, Any], stock_actual: Dict[str, Any])
                     
                     logger.info(f"🔧 Configuración para optimización de metano: {config_metano}")
                     
-                    # EVITAR RECURSIÓN INFINITA - Usar optimización directa
-                    logger.info("🔧 Aplicando optimización ML directa (evitando recursión)...")
+                    # 🚫 NO USAR XGBOOST - Solo algoritmo base
+                    logger.info("🔧 Usando algoritmo base para optimización de metano (XGBoost solo en Adán)...")
                     resultado_optimizado = None  # Evitar llamada recursiva
                     
                     if resultado_optimizado and resultado_optimizado.get('totales', {}).get('porcentaje_metano', 0) > porcentaje_metano:
@@ -8501,10 +8509,29 @@ def actualizar_configuracion_endpoint():
             
             # Actualizar configuración
             if actualizar_configuracion(datos_validados):
+                # ✅ RECALCULAR SEGUIMIENTO HORARIO si se modificaron valores del header
+                valores_header = ['kw_objetivo', 'objetivo_metano_diario', 'modo_calculo', 'porcentaje_solidos', 'porcentaje_liquidos']
+                if any(key in datos_validados for key in valores_header):
+                    logger.info("🔄 Valores del header modificados, recalculando seguimiento horario...")
+                    try:
+                        # Recalcular seguimiento horario automáticamente
+                        config_actual = cargar_configuracion()
+                        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
+                        stock_actual = stock_data.get('materiales', {})
+                        mezcla_calculada = calcular_mezcla_diaria(config_actual, stock_actual)
+                        nuevo_seguimiento = inicializar_seguimiento_horario(config_actual, mezcla_calculada)
+                        global SEGUIMIENTO_HORARIO_ALIMENTACION
+                        SEGUIMIENTO_HORARIO_ALIMENTACION = nuevo_seguimiento
+                        guardar_json_seguro(SEGUIMIENTO_FILE, nuevo_seguimiento)
+                        logger.info("✅ Seguimiento horario recalculado automáticamente")
+                    except Exception as e:
+                        logger.warning(f"⚠️ Error recalculando seguimiento horario: {e}")
+                
                 return jsonify({
                     'success': True,
                     'mensaje': 'Configuración actualizada correctamente',
-                    'config_actualizada': datos_validados
+                    'config_actualizada': datos_validados,
+                    'seguimiento_recalculado': any(key in datos_validados for key in valores_header)
                 })
             else:
                 return jsonify({'error': 'Error al guardar la configuración'}), 500
@@ -10033,9 +10060,10 @@ def calcular_mezcla():
             logger.info("⚡ Ejecutando algoritmo ENERGÉTICO con configuración ML Dashboard")
             
             # ✅ APLICAR CONFIGURACIÓN ML DASHBOARD
+            # 🚫 XGBOOST DESHABILITADO EN SEGUIMIENTO HORARIO - Solo se ejecuta en Adán Calculator
             if 'xgboost_calculadora' in modelos_activos:
-                logger.info("🌳 Usando XGBOOST CALCULADORA para optimización")
-                # Filtrar purín si corresponde
+                logger.info("🚫 XGBoost deshabilitado en seguimiento horario - Solo disponible en Adán Calculator")
+                # Usar algoritmo base sin XGBoost
                 stock_filtrado = {}
                 for mat, datos in stock_actual.items():
                     if mat.lower() == 'purin' and not incluir_purin:
@@ -11328,6 +11356,44 @@ def obtener_configuracion_ml_dashboard():
         logger.error(f"Error obteniendo configuración ML Dashboard: {e}")
         return jsonify({'status': 'error', 'mensaje': str(e)}), 500
 
+
+@app.route('/recalcular_seguimiento_horario', methods=['POST'])
+def recalcular_seguimiento_horario():
+    """Recalcula el seguimiento horario cuando el usuario modifica valores del header"""
+    try:
+        global SEGUIMIENTO_HORARIO_ALIMENTACION
+        
+        # Forzar recálculo con valores actuales del header
+        config_actual = cargar_configuracion()
+        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
+        stock_actual = stock_data.get('materiales', {})
+        
+        logger.info(f"🔄 Recalculando seguimiento horario por cambio en header:")
+        logger.info(f"   - KW Objetivo: {config_actual.get('kw_objetivo', 28800)}")
+        logger.info(f"   - Metano Objetivo: {config_actual.get('objetivo_metano_diario', 65)}%")
+        
+        # Calcular nueva mezcla con valores del header
+        mezcla_calculada = calcular_mezcla_diaria(config_actual, stock_actual)
+        
+        # Inicializar nuevo seguimiento horario
+        nuevo_seguimiento = inicializar_seguimiento_horario(config_actual, mezcla_calculada)
+        
+        # Actualizar variable global
+        SEGUIMIENTO_HORARIO_ALIMENTACION = nuevo_seguimiento
+        
+        # Guardar en archivo
+        guardar_json_seguro(SEGUIMIENTO_FILE, nuevo_seguimiento)
+        
+        return jsonify({
+            'status': 'success',
+            'mensaje': 'Seguimiento horario recalculado con valores del header',
+            'mezcla_calculada': mezcla_calculada,
+            'seguimiento_actualizado': nuevo_seguimiento
+        })
+        
+    except Exception as e:
+        logger.error(f"Error recalculando seguimiento horario: {e}")
+        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
 
 @app.route('/ml_configuracion_dashboard', methods=['POST'])
 def actualizar_configuracion_ml_dashboard():

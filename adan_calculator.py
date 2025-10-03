@@ -161,11 +161,11 @@ def obtener_consumo_chp_global():
     try:
         # Intentar obtener desde la configuración global
         import os
-        consumo_chp = os.environ.get('CONSUMO_CHP_DEFAULT', '505.0')
+        consumo_chp = os.environ.get('CONSUMO_CHP_DEFAULT', '170.0')
         return float(consumo_chp)
     except Exception:
         # Fallback si no se puede obtener
-        return 505.0
+        return 170.0
 
 def obtener_stock_materiales():
     """Obtiene el stock actual de materiales desde el sistema"""

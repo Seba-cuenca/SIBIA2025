@@ -1792,9 +1792,11 @@
             </div>
             <div class="consumo-chp-control" style="display: flex; align-items: center; gap: 8px; margin-left: 15px; margin-top: 10px;">
                 <label for="consumo-chp-input" class="text-white" style="font-size: 12px; margin: 0;">Consumo CHP:</label>
-                <input type="number" id="consumo-chp-input" value="505" min="100" max="1000" step="1" 
+                <input type="number" id="consumo-chp-input" value="170" min="100" max="1000" step="1" 
                        style="width: 60px; height: 25px; font-size: 11px; padding: 2px 4px; border-radius: 3px; border: 1px solid #ccc;"
-                       onchange="actualizarConsumoCHP(this.value)" title="Consumo CHP para cálculos KW/TN">
+                       onchange="actualizarConsumoCHP(this.value)" 
+                       onkeypress="if(event.key==='Enter') actualizarConsumoCHP(this.value)"
+                       title="Consumo CHP para cálculos KW/TN - Presiona Enter para recalcular">
                 <span class="text-white" style="font-size: 10px;">L/s</span>
             </div>
         </div>
@@ -1803,12 +1805,12 @@
         <div class="header-objetivos" style="display: flex; gap: 20px; margin-top: 10px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px; justify-content: flex-start;">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <label style="font-size: 12px; opacity: 0.8;">KW Objetivo:</label>
-                <input type="number" id="kw-objetivo-header" value="28800" style="width: 80px; padding: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 12px;" onchange="actualizarObjetivos()">
+                <input type="number" id="kw-objetivo-header" value="28800" style="width: 80px; padding: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 12px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="KW Objetivo - Presiona Enter para recalcular">
                 <span style="font-size: 12px;">kW</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <label style="font-size: 12px; opacity: 0.8;">Metano Objetivo:</label>
-                <input type="number" id="metano-objetivo-header" value="65" style="width: 60px; padding: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 12px;" onchange="actualizarObjetivos()">
+                <input type="number" id="metano-objetivo-header" value="65" style="width: 60px; padding: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 12px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="Metano Objetivo - Presiona Enter para recalcular">
                 <span style="font-size: 12px;">%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -2077,7 +2079,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label><i class="fas fa-bolt"></i> Consumo CHP (L/s)</label>
-                                        <input type="number" class="form-control" id="adan-consumo-chp" value="505" step="0.1">
+                                        <input type="number" class="form-control" id="adan-consumo-chp" value="170" step="0.1">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -2108,12 +2110,12 @@
                                 <label><i class="fas fa-cogs"></i> Modo de Cálculo:</label>
                                 <div class="btn-group w-100" role="group">
                                     <input type="radio" class="btn-check" name="adan-modo-calculo" id="adan-modo-energetico" value="energetico" checked>
-                                    <label class="btn btn-outline-primary" for="adan-modo-energetico">
+                                    <label class="btn btn-outline-success" for="adan-modo-energetico">
                                         <i class="fas fa-bolt"></i> Energético<br>
                                         <small>% en KW objetivo</small>
                                     </label>
                                     <input type="radio" class="btn-check" name="adan-modo-calculo" id="adan-modo-volumetrico" value="volumetrico">
-                                    <label class="btn btn-outline-success" for="adan-modo-volumetrico">
+                                    <label class="btn btn-outline-info" for="adan-modo-volumetrico">
                                         <i class="fas fa-weight"></i> Volumétrico<br>
                                         <small>% en TN físicas</small>
                                     </label>
@@ -2288,7 +2290,7 @@
                             </div>
 
                             <!-- Modelos ML -->
-                            <div class="form-group">
+                            <div class="form-group position-relative">
                                 <label><i class="fas fa-brain"></i> Modelos ML para Análisis Cruzado:</label>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -2321,18 +2323,32 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Botón para explicar modelos múltiples -->
-                                <div class="mt-3 text-center">
-                                    <button type="button" class="btn btn-sm btn-info" onclick="mostrarExplicacionModelosMultiples()">
-                                        <i class="fas fa-question-circle"></i> ¿Qué pasa con múltiples modelos?
+                                <!-- Botón informativo en el rincón -->
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="mostrarExplicacionModelosMultiples()" 
+                                            title="¿Qué pasa con múltiples modelos?" style="border-radius: 50%; width: 35px; height: 35px; padding: 0;">
+                                        <i class="fas fa-question-circle"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Botones de acción -->
-                            <div class="form-group">
-                                <button class="btn btn-warning w-100" onclick="calcularMezclaAdan()">
-                                    <i class="fas fa-magic"></i> Calcular Mezcla con Adán
+                            <div class="form-group text-center">
+                                <button class="btn btn-gradient-primary btn-lg px-4 py-3 shadow-lg" onclick="calcularMezclaAdan()" style="
+                                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                    border: none;
+                                    color: white;
+                                    font-weight: bold;
+                                    border-radius: 15px;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+                                    position: relative;
+                                    overflow: hidden;
+                                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 35px rgba(102, 126, 234, 0.4)'" 
+                                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.3)'">
+                                    <i class="fas fa-magic me-2"></i> 
+                                    <span class="fw-bold">Calcular Mezcla con Adán</span>
+                                    <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
 
@@ -10062,7 +10078,7 @@
             
             // CORREGIDO: Fórmula correcta KW/TN = (ST × SV × M³/TN SV × CH4%) / Consumo CHP
             // Usar la misma fórmula que temp_functions.py (CON CH4)
-            const consumoCHP = parseFloat(document.getElementById('consumo-chp-input').value) || 505;
+            const consumoCHP = parseFloat(document.getElementById('consumo-chp-input').value) || 170;
             const kwTn = (st * sv * m3_tnsv_existente * ch4Porcentaje) / consumoCHP;
             
             // Actualizar CH4 calculado
@@ -10568,7 +10584,7 @@
                 const consumoCHP = parseFloat(nuevoValor);
                 if (isNaN(consumoCHP) || consumoCHP <= 0) {
                     alert('El Consumo CHP debe ser un número positivo');
-                    document.getElementById('consumo-chp-input').value = 505;
+                    document.getElementById('consumo-chp-input').value = 170;
                     return;
                 }
                 
@@ -10591,7 +10607,18 @@
                         recalcularKWConConsumoCHP(materialNombre, consumoCHP);
                     });
                     
-                    console.log(`✅ Consumo CHP actualizado a ${consumoCHP} kW y todos los KW/TN recalculados`);
+                    // ✅ RECALCULAR SEGUIMIENTO HORARIO con nuevo Consumo CHP usando Adán Calculator
+                    console.log('🔄 Recalculando seguimiento horario con nuevo Consumo CHP...');
+                    try {
+                        await recalcularRecetaSeguimientoHorario();
+                        console.log('✅ Seguimiento horario recalculado con nuevo Consumo CHP');
+                        mostrarNotificacion(`✅ Consumo CHP actualizado a ${consumoCHP} L/s y seguimiento horario recalculado`, 'success');
+                    } catch (error) {
+                        console.error('❌ Error recalculando seguimiento horario:', error);
+                        mostrarNotificacion('⚠️ Consumo CHP actualizado pero error recalculando seguimiento horario', 'warning');
+                    }
+                    
+                    console.log(`✅ Consumo CHP actualizado a ${consumoCHP} L/s y todos los cálculos recalculados`);
                 } else {
                     console.error('Error actualizando Consumo CHP');
                     alert('Error al actualizar el Consumo CHP');
@@ -14164,25 +14191,58 @@
         // ===== FUNCIONES PARA SEGUIMIENTO HORARIO =====
         
         // Función para alternar modo de cálculo desde el header
-        function alternarModoCalculo() {
-            const indicador = document.getElementById('modo-calculo-header');
-            
-            if (!indicador) {
-                console.warn('⚠️ No se encontró el indicador de modo');
-                return;
+        async function alternarModoCalculo() {
+            try {
+                console.log('🔄 Iniciando cambio de modo...');
+                
+                const indicador = document.getElementById('modo-calculo-header');
+                
+                if (!indicador) {
+                    console.warn('⚠️ No se encontró el indicador de modo');
+                    mostrarNotificacion('❌ Error: No se encontró el indicador de modo', 'error');
+                    return;
+                }
+                
+                // Determinar el modo actual basado en el texto del indicador
+                const esEnergetico = indicador.textContent.includes('Energético');
+                const nuevoModo = esEnergetico ? 'volumetrico' : 'energetico';
+                
+                console.log(`🔄 Cambiando de modo ${esEnergetico ? 'energético' : 'volumétrico'} a ${nuevoModo}`);
+                
+                // Actualizar indicador visual
+                actualizarIndicadorModo(nuevoModo);
+                
+                // ✅ ACTUALIZAR CONFIGURACIÓN EN EL SERVIDOR
+                try {
+                    const configData = {
+                        modo_calculo: nuevoModo
+                    };
+                    
+                    const response = await fetch('/actualizar_configuracion', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(configData)
+                    });
+                    
+                    if (response.ok) {
+                        console.log('✅ Configuración del modo actualizada en el servidor');
+                    } else {
+                        console.warn('⚠️ Error actualizando configuración del modo');
+                    }
+                } catch (error) {
+                    console.error('❌ Error actualizando configuración:', error);
+                }
+                
+                // Recalcular automáticamente la receta para seguimiento horario usando Adán
+                console.log('🔄 Iniciando recálculo de receta...');
+                await recalcularRecetaSeguimientoHorario(nuevoModo);
+                
+            } catch (error) {
+                console.error('❌ Error en alternarModoCalculo:', error);
+                mostrarNotificacion('❌ Error cambiando modo: ' + error.message, 'error');
             }
-            
-            // Determinar el modo actual basado en el texto del indicador
-            const esEnergetico = indicador.textContent.includes('Energético');
-            const nuevoModo = esEnergetico ? 'volumetrico' : 'energetico';
-            
-            // Actualizar indicador visual
-            actualizarIndicadorModo(nuevoModo);
-            
-            console.log(`🔄 Modo cambiado a: ${nuevoModo}`);
-            
-            // Recalcular automáticamente la receta para seguimiento horario
-            recalcularRecetaSeguimientoHorario(nuevoModo);
         }
         
         // Función para actualizar el indicador visual del modo
@@ -14201,118 +14261,93 @@
             }
         }
         
-        // Función para recalcular receta de seguimiento horario
+        // Función para recalcular receta de seguimiento horario usando Adán Calculator
         async function recalcularRecetaSeguimientoHorario(modo = null) {
             try {
-                console.log('🔄 Recalculando receta para seguimiento horario...');
+                console.log('🔄 Recalculando receta para seguimiento horario usando Adán Calculator...');
                 
-                // Obtener objetivos del header
-                const kwObjetivo = parseFloat(document.getElementById('kw-objetivo-header').value) || 29000;
-                const metanoObjetivo = parseFloat(document.getElementById('metano-objetivo-header').value) || 65;
+                // Obtener objetivos del header con verificación de existencia
+                const kwObjetivoElement = document.getElementById('kw-objetivo-header');
+                const metanoObjetivoElement = document.getElementById('metano-objetivo-header');
+                const consumoCHPElement = document.getElementById('consumo-chp-input');
+                
+                const kwObjetivo = kwObjetivoElement ? parseFloat(kwObjetivoElement.value) || 29000 : 29000;
+                const metanoObjetivo = metanoObjetivoElement ? parseFloat(metanoObjetivoElement.value) || 65 : 65;
+                const consumoCHP = consumoCHPElement ? parseFloat(consumoCHPElement.value) || 505 : 505;
                 
                 // Determinar el modo actual
                 const indicador = document.getElementById('modo-calculo-header');
                 const modoActual = modo || (indicador && indicador.textContent.includes('Energético') ? 'energetico' : 'volumetrico');
                 
-                console.log(`📊 Recalculando con modo: ${modoActual}, usando modelo CAIN`);
+                console.log(`📊 Recalculando con modo: ${modoActual}, usando Adán Calculator con XGBoost`);
                 
-                // Crear receta usando modelo CAIN (más eficiente)
-                const recetaCAIN = {
+                // ✅ USAR ADÁN CALCULATOR para el cálculo real
+                const datosAdan = {
+                    kwh_objetivo: kwObjetivo,
+                    porcentaje_ch4: metanoObjetivo,
+                    m3_purin: 100,
+                    consumo_motor: consumoCHP,
+                    potencia_motor: 1545,
+                    modo: modoActual,
+                    pct_solidos_kw: 60,
+                    pct_liquidos_kw: 30,
+                    pct_purin_kw: 10,
+                    incluir_purin: true,
+                    num_materiales: 5,
+                    modelos_seleccionados: ['xgboost'],
+                    usar_voz: false
+                };
+                
+                console.log('📤 Enviando datos a Adán Calculator:', datosAdan);
+                
+                const response = await fetch('/adan/calcular_mezcla', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(datosAdan)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error del servidor: ${response.status}`);
+                }
+                
+                const resultadoAdan = await response.json();
+                console.log('✅ Respuesta de Adán Calculator:', resultadoAdan);
+                
+                // Crear receta usando resultado real de Adán
+                const recetaAdan = {
                     status: 'success',
-                    mensaje: `Receta recalculada con modelo CAIN para ${kwObjetivo} kWh`,
+                    mensaje: `Receta recalculada con Adán Calculator (XGBoost) para ${kwObjetivo} kWh`,
                     resumen: {
                         kwh_objetivo: kwObjetivo,
                         porcentaje_metano: metanoObjetivo,
-                        total_toneladas: 100,
-                        total_kwh: kwObjetivo,
+                        total_toneladas: resultadoAdan.resumen?.total_toneladas || 100,
+                        total_kwh: resultadoAdan.resumen?.total_kwh || kwObjetivo,
                         potencia_motor: 1545,
-                        total_potencia_calorifica_kw: kwObjetivo * 0.8,
-                        total_energia_termica_kwh: kwObjetivo * 0.8 * 24,
-                        modelo_utilizado: 'CAIN',
+                        total_potencia_calorifica_kw: resultadoAdan.resumen?.total_potencia_calorifica_kw || kwObjetivo * 0.8,
+                        total_energia_termica_kwh: resultadoAdan.resumen?.total_energia_termica_kwh || kwObjetivo * 0.8 * 24,
+                        modelo_utilizado: 'Adán Calculator (XGBoost)',
                         modo_calculo: modoActual
                     },
-                    receta: []
+                    receta: resultadoAdan.receta || []
                 };
                 
-                // Distribución según el modo
-                if (modoActual === 'energetico') {
-                    // Modo energético: optimizar por eficiencia KW/TN
-                    recetaCAIN.receta = [
-                        { 
-                            material: 'Rumen', 
-                            toneladas: 60, // Más eficiente
-                            kwh_total: kwObjetivo * 0.6,
-                            potencia_calorifica_kw: kwObjetivo * 0.6 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.6 * 0.8 * 24,
-                            tipo: 'solido'
-                        },
-                        { 
-                            material: 'Maíz', 
-                            toneladas: 25,
-                            kwh_total: kwObjetivo * 0.25,
-                            potencia_calorifica_kw: kwObjetivo * 0.25 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.25 * 0.8 * 24,
-                            tipo: 'solido'
-                        },
-                        { 
-                            material: 'Sorgo', 
-                            toneladas: 15,
-                            kwh_total: kwObjetivo * 0.15,
-                            potencia_calorifica_kw: kwObjetivo * 0.15 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.15 * 0.8 * 24,
-                            tipo: 'solido'
-                        }
-                    ];
-                } else {
-                    // Modo volumétrico: proporción 1:1 sólidos/líquidos
-                    recetaCAIN.receta = [
-                        { 
-                            material: 'Rumen', 
-                            toneladas: 30,
-                            kwh_total: kwObjetivo * 0.3,
-                            potencia_calorifica_kw: kwObjetivo * 0.3 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.3 * 0.8 * 24,
-                            tipo: 'solido'
-                        },
-                        { 
-                            material: 'Maíz', 
-                            toneladas: 20,
-                            kwh_total: kwObjetivo * 0.2,
-                            potencia_calorifica_kw: kwObjetivo * 0.2 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.2 * 0.8 * 24,
-                            tipo: 'solido'
-                        },
-                        { 
-                            material: 'Purin', 
-                            toneladas: 30,
-                            kwh_total: kwObjetivo * 0.3,
-                            potencia_calorifica_kw: kwObjetivo * 0.3 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.3 * 0.8 * 24,
-                            tipo: 'liquido'
-                        },
-                        { 
-                            material: 'Efluente', 
-                            toneladas: 20,
-                            kwh_total: kwObjetivo * 0.2,
-                            potencia_calorifica_kw: kwObjetivo * 0.2 * 0.8,
-                            energia_termica_total_kwh: kwObjetivo * 0.2 * 0.8 * 24,
-                            tipo: 'liquido'
-                        }
-                    ];
-                }
+                // ✅ USAR RESULTADO REAL DE ADÁN - No más distribución simulada
+                // La receta ya viene calculada por Adán con XGBoost
                 
                 // Guardar receta para seguimiento horario
-                localStorage.setItem('receta_seguimiento_horario', JSON.stringify(recetaCAIN));
+                localStorage.setItem('receta_seguimiento_horario', JSON.stringify(recetaAdan));
                 
                 // Guardar datos globalmente
                 window.recetaSeguimientoHorario = {
-                    resumen: recetaCAIN.resumen,
-                    receta: recetaCAIN.receta,
+                    resumen: recetaAdan.resumen,
+                    receta: recetaAdan.receta,
                     timestamp: new Date().toISOString()
                 };
                 
-                mostrarNotificacion(`✅ Receta recalculada con modelo CAIN (modo ${modoActual})`, 'success');
-                console.log('✅ Receta CAIN creada exitosamente:', recetaCAIN);
+                mostrarNotificacion(`✅ Receta recalculada con Adán Calculator (XGBoost) - Modo ${modoActual}`, 'success');
+                console.log('✅ Receta Adán creada exitosamente:', recetaAdan);
                 
                 // Actualizar seguimiento horario si está visible
                 const seguimientoContainer = document.getElementById('seguimiento-horario-container');
@@ -14322,6 +14357,14 @@
                 
             } catch (error) {
                 console.error('❌ Error recalculando receta:', error);
+                console.error('❌ Detalles del error:', {
+                    message: error.message,
+                    stack: error.stack,
+                    kwObjetivo: document.getElementById('kw-objetivo-header')?.value,
+                    metanoObjetivo: document.getElementById('metano-objetivo-header')?.value,
+                    consumoCHP: document.getElementById('consumo-chp-input')?.value,
+                    modo: modo
+                });
                 mostrarNotificacion('❌ Error recalculando receta: ' + error.message, 'error');
             }
         }
@@ -14498,7 +14541,7 @@
                 // Obtener valores del header
                 const kwObjetivoElement = document.getElementById('kw-objetivo-header');
                 const metanoObjetivoElement = document.getElementById('metano-objetivo-header');
-                const consumoCHPElement = document.getElementById('consumo-chp-header');
+                const consumoCHPElement = document.getElementById('consumo-chp-input');
                 
                 const kwObjetivo = kwObjetivoElement ? parseFloat(kwObjetivoElement.value) || 28800 : 28800;
                 const metanoObjetivo = metanoObjetivoElement ? parseFloat(metanoObjetivoElement.value) || 65 : 65;
@@ -14614,8 +14657,8 @@
                 console.log('🔄 Sincronizando valores entre header y calculadora Adán...');
                 
                 // Sincronizar Consumo CHP
-                const consumoCHPHeader = document.getElementById('consumo-chp-header');
-                const consumoCHPAdan = document.getElementById('consumo-chp-adan');
+                const consumoCHPHeader = document.getElementById('consumo-chp-input');
+                const consumoCHPAdan = document.getElementById('adan-consumo-chp');
                 
                 if (consumoCHPHeader && consumoCHPAdan) {
                     // Sincronizar de header a Adán
@@ -14677,7 +14720,7 @@
                 const metanoObjetivoAdan = document.getElementById('metano-objetivo-adan');
                 
                 if (consumoCHPAdan) {
-                    const consumoCHPHeader = document.getElementById('consumo-chp-header');
+                    const consumoCHPHeader = document.getElementById('consumo-chp-input');
                     if (consumoCHPHeader) {
                         consumoCHPHeader.value = consumoCHPAdan.value;
                     }
@@ -16317,23 +16360,61 @@
         
         // Función para actualizar objetivos desde el header
         async function actualizarObjetivos() {
-            const kwObjetivo = document.getElementById('kw-objetivo-header').value;
-            const metanoObjetivo = document.getElementById('metano-objetivo-header').value;
-            
-            // Actualizar los campos del formulario de la calculadora
-            const kwObjetivoForm = document.getElementById('kw-objetivo');
-            const metanoObjetivoForm = document.getElementById('metano-objetivo');
-            
-            if (kwObjetivoForm) kwObjetivoForm.value = kwObjetivo;
-            if (metanoObjetivoForm) metanoObjetivoForm.value = metanoObjetivo;
-            
-            console.log(`🔄 Objetivos actualizados: ${kwObjetivo} kW, ${metanoObjetivo}% metano`);
-            
-            // Recalcular seguimiento horario automáticamente
-            await recalcularRecetaSeguimientoHorario();
-            
-            // Calcular dosificación automáticamente
-            await calcularDosificacionDiaria(kwObjetivo, metanoObjetivo);
+            try {
+                const kwObjetivo = document.getElementById('kw-objetivo-header').value;
+                const metanoObjetivo = document.getElementById('metano-objetivo-header').value;
+                
+                console.log(`🔄 Actualizando objetivos: ${kwObjetivo} kW, ${metanoObjetivo}% metano`);
+                
+                // ✅ ACTUALIZAR CONFIGURACIÓN EN EL SERVIDOR
+                try {
+                    const configData = {
+                        kw_objetivo: parseFloat(kwObjetivo),
+                        objetivo_metano_diario: parseFloat(metanoObjetivo)
+                    };
+                    
+                    const response = await fetch('/actualizar_configuracion', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(configData)
+                    });
+                    
+                    if (response.ok) {
+                        console.log('✅ Configuración de objetivos actualizada en el servidor');
+                    } else {
+                        console.warn('⚠️ Error actualizando configuración de objetivos');
+                    }
+                } catch (error) {
+                    console.error('❌ Error actualizando configuración:', error);
+                }
+                
+                // Actualizar los campos del formulario de la calculadora
+                const kwObjetivoForm = document.getElementById('kw-objetivo');
+                const metanoObjetivoForm = document.getElementById('metano-objetivo');
+                
+                if (kwObjetivoForm) kwObjetivoForm.value = kwObjetivo;
+                if (metanoObjetivoForm) metanoObjetivoForm.value = metanoObjetivo;
+                
+                // ✅ RECALCULAR SEGUIMIENTO HORARIO usando Adán Calculator
+                console.log('🔄 Recalculando seguimiento horario con nuevos objetivos...');
+                try {
+                    await recalcularRecetaSeguimientoHorario();
+                    console.log('✅ Seguimiento horario recalculado con nuevos objetivos');
+                    mostrarNotificacion(`✅ Objetivos actualizados: ${kwObjetivo} kW, ${metanoObjetivo}% metano`, 'success');
+                } catch (error) {
+                    console.error('❌ Error recalculando seguimiento horario:', error);
+                    mostrarNotificacion('⚠️ Objetivos actualizados pero error recalculando seguimiento horario', 'warning');
+                }
+                
+                // Calcular dosificación automáticamente
+                await calcularDosificacionDiaria(kwObjetivo, metanoObjetivo);
+                
+            } catch (error) {
+                console.error('❌ Error en actualizarObjetivos:', error);
+                mostrarNotificacion('❌ Error actualizando objetivos: ' + error.message, 'error');
+            }
         }
         
         // Función para calcular dosificación diaria
@@ -18199,7 +18280,7 @@
             activarVozAdan('calculando');
             
             // Obtener datos del formulario
-            const consumoChp = parseFloat(document.getElementById('adan-consumo-chp').value) || 505;
+            const consumoChp = parseFloat(document.getElementById('adan-consumo-chp').value) || 170;
             const kwObjetivo = parseFloat(document.getElementById('adan-kw-objetivo').value) || 28800;
             const metanoObjetivo = parseFloat(document.getElementById('adan-metano-objetivo').value) || 65;
             const m3Purin = parseFloat(document.getElementById('adan-m3-purin').value) || 100;

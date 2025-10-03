@@ -1,0 +1,18 @@
+# Configuración de codificación para Git
+* text=auto eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+
+# Archivos binarios
+*.pkl binary
+*.joblib binary
+*.model binary
+*.jpg binary
+*.png binary
+*.ico binary
+*.pdf binary
