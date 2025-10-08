@@ -12658,6 +12658,11 @@ def sintetizar_voz_google_tts(texto: str) -> Optional[str]:
         from google.cloud import texttospeech
         import base64
         
+        # Configurar credenciales si existe API key
+        google_api_key = os.environ.get('GOOGLE_API_KEY')
+        if google_api_key:
+            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = ''  # No usar archivo de credenciales
+        
         # Inicializar cliente
         client = texttospeech.TextToSpeechClient()
         

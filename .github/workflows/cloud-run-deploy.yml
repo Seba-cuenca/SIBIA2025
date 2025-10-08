@@ -54,6 +54,7 @@ jobs:
             --timeout 300 \
             --max-instances 10 \
             --port 8080 \
+            --set-env-vars="GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},GOOGLE_CLOUD_PROJECT=${{ env.PROJECT_ID }}" \
             --quiet
       
       - name: Show Service URL
