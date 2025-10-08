@@ -582,7 +582,14 @@ def obtener_sensor_mysql(tag, nombre, unidad, valor_default):
         conn = obtener_conexion_db()
         if not conn:
             logger.warning(f"No hay conexión a BD para {tag}, usando valor por defecto")
-            return {'valor': valor_default, 'unidad': unidad, 'estado': 'normal', 'sensor': tag}
+            return {
+                'valor': valor_default, 
+                'unidad': unidad, 
+                'estado': 'normal', 
+                'sensor': tag,
+                'nombre': nombre,
+                'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
         
         with conn.cursor() as cursor:
             # Buscar directamente en tabla biodigestores (donde están los datos)
@@ -12303,17 +12310,17 @@ def tendencias_historicas():
 def datos_sensores_tiempo_real():
     """Datos de sensores en tiempo real para Predicciones IA"""
     try:
-        presion_bd1 = obtener_040pt01()
-        presion_bd2 = obtener_050pt01()
-        nivel_bd1 = obtener_040lt01()
-        nivel_bd2 = obtener_050lt01()
+        presion_bd1 = obtener_040pt01() or {'valor': 1.2}
+        presion_bd2 = obtener_050pt01() or {'valor': 1.3}
+        nivel_bd1 = obtener_040lt01() or {'valor': 85}
+        nivel_bd2 = obtener_050lt01() or {'valor': 87}
         
         return jsonify({
             'status': 'success',
             'temperatura': 38.5,
-            'presion': presion_bd1.get('valor', 1.2),
-            'nivel_bd1': nivel_bd1.get('valor', 85),
-            'nivel_bd2': nivel_bd2.get('valor', 87),
+            'presion': presion_bd1.get('valor', 1.2) if presion_bd1 else 1.2,
+            'nivel_bd1': nivel_bd1.get('valor', 85) if nivel_bd1 else 85,
+            'nivel_bd2': nivel_bd2.get('valor', 87) if nivel_bd2 else 87,
             'timestamp': datetime.now().isoformat()
         })
     except Exception as e:
@@ -12324,22 +12331,22 @@ def datos_sensores_tiempo_real():
 def datos_biodigestores():
     """Datos de biodigestores para tarjetas del header"""
     try:
-        presion_bd1 = obtener_040pt01()
-        presion_bd2 = obtener_050pt01()
-        nivel_bd1 = obtener_040lt01()
-        nivel_bd2 = obtener_050lt01()
+        presion_bd1 = obtener_040pt01() or {'valor': 1.2}
+        presion_bd2 = obtener_050pt01() or {'valor': 1.3}
+        nivel_bd1 = obtener_040lt01() or {'valor': 85}
+        nivel_bd2 = obtener_050lt01() or {'valor': 87}
         
         return jsonify({
             'status': 'success',
             'biodigestor_1': {
-                'presion': presion_bd1.get('valor', 1.2),
-                'nivel': nivel_bd1.get('valor', 85),
+                'presion': presion_bd1.get('valor', 1.2) if presion_bd1 else 1.2,
+                'nivel': nivel_bd1.get('valor', 85) if nivel_bd1 else 85,
                 'temperatura': 38.5,
                 'estado': 'normal'
             },
             'biodigestor_2': {
-                'presion': presion_bd2.get('valor', 1.3),
-                'nivel': nivel_bd2.get('valor', 87),
+                'presion': presion_bd2.get('valor', 1.3) if presion_bd2 else 1.3,
+                'nivel': nivel_bd2.get('valor', 87) if nivel_bd2 else 87,
                 'temperatura': 39.2,
                 'estado': 'normal'
             },
