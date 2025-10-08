@@ -174,7 +174,9 @@ class JarvisUI {
             if (data.status === 'success') {
                 this.desactivarOrbePensando();
                 this.mostrarMensajeAsistente(data.respuesta);
-                this.hablar(data.respuesta);
+                
+                // Hablar con audio de Google TTS si está disponible
+                this.hablar(data.respuesta, data.audio_base64);
                 
                 // Ejecutar acción si hay alguna
                 if (data.accion) {
@@ -263,11 +265,38 @@ class JarvisUI {
         }
     }
 
-    hablar(texto) {
-        // Usar Web Speech API si está disponible
+    hablar(texto, audioBase64 = null) {
+        this.activarOrbeHablando();
+        
+        // Si tenemos audio de Google TTS, reproducirlo
+        if (audioBase64) {
+            try {
+                const audio = new Audio('data:audio/mp3;base64,' + audioBase64);
+                
+                audio.onended = () => {
+                    this.desactivarOrbeHablando();
+                };
+                
+                audio.onerror = () => {
+                    console.error('Error reproduciendo audio de Google TTS');
+                    this.desactivarOrbeHablando();
+                    // Fallback a Web Speech API
+                    this.hablarConWebSpeech(texto);
+                };
+                
+                audio.play();
+                return;
+            } catch (e) {
+                console.error('Error creando audio:', e);
+            }
+        }
+        
+        // Fallback: Usar Web Speech API si está disponible
+        this.hablarConWebSpeech(texto);
+    }
+    
+    hablarConWebSpeech(texto) {
         if ('speechSynthesis' in window) {
-            this.activarOrbeHablando();
-            
             const utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'es-ES';
             utterance.rate = 1.0;
@@ -278,6 +307,8 @@ class JarvisUI {
             };
             
             window.speechSynthesis.speak(utterance);
+        } else {
+            this.desactivarOrbeHablando();
         }
     }
 

@@ -12648,18 +12648,71 @@ except ImportError as e:
     JARVIS_DISPONIBLE = False
     logger.warning(f"⚠️ JARVIS Agent no disponible: {e}")
 
+# Google Cloud Text-to-Speech
+def sintetizar_voz_google_tts(texto: str) -> Optional[str]:
+    """
+    Sintetiza voz usando Google Cloud Text-to-Speech
+    Retorna audio en base64 o None si falla
+    """
+    try:
+        from google.cloud import texttospeech
+        import base64
+        
+        # Inicializar cliente
+        client = texttospeech.TextToSpeechClient()
+        
+        # Configurar entrada de texto
+        synthesis_input = texttospeech.SynthesisInput(text=texto)
+        
+        # Configurar voz británica masculina (estilo JARVIS)
+        voice = texttospeech.VoiceSelectionParams(
+            language_code="en-GB",  # Inglés británico
+            name="en-GB-Neural2-B",  # Voz masculina neural
+            ssml_gender=texttospeech.SsmlVoiceGender.MALE
+        )
+        
+        # Si el texto está en español, usar voz española
+        if any(c in texto for c in ['á', 'é', 'í', 'ó', 'ú', 'ñ', '¿', '¡']):
+            voice = texttospeech.VoiceSelectionParams(
+                language_code="es-ES",  # Español de España
+                name="es-ES-Neural2-B",  # Voz masculina neural
+                ssml_gender=texttospeech.SsmlVoiceGender.MALE
+            )
+        
+        # Configurar audio
+        audio_config = texttospeech.AudioConfig(
+            audio_encoding=texttospeech.AudioEncoding.MP3,
+            speaking_rate=1.0,  # Velocidad normal
+            pitch=0.0,  # Tono normal
+            volume_gain_db=0.0  # Volumen normal
+        )
+        
+        # Sintetizar
+        response = client.synthesize_speech(
+            input=synthesis_input,
+            voice=voice,
+            audio_config=audio_config
+        )
+        
+        # Convertir a base64
+        audio_base64 = base64.b64encode(response.audio_content).decode('utf-8')
+        logger.info(f"✅ Voz sintetizada con Google TTS: {len(audio_base64)} caracteres")
+        return audio_base64
+        
+    except ImportError:
+        logger.warning("Google Cloud TTS no disponible - instalar: pip install google-cloud-texttospeech")
+        return None
+    except Exception as e:
+        logger.error(f"Error en síntesis de voz Google TTS: {e}")
+        return None
+
 @app.route('/api/jarvis/comando', methods=['POST'])
 def jarvis_comando():
-    """Endpoint principal para enviar comandos a JARVIS"""
-    if not JARVIS_DISPONIBLE:
-        return jsonify({
-            'status': 'error',
-            'mensaje': 'JARVIS no está disponible'
-        }), 503
-    
+    """Endpoint principal para enviar comandos a JARVIS - Conectado con IA completa"""
     try:
         data = request.json
         comando = data.get('comando', '').strip()
+        sintetizar_voz = data.get('sintetizar_voz', True)
         
         if not comando:
             return jsonify({
@@ -12667,26 +12720,69 @@ def jarvis_comando():
                 'mensaje': 'Comando vacío'
             }), 400
         
-        # Obtener contexto actual de la planta
-        contexto = {
-            'bd1_presion': obtener_valor_sensor('040PT01') or 1.2,
-            'bd2_presion': obtener_valor_sensor('050PT01') or 1.3,
-            'bd1_nivel': obtener_valor_sensor('040LT01') or 85,
-            'bd2_nivel': obtener_valor_sensor('050LT01') or 87,
-            'potencia_kw': 1200,
-            'alertas': 0  # TODO: obtener de sistema de alertas
+        # USAR EL ASISTENTE IA COMPLETO (con ML y toda la inteligencia)
+        # Crear request simulado para asistente_ia_v2
+        from flask import Request
+        
+        # Llamar directamente a la lógica del asistente inteligente
+        payload_asistente = {
+            'pregunta': comando,
+            'sintetizar': False  # JARVIS manejará la síntesis con Google TTS
         }
         
-        # Procesar comando con JARVIS
-        resultado = jarvis.procesar_comando(comando, contexto)
+        # Usar asistente_ia_v2 que tiene toda la inteligencia
+        original_json = request.get_json
+        request.get_json = lambda force=False, silent=False: payload_asistente
         
-        return jsonify(resultado)
+        try:
+            # Ejecutar asistente inteligente
+            respuesta_asistente = asistente_ia_v2()
+            respuesta_data = respuesta_asistente.get_json()
+            
+        finally:
+            request.get_json = original_json
+        
+        # Obtener la respuesta del asistente inteligente
+        mensaje_respuesta = respuesta_data.get('respuesta', 'Lo siento, no pude procesar esa solicitud.')
+        
+        # Agregar personalidad JARVIS a la respuesta
+        if JARVIS_DISPONIBLE:
+            contexto = {
+                'bd1_presion': obtener_valor_sensor('040PT01') or 1.2,
+                'bd2_presion': obtener_valor_sensor('050PT01') or 1.3,
+                'bd1_nivel': obtener_valor_sensor('040LT01') or 85,
+                'bd2_nivel': obtener_valor_sensor('050LT01') or 87
+            }
+            
+            # Procesar con personalidad JARVIS
+            resultado_jarvis = jarvis.procesar_comando(comando, contexto)
+            intencion = resultado_jarvis.get('intencion')
+            accion = resultado_jarvis.get('accion')
+        else:
+            intencion = 'conversacion_general'
+            accion = None
+        
+        # Sintetizar con Google Cloud TTS si está disponible
+        audio_base64 = None
+        if sintetizar_voz:
+            audio_base64 = sintetizar_voz_google_tts(mensaje_respuesta)
+        
+        return jsonify({
+            'status': 'success',
+            'respuesta': mensaje_respuesta,
+            'intencion': intencion,
+            'accion': accion,
+            'audio_base64': audio_base64,
+            'datos': respuesta_data.get('datos', {}),
+            'timestamp': datetime.now().isoformat()
+        })
         
     except Exception as e:
         logger.error(f"Error en jarvis_comando: {e}", exc_info=True)
         return jsonify({
             'status': 'error',
-            'mensaje': str(e)
+            'mensaje': str(e),
+            'respuesta': 'Disculpe, señor. He tenido un problema técnico procesando su solicitud.'
         }), 500
 
 @app.route('/api/jarvis/saludo')
