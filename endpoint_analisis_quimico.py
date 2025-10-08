@@ -15,6 +15,8 @@ import json
 import logging
 from datetime import datetime
 import traceback
+import os
+from pathlib import Path
 
 # Importar clases del sistema
 from sistema_analisis_quimico_biodigestores import AnalisisQuimicoBiodigestores
@@ -29,6 +31,53 @@ analisis_quimico_bp = Blueprint('analisis_quimico', __name__, url_prefix='/anali
 # Instancias globales
 sistema_analisis = AnalisisQuimicoBiodigestores()
 modelo_ml = ModeloMLInhibicionBiodigestores()
+
+# Semilla opcional del historial desde data/analisis_quimico_fos_tac.json
+def _seed_historial_desde_data():
+    try:
+        base = Path(os.path.dirname(os.path.abspath(__file__)))
+        data_file = base / 'data' / 'analisis_quimico_fos_tac.json'
+        if not data_file.exists():
+            return
+        with open(data_file, 'r', encoding='utf-8') as f:
+            rows = json.load(f)
+        # Limpiar y mapear a entradas simples del historial
+        historial = []
+        for r in rows:
+            fecha = r.get('fecha') or r.get('fecha_hora')
+            fos = r.get('fos')
+            tac = r.get('tac')
+            if fecha is None or (fos is None and tac is None):
+                continue
+            try:
+                dt = datetime.fromisoformat(str(fecha).replace('Z','').split('.')[0])
+            except Exception:
+                try:
+                    dt = datetime.fromisoformat(str(fecha).replace('Z',''))
+                except Exception:
+                    continue
+            fos_tac = None
+            try:
+                if fos is not None and tac is not None and float(tac) != 0:
+                    fos_tac = float(fos) / float(tac)
+            except Exception:
+                fos_tac = None
+            historial.append({
+                'timestamp': dt.isoformat(),
+                'fos': fos,
+                'tac': tac,
+                'fos_tac': fos_tac,
+                'origen': 'historico'
+            })
+        if historial:
+            # Mantener los últimos N ordenados por fecha
+            historial.sort(key=lambda x: x['timestamp'])
+            sistema_analisis.historial_analisis.extend(historial[-500:])
+            logger.info(f"Historial químico inicializado con {len(historial[-500:])} registros desde data/analisis_quimico_fos_tac.json")
+    except Exception as e:
+        logger.warning(f"No se pudo sembrar historial químico: {e}")
+
+_seed_historial_desde_data()
 
 @analisis_quimico_bp.route('/analizar_inhibicion', methods=['POST'])
 def analizar_inhibicion():

@@ -172,8 +172,8 @@ def obtener_stock_materiales():
     try:
         # Intentar obtener desde el endpoint del sistema
         import requests
-        # Usar el puerto correcto del servidor
-        puerto = os.environ.get('SIBIA_PORT', '54112')
+        # Usar el puerto correcto del servidor (por defecto 5000)
+        puerto = os.environ.get('SIBIA_PORT', '5000')
         response = requests.get(f'http://localhost:{puerto}/obtener_stock_actual_json', timeout=5)
         if response.status_code == 200:
             data = response.json()
@@ -683,7 +683,7 @@ def generar_receta_con_purin(kwh_objetivo, porcentaje_ch4, m3_purin,
     """
     
     # 1. Calcular toneladas de purín disponible
-    purin_materiales = [m for m in materiales_disponibles if m['tipo'] == 'purin']
+    purin_materiales = [m for m in materiales_disponibles if (m.get('tipo') == 'purin') or ('purin' in m.get('nombre','').lower())]
     tn_purin = 0
     kwh_purin = 0
     m3_biogas_purin = 0
@@ -693,6 +693,10 @@ def generar_receta_con_purin(kwh_objetivo, porcentaje_ch4, m3_purin,
         # Usar el primer material de tipo purín encontrado
         mat_purin = purin_materiales[0]
         tn_purin = calcular_toneladas_purin(m3_purin, mat_purin['densidad'])
+        stock_purin = float(mat_purin.get('stock_disponible', tn_purin))
+        tn_purin = min(tn_purin, stock_purin)
+        if tn_purin <= 0:
+            tn_purin = 0
         
         calc_purin = calcular_generacion_electrica(
             mat_purin['m3_biogas_por_tn'],
@@ -1033,7 +1037,7 @@ def generar_receta_con_purin(kwh_objetivo, porcentaje_ch4, m3_purin,
     """
     
     # 1. Calcular toneladas de purín disponible
-    purin_materiales = [m for m in materiales_disponibles if m['tipo'] == 'purin']
+    purin_materiales = [m for m in materiales_disponibles if (m.get('tipo') == 'purin') or ('purin' in m.get('nombre','').lower())]
     tn_purin = 0
     kwh_purin = 0
     m3_biogas_purin = 0
@@ -1043,6 +1047,10 @@ def generar_receta_con_purin(kwh_objetivo, porcentaje_ch4, m3_purin,
         # Usar el primer material de tipo purín encontrado
         mat_purin = purin_materiales[0]
         tn_purin = calcular_toneladas_purin(m3_purin, mat_purin['densidad'])
+        stock_purin = float(mat_purin.get('stock_disponible', tn_purin))
+        tn_purin = min(tn_purin, stock_purin)
+        if tn_purin <= 0:
+            tn_purin = 0
         
         calc_purin = calcular_generacion_electrica(
             mat_purin['m3_biogas_por_tn'],

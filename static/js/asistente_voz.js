@@ -174,6 +174,24 @@ function inicializarAsistente() {
     
     asistenteInicializado = true;
     console.log("Asistente de IA inicializado correctamente.");
+    // Saludo inicial con TTS del servidor
+    try {
+        fetch('/asistente_ia_v2', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ pregunta: 'Hola, soy SIBIA, tu asistente inteligente', sintetizar: true }) 
+        })
+        .then(r => r.json())
+        .then(d => { 
+            if (d && d.audio_base64) { 
+                const a = new Audio('data:audio/mp3;base64,' + d.audio_base64); 
+                activarOrbeHablando(); 
+                a.onended = () => desactivarOrbeHablando(); 
+                a.play().catch(() => desactivarOrbeHablando()); 
+            } 
+        })
+        .catch(() => {});
+    } catch(e) {}
 }
 
 function agregarMensajeChat(texto, tipo) {
@@ -220,10 +238,10 @@ async function consultarAsistente(inputElement) {
     activarOrbePensando();
 
     try {
-        const response = await fetch('/ask_assistant', {
+        const response = await fetch('/asistente_ia_v2', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pregunta: pregunta })
+            body: JSON.stringify({ pregunta: pregunta, sintetizar: true })
         });
 
         const data = await response.json();
@@ -238,6 +256,15 @@ async function consultarAsistente(inputElement) {
         // Activar orbe hablando antes de mostrar la respuesta
         activarOrbeHablando();
         agregarMensajeChat(respuestaTexto, 'asistente');
+        // Reproducir audio del backend si viene
+        if (data && data.audio_base64) {
+            try {
+                const audio = new Audio('data:audio/mp3;base64,' + data.audio_base64);
+                activarOrbeHablando();
+                audio.onended = () => desactivarOrbeHablando();
+                audio.play().catch(err => { console.warn('Audio blocked:', err); desactivarOrbeHablando(); });
+            } catch(e) { console.warn('Error reproduciendo audio:', e); }
+        }
         
         // Simular tiempo de "habla" y luego desactivar
         setTimeout(() => {
@@ -504,10 +531,10 @@ function inicializarReconocimientoVoz(microBtn, input) {
             if (!pregunta) return;
             logMessage('Tú', pregunta);
             mostrarRespuestaAsistente('Pensando...', '...');
-            fetch('/ask_assistant', {
+            fetch('/asistente_ia_v2', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pregunta })
+                body: JSON.stringify({ pregunta, sintetizar: true })
             })
             .then(res => res.json())
             .then(data => {

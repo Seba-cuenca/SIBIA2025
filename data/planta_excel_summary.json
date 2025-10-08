@@ -1,0 +1,3803 @@
+{
+  "file": "c:\\Users\\SEBASTIAN\\Desktop\\PROYECTOS IA\\FUNCIONARON TODAS MENOS\\GVBIO_-_Registro_de_planta_3.xlsx",
+  "sheets": [
+    " Alimentacion",
+    "ALIMENTACION BLANCO ",
+    "Diario",
+    "Alimentación 2.0 (2)",
+    "Conversor",
+    "Agua",
+    "Tablero",
+    "Calidad gas y eficiencia",
+    "Alimentación 2.0",
+    "Verificación y calibración",
+    "CARGA PALA",
+    "FOS-TAC",
+    "ST",
+    "Observaciones",
+    "Camiones",
+    "SILO",
+    "Leo sustratos",
+    "Seguimiento de residuos. (2)"
+  ],
+  "analisis": [
+    {
+      "sheet": " Alimentacion",
+      "rows": 80,
+      "cols": 8,
+      "columns": [
+        "Unnamed: 0",
+        "PROGRAMA DE ALIMENTACIÓN DIARIO",
+        "Unnamed: 2",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7"
+      ],
+      "nonnull": {
+        "Unnamed: 0": 2,
+        "PROGRAMA DE ALIMENTACIÓN DIARIO": 59,
+        "Unnamed: 2": 72,
+        "Unnamed: 3": 0,
+        "Unnamed: 4": 0,
+        "Unnamed: 5": 54,
+        "Unnamed: 6": 35,
+        "Unnamed: 7": 16
+      },
+      "dtypes": {
+        "Unnamed: 0": "object",
+        "PROGRAMA DE ALIMENTACIÓN DIARIO": "object",
+        "Unnamed: 2": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object"
+      },
+      "examples": {
+        "Unnamed: 0": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "PROGRAMA DE ALIMENTACIÓN DIARIO": [
+          "Día",
+          "2022-07-14 00:00:00",
+          "OBJETIVO"
+        ],
+        "Unnamed: 2": [
+          "Hora",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 3": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 4": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 5": [
+          "Silo [t]",
+          "nan",
+          "8"
+        ],
+        "Unnamed: 6": [
+          "Purín [m3]",
+          "nan",
+          "80"
+        ],
+        "Unnamed: 7": [
+          "Trasvase \n [m3]",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "ALIMENTACION BLANCO ",
+      "rows": 46,
+      "cols": 46,
+      "columns": [
+        "2024-10-08 00:00:00",
+        "00:00:00",
+        "3.46",
+        "nan",
+        "nan.1",
+        "nan.2",
+        "nan.3",
+        "nan.4",
+        "nan.5",
+        "676.63",
+        "nan.6",
+        "nan.7",
+        "nan.8",
+        "nan.9",
+        "nan.10",
+        "nan.11",
+        "nan.12",
+        "nan.13",
+        "nan.14",
+        "nan.15",
+        "nan.16",
+        "nan.17",
+        "nan.18",
+        "668.96",
+        "nan.19",
+        "nan.20",
+        "nan.21",
+        "nan.22",
+        "nan.23",
+        "nan.24",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32",
+        "Corriente",
+        "Tn SV",
+        "Real TnSV",
+        "Real (tn Bruta)",
+        "TnSV/ Carga",
+        "% SV",
+        "Unnamed: 39",
+        "Unnamed: 40",
+        "1.2",
+        "4.3125",
+        "4.3125.1",
+        "90",
+        "0"
+      ],
+      "nonnull": {
+        "2024-10-08 00:00:00": 46,
+        "00:00:00": 46,
+        "3.46": 30,
+        "nan": 41,
+        "nan.1": 30,
+        "nan.2": 23,
+        "nan.3": 41,
+        "nan.4": 23,
+        "nan.5": 23,
+        "676.63": 35,
+        "nan.6": 41,
+        "nan.7": 30,
+        "nan.8": 23,
+        "nan.9": 41,
+        "nan.10": 23,
+        "nan.11": 23,
+        "nan.12": 23,
+        "nan.13": 23,
+        "nan.14": 23,
+        "nan.15": 23,
+        "nan.16": 23,
+        "nan.17": 23,
+        "nan.18": 23,
+        "668.96": 35,
+        "nan.19": 41,
+        "nan.20": 30,
+        "nan.21": 23,
+        "nan.22": 41,
+        "nan.23": 23,
+        "nan.24": 23,
+        "Unnamed: 30": 0,
+        "Unnamed: 31": 2,
+        "Unnamed: 32": 0,
+        "Corriente": 37,
+        "Tn SV": 29,
+        "Real TnSV": 12,
+        "Real (tn Bruta)": 24,
+        "TnSV/ Carga": 17,
+        "% SV": 9,
+        "Unnamed: 39": 0,
+        "Unnamed: 40": 0,
+        "1.2": 6,
+        "4.3125": 6,
+        "4.3125.1": 6,
+        "90": 6,
+        "0": 6
+      },
+      "dtypes": {
+        "2024-10-08 00:00:00": "object",
+        "00:00:00": "object",
+        "3.46": "object",
+        "nan": "object",
+        "nan.1": "object",
+        "nan.2": "object",
+        "nan.3": "object",
+        "nan.4": "object",
+        "nan.5": "object",
+        "676.63": "object",
+        "nan.6": "object",
+        "nan.7": "object",
+        "nan.8": "object",
+        "nan.9": "object",
+        "nan.10": "object",
+        "nan.11": "object",
+        "nan.12": "object",
+        "nan.13": "object",
+        "nan.14": "object",
+        "nan.15": "object",
+        "nan.16": "object",
+        "nan.17": "object",
+        "nan.18": "object",
+        "668.96": "object",
+        "nan.19": "object",
+        "nan.20": "object",
+        "nan.21": "object",
+        "nan.22": "object",
+        "nan.23": "object",
+        "nan.24": "object",
+        "Unnamed: 30": "object",
+        "Unnamed: 31": "object",
+        "Unnamed: 32": "object",
+        "Corriente": "object",
+        "Tn SV": "object",
+        "Real TnSV": "object",
+        "Real (tn Bruta)": "object",
+        "TnSV/ Carga": "object",
+        "% SV": "object",
+        "Unnamed: 39": "object",
+        "Unnamed: 40": "object",
+        "1.2": "object",
+        "4.3125": "object",
+        "4.3125.1": "object",
+        "90": "object",
+        "0": "object"
+      },
+      "examples": {
+        "2024-10-08 00:00:00": [
+          "2024-10-08 00:00:00",
+          "2024-10-08 00:00:00",
+          "2024-10-08 00:00:00"
+        ],
+        "00:00:00": [
+          "01:00:00",
+          "02:00:00",
+          "03:00:00"
+        ],
+        "3.46": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.2": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.3": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.4": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.5": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "676.63": [
+          "687.61",
+          "692.82",
+          "690.6"
+        ],
+        "nan.6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.8": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.9": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.10": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.11": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.12": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.13": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.14": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.15": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.16": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.17": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.18": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "668.96": [
+          "667.55",
+          "652.85",
+          "665.87"
+        ],
+        "nan.19": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.20": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.21": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.22": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.23": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "nan.24": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 30": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 31": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 32": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Corriente": [
+          "Buffer-040",
+          "Buffer-050",
+          "Silo 040"
+        ],
+        "Tn SV": [
+          "5",
+          "0",
+          "7.5"
+        ],
+        "Real TnSV": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Real (tn Bruta)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "TnSV/ Carga": [
+          "0.20833333333333334",
+          "0",
+          "0.3125"
+        ],
+        "% SV": [
+          "0.855",
+          "0.855",
+          "0.9372"
+        ],
+        "Unnamed: 39": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 40": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "1.2": [
+          "nan",
+          "nan",
+          "Tiempo [s]"
+        ],
+        "4.3125": [
+          "nan",
+          "nan",
+          "M3"
+        ],
+        "4.3125.1": [
+          "nan",
+          "nan",
+          "CAUDAL"
+        ],
+        "90": [
+          "nan",
+          "nan",
+          "SEG A INGRESAR"
+        ],
+        "0": [
+          "nan",
+          "nan",
+          "M3 A INGRESAR"
+        ]
+      }
+    },
+    {
+      "sheet": "Diario",
+      "rows": 80,
+      "cols": 46,
+      "columns": [
+        "Unnamed: 0",
+        "Unnamed: 1",
+        "Unnamed: 2",
+        "50",
+        "50.1",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "Unnamed: 8",
+        "Unnamed: 9",
+        "Unnamed: 10",
+        "Unnamed: 11",
+        "Unnamed: 12",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Unnamed: 16",
+        "200",
+        "Unnamed: 18",
+        "Unnamed: 19",
+        "Unnamed: 20",
+        "Unnamed: 21",
+        "Unnamed: 22",
+        "Unnamed: 23",
+        "Unnamed: 24",
+        "Unnamed: 25",
+        "Unnamed: 26",
+        "Unnamed: 27",
+        "Unnamed: 28",
+        "Unnamed: 29",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32",
+        "Unnamed: 33",
+        "Unnamed: 34",
+        "Unnamed: 35",
+        "Unnamed: 36",
+        "Unnamed: 37",
+        "Unnamed: 38",
+        "Unnamed: 39",
+        "Unnamed: 40",
+        "Unnamed: 41",
+        "Unnamed: 42",
+        "Unnamed: 43",
+        "Unnamed: 44",
+        "Unnamed: 45"
+      ],
+      "nonnull": {
+        "Unnamed: 0": 73,
+        "Unnamed: 1": 2,
+        "Unnamed: 2": 2,
+        "50": 47,
+        "50.1": 52,
+        "Unnamed: 5": 2,
+        "Unnamed: 6": 2,
+        "Unnamed: 7": 2,
+        "Unnamed: 8": 30,
+        "Unnamed: 9": 2,
+        "Unnamed: 10": 2,
+        "Unnamed: 11": 2,
+        "Unnamed: 12": 2,
+        "Unnamed: 13": 2,
+        "Unnamed: 14": 2,
+        "Unnamed: 15": 2,
+        "Unnamed: 16": 2,
+        "200": 3,
+        "Unnamed: 18": 7,
+        "Unnamed: 19": 2,
+        "Unnamed: 20": 21,
+        "Unnamed: 21": 2,
+        "Unnamed: 22": 35,
+        "Unnamed: 23": 35,
+        "Unnamed: 24": 9,
+        "Unnamed: 25": 9,
+        "Unnamed: 26": 9,
+        "Unnamed: 27": 9,
+        "Unnamed: 28": 2,
+        "Unnamed: 29": 2,
+        "Unnamed: 30": 2,
+        "Unnamed: 31": 19,
+        "Unnamed: 32": 16,
+        "Unnamed: 33": 5,
+        "Unnamed: 34": 16,
+        "Unnamed: 35": 2,
+        "Unnamed: 36": 2,
+        "Unnamed: 37": 16,
+        "Unnamed: 38": 4,
+        "Unnamed: 39": 2,
+        "Unnamed: 40": 2,
+        "Unnamed: 41": 2,
+        "Unnamed: 42": 2,
+        "Unnamed: 43": 2,
+        "Unnamed: 44": 2,
+        "Unnamed: 45": 2
+      },
+      "dtypes": {
+        "Unnamed: 0": "object",
+        "Unnamed: 1": "object",
+        "Unnamed: 2": "object",
+        "50": "object",
+        "50.1": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "Unnamed: 8": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object",
+        "Unnamed: 11": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Unnamed: 16": "object",
+        "200": "object",
+        "Unnamed: 18": "object",
+        "Unnamed: 19": "object",
+        "Unnamed: 20": "object",
+        "Unnamed: 21": "object",
+        "Unnamed: 22": "object",
+        "Unnamed: 23": "object",
+        "Unnamed: 24": "object",
+        "Unnamed: 25": "object",
+        "Unnamed: 26": "object",
+        "Unnamed: 27": "object",
+        "Unnamed: 28": "object",
+        "Unnamed: 29": "object",
+        "Unnamed: 30": "object",
+        "Unnamed: 31": "object",
+        "Unnamed: 32": "object",
+        "Unnamed: 33": "object",
+        "Unnamed: 34": "object",
+        "Unnamed: 35": "object",
+        "Unnamed: 36": "object",
+        "Unnamed: 37": "object",
+        "Unnamed: 38": "object",
+        "Unnamed: 39": "object",
+        "Unnamed: 40": "object",
+        "Unnamed: 41": "object",
+        "Unnamed: 42": "object",
+        "Unnamed: 43": "object",
+        "Unnamed: 44": "object",
+        "Unnamed: 45": "object"
+      },
+      "examples": {
+        "Unnamed: 0": [
+          "nan",
+          "2024-08-23 00:00:00",
+          "nan"
+        ],
+        "Unnamed: 1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 2": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "50": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "50.1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 5": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 8": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 9": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 10": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 11": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 12": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 13": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 14": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 15": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 16": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "200": [
+          "nan",
+          "GVBIO - PARTE DIARIO",
+          "nan"
+        ],
+        "Unnamed: 18": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 19": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 20": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 21": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 22": [
+          "nan",
+          "Código:",
+          "Fecha:"
+        ],
+        "Unnamed: 23": [
+          "nan",
+          "F-OPE-03",
+          "2022-06-01 00:00:00"
+        ],
+        "Unnamed: 24": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 25": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 26": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 27": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 28": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 29": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 30": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 31": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 32": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 33": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 34": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 35": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 36": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 37": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 38": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 39": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 40": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 41": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 42": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 43": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 44": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 45": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Alimentación 2.0 (2)",
+      "rows": 80,
+      "cols": 46,
+      "columns": [
+        "Fecha_2024-10-08 00:00:00",
+        "Horario_00:00:00",
+        "Buffer B-040 m3_3.35",
+        "Buffer B-040 %ST_0.0714",
+        "SVT (tn)_0.20450745",
+        "Ajuste_0.045814149159663885",
+        "Carga ideal _3.412671111329522",
+        "Carga total siguiente  _3.458485260489186",
+        "Carga real _3.458485260489186",
+        "Solid B-040 Kg_676.63",
+        "Solid B-040 %ST_0.4935",
+        "SVT (tn)2_0.312946923366",
+        "Ajuste3_-0.00044692336599999605",
+        "Carga ideal 4_0.6756636963409514",
+        "Carga total siguiente  5_0.6752167729749514",
+        "Columna6_0.6752167729749514",
+        "Buffer B-050 m3_0",
+        "%ST_0.0714",
+        "SVT (tn)7_0",
+        "Ajuste8_0",
+        "Carga ideal 9_0",
+        "Carga total siguiente  10_0",
+        "Carga real 6_0",
+        "Solid B-050 Kg_668.96",
+        "Columna11_0.4935",
+        "Columna12_0.309399485472",
+        "Columna13_-0.0073161521386667094",
+        "Columna14_0.6531415731295862",
+        "Columna15_0.6458254209909196",
+        "Columna16_0.6458254209909196",
+        "Trasvase _Unnamed: 30_level_1",
+        " Dewatering_Unnamed: 31_level_1",
+        " Dewatering_Unnamed: 32_level_1",
+        "Corriente_Buffer-040",
+        "Tn SV_5",
+        "Real TnSV_5",
+        "Real (tn Bruta)_81.39220600520909",
+        "TnSV/ Carga_0.20833333333333334",
+        "% SV_0.855",
+        "% SV_0.855.1",
+        "% SV_0.855.2",
+        "Maximo Carga Solid_1.2",
+        "Maximo carga Buffer -040_4.3125",
+        "Maximo carga Buffer -050_4.3125",
+        "Volumen Maximo B-040_90",
+        "Volumen Maximo B-050_0"
+      ],
+      "nonnull": {
+        "Fecha_2024-10-08 00:00:00": 80,
+        "Horario_00:00:00": 80,
+        "Buffer B-040 m3_3.35": 80,
+        "Buffer B-040 %ST_0.0714": 80,
+        "SVT (tn)_0.20450745": 80,
+        "Ajuste_0.045814149159663885": 80,
+        "Carga ideal _3.412671111329522": 80,
+        "Carga total siguiente  _3.458485260489186": 80,
+        "Carga real _3.458485260489186": 80,
+        "Solid B-040 Kg_676.63": 80,
+        "Solid B-040 %ST_0.4935": 80,
+        "SVT (tn)2_0.312946923366": 78,
+        "Ajuste3_-0.00044692336599999605": 78,
+        "Carga ideal 4_0.6756636963409514": 80,
+        "Carga total siguiente  5_0.6752167729749514": 78,
+        "Columna6_0.6752167729749514": 78,
+        "Buffer B-050 m3_0": 80,
+        "%ST_0.0714": 80,
+        "SVT (tn)7_0": 80,
+        "Ajuste8_0": 80,
+        "Carga ideal 9_0": 80,
+        "Carga total siguiente  10_0": 80,
+        "Carga real 6_0": 80,
+        "Solid B-050 Kg_668.96": 80,
+        "Columna11_0.4935": 80,
+        "Columna12_0.309399485472": 80,
+        "Columna13_-0.0073161521386667094": 80,
+        "Columna14_0.6531415731295862": 80,
+        "Columna15_0.6458254209909196": 80,
+        "Columna16_0.6458254209909196": 80,
+        "Trasvase _Unnamed: 30_level_1": 0,
+        " Dewatering_Unnamed: 31_level_1": 0,
+        " Dewatering_Unnamed: 32_level_1": 0,
+        "Corriente_Buffer-040": 64,
+        "Tn SV_5": 49,
+        "Real TnSV_5": 26,
+        "Real (tn Bruta)_81.39220600520909": 49,
+        "TnSV/ Carga_0.20833333333333334": 28,
+        "% SV_0.855": 18,
+        "% SV_0.855.1": 0,
+        "% SV_0.855.2": 0,
+        "Maximo Carga Solid_1.2": 14,
+        "Maximo carga Buffer -040_4.3125": 14,
+        "Maximo carga Buffer -050_4.3125": 14,
+        "Volumen Maximo B-040_90": 14,
+        "Volumen Maximo B-050_0": 14
+      },
+      "dtypes": {
+        "Fecha_2024-10-08 00:00:00": "object",
+        "Horario_00:00:00": "object",
+        "Buffer B-040 m3_3.35": "object",
+        "Buffer B-040 %ST_0.0714": "object",
+        "SVT (tn)_0.20450745": "object",
+        "Ajuste_0.045814149159663885": "object",
+        "Carga ideal _3.412671111329522": "object",
+        "Carga total siguiente  _3.458485260489186": "object",
+        "Carga real _3.458485260489186": "object",
+        "Solid B-040 Kg_676.63": "object",
+        "Solid B-040 %ST_0.4935": "object",
+        "SVT (tn)2_0.312946923366": "object",
+        "Ajuste3_-0.00044692336599999605": "object",
+        "Carga ideal 4_0.6756636963409514": "object",
+        "Carga total siguiente  5_0.6752167729749514": "object",
+        "Columna6_0.6752167729749514": "object",
+        "Buffer B-050 m3_0": "object",
+        "%ST_0.0714": "object",
+        "SVT (tn)7_0": "object",
+        "Ajuste8_0": "object",
+        "Carga ideal 9_0": "object",
+        "Carga total siguiente  10_0": "object",
+        "Carga real 6_0": "object",
+        "Solid B-050 Kg_668.96": "object",
+        "Columna11_0.4935": "object",
+        "Columna12_0.309399485472": "object",
+        "Columna13_-0.0073161521386667094": "object",
+        "Columna14_0.6531415731295862": "object",
+        "Columna15_0.6458254209909196": "object",
+        "Columna16_0.6458254209909196": "object",
+        "Trasvase _Unnamed: 30_level_1": "object",
+        " Dewatering_Unnamed: 31_level_1": "object",
+        " Dewatering_Unnamed: 32_level_1": "object",
+        "Corriente_Buffer-040": "object",
+        "Tn SV_5": "object",
+        "Real TnSV_5": "object",
+        "Real (tn Bruta)_81.39220600520909": "object",
+        "TnSV/ Carga_0.20833333333333334": "object",
+        "% SV_0.855": "object",
+        "% SV_0.855.1": "object",
+        "% SV_0.855.2": "object",
+        "Maximo Carga Solid_1.2": "object",
+        "Maximo carga Buffer -040_4.3125": "object",
+        "Maximo carga Buffer -050_4.3125": "object",
+        "Volumen Maximo B-040_90": "object",
+        "Volumen Maximo B-050_0": "object"
+      },
+      "examples": {
+        "Fecha_2024-10-08 00:00:00": [
+          "2024-10-08 00:00:00",
+          "2024-10-08 00:00:00",
+          "2024-10-08 00:00:00"
+        ],
+        "Horario_00:00:00": [
+          "01:00:00",
+          "02:00:00",
+          "03:00:00"
+        ],
+        "Buffer B-040 m3_3.35": [
+          "3.458485260489186",
+          "3.4295280734993803",
+          "3.412671111329522"
+        ],
+        "Buffer B-040 %ST_0.0714": [
+          "0.0714",
+          "0.0714",
+          "0.0714"
+        ],
+        "SVT (tn)_0.20450745": [
+          "0.21113014969708335",
+          "0.20936240030291667",
+          "0.20833333333333334"
+        ],
+        "Ajuste_0.045814149159663885": [
+          "0.016856962169858065",
+          "0",
+          "0"
+        ],
+        "Carga ideal _3.412671111329522": [
+          "3.412671111329522",
+          "3.412671111329522",
+          "3.412671111329522"
+        ],
+        "Carga total siguiente  _3.458485260489186": [
+          "3.4295280734993803",
+          "3.412671111329522",
+          "3.412671111329522"
+        ],
+        "Carga real _3.458485260489186": [
+          "3.4295280734993803",
+          "3.412671111329522",
+          "3.412671111329522"
+        ],
+        "Solid B-040 Kg_676.63": [
+          "687.61",
+          "692.82",
+          "690.6"
+        ],
+        "Solid B-040 %ST_0.4935": [
+          "0.4935",
+          "0.4935",
+          "0.4935"
+        ],
+        "SVT (tn)2_0.312946923366": [
+          "0.31802526340200005",
+          "0.320434931124",
+          "0.31940816292"
+        ],
+        "Ajuste3_-0.00044692336599999605": [
+          "-0.012912607318097371",
+          "-0.03006891097714603",
+          "-0.04500521463619483"
+        ],
+        "Carga ideal 4_0.6756636963409514": [
+          "0.6756636963409514",
+          "0.6756636963409514",
+          "0.6756636963409514"
+        ],
+        "Carga total siguiente  5_0.6752167729749514": [
+          "0.662751089022854",
+          "0.6455947853638053",
+          "0.6306584817047566"
+        ],
+        "Columna6_0.6752167729749514": [
+          "0.662751089022854",
+          "0.6455947853638053",
+          "0.6306584817047566"
+        ],
+        "Buffer B-050 m3_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "%ST_0.0714": [
+          "0.0714",
+          "0.0714",
+          "0.0714"
+        ],
+        "SVT (tn)7_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Ajuste8_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Carga ideal 9_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Carga total siguiente  10_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Carga real 6_0": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Solid B-050 Kg_668.96": [
+          "667.55",
+          "652.85",
+          "665.87"
+        ],
+        "Columna11_0.4935": [
+          "0.4935",
+          "0.4935",
+          "0.4935"
+        ],
+        "Columna12_0.309399485472": [
+          "0.30874734891",
+          "0.30194847837",
+          "0.307970335134"
+        ],
+        "Columna13_-0.0073161521386667094": [
+          "-0.030226853740827495",
+          "-0.02993528061124097",
+          "-0.04266370748165473"
+        ],
+        "Columna14_0.6531415731295862": [
+          "0.6531415731295862",
+          "0.6531415731295862",
+          "0.6531415731295862"
+        ],
+        "Columna15_0.6458254209909196": [
+          "0.6229147193887588",
+          "0.6232062925183453",
+          "0.6104778656479315"
+        ],
+        "Columna16_0.6458254209909196": [
+          "0.6229147193887588",
+          "0.6232062925183453",
+          "0.6104778656479315"
+        ],
+        "Trasvase _Unnamed: 30_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        " Dewatering_Unnamed: 31_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        " Dewatering_Unnamed: 32_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Corriente_Buffer-040": [
+          "Buffer-050",
+          "Silo 040",
+          "Silo 050"
+        ],
+        "Tn SV_5": [
+          "0",
+          "7.5",
+          "7.25"
+        ],
+        "Real TnSV_5": [
+          "0",
+          "7.5",
+          "7.249999999999999"
+        ],
+        "Real (tn Bruta)_81.39220600520909": [
+          "0",
+          "20.213336159240306",
+          "19.537951496756058"
+        ],
+        "TnSV/ Carga_0.20833333333333334": [
+          "0",
+          "0.3125",
+          "0.3020833333333333"
+        ],
+        "% SV_0.855": [
+          "0.855",
+          "0.9372",
+          "0.9372"
+        ],
+        "% SV_0.855.1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% SV_0.855.2": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Maximo Carga Solid_1.2": [
+          "nan",
+          "nan",
+          "Tiempo [s]"
+        ],
+        "Maximo carga Buffer -040_4.3125": [
+          "nan",
+          "nan",
+          "M3"
+        ],
+        "Maximo carga Buffer -050_4.3125": [
+          "nan",
+          "nan",
+          "CAUDAL"
+        ],
+        "Volumen Maximo B-040_90": [
+          "nan",
+          "nan",
+          "SEG A INGRESAR"
+        ],
+        "Volumen Maximo B-050_0": [
+          "nan",
+          "nan",
+          "M3 A INGRESAR"
+        ]
+      }
+    },
+    {
+      "sheet": "Conversor",
+      "rows": 51,
+      "cols": 17,
+      "columns": [
+        "85.342",
+        "Unnamed: 1",
+        "Unnamed: 2",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "CÁLCULO DE CONCENTRACIÓN DE COMPONENTES DE UNA MEZCLA",
+        "Unnamed: 9",
+        "Unnamed: 10",
+        "Unnamed: 11",
+        "Unnamed: 12",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Unnamed: 16"
+      ],
+      "nonnull": {
+        "85.342": 18,
+        "Unnamed: 1": 10,
+        "Unnamed: 2": 11,
+        "Unnamed: 3": 9,
+        "Unnamed: 4": 10,
+        "Unnamed: 5": 6,
+        "Unnamed: 6": 1,
+        "Unnamed: 7": 1,
+        "CÁLCULO DE CONCENTRACIÓN DE COMPONENTES DE UNA MEZCLA": 2,
+        "Unnamed: 9": 14,
+        "Unnamed: 10": 12,
+        "Unnamed: 11": 10,
+        "Unnamed: 12": 10,
+        "Unnamed: 13": 10,
+        "Unnamed: 14": 10,
+        "Unnamed: 15": 0,
+        "Unnamed: 16": 2
+      },
+      "dtypes": {
+        "85.342": "object",
+        "Unnamed: 1": "object",
+        "Unnamed: 2": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "CÁLCULO DE CONCENTRACIÓN DE COMPONENTES DE UNA MEZCLA": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object",
+        "Unnamed: 11": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Unnamed: 16": "object"
+      },
+      "examples": {
+        "85.342": [
+          "Ingresar",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 1": [
+          "Tiempo [h]",
+          "Tiempo [min]",
+          "Tiempo [s]"
+        ],
+        "Unnamed: 2": [
+          "2",
+          "43",
+          "41"
+        ],
+        "Unnamed: 3": [
+          " ",
+          " ",
+          "nan"
+        ],
+        "Unnamed: 4": [
+          "Caudal promedio [m3/h]",
+          " ",
+          " "
+        ],
+        "Unnamed: 5": [
+          "21.25",
+          "nan",
+          " "
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "CÁLCULO DE CONCENTRACIÓN DE COMPONENTES DE UNA MEZCLA": [
+          "Ingresar",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 9": [
+          "Nombre componente 1",
+          "Nombre componente 2",
+          "Nombre componente 3"
+        ],
+        "Unnamed: 10": [
+          "Purín",
+          "Lactosa",
+          "Leche"
+        ],
+        "Unnamed: 11": [
+          "Concentración inicial componente 1",
+          "Concentración inicial componente 2",
+          "Concentración inicial componente 3"
+        ],
+        "Unnamed: 12": [
+          "%",
+          "0.3114",
+          "0"
+        ],
+        "Unnamed: 13": [
+          "Volumen agregado componente 1 [m3]",
+          "Volumen agregado componente 2 [m3]",
+          "Volumen agregado componente 3 [m3]"
+        ],
+        "Unnamed: 14": [
+          "0",
+          "0",
+          "0"
+        ],
+        "Unnamed: 15": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 16": [
+          "B10/C10*F10",
+          "nan",
+          "54"
+        ]
+      }
+    },
+    {
+      "sheet": "Agua",
+      "rows": 48,
+      "cols": 14,
+      "columns": [
+        "Unnamed: 0",
+        "Unnamed: 1",
+        "Análisis de Aguas",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Consumo de agua",
+        "Unnamed: 8",
+        "Unnamed: 9",
+        "Unnamed: 10",
+        "Unnamed: 11",
+        "Unnamed: 12",
+        "Unnamed: 13"
+      ],
+      "nonnull": {
+        "Unnamed: 0": 48,
+        "Unnamed: 1": 48,
+        "Análisis de Aguas": 48,
+        "Unnamed: 3": 41,
+        "Unnamed: 4": 44,
+        "Unnamed: 5": 41,
+        "Unnamed: 6": 0,
+        "Consumo de agua": 22,
+        "Unnamed: 8": 20,
+        "Unnamed: 9": 20,
+        "Unnamed: 10": 19,
+        "Unnamed: 11": 19,
+        "Unnamed: 12": 19,
+        "Unnamed: 13": 2
+      },
+      "dtypes": {
+        "Unnamed: 0": "object",
+        "Unnamed: 1": "object",
+        "Análisis de Aguas": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Consumo de agua": "object",
+        "Unnamed: 8": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object",
+        "Unnamed: 11": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object"
+      },
+      "examples": {
+        "Unnamed: 0": [
+          "Fecha",
+          "2022-10-14 00:00:00",
+          "2022-10-14 00:00:00"
+        ],
+        "Unnamed: 1": [
+          "Responsable",
+          "Gonzalo",
+          "Gonzalo"
+        ],
+        "Análisis de Aguas": [
+          "Muestra",
+          "Estiercolera",
+          "Ósmosis"
+        ],
+        "Unnamed: 3": [
+          "pH",
+          "7.34",
+          "nan"
+        ],
+        "Unnamed: 4": [
+          "Dureza",
+          "342",
+          "6"
+        ],
+        "Unnamed: 5": [
+          "Conductividad",
+          ">2000",
+          "360"
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Consumo de agua": [
+          "Mes",
+          "2023-01-01 00:00:00",
+          "2023-02-01 00:00:00"
+        ],
+        "Unnamed: 8": [
+          "Responsable",
+          "nan",
+          "Agustín"
+        ],
+        "Unnamed: 9": [
+          "Totalizador producido (m3)",
+          "nan",
+          "56.1"
+        ],
+        "Unnamed: 10": [
+          "Consumo producido (m3)",
+          "nan",
+          "56.1"
+        ],
+        "Unnamed: 11": [
+          "Totalizador rechazo (m3)",
+          "nan",
+          "26.31"
+        ],
+        "Unnamed: 12": [
+          "Consumo rechazo (m3)",
+          "nan",
+          "26.31"
+        ],
+        "Unnamed: 13": [
+          "Observaciones",
+          "No se habían comenzado las mediciones",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Tablero",
+      "rows": 65,
+      "cols": 39,
+      "columns": [
+        "TABLERO DE CONTROL",
+        "Unnamed: 1",
+        "Unnamed: 2",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "A LAGUNA",
+        "APAGADO",
+        "BAJO",
+        "AUTOMÁTICO",
+        "BUSCARV(B3;Diario!$1:$1048576;5)",
+        "silo hoy",
+        "Unnamed: 14",
+        "Mañana",
+        "Unnamed: 16",
+        "OK",
+        "Unnamed: 18",
+        "Unnamed: 19",
+        "Unnamed: 20",
+        "Unnamed: 21",
+        "Unnamed: 22",
+        "Unnamed: 23",
+        "Unnamed: 24",
+        "Unnamed: 25",
+        "Unnamed: 26",
+        "Unnamed: 27",
+        "Unnamed: 28",
+        "Unnamed: 29",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32",
+        "Unnamed: 33",
+        "Unnamed: 34",
+        "Unnamed: 35",
+        "Unnamed: 36",
+        "Unnamed: 37",
+        "Unnamed: 38"
+      ],
+      "nonnull": {
+        "TABLERO DE CONTROL": 40,
+        "Unnamed: 1": 22,
+        "Unnamed: 2": 18,
+        "Unnamed: 3": 7,
+        "Unnamed: 4": 17,
+        "Unnamed: 5": 0,
+        "Unnamed: 6": 1,
+        "Unnamed: 7": 1,
+        "A LAGUNA": 1,
+        "APAGADO": 1,
+        "BAJO": 2,
+        "AUTOMÁTICO": 1,
+        "BUSCARV(B3;Diario!$1:$1048576;5)": 9,
+        "silo hoy": 8,
+        "Unnamed: 14": 0,
+        "Mañana": 4,
+        "Unnamed: 16": 0,
+        "OK": 1,
+        "Unnamed: 18": 0,
+        "Unnamed: 19": 1,
+        "Unnamed: 20": 0,
+        "Unnamed: 21": 0,
+        "Unnamed: 22": 0,
+        "Unnamed: 23": 0,
+        "Unnamed: 24": 0,
+        "Unnamed: 25": 0,
+        "Unnamed: 26": 0,
+        "Unnamed: 27": 0,
+        "Unnamed: 28": 0,
+        "Unnamed: 29": 0,
+        "Unnamed: 30": 0,
+        "Unnamed: 31": 0,
+        "Unnamed: 32": 0,
+        "Unnamed: 33": 0,
+        "Unnamed: 34": 0,
+        "Unnamed: 35": 0,
+        "Unnamed: 36": 0,
+        "Unnamed: 37": 0,
+        "Unnamed: 38": 5
+      },
+      "dtypes": {
+        "TABLERO DE CONTROL": "object",
+        "Unnamed: 1": "object",
+        "Unnamed: 2": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "A LAGUNA": "object",
+        "APAGADO": "object",
+        "BAJO": "object",
+        "AUTOMÁTICO": "object",
+        "BUSCARV(B3;Diario!$1:$1048576;5)": "object",
+        "silo hoy": "object",
+        "Unnamed: 14": "object",
+        "Mañana": "object",
+        "Unnamed: 16": "object",
+        "OK": "object",
+        "Unnamed: 18": "object",
+        "Unnamed: 19": "object",
+        "Unnamed: 20": "object",
+        "Unnamed: 21": "object",
+        "Unnamed: 22": "object",
+        "Unnamed: 23": "object",
+        "Unnamed: 24": "object",
+        "Unnamed: 25": "object",
+        "Unnamed: 26": "object",
+        "Unnamed: 27": "object",
+        "Unnamed: 28": "object",
+        "Unnamed: 29": "object",
+        "Unnamed: 30": "object",
+        "Unnamed: 31": "object",
+        "Unnamed: 32": "object",
+        "Unnamed: 33": "object",
+        "Unnamed: 34": "object",
+        "Unnamed: 35": "object",
+        "Unnamed: 36": "object",
+        "Unnamed: 37": "object",
+        "Unnamed: 38": "object"
+      },
+      "examples": {
+        "TABLERO DE CONTROL": [
+          "Datos generales",
+          "Fecha",
+          "Responsable"
+        ],
+        "Unnamed: 1": [
+          "nan",
+          "2025-01-29 00:00:00",
+          "2025-01-28 00:00:00"
+        ],
+        "Unnamed: 2": [
+          "nan",
+          "Turno",
+          "Lautaro"
+        ],
+        "Unnamed: 3": [
+          "nan",
+          "Mañana",
+          "nan"
+        ],
+        "Unnamed: 4": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 5": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "A LAGUNA": [
+          "RECIRCULANDO",
+          "nan",
+          "nan"
+        ],
+        "APAGADO": [
+          "ENCENDIDO",
+          "nan",
+          "nan"
+        ],
+        "BAJO": [
+          "MEDIO",
+          "ALTO",
+          "nan"
+        ],
+        "AUTOMÁTICO": [
+          "MANUAL",
+          "nan",
+          "nan"
+        ],
+        "BUSCARV(B3;Diario!$1:$1048576;5)": [
+          "BUSCARV(B3;Diario!$1:$1048576;4)",
+          "BUSCARV(B3-1;Diario!$1:$1048576;2)",
+          "BUSCARV(B3-1;Diario!$1:$1048576;3)"
+        ],
+        "silo hoy": [
+          "purin hoy",
+          "purin ayer 040 ",
+          "purin ayer 050"
+        ],
+        "Unnamed: 14": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Mañana": [
+          "Tarde",
+          "Noche",
+          "nan"
+        ],
+        "Unnamed: 16": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "OK": [
+          "NO OK",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 18": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 19": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 20": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 21": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 22": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 23": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 24": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 25": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 26": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 27": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 28": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 29": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 30": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 31": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 32": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 33": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 34": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 35": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 36": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 37": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 38": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Calidad gas y eficiencia",
+      "rows": 80,
+      "cols": 27,
+      "columns": [
+        "Fecha_Unnamed: 0_level_1",
+        "Hora_Unnamed: 1_level_1",
+        "Responsable_Unnamed: 2_level_1",
+        "Calidad Gas BIO 040_CO2",
+        "Columna1_CH4",
+        "Columna2_O2",
+        "Columna3_H2S",
+        "Calidad Gas BIO 050_CO2",
+        "Columna4_CH4",
+        "Columna5_O2",
+        "Columna6_H2S",
+        "Calidad de biogás ingreso al CHP_CO2",
+        "Columna7_CH4",
+        "Columna8_O2",
+        "Columna9_H2S",
+        "Datos de consumo del motor_Caudal másico\n SCADA (kg/h)",
+        "Columna10_Caudal CHP\n(l/s)",
+        "Columna11_Potencia \nexacta (kW)",
+        "Eficiencia y biogás_Consumo\n (m3/MW)",
+        "Columna12_Biogás generado\n (m3/d)",
+        "Columna13_Biogás \ngenerado (m3/h)",
+        "Columna14_LHV\n(kWh/m3)",
+        "Columna15_Energía entregada a CHP (kW)",
+        "Columna16_η\neléctrico (%)",
+        "Columna17_Unnamed: 24_level_1",
+        "Columna18_Unnamed: 25_level_1",
+        "Columna19_Unnamed: 26_level_1"
+      ],
+      "nonnull": {
+        "Fecha_Unnamed: 0_level_1": 78,
+        "Hora_Unnamed: 1_level_1": 0,
+        "Responsable_Unnamed: 2_level_1": 0,
+        "Calidad Gas BIO 040_CO2": 68,
+        "Columna1_CH4": 68,
+        "Columna2_O2": 68,
+        "Columna3_H2S": 68,
+        "Calidad Gas BIO 050_CO2": 73,
+        "Columna4_CH4": 73,
+        "Columna5_O2": 73,
+        "Columna6_H2S": 73,
+        "Calidad de biogás ingreso al CHP_CO2": 1,
+        "Columna7_CH4": 1,
+        "Columna8_O2": 1,
+        "Columna9_H2S": 1,
+        "Datos de consumo del motor_Caudal másico\n SCADA (kg/h)": 1,
+        "Columna10_Caudal CHP\n(l/s)": 0,
+        "Columna11_Potencia \nexacta (kW)": 0,
+        "Eficiencia y biogás_Consumo\n (m3/MW)": 0,
+        "Columna12_Biogás generado\n (m3/d)": 4,
+        "Columna13_Biogás \ngenerado (m3/h)": 0,
+        "Columna14_LHV\n(kWh/m3)": 0,
+        "Columna15_Energía entregada a CHP (kW)": 0,
+        "Columna16_η\neléctrico (%)": 0,
+        "Columna17_Unnamed: 24_level_1": 0,
+        "Columna18_Unnamed: 25_level_1": 4,
+        "Columna19_Unnamed: 26_level_1": 0
+      },
+      "dtypes": {
+        "Fecha_Unnamed: 0_level_1": "object",
+        "Hora_Unnamed: 1_level_1": "object",
+        "Responsable_Unnamed: 2_level_1": "object",
+        "Calidad Gas BIO 040_CO2": "object",
+        "Columna1_CH4": "object",
+        "Columna2_O2": "object",
+        "Columna3_H2S": "object",
+        "Calidad Gas BIO 050_CO2": "object",
+        "Columna4_CH4": "object",
+        "Columna5_O2": "object",
+        "Columna6_H2S": "object",
+        "Calidad de biogás ingreso al CHP_CO2": "object",
+        "Columna7_CH4": "object",
+        "Columna8_O2": "object",
+        "Columna9_H2S": "object",
+        "Datos de consumo del motor_Caudal másico\n SCADA (kg/h)": "object",
+        "Columna10_Caudal CHP\n(l/s)": "object",
+        "Columna11_Potencia \nexacta (kW)": "object",
+        "Eficiencia y biogás_Consumo\n (m3/MW)": "object",
+        "Columna12_Biogás generado\n (m3/d)": "object",
+        "Columna13_Biogás \ngenerado (m3/h)": "object",
+        "Columna14_LHV\n(kWh/m3)": "object",
+        "Columna15_Energía entregada a CHP (kW)": "object",
+        "Columna16_η\neléctrico (%)": "object",
+        "Columna17_Unnamed: 24_level_1": "object",
+        "Columna18_Unnamed: 25_level_1": "object",
+        "Columna19_Unnamed: 26_level_1": "object"
+      },
+      "examples": {
+        "Fecha_Unnamed: 0_level_1": [
+          "nan",
+          "2022-06-30 00:00:00",
+          "2022-07-01 00:00:00"
+        ],
+        "Hora_Unnamed: 1_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Responsable_Unnamed: 2_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Calidad Gas BIO 040_CO2": [
+          "040AIT01",
+          "39.18",
+          "nan"
+        ],
+        "Columna1_CH4": [
+          "040AIT02",
+          "59.73",
+          "nan"
+        ],
+        "Columna2_O2": [
+          "040AIT03",
+          "0.03",
+          "nan"
+        ],
+        "Columna3_H2S": [
+          "040AIT04",
+          "2008",
+          "nan"
+        ],
+        "Calidad Gas BIO 050_CO2": [
+          "050AIT01",
+          "5.44",
+          "5"
+        ],
+        "Columna4_CH4": [
+          "050AIT02",
+          "9.07",
+          "10"
+        ],
+        "Columna5_O2": [
+          "050AIT03",
+          "13.68",
+          "14"
+        ],
+        "Columna6_H2S": [
+          "050AIT04",
+          "27",
+          "3"
+        ],
+        "Calidad de biogás ingreso al CHP_CO2": [
+          "080AIT01",
+          "nan",
+          "nan"
+        ],
+        "Columna7_CH4": [
+          "080AIT02",
+          "nan",
+          "nan"
+        ],
+        "Columna8_O2": [
+          "080AIT03",
+          "nan",
+          "nan"
+        ],
+        "Columna9_H2S": [
+          "080AIT04",
+          "nan",
+          "nan"
+        ],
+        "Datos de consumo del motor_Caudal másico\n SCADA (kg/h)": [
+          "090FIT01",
+          "nan",
+          "nan"
+        ],
+        "Columna10_Caudal CHP\n(l/s)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna11_Potencia \nexacta (kW)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Eficiencia y biogás_Consumo\n (m3/MW)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna12_Biogás generado\n (m3/d)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna13_Biogás \ngenerado (m3/h)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna14_LHV\n(kWh/m3)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna15_Energía entregada a CHP (kW)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna16_η\neléctrico (%)": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna17_Unnamed: 24_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Columna18_Unnamed: 25_level_1": [
+          "nan",
+          "Cristián",
+          "Agustín"
+        ],
+        "Columna19_Unnamed: 26_level_1": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Alimentación 2.0",
+      "rows": 79,
+      "cols": 40,
+      "columns": [
+        "Fecha",
+        "Horario",
+        "4.909576835607518",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "Unnamed: 8",
+        "Solid B-040",
+        "Unnamed: 10",
+        "Unnamed: 11",
+        "Unnamed: 12",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Buffer B-050",
+        "Unnamed: 17",
+        "Unnamed: 18",
+        "Unnamed: 19",
+        "Unnamed: 20",
+        "Unnamed: 21",
+        "Unnamed: 22",
+        "Solid B-050",
+        "Unnamed: 24",
+        "Unnamed: 25",
+        "Unnamed: 26",
+        "Unnamed: 27",
+        "Unnamed: 28",
+        "Unnamed: 29",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32",
+        "Objetivos",
+        "Unnamed: 34",
+        "Unnamed: 35",
+        "Unnamed: 36",
+        "Unnamed: 37",
+        "Unnamed: 38",
+        "Unnamed: 39"
+      ],
+      "nonnull": {
+        "Fecha": 74,
+        "Horario": 74,
+        "4.909576835607518": 77,
+        "Unnamed: 3": 75,
+        "Unnamed: 4": 74,
+        "Unnamed: 5": 6,
+        "Unnamed: 6": 75,
+        "Unnamed: 7": 5,
+        "Unnamed: 8": 6,
+        "Solid B-040": 77,
+        "Unnamed: 10": 75,
+        "Unnamed: 11": 75,
+        "Unnamed: 12": 75,
+        "Unnamed: 13": 75,
+        "Unnamed: 14": 75,
+        "Unnamed: 15": 75,
+        "Buffer B-050": 77,
+        "Unnamed: 17": 75,
+        "Unnamed: 18": 75,
+        "Unnamed: 19": 75,
+        "Unnamed: 20": 75,
+        "Unnamed: 21": 75,
+        "Unnamed: 22": 75,
+        "Solid B-050": 77,
+        "Unnamed: 24": 75,
+        "Unnamed: 25": 75,
+        "Unnamed: 26": 75,
+        "Unnamed: 27": 75,
+        "Unnamed: 28": 75,
+        "Unnamed: 29": 75,
+        "Unnamed: 30": 37,
+        "Unnamed: 31": 41,
+        "Unnamed: 32": 0,
+        "Objetivos": 59,
+        "Unnamed: 34": 46,
+        "Unnamed: 35": 18,
+        "Unnamed: 36": 45,
+        "Unnamed: 37": 24,
+        "Unnamed: 38": 3,
+        "Unnamed: 39": 5
+      },
+      "dtypes": {
+        "Fecha": "object",
+        "Horario": "object",
+        "4.909576835607518": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "Unnamed: 8": "object",
+        "Solid B-040": "object",
+        "Unnamed: 10": "object",
+        "Unnamed: 11": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Buffer B-050": "object",
+        "Unnamed: 17": "object",
+        "Unnamed: 18": "object",
+        "Unnamed: 19": "object",
+        "Unnamed: 20": "object",
+        "Unnamed: 21": "object",
+        "Unnamed: 22": "object",
+        "Solid B-050": "object",
+        "Unnamed: 24": "object",
+        "Unnamed: 25": "object",
+        "Unnamed: 26": "object",
+        "Unnamed: 27": "object",
+        "Unnamed: 28": "object",
+        "Unnamed: 29": "object",
+        "Unnamed: 30": "object",
+        "Unnamed: 31": "object",
+        "Unnamed: 32": "object",
+        "Objetivos": "object",
+        "Unnamed: 34": "object",
+        "Unnamed: 35": "object",
+        "Unnamed: 36": "object",
+        "Unnamed: 37": "object",
+        "Unnamed: 38": "object",
+        "Unnamed: 39": "object"
+      },
+      "examples": {
+        "Fecha": [
+          "nan",
+          "2024-07-22 00:00:00",
+          "2024-07-22 00:00:00"
+        ],
+        "Horario": [
+          "nan",
+          "00:00:00",
+          "01:00:00"
+        ],
+        "4.909576835607518": [
+          "m3",
+          "3.43",
+          "=A517:(AK519+AK520)"
+        ],
+        "Unnamed: 3": [
+          "%ST",
+          "0.0598",
+          "0.0598"
+        ],
+        "Unnamed: 4": [
+          "SVT (tn)",
+          "0.17537247",
+          "nan"
+        ],
+        "Unnamed: 5": [
+          "Ajuste",
+          "-0.12447260618729114",
+          "nan"
+        ],
+        "Unnamed: 6": [
+          "Carga ideal ",
+          "3.259728660186326",
+          "3.259728660186326"
+        ],
+        "Unnamed: 7": [
+          "Carga total siguiente  ",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 8": [
+          "Carga real ",
+          "0",
+          "nan"
+        ],
+        "Solid B-040": [
+          "Kg",
+          "850.03",
+          "857.39"
+        ],
+        "Unnamed: 10": [
+          "%ST",
+          "0.3985",
+          "0.3985"
+        ],
+        "Unnamed: 11": [
+          "SVT (tn)",
+          "0.31746427422600004",
+          "0.320213044338"
+        ],
+        "Unnamed: 12": [
+          "Ajuste",
+          "-0.04663094089266673",
+          "-0.2570743893348817"
+        ],
+        "Unnamed: 13": [
+          "Carga ideal ",
+          "0.7251728053325592",
+          "0.7251728053325592"
+        ],
+        "Unnamed: 14": [
+          "Carga total siguiente  ",
+          "0.6785418644398925",
+          "0.46809841599767754"
+        ],
+        "Unnamed: 15": [
+          "Carga real ",
+          "0.6785418644398925",
+          "0.46809841599767754"
+        ],
+        "Buffer B-050": [
+          "m3",
+          "1.07",
+          "1.07"
+        ],
+        "Unnamed: 17": [
+          "%ST",
+          "0.0598",
+          "0.0598"
+        ],
+        "Unnamed: 18": [
+          "SVT (tn)",
+          "0.05470803",
+          "0.05470803"
+        ],
+        "Unnamed: 19": [
+          "Ajuste",
+          "-0.18646096404682275",
+          "-0.5101356699068369"
+        ],
+        "Unnamed: 20": [
+          "Carga ideal ",
+          "0.8149321650465815",
+          "0.8149321650465815"
+        ],
+        "Unnamed: 21": [
+          "Carga total siguiente  ",
+          "0.6284712009997587",
+          "0.3047964951397446"
+        ],
+        "Unnamed: 22": [
+          "Carga real ",
+          "0.6284712009997587",
+          "0.3047964951397446"
+        ],
+        "Solid B-050": [
+          "Kg",
+          "847.97",
+          "849.39"
+        ],
+        "Unnamed: 24": [
+          "%ST",
+          "0.3985",
+          "0.3985"
+        ],
+        "Unnamed: 25": [
+          "SVT (tn)",
+          "0.316694917374",
+          "0.317225250738"
+        ],
+        "Unnamed: 26": [
+          "Ajuste",
+          "-0.0458615840406667",
+          "-0.24701438933488146"
+        ],
+        "Unnamed: 27": [
+          "Carga ideal ",
+          "0.7251728053325592",
+          "0.7251728053325592"
+        ],
+        "Unnamed: 28": [
+          "Carga total siguiente  ",
+          "0.6793112212918926",
+          "0.4781584159976778"
+        ],
+        "Unnamed: 29": [
+          "Carga real ",
+          "0.6793112212918926",
+          "0.4781584159976778"
+        ],
+        "Unnamed: 30": [
+          "Trasvase ",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 31": [
+          " Dewatering",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 32": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Objetivos": [
+          "Corriente",
+          "Buffer-040",
+          "Buffer-050"
+        ],
+        "Unnamed: 34": [
+          "Tn SV",
+          "4",
+          "1"
+        ],
+        "Unnamed: 35": [
+          "Cantidad dia (tn)",
+          "82.70999999999998",
+          "20.110000000000007"
+        ],
+        "Unnamed: 36": [
+          "TnSV/Carga",
+          "0.16666666666666666",
+          "0.041666666666666664"
+        ],
+        "Unnamed: 37": [
+          "% SV",
+          "0.855",
+          "0.855"
+        ],
+        "Unnamed: 38": [
+          "Comentario ",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 39": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Verificación y calibración",
+      "rows": 29,
+      "cols": 9,
+      "columns": [
+        "Fecha",
+        "Responsable",
+        "Equipo o instrumento",
+        "Verificación",
+        "Calibración",
+        "Observaciones",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "Unnamed: 8"
+      ],
+      "nonnull": {
+        "Fecha": 29,
+        "Responsable": 29,
+        "Equipo o instrumento": 29,
+        "Verificación": 29,
+        "Calibración": 29,
+        "Observaciones": 29,
+        "Unnamed: 6": 0,
+        "Unnamed: 7": 0,
+        "Unnamed: 8": 2
+      },
+      "dtypes": {
+        "Fecha": "object",
+        "Responsable": "object",
+        "Equipo o instrumento": "object",
+        "Verificación": "object",
+        "Calibración": "object",
+        "Observaciones": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "Unnamed: 8": "object"
+      },
+      "examples": {
+        "Fecha": [
+          "2023-03-31 00:00:00",
+          "2023-04-27 00:00:00",
+          "2023-05-31 00:00:00"
+        ],
+        "Responsable": [
+          "Leonardo",
+          "Agustín",
+          "Jason"
+        ],
+        "Equipo o instrumento": [
+          "pHmetro",
+          "pHmetro",
+          "pHmetro"
+        ],
+        "Verificación": [
+          "Sí",
+          "Sí",
+          "Sí"
+        ],
+        "Calibración": [
+          "Sí",
+          "Sí",
+          "Sí"
+        ],
+        "Observaciones": [
+          "Se inspeccionó visualmente la sonda de pH",
+          "Se inspeccionó visualmente la sonda de pH",
+          "Se inspeccionó visualmente la sonda de pH"
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 8": [
+          "PROCEDIMIENTO PARA REALIZAR LA CALIBRACIÓN",
+          "https://www.youtube.com/watch?v=TsFHB6Ym3Kg",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "CARGA PALA",
+      "rows": 80,
+      "cols": 16,
+      "columns": [
+        "FECHA",
+        "SILO",
+        "SILO 7 CANTIDA PALADA",
+        "PESO PALA SILO 7",
+        "CANTIDAD PALADAS SILO 8",
+        "PESO PALA SILO 6",
+        "TOTAL CARGADO",
+        "PEDIDO DE SUSTRATO",
+        "BIOABONO CANTIDAD PALADAS",
+        "PESO PALADA BIOABONO",
+        "TOTAL BIOABONO",
+        "Contenido ruminal",
+        "Expeller",
+        "Grano descarte M.E",
+        "Polvillo Maiz",
+        "OBSERVACiON"
+      ],
+      "nonnull": {
+        "FECHA": 80,
+        "SILO": 80,
+        "SILO 7 CANTIDA PALADA": 80,
+        "PESO PALA SILO 7": 80,
+        "CANTIDAD PALADAS SILO 8": 80,
+        "PESO PALA SILO 6": 80,
+        "TOTAL CARGADO": 80,
+        "PEDIDO DE SUSTRATO": 80,
+        "BIOABONO CANTIDAD PALADAS": 80,
+        "PESO PALADA BIOABONO": 80,
+        "TOTAL BIOABONO": 80,
+        "Contenido ruminal": 80,
+        "Expeller": 79,
+        "Grano descarte M.E": 80,
+        "Polvillo Maiz": 80,
+        "OBSERVACiON": 55
+      },
+      "dtypes": {
+        "FECHA": "object",
+        "SILO": "object",
+        "SILO 7 CANTIDA PALADA": "object",
+        "PESO PALA SILO 7": "object",
+        "CANTIDAD PALADAS SILO 8": "object",
+        "PESO PALA SILO 6": "object",
+        "TOTAL CARGADO": "object",
+        "PEDIDO DE SUSTRATO": "object",
+        "BIOABONO CANTIDAD PALADAS": "object",
+        "PESO PALADA BIOABONO": "object",
+        "TOTAL BIOABONO": "object",
+        "Contenido ruminal": "object",
+        "Expeller": "object",
+        "Grano descarte M.E": "object",
+        "Polvillo Maiz": "object",
+        "OBSERVACiON": "object"
+      },
+      "examples": {
+        "FECHA": [
+          "FECHA",
+          "2024-09-04 00:00:00",
+          "2024-09-05 00:00:00"
+        ],
+        "SILO": [
+          "SILO",
+          "19134",
+          "24449"
+        ],
+        "SILO 7 CANTIDA PALADA": [
+          "SILO 7 CANTIDA PALADA",
+          "18",
+          "23"
+        ],
+        "PESO PALA SILO 7": [
+          "PESO PALA SILO 7",
+          "1063",
+          "1063"
+        ],
+        "CANTIDAD PALADAS SILO 8": [
+          "CANTIDAD PALADAS SILO 8",
+          "0",
+          "0"
+        ],
+        "PESO PALA SILO 6": [
+          "PESO PALA SILO 6",
+          "1050",
+          "1050"
+        ],
+        "TOTAL CARGADO": [
+          "TOTAL CARGADO",
+          "19134",
+          "24449"
+        ],
+        "PEDIDO DE SUSTRATO": [
+          "PEDIDO DE SUSTRATO",
+          "2TN DE RUMEN+0.5TNEXPELLER+0,5DESCARTE M.E",
+          "2TN DE RUMEN+0.5TNEXPELLER+0,5DESCARTE M.E"
+        ],
+        "BIOABONO CANTIDAD PALADAS": [
+          "BIOABONO CANTIDAD PALADAS",
+          "0",
+          "9"
+        ],
+        "PESO PALADA BIOABONO": [
+          "PESO PALADA BIOABONO",
+          "1063",
+          "1180"
+        ],
+        "TOTAL BIOABONO": [
+          "TOTAL BIOABONO",
+          "0",
+          "10620"
+        ],
+        "Contenido ruminal": [
+          "Contenido ruminal",
+          "2100",
+          "2163"
+        ],
+        "Expeller": [
+          "Expeller",
+          "574",
+          "447"
+        ],
+        "Grano descarte M.E": [
+          "Grano descarte M.E",
+          "633",
+          "633"
+        ],
+        "Polvillo Maiz": [
+          "POLVILLO MAIZ",
+          "0",
+          "0"
+        ],
+        "OBSERVACiON": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "FOS-TAC",
+      "rows": 80,
+      "cols": 38,
+      "columns": [
+        "vd<",
+        "Unnamed: 1",
+        "Unnamed: 2",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "Unnamed: 8",
+        "Unnamed: 9",
+        "Unnamed: 10",
+        "pH y FOS/TAC del biodigestor 050",
+        "Unnamed: 12",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Unnamed: 16",
+        "Unnamed: 17",
+        "Unnamed: 18",
+        "Unnamed: 19",
+        "Unnamed: 20",
+        "Unnamed: 21",
+        "Unnamed: 22",
+        "Unnamed: 23",
+        "Unnamed: 24",
+        "Unnamed: 25",
+        "Unnamed: 26",
+        "Unnamed: 27",
+        "Unnamed: 28",
+        "Unnamed: 29",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32",
+        "Unnamed: 33",
+        "Unnamed: 34",
+        "Unnamed: 35",
+        "Unnamed: 36",
+        "Unnamed: 37"
+      ],
+      "nonnull": {
+        "vd<": 80,
+        "Unnamed: 1": 1,
+        "Unnamed: 2": 1,
+        "Unnamed: 3": 80,
+        "Unnamed: 4": 80,
+        "Unnamed: 5": 80,
+        "Unnamed: 6": 80,
+        "Unnamed: 7": 61,
+        "Unnamed: 8": 60,
+        "Unnamed: 9": 61,
+        "Unnamed: 10": 0,
+        "pH y FOS/TAC del biodigestor 050": 61,
+        "Unnamed: 12": 7,
+        "Unnamed: 13": 45,
+        "Unnamed: 14": 72,
+        "Unnamed: 15": 72,
+        "Unnamed: 16": 62,
+        "Unnamed: 17": 48,
+        "Unnamed: 18": 51,
+        "Unnamed: 19": 45,
+        "Unnamed: 20": 7,
+        "Unnamed: 21": 6,
+        "Unnamed: 22": 1,
+        "Unnamed: 23": 0,
+        "Unnamed: 24": 0,
+        "Unnamed: 25": 0,
+        "Unnamed: 26": 0,
+        "Unnamed: 27": 0,
+        "Unnamed: 28": 4,
+        "Unnamed: 29": 5,
+        "Unnamed: 30": 9,
+        "Unnamed: 31": 9,
+        "Unnamed: 32": 5,
+        "Unnamed: 33": 5,
+        "Unnamed: 34": 1,
+        "Unnamed: 35": 1,
+        "Unnamed: 36": 4,
+        "Unnamed: 37": 5
+      },
+      "dtypes": {
+        "vd<": "object",
+        "Unnamed: 1": "object",
+        "Unnamed: 2": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "Unnamed: 8": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object",
+        "pH y FOS/TAC del biodigestor 050": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Unnamed: 16": "object",
+        "Unnamed: 17": "object",
+        "Unnamed: 18": "object",
+        "Unnamed: 19": "object",
+        "Unnamed: 20": "object",
+        "Unnamed: 21": "object",
+        "Unnamed: 22": "object",
+        "Unnamed: 23": "object",
+        "Unnamed: 24": "object",
+        "Unnamed: 25": "object",
+        "Unnamed: 26": "object",
+        "Unnamed: 27": "object",
+        "Unnamed: 28": "object",
+        "Unnamed: 29": "object",
+        "Unnamed: 30": "object",
+        "Unnamed: 31": "object",
+        "Unnamed: 32": "object",
+        "Unnamed: 33": "object",
+        "Unnamed: 34": "object",
+        "Unnamed: 35": "object",
+        "Unnamed: 36": "object",
+        "Unnamed: 37": "object"
+      },
+      "examples": {
+        "vd<": [
+          "Fecha",
+          "2022-05-30 00:00:00",
+          "2022-05-31 00:00:00"
+        ],
+        "Unnamed: 1": [
+          "Hora",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 2": [
+          "Responsable",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 3": [
+          "pH",
+          "8.24",
+          "8.17"
+        ],
+        "Unnamed: 4": [
+          "FOS",
+          "921",
+          "1004"
+        ],
+        "Unnamed: 5": [
+          "TAC",
+          "4825",
+          "4900"
+        ],
+        "Unnamed: 6": [
+          "FOS/TAC",
+          "0.191",
+          "0.205"
+        ],
+        "Unnamed: 7": [
+          "V1",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 8": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 9": [
+          "V2",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 10": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "pH y FOS/TAC del biodigestor 050": [
+          "Fecha",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 12": [
+          "Responsable",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 13": [
+          "pH",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 14": [
+          "FOS",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 15": [
+          "TAC",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 16": [
+          "FOS/TAC",
+          "0.08",
+          "0.2"
+        ],
+        "Unnamed: 17": [
+          "V1",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 18": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 19": [
+          "V2",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 20": [
+          "Hora",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 21": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 22": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 23": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 24": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 25": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 26": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 27": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 28": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 29": [
+          "ST",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 30": [
+          "SV",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 31": [
+          "Cenizas",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 32": [
+          "pH",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 33": [
+          "Conductividad",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 34": [
+          "FOS",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 35": [
+          "TAC",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 36": [
+          "FOS/TAC",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 37": [
+          "protocolo",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "ST",
+      "rows": 80,
+      "cols": 17,
+      "columns": [
+        "Fecha",
+        "Hora",
+        "Responsable",
+        "Proveedor",
+        "Muestra",
+        "Nº Remito",
+        "pH",
+        "Peso de muesta",
+        "ST",
+        "Tiempo de análisis",
+        "Temperatura",
+        "Observaciones",
+        "RENDIMIENTO",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Unnamed: 16"
+      ],
+      "nonnull": {
+        "Fecha": 80,
+        "Hora": 78,
+        "Responsable": 80,
+        "Proveedor": 0,
+        "Muestra": 80,
+        "Nº Remito": 52,
+        "pH": 42,
+        "Peso de muesta": 71,
+        "ST": 80,
+        "Tiempo de análisis": 70,
+        "Temperatura": 80,
+        "Observaciones": 8,
+        "RENDIMIENTO": 0,
+        "Unnamed: 13": 0,
+        "Unnamed: 14": 0,
+        "Unnamed: 15": 7,
+        "Unnamed: 16": 4
+      },
+      "dtypes": {
+        "Fecha": "object",
+        "Hora": "object",
+        "Responsable": "object",
+        "Proveedor": "object",
+        "Muestra": "object",
+        "Nº Remito": "object",
+        "pH": "object",
+        "Peso de muesta": "object",
+        "ST": "object",
+        "Tiempo de análisis": "object",
+        "Temperatura": "object",
+        "Observaciones": "object",
+        "RENDIMIENTO": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Unnamed: 16": "object"
+      },
+      "examples": {
+        "Fecha": [
+          "1900-01-12 00:00:00",
+          "1900-01-12 00:00:00",
+          "1900-01-12 00:00:00"
+        ],
+        "Hora": [
+          "07:38:00",
+          "10:04:00",
+          "11:58:00"
+        ],
+        "Responsable": [
+          "Cristian",
+          "Cristian",
+          "Cristian"
+        ],
+        "Proveedor": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Muestra": [
+          "Lactosa",
+          "PURIN",
+          "buffer tank"
+        ],
+        "Nº Remito": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "pH": [
+          "5.52",
+          "nan",
+          "nan"
+        ],
+        "Peso de muesta": [
+          "3.99",
+          "3.99",
+          "3.99"
+        ],
+        "ST": [
+          "0.1355",
+          "0.0288",
+          "0.0862"
+        ],
+        "Tiempo de análisis": [
+          "27:40*",
+          "25:04*",
+          "25:20*"
+        ],
+        "Temperatura": [
+          "120",
+          "120",
+          "120"
+        ],
+        "Observaciones": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "RENDIMIENTO": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 13": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 14": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 15": [
+          "Lactosa",
+          "Biodigestor 040 ",
+          "Biodigestor 050"
+        ],
+        "Unnamed: 16": [
+          "Leonardo",
+          "Cristian",
+          "Agustin"
+        ]
+      }
+    },
+    {
+      "sheet": "Observaciones",
+      "rows": 80,
+      "cols": 16,
+      "columns": [
+        "Fecha",
+        "Turno",
+        "Responsable",
+        "Solid feeder",
+        "Buffer tank",
+        "Biodigestor",
+        "Pumping station \ny agua caliente",
+        "Dewatering",
+        "Dessox, chiller y antocha",
+        "Cogenerador",
+        "Servicios auxiliares",
+        "Osmosis",
+        "PLANILLA MANTE",
+        "GENERADOR AZUL",
+        "TAREA / PERSONA",
+        "CORTE DE ENERGIA INICIO-FIN"
+      ],
+      "nonnull": {
+        "Fecha": 2,
+        "Turno": 67,
+        "Responsable": 3,
+        "Solid feeder": 33,
+        "Buffer tank": 10,
+        "Biodigestor": 32,
+        "Pumping station \ny agua caliente": 7,
+        "Dewatering": 7,
+        "Dessox, chiller y antocha": 12,
+        "Cogenerador": 46,
+        "Servicios auxiliares": 27,
+        "Osmosis": 0,
+        "PLANILLA MANTE": 0,
+        "GENERADOR AZUL": 0,
+        "TAREA / PERSONA": 0,
+        "CORTE DE ENERGIA INICIO-FIN": 0
+      },
+      "dtypes": {
+        "Fecha": "object",
+        "Turno": "object",
+        "Responsable": "object",
+        "Solid feeder": "object",
+        "Buffer tank": "object",
+        "Biodigestor": "object",
+        "Pumping station \ny agua caliente": "object",
+        "Dewatering": "object",
+        "Dessox, chiller y antocha": "object",
+        "Cogenerador": "object",
+        "Servicios auxiliares": "object",
+        "Osmosis": "object",
+        "PLANILLA MANTE": "object",
+        "GENERADOR AZUL": "object",
+        "TAREA / PERSONA": "object",
+        "CORTE DE ENERGIA INICIO-FIN": "object"
+      },
+      "examples": {
+        "Fecha": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Turno": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Responsable": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Solid feeder": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Buffer tank": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Biodigestor": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Pumping station \ny agua caliente": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Dewatering": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Dessox, chiller y antocha": [
+          "* Se procede a encender la antorcha con el 95,15% del 040  por 25 min de las 4:45 hs a las 5:10 hs   en automatico . \nQuedando el 040 en   89,47%",
+          "* Se purga condensados en antorcha, ingreso al desox y en salida de biodigestores. Dificultad para el arranque de la antorcha\n* Salta en falla en dos oportunidades el soplador de la antorcha",
+          "nan"
+        ],
+        "Cogenerador": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Servicios auxiliares": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Osmosis": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "PLANILLA MANTE": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "GENERADOR AZUL": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "TAREA / PERSONA": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "CORTE DE ENERGIA INICIO-FIN": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Camiones",
+      "rows": 80,
+      "cols": 17,
+      "columns": [
+        "Fecha ingreso",
+        "Semana",
+        "Sustrato",
+        "Proveedor",
+        "Observaciones",
+        "Transportista",
+        "Cantidad sustrato",
+        "Lugar de descarga",
+        "N° remito",
+        "Patente",
+        "ST (%) Análisis Planta",
+        "Responsable",
+        "Columna1",
+        "Unnamed: 13",
+        "Unnamed: 14",
+        "Unnamed: 15",
+        "Unnamed: 16"
+      ],
+      "nonnull": {
+        "Fecha ingreso": 80,
+        "Semana": 80,
+        "Sustrato": 80,
+        "Proveedor": 80,
+        "Observaciones": 0,
+        "Transportista": 80,
+        "Cantidad sustrato": 80,
+        "Lugar de descarga": 80,
+        "N° remito": 80,
+        "Patente": 75,
+        "ST (%) Análisis Planta": 50,
+        "Responsable": 78,
+        "Columna1": 0,
+        "Unnamed: 13": 0,
+        "Unnamed: 14": 9,
+        "Unnamed: 15": 0,
+        "Unnamed: 16": 78
+      },
+      "dtypes": {
+        "Fecha ingreso": "object",
+        "Semana": "object",
+        "Sustrato": "object",
+        "Proveedor": "object",
+        "Observaciones": "object",
+        "Transportista": "object",
+        "Cantidad sustrato": "object",
+        "Lugar de descarga": "object",
+        "N° remito": "object",
+        "Patente": "object",
+        "ST (%) Análisis Planta": "object",
+        "Responsable": "object",
+        "Columna1": "object",
+        "Unnamed: 13": "object",
+        "Unnamed: 14": "object",
+        "Unnamed: 15": "object",
+        "Unnamed: 16": "object"
+      },
+      "examples": {
+        "Fecha ingreso": [
+          "2023-05-29 00:00:00",
+          "2023-06-08 00:00:00",
+          "2023-06-09 00:00:00"
+        ],
+        "Semana": [
+          "22",
+          "23",
+          "23"
+        ],
+        "Sustrato": [
+          "Goma vegetal girasol",
+          "Lactosa",
+          "Lactosa"
+        ],
+        "Proveedor": [
+          "Agroindustria Menarba S.R.L.",
+          "Remotti S.A.",
+          "Remotti S.A."
+        ],
+        "Observaciones": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Transportista": [
+          "Mauro Traversaro",
+          "Federico Fogliatto",
+          "Federico Fogliatto"
+        ],
+        "Cantidad sustrato": [
+          "5030",
+          "29292",
+          "29422"
+        ],
+        "Lugar de descarga": [
+          "Buffer",
+          "Buffer",
+          "Buffer"
+        ],
+        "N° remito": [
+          "0",
+          "1",
+          "2"
+        ],
+        "Patente": [
+          "WTG 975",
+          "JXS011/GDF812",
+          "JXS011/GDF812"
+        ],
+        "ST (%) Análisis Planta": [
+          "0.016",
+          "0.117",
+          "0.0839"
+        ],
+        "Responsable": [
+          "Sebastián",
+          "nan",
+          "nan"
+        ],
+        "Columna1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 13": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 14": [
+          "Cargill S.A.C.I.",
+          "S.A. Imp. y Exp. de la Patagonia",
+          "Frigorífico General Pico S.A."
+        ],
+        "Unnamed: 15": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 16": [
+          "nan",
+          "1",
+          "1"
+        ]
+      }
+    },
+    {
+      "sheet": "SILO",
+      "rows": 61,
+      "cols": 22,
+      "columns": [
+        "Unnamed: 0",
+        "Unnamed: 1",
+        "Operario",
+        "Fecha",
+        "Hora",
+        "Peso de muestra",
+        "Tamiz 1",
+        "Tamiz 2",
+        "Tamiz 3",
+        "Tamiz 4",
+        "Tamiz 5",
+        "Tamiz 6",
+        "Total Suma",
+        "% MS",
+        "% Tamiz N1",
+        "% Tamiz N2",
+        "% Tamiz N3",
+        "% Tamiz N4",
+        "% Tamiz N5",
+        "% Tamiz N6",
+        "Cantidad Granos enteros",
+        "Unnamed: 21"
+      ],
+      "nonnull": {
+        "Unnamed: 0": 2,
+        "Unnamed: 1": 2,
+        "Operario": 51,
+        "Fecha": 58,
+        "Hora": 40,
+        "Peso de muestra": 40,
+        "Tamiz 1": 40,
+        "Tamiz 2": 40,
+        "Tamiz 3": 40,
+        "Tamiz 4": 40,
+        "Tamiz 5": 40,
+        "Tamiz 6": 40,
+        "Total Suma": 58,
+        "% MS": 11,
+        "% Tamiz N1": 30,
+        "% Tamiz N2": 30,
+        "% Tamiz N3": 30,
+        "% Tamiz N4": 30,
+        "% Tamiz N5": 30,
+        "% Tamiz N6": 30,
+        "Cantidad Granos enteros": 11,
+        "Unnamed: 21": 6
+      },
+      "dtypes": {
+        "Unnamed: 0": "object",
+        "Unnamed: 1": "object",
+        "Operario": "object",
+        "Fecha": "object",
+        "Hora": "object",
+        "Peso de muestra": "object",
+        "Tamiz 1": "object",
+        "Tamiz 2": "object",
+        "Tamiz 3": "object",
+        "Tamiz 4": "object",
+        "Tamiz 5": "object",
+        "Tamiz 6": "object",
+        "Total Suma": "object",
+        "% MS": "object",
+        "% Tamiz N1": "object",
+        "% Tamiz N2": "object",
+        "% Tamiz N3": "object",
+        "% Tamiz N4": "object",
+        "% Tamiz N5": "object",
+        "% Tamiz N6": "object",
+        "Cantidad Granos enteros": "object",
+        "Unnamed: 21": "object"
+      },
+      "examples": {
+        "Unnamed: 0": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Operario": [
+          "Jason",
+          "Jason",
+          "Leonardo"
+        ],
+        "Fecha": [
+          "2023-02-07 00:00:00",
+          "2023-02-07 00:00:00",
+          "2023-02-08 00:00:00"
+        ],
+        "Hora": [
+          "16:30 hs",
+          "21:30 hs",
+          "12:12 hs"
+        ],
+        "Peso de muestra": [
+          "152.05",
+          "237.66",
+          "180.46"
+        ],
+        "Tamiz 1": [
+          "25.91",
+          "111.54",
+          "36.36"
+        ],
+        "Tamiz 2": [
+          "46.88",
+          "48.36",
+          "56.26"
+        ],
+        "Tamiz 3": [
+          "32.85",
+          "39.13",
+          "47.9"
+        ],
+        "Tamiz 4": [
+          "19.23",
+          "17.24",
+          "26.16"
+        ],
+        "Tamiz 5": [
+          "9.63",
+          "5.08",
+          "15.15"
+        ],
+        "Tamiz 6": [
+          "10.62",
+          "7.95",
+          "15.34"
+        ],
+        "Total Suma": [
+          "145.12000000000003",
+          "229.3",
+          "197.17000000000002"
+        ],
+        "% MS": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N2": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N3": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N4": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N5": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "% Tamiz N6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Cantidad Granos enteros": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 21": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Leo sustratos",
+      "rows": 43,
+      "cols": 11,
+      "columns": [
+        "Remotti",
+        "GVBIO",
+        "DIFERENCIAS",
+        "FECHA",
+        "Unnamed: 4",
+        "La Anonima",
+        "GVBIO.1",
+        "DIFERENCIAS.1",
+        "FECHA.1",
+        "Unnamed: 9",
+        "Unnamed: 10"
+      ],
+      "nonnull": {
+        "Remotti": 32,
+        "GVBIO": 32,
+        "DIFERENCIAS": 40,
+        "FECHA": 29,
+        "Unnamed: 4": 0,
+        "La Anonima": 13,
+        "GVBIO.1": 10,
+        "DIFERENCIAS.1": 17,
+        "FECHA.1": 17,
+        "Unnamed: 9": 0,
+        "Unnamed: 10": 1
+      },
+      "dtypes": {
+        "Remotti": "object",
+        "GVBIO": "object",
+        "DIFERENCIAS": "object",
+        "FECHA": "object",
+        "Unnamed: 4": "object",
+        "La Anonima": "object",
+        "GVBIO.1": "object",
+        "DIFERENCIAS.1": "object",
+        "FECHA.1": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object"
+      },
+      "examples": {
+        "Remotti": [
+          "28440",
+          "27680",
+          "28540"
+        ],
+        "GVBIO": [
+          "28440",
+          "27680",
+          "28540"
+        ],
+        "DIFERENCIAS": [
+          "0",
+          "0",
+          "0"
+        ],
+        "FECHA": [
+          "2024-12-11 00:00:00",
+          "2024-12-12 00:00:00",
+          "2024-12-12 00:00:00"
+        ],
+        "Unnamed: 4": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "La Anonima": [
+          "21260",
+          "18160",
+          "29100"
+        ],
+        "GVBIO.1": [
+          "20660",
+          "17300",
+          "28780"
+        ],
+        "DIFERENCIAS.1": [
+          "600",
+          "860",
+          "320"
+        ],
+        "FECHA.1": [
+          "2024-11-01 00:00:00",
+          "2024-11-05 00:00:00",
+          "2024-11-07 00:00:00"
+        ],
+        "Unnamed: 9": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 10": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    },
+    {
+      "sheet": "Seguimiento de residuos. (2)",
+      "rows": 51,
+      "cols": 14,
+      "columns": [
+        "Unnamed: 0",
+        "Unnamed: 1",
+        "Unnamed: 2",
+        "Unnamed: 3",
+        "Unnamed: 4",
+        "Unnamed: 5",
+        "Unnamed: 6",
+        "Unnamed: 7",
+        "Unnamed: 8",
+        "Unnamed: 9",
+        "Unnamed: 10",
+        "Unnamed: 11",
+        "Unnamed: 12",
+        "Unnamed: 13"
+      ],
+      "nonnull": {
+        "Unnamed: 0": 0,
+        "Unnamed: 1": 46,
+        "Unnamed: 2": 47,
+        "Unnamed: 3": 48,
+        "Unnamed: 4": 48,
+        "Unnamed: 5": 46,
+        "Unnamed: 6": 46,
+        "Unnamed: 7": 46,
+        "Unnamed: 8": 0,
+        "Unnamed: 9": 0,
+        "Unnamed: 10": 3,
+        "Unnamed: 11": 1,
+        "Unnamed: 12": 0,
+        "Unnamed: 13": 1
+      },
+      "dtypes": {
+        "Unnamed: 0": "object",
+        "Unnamed: 1": "object",
+        "Unnamed: 2": "object",
+        "Unnamed: 3": "object",
+        "Unnamed: 4": "object",
+        "Unnamed: 5": "object",
+        "Unnamed: 6": "object",
+        "Unnamed: 7": "object",
+        "Unnamed: 8": "object",
+        "Unnamed: 9": "object",
+        "Unnamed: 10": "object",
+        "Unnamed: 11": "object",
+        "Unnamed: 12": "object",
+        "Unnamed: 13": "object"
+      },
+      "examples": {
+        "Unnamed: 0": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 1": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 2": [
+          "nan",
+          "GVBio",
+          "nan"
+        ],
+        "Unnamed: 3": [
+          "nan",
+          "F-SGA-17 Regristro de movimiento de residuos peligrosos",
+          "nan"
+        ],
+        "Unnamed: 4": [
+          "nan",
+          "nan",
+          "Rev.0- Fecha 16/05/23"
+        ],
+        "Unnamed: 5": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 6": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 7": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 8": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 9": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 10": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 11": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 12": [
+          "nan",
+          "nan",
+          "nan"
+        ],
+        "Unnamed: 13": [
+          "nan",
+          "nan",
+          "nan"
+        ]
+      }
+    }
+  ]
+}

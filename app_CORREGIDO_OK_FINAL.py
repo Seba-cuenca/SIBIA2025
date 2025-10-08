@@ -12374,6 +12374,269 @@ def calidad_gas_motor():
         return jsonify({'status': 'error', 'error': str(e)}), 500
 
 
+# ===== MÓDULO DE ANÁLISIS ECONÓMICO =====
+
+# Archivo de configuración económica
+CONFIG_ECONOMICA_FILE = os.path.join(SCRIPT_DIR, 'config_economica.json')
+
+def cargar_config_economica():
+    """Carga la configuración económica desde el archivo JSON"""
+    try:
+        if os.path.exists(CONFIG_ECONOMICA_FILE):
+            with open(CONFIG_ECONOMICA_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        else:
+            logger.warning("Archivo de configuración económica no encontrado")
+            return {}
+    except Exception as e:
+        logger.error(f"Error cargando configuración económica: {e}")
+        return {}
+
+def guardar_config_economica(config):
+    """Guarda la configuración económica en el archivo JSON"""
+    try:
+        with open(CONFIG_ECONOMICA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(config, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception as e:
+        logger.error(f"Error guardando configuración económica: {e}")
+        return False
+
+@app.route('/api/analisis-economico/config', methods=['GET', 'POST'])
+def config_economica():
+    """Obtener o actualizar configuración económica"""
+    try:
+        if request.method == 'GET':
+            config = cargar_config_economica()
+            return jsonify({'status': 'success', 'config': config})
+        
+        elif request.method == 'POST':
+            nueva_config = request.json
+            if guardar_config_economica(nueva_config):
+                return jsonify({'status': 'success', 'message': 'Configuración actualizada'})
+            else:
+                return jsonify({'status': 'error', 'message': 'Error al guardar configuración'}), 500
+                
+    except Exception as e:
+        logger.error(f"Error en config_economica: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/api/analisis-economico/calcular')
+def calcular_analisis_economico():
+    """Calcula el análisis económico completo de la planta"""
+    try:
+        # Cargar configuración económica
+        config = cargar_config_economica()
+        
+        # Cargar datos de mezcla actual (del último cálculo)
+        try:
+            with open(HISTORIAL_CALCULOS_FILE, 'r', encoding='utf-8') as f:
+                historial = json.load(f)
+                if historial and len(historial) > 0:
+                    ultimo_calculo = historial[-1]
+                else:
+                    ultimo_calculo = None
+        except:
+            ultimo_calculo = None
+        
+        # Parámetros de energía
+        precio_mwh = config.get('precios_energia', {}).get('precio_mwh_usd', 168)
+        potencia_kw = config.get('precios_energia', {}).get('potencia_instalada_kw', 1200)
+        horas_dia = config.get('precios_energia', {}).get('horas_operacion_dia', 24)
+        
+        # Cálculo de ingresos por generación
+        energia_dia_kwh = potencia_kw * horas_dia
+        energia_dia_mwh = energia_dia_kwh / 1000
+        ingresos_dia_usd = energia_dia_mwh * precio_mwh
+        ingresos_mes_usd = ingresos_dia_usd * 30
+        ingresos_ano_usd = ingresos_dia_usd * 365
+        
+        # Análisis de sustratos
+        sustratos_costos = config.get('sustratos_costos', {})
+        precio_sa7 = sustratos_costos.get('SA 7', {}).get('precio_tn_usd', 45)
+        
+        # Calcular costos de sustratos usando el último cálculo
+        costo_total_sustratos_dia = 0
+        tn_sa7_ahorradas = 0
+        ahorro_sa7_usd = 0
+        detalle_sustratos = []
+        
+        if ultimo_calculo:
+            mezcla = ultimo_calculo.get('mezcla_optima', {})
+            
+            # Procesar cada sustrato
+            for categoria in ['liquidos', 'solidos', 'purin']:
+                materiales = mezcla.get(categoria, {})
+                for material, datos in materiales.items():
+                    tn = datos.get('tn', 0)
+                    kw_tn = datos.get('kw_tn', 0)
+                    kw_generados = tn * kw_tn
+                    
+                    # Obtener precio del sustrato
+                    precio_tn = sustratos_costos.get(material, {}).get('precio_tn_usd', 0)
+                    costo_material = tn * precio_tn
+                    costo_total_sustratos_dia += costo_material
+                    
+                    # Calcular equivalente en SA7
+                    kw_sa7_tn = 694.0  # KW/TN de SA7
+                    tn_sa7_equivalente = kw_generados / kw_sa7_tn if kw_sa7_tn > 0 else 0
+                    ahorro_este_material = (tn_sa7_equivalente * precio_sa7) - costo_material
+                    
+                    if material.lower() != 'purin' and material != 'SA 7':
+                        tn_sa7_ahorradas += tn_sa7_equivalente
+                        ahorro_sa7_usd += ahorro_este_material
+                    
+                    detalle_sustratos.append({
+                        'material': material,
+                        'tn': round(tn, 2),
+                        'precio_tn_usd': precio_tn,
+                        'costo_usd': round(costo_material, 2),
+                        'kw_generados': round(kw_generados, 2),
+                        'tn_sa7_equivalente': round(tn_sa7_equivalente, 2),
+                        'ahorro_vs_sa7': round(ahorro_este_material, 2)
+                    })
+        
+        # Costos operativos
+        costos_op = config.get('costos_operativos', {})
+        
+        # Electricidad
+        consumo_kwh_dia = costos_op.get('electricidad', {}).get('consumo_kwh_dia', 500)
+        precio_kwh = costos_op.get('electricidad', {}).get('precio_kwh_usd', 0.12)
+        costo_electricidad_dia = consumo_kwh_dia * precio_kwh
+        
+        # Mano de obra
+        operadores = costos_op.get('mano_obra', {}).get('operadores', 3)
+        salario_mensual = costos_op.get('mano_obra', {}).get('salario_mensual_usd', 1200)
+        costo_mano_obra_mes = operadores * salario_mensual
+        costo_mano_obra_dia = costo_mano_obra_mes / 30
+        
+        # Mantenimiento
+        costo_mantenimiento_mes = costos_op.get('mantenimiento', {}).get('costo_mensual_usd', 2500)
+        costo_mantenimiento_dia = costo_mantenimiento_mes / 30
+        
+        # Seguros
+        costo_seguros_ano = costos_op.get('seguros', {}).get('costo_anual_usd', 15000)
+        costo_seguros_dia = costo_seguros_ano / 365
+        
+        # Administrativos
+        costo_admin_mes = costos_op.get('administrativos', {}).get('costo_mensual_usd', 1800)
+        costo_admin_dia = costo_admin_mes / 30
+        
+        # Total costos operativos diarios
+        costos_operativos_dia = (
+            costo_electricidad_dia +
+            costo_mano_obra_dia +
+            costo_mantenimiento_dia +
+            costo_seguros_dia +
+            costo_admin_dia
+        )
+        
+        # Costos totales
+        costos_totales_dia = costo_total_sustratos_dia + costos_operativos_dia
+        costos_totales_mes = costos_totales_dia * 30
+        costos_totales_ano = costos_totales_dia * 365
+        
+        # Utilidad (ingresos - costos)
+        utilidad_dia = ingresos_dia_usd - costos_totales_dia
+        utilidad_mes = ingresos_mes_usd - costos_totales_mes
+        utilidad_ano = ingresos_ano_usd - costos_totales_ano
+        
+        # Margen de utilidad
+        margen_utilidad = (utilidad_dia / ingresos_dia_usd * 100) if ingresos_dia_usd > 0 else 0
+        
+        # CAPEX
+        capex_data = config.get('capex', {})
+        inversion_inicial = capex_data.get('inversion_inicial_usd', 2500000)
+        vida_util = capex_data.get('vida_util_anos', 20)
+        tasa_descuento = capex_data.get('tasa_descuento', 0.12)
+        
+        # Depreciación anual
+        depreciacion_anual = inversion_inicial / vida_util
+        depreciacion_mensual = depreciacion_anual / 12
+        depreciacion_diaria = depreciacion_anual / 365
+        
+        # Retorno de inversión (ROI)
+        roi_anos = inversion_inicial / utilidad_ano if utilidad_ano > 0 else 0
+        
+        # VAN (Valor Actual Neto) simplificado
+        van = -inversion_inicial
+        for ano in range(1, vida_util + 1):
+            flujo_ano = utilidad_ano
+            van += flujo_ano / ((1 + tasa_descuento) ** ano)
+        
+        # TIR aproximada (simplificada)
+        tir = (utilidad_ano / inversion_inicial) * 100 if inversion_inicial > 0 else 0
+        
+        # Preparar respuesta
+        resultado = {
+            'status': 'success',
+            'fecha_calculo': datetime.now().isoformat(),
+            'ingresos': {
+                'energia_dia_mwh': round(energia_dia_mwh, 2),
+                'ingresos_dia_usd': round(ingresos_dia_usd, 2),
+                'ingresos_mes_usd': round(ingresos_mes_usd, 2),
+                'ingresos_ano_usd': round(ingresos_ano_usd, 2),
+                'precio_mwh_usd': precio_mwh,
+                'potencia_kw': potencia_kw,
+                'horas_operacion': horas_dia
+            },
+            'costos_sustratos': {
+                'costo_total_dia_usd': round(costo_total_sustratos_dia, 2),
+                'costo_total_mes_usd': round(costo_total_sustratos_dia * 30, 2),
+                'costo_total_ano_usd': round(costo_total_sustratos_dia * 365, 2),
+                'detalle': detalle_sustratos
+            },
+            'ahorro_sa7': {
+                'tn_sa7_ahorradas_dia': round(tn_sa7_ahorradas, 2),
+                'tn_sa7_ahorradas_mes': round(tn_sa7_ahorradas * 30, 2),
+                'tn_sa7_ahorradas_ano': round(tn_sa7_ahorradas * 365, 2),
+                'ahorro_usd_dia': round(ahorro_sa7_usd, 2),
+                'ahorro_usd_mes': round(ahorro_sa7_usd * 30, 2),
+                'ahorro_usd_ano': round(ahorro_sa7_usd * 365, 2),
+                'precio_sa7_tn_usd': precio_sa7
+            },
+            'costos_operativos': {
+                'electricidad_dia_usd': round(costo_electricidad_dia, 2),
+                'mano_obra_dia_usd': round(costo_mano_obra_dia, 2),
+                'mantenimiento_dia_usd': round(costo_mantenimiento_dia, 2),
+                'seguros_dia_usd': round(costo_seguros_dia, 2),
+                'administrativos_dia_usd': round(costo_admin_dia, 2),
+                'total_dia_usd': round(costos_operativos_dia, 2),
+                'total_mes_usd': round(costos_operativos_dia * 30, 2),
+                'total_ano_usd': round(costos_operativos_dia * 365, 2)
+            },
+            'resumen': {
+                'ingresos_dia_usd': round(ingresos_dia_usd, 2),
+                'costos_totales_dia_usd': round(costos_totales_dia, 2),
+                'utilidad_dia_usd': round(utilidad_dia, 2),
+                'utilidad_mes_usd': round(utilidad_mes, 2),
+                'utilidad_ano_usd': round(utilidad_ano, 2),
+                'margen_utilidad_porcentaje': round(margen_utilidad, 2)
+            },
+            'capex_opex': {
+                'inversion_inicial_usd': inversion_inicial,
+                'vida_util_anos': vida_util,
+                'depreciacion_anual_usd': round(depreciacion_anual, 2),
+                'depreciacion_mensual_usd': round(depreciacion_mensual, 2),
+                'roi_anos': round(roi_anos, 2),
+                'van_usd': round(van, 2),
+                'tir_porcentaje': round(tir, 2),
+                'tasa_descuento_porcentaje': tasa_descuento * 100
+            }
+        }
+        
+        return jsonify(resultado)
+        
+    except Exception as e:
+        logger.error(f"Error en calcular_analisis_economico: {e}", exc_info=True)
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/analisis-economico')
+def pagina_analisis_economico():
+    """Página de análisis económico"""
+    return render_template('analisis_economico.html')
+
+
 # ===== RUTAS PARA MÓDULO DE MANTENIMIENTO =====
 
 @app.route('/programar_mantenimiento', methods=['POST'])

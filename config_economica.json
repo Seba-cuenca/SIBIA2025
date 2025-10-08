@@ -1,0 +1,117 @@
+{
+  "precios_energia": {
+    "precio_mwh_usd": 168,
+    "potencia_instalada_kw": 1200,
+    "horas_operacion_dia": 24,
+    "descripcion": "Precio de venta de energía eléctrica"
+  },
+  "sustratos_costos": {
+    "SA 7": {
+      "precio_tn_usd": 45,
+      "es_principal": true,
+      "descripcion": "Silo 7 - Sustrato principal a reemplazar"
+    },
+    "Purin": {
+      "precio_tn_usd": 0,
+      "es_principal": true,
+      "descripcion": "Purín de cerdo - Sin costo (disponible en planta)"
+    },
+    "Rumen": {
+      "precio_tn_usd": 15,
+      "descripcion": "Rumen de frigorífico"
+    },
+    "Grasa - Frigorifico La Anonima": {
+      "precio_tn_usd": 20,
+      "descripcion": "Grasa de frigorífico"
+    },
+    "Gomas vegetales": {
+      "precio_tn_usd": 25,
+      "descripcion": "Gomas vegetales"
+    },
+    "Lactosa": {
+      "precio_tn_usd": 18,
+      "descripcion": "Lactosa"
+    },
+    "Expeller": {
+      "precio_tn_usd": 30,
+      "descripcion": "Expeller de soja"
+    },
+    "Maiz": {
+      "precio_tn_usd": 200,
+      "descripcion": "Maíz grano"
+    },
+    "Silaje de Maiz": {
+      "precio_tn_usd": 35,
+      "descripcion": "Silaje de maíz"
+    },
+    "Silaje de Maiz A5": {
+      "precio_tn_usd": 35,
+      "descripcion": "Silaje de maíz A5"
+    },
+    "Vinasa": {
+      "precio_tn_usd": 12,
+      "descripcion": "Vinaza"
+    },
+    "SA5-SA6 20-80": {
+      "precio_tn_usd": 40,
+      "descripcion": "Silaje SA5-SA6"
+    },
+    "Descarte de grano": {
+      "precio_tn_usd": 22,
+      "descripcion": "Descarte de grano"
+    },
+    "Decomiso mucanga": {
+      "precio_tn_usd": 10,
+      "descripcion": "Decomiso mucanga"
+    },
+    "caca de gato": {
+      "precio_tn_usd": 8,
+      "descripcion": "Cama de gato"
+    },
+    "caca de perro": {
+      "precio_tn_usd": 8,
+      "descripcion": "Cama de perro"
+    }
+  },
+  "costos_operativos": {
+    "electricidad": {
+      "consumo_kwh_dia": 500,
+      "precio_kwh_usd": 0.12,
+      "descripcion": "Consumo eléctrico de la planta"
+    },
+    "mano_obra": {
+      "operadores": 3,
+      "salario_mensual_usd": 1200,
+      "descripcion": "Personal operativo"
+    },
+    "mantenimiento": {
+      "costo_mensual_usd": 2500,
+      "descripcion": "Mantenimiento preventivo y correctivo"
+    },
+    "seguros": {
+      "costo_anual_usd": 15000,
+      "descripcion": "Seguros de planta y equipos"
+    },
+    "administrativos": {
+      "costo_mensual_usd": 1800,
+      "descripcion": "Gastos administrativos y generales"
+    },
+    "transporte": {
+      "costo_tn_km_usd": 0.5,
+      "distancia_promedio_km": 50,
+      "descripcion": "Transporte de sustratos"
+    }
+  },
+  "capex": {
+    "inversion_inicial_usd": 2500000,
+    "vida_util_anos": 20,
+    "tasa_descuento": 0.12,
+    "descripcion": "Inversión de capital"
+  },
+  "parametros_financieros": {
+    "inflacion_anual": 0.05,
+    "tasa_interes": 0.08,
+    "impuestos": 0.35,
+    "descripcion": "Parámetros financieros generales"
+  }
+}

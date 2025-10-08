@@ -423,5 +423,16 @@
         "empresa": "ARREBEEF",
         "operario": "JUAN",
         "numero_remito": "9087"
+    },
+    {
+        "fecha": "2025-10-06",
+        "timestamp": "2025-10-06T08:07:36.452721",
+        "patente": "456",
+        "material": "nuevo_material",
+        "tn_descargadas": 35000.0,
+        "st_analizado": 67.0,
+        "empresa": "traful",
+        "operario": "juan carlos perez",
+        "numero_remito": "0078"
     }
 ]

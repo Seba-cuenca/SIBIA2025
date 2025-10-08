@@ -1,0 +1,55 @@
+{
+  "modelo_tipo": "random_forest",
+  "fecha_entrenamiento": "2025-10-08T07:56:55.506482",
+  "feature_names": [
+    "co2_bio040_pct",
+    "co2_bio050_pct",
+    "o2_bio040_pct",
+    "o2_bio050_pct",
+    "co2_promedio",
+    "o2_promedio",
+    "co2_diferencia",
+    "o2_diferencia",
+    "ratio_co2_o2",
+    "caudal_chp_ls"
+  ],
+  "clases": [
+    "alerta",
+    "normal"
+  ],
+  "metricas": {
+    "accuracy": 1.0,
+    "f1_score": 1.0,
+    "cv_mean": 0.9981132075471699,
+    "cv_std": 0.003773584905660376,
+    "classification_report": {
+      "alerta": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 46.0
+      },
+      "normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 87.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 133.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 133.0
+      }
+    }
+  },
+  "reglas": "percentiles_datos_reales",
+  "nota": "Entrenado con reglas basadas en percentiles de datos reales"
+}

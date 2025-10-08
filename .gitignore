@@ -164,6 +164,7 @@ balance_*.json
 
 # Google Cloud credenciales (NUNCA SUBIR)
 gcloud-key.json
+gcloud-key-sibia.json
 gcloud-config.json
 *.json.key
 service-account*.json

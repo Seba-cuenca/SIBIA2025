@@ -1,0 +1,36 @@
+{
+  "fecha_generacion": "2025-10-08T07:12:41.985966",
+  "total_registros": 926,
+  "total_features": 24,
+  "distribucion_estados": {
+    "critico": 926
+  },
+  "features": [
+    "co2_bio040_pct",
+    "co2_bio050_pct",
+    "o2_bio040_pct",
+    "o2_bio050_pct",
+    "caudal_chp_ls",
+    "co2_promedio",
+    "co2_diferencia",
+    "o2_promedio",
+    "o2_diferencia",
+    "ratio_co2_o2",
+    "co2_promedio_ma7",
+    "co2_promedio_std7",
+    "co2_promedio_tendencia",
+    "o2_promedio_ma7",
+    "o2_promedio_std7",
+    "o2_promedio_tendencia",
+    "flag_o2_alto",
+    "flag_o2_muy_alto",
+    "flag_co2_anormal",
+    "flag_desbalance_bio",
+    "dia_semana",
+    "dia_mes",
+    "mes",
+    "trimestre",
+    "estado_biodigestor"
+  ],
+  "completitud_promedio": 82.75161987041037
+}

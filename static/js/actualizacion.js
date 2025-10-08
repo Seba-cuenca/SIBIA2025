@@ -85,14 +85,14 @@ function actualizarTablas() {
             if (stockData && typeof stockData === 'object' && !Array.isArray(stockData)) {
                 stockArray = Object.entries(stockData).map(([material, detalles]) => ({
                     material: material,
-                    cantidad: detalles.total_tn || 0,
+                    nombre: (detalles && detalles.nombre) || material, cantidad: detalles.total_tn || 0,
                     total_solido: detalles.total_solido || 0,
                     st_porcentaje: detalles.st_porcentaje || 0, // Agregar ST%
                     ultima_actualizacion: detalles.ultima_actualizacion || '-'
                 }));
                  console.log("Datos de stock (objeto) convertidos a array para tabla.");
             } else if (Array.isArray(stockData)) {
-                 stockArray = stockData; // Ya es un array
+                 stockArray = stockData.map(it => ({ ...it, nombre: it.nombre || it.material })); // Ya es un array
                  console.log("Datos de stock (array) recibidos.");
             } else {
                 console.warn("Formato de datos de stock inesperado o vacío:", stockData);
@@ -124,7 +124,7 @@ function actualizarTablas() {
                             }
 
                             fila.innerHTML = `
-                                <td>${item.material}</td>
+                                <td>${item.nombre || item.material}</td>
                                 <td>${formattedTn}</td>
                                 <td>${formattedSt}%</td>
                                 <td>${item.ultima_actualizacion || '-'}</td>
@@ -995,7 +995,7 @@ function actualizarStockEnInterfaz() {
                 const stockArray = Object.entries(data).map(([material, detalles]) => {
                     return {
                         material: material,
-                        cantidad: detalles.total_tn || 0,
+                    nombre: (detalles && detalles.nombre) || material, cantidad: detalles.total_tn || 0,
                         total_solido: detalles.total_solido || 0, // Mantener como porcentaje si así viene
                         ultima_actualizacion: detalles.ultima_actualizacion || '-'
                     };
@@ -1021,7 +1021,7 @@ function actualizarStockEnInterfaz() {
                         }
 
                         fila.innerHTML = `
-                            <td>${item.material}</td>
+                            <td>${item.nombre || item.material}</td>
                             <td>${isNaN(cantidad) ? "0.00" : cantidad.toFixed(2)}</td>
                             <td>${totalSolidoStr}</td>
                             <td>${item.ultima_actualizacion || '-'}</td>

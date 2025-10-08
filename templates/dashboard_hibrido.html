@@ -666,8 +666,9 @@
             }
         }
 
-        /* Widget de alertas flotante */
+        /* Widget de alertas flotante - ELIMINADO - Ahora usa Sistema Unificado */
         .alerts-floating {
+            display: none !important; /* DESHABILITADO */
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -1786,10 +1787,12 @@
                 <span id="texto-sistema">Sistema Actualizado</span>
             </div>
             
-            <div class="form-check form-switch" style="margin-top: 10px;">
-                <input class="form-check-input" type="checkbox" id="controlAlertas" checked>
-                <label class="form-check-label text-white" for="controlAlertas">Alertas</label>
-            </div>
+            <!-- Botón de Alertas Unificadas -->
+            <button id="btn-alertas-unificadas" onclick="togglePanelAlertas()" style="margin-top: 10px; padding: 8px 16px; background: rgba(220, 53, 69, 0.2); border: 2px solid #dc3545; border-radius: 6px; color: white; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s;">
+                <i class="fas fa-bell"></i>
+                <span style="font-weight: bold;">ALERTAS</span>
+                <span id="contador-alertas-header" style="background: #dc3545; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold;">0</span>
+            </button>
             <div class="consumo-chp-control" style="display: flex; align-items: center; gap: 8px; margin-left: 15px; margin-top: 10px;">
                 <label for="consumo-chp-input" class="text-white" style="font-size: 12px; margin: 0;">Consumo CHP:</label>
                 <input type="number" id="consumo-chp-input" value="170" min="100" max="1000" step="1" 
@@ -1871,6 +1874,32 @@
             </div>
         </div>
     </header>
+
+    <!-- Panel de Alertas Unificadas (Desplegable) -->
+    <div id="panel-alertas-unificadas" style="display: none; position: fixed; top: var(--header-h); right: 20px; width: 450px; max-height: 70vh; background: rgba(15, 23, 42, 0.98); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(10px); overflow-y: auto;">
+        <div style="padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(15, 23, 42, 0.98); z-index: 1;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-shield-alt" style="color: #00d4ff; font-size: 18px;"></i>
+                <span style="font-size: 16px; font-weight: bold; color: white;">Centro de Alertas</span>
+            </div>
+            <button onclick="togglePanelAlertas()" style="background: none; border: none; color: white; cursor: pointer; font-size: 20px; padding: 4px 8px;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Resumen de Alertas -->
+        <div id="resumen-alertas" style="padding: 12px 16px; display: flex; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <!-- Se llenará dinámicamente -->
+        </div>
+        
+        <!-- Lista de Alertas -->
+        <div id="contenido-alertas" style="padding: 16px;">
+            <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.5);">
+                <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                <p style="margin-top: 10px;">Cargando alertas...</p>
+            </div>
+        </div>
+    </div>
 
     <div class="main-container">
         <aside class="sidebar">
@@ -2593,16 +2622,53 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <div id="stock-list">
-                                <div class="text-center">
-                                    <i class="fas fa-spinner fa-spin"></i> Cargando stock...
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <button id="btn-activar-descuento" class="btn btn-sm btn-success" title="Activar descuento automático">
+                                        <i class="fas fa-magic"></i> Activar descuento automático
+                                    </button>
+                                    <button id="btn-reset-stock" class="btn btn-sm btn-outline-danger" title="Resetear stock a cero">
+                                        <i class="fas fa-redo"></i> Reset
+                                    </button>
+                                    <a id="btn-exportar-csv" class="btn btn-sm btn-outline-info" href="/exportar/stock_inteligente.csv" title="Exportar CSV de stock inteligente">
+                                        <i class="fas fa-file-csv"></i> Exportar CSV
+                                    </a>
                                 </div>
+                                <div>
+                                    <input id="filtro-stock" type="text" class="form-control form-control-sm" placeholder="Filtrar materiales..." style="width: 220px;">
+                                </div>
+                            </div>
+                            <!-- Resumen porcentaje de sólidos -->
+                            <div id="stock-solidos-resumen" class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="text-muted">Porcentaje de sólidos del stock</span>
+                                    <span id="stock-solidos-porc" class="fw-bold">-</span>
+                                </div>
+                                <div class="progress" style="height: 10px; background: #2c2f3b; border-radius: 6px; overflow: hidden;">
+                                    <div id="stock-solidos-bar" class="progress-bar" role="progressbar" style="width: 0%; background: linear-gradient(90deg, #2ecc71, #27ae60);" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-dark align-middle" id="tabla-stock-profesional">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:32%">Material</th>
+                                            <th style="width:14%">Tipo</th>
+                                            <th style="width:18%" class="text-end">Cantidad (tn)</th>
+                                            <th style="width:20%">Última actualización</th>
+                                            <th style="width:16%" class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="stock-pro-rows">
+                                        <tr><td colspan="5" class="text-center"><i class="fas fa-spinner fa-spin"></i> Cargando stock...</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
                     <!-- Gestión de Materiales -->
-                    <div class="function-card" id="card-gestion-materiales">
+                    <div class="function-card" id="card-gestion-materiales" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-table"></i>
@@ -2987,6 +3053,31 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Predicción de Fallos ML -->
+                    <div class="function-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-shield-alt"></i>
+                                Predicción de Fallos ML
+                            </div>
+                        </div>
+                        <div class="card-content" id="prediccion-fallos-container">
+                            <div style="padding: 15px; text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 10px;">🛡️</div>
+                                <div style="font-size: 16px; color: #00d4ff; margin-bottom: 10px;">
+                                    <strong>Modelo de Predicción Activo</strong>
+                                </div>
+                                <div style="font-size: 13px; color: #a0aec0; margin-bottom: 15px;">
+                                    Random Forest con datos reales
+                                </div>
+                                <button onclick="testPrediccionManual()" class="btn btn-primary" style="margin: 5px;">
+                                    <i class="fas fa-flask"></i> Probar Predicción
+                                </button>
+                                <div id="resultado-prediccion-test" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -3027,8 +3118,31 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <!-- Predicción de Fallos ML -->
+                    <div class="function-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-shield-alt"></i>
+                                Predicción de Fallos ML
+                            </div>
+                        </div>
+                        <div class="card-content" id="prediccion-fallos-container">
+                            <div style="padding: 15px; text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 10px;">🛡️</div>
+                                <div style="font-size: 16px; color: #00d4ff; margin-bottom: 10px;">
+                                    <strong>Modelo de Predicción Activo</strong>
+                                </div>
+                                <div style="font-size: 13px; color: #a0aec0; margin-bottom: 15px;">
+                                    Random Forest con datos reales
+                                </div>
+                                <button onclick="testPrediccionManual()" class="btn btn-primary" style="margin: 5px;">
+                                    <i class="fas fa-flask"></i> Probar Predicción
+                                </button>
+                                <div id="resultado-prediccion-test" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
+                    </div>
                 <!-- Tabla de Rendimiento por Materiales -->
                 <div class="function-card full-width">
                     <div class="card-header">
@@ -3103,47 +3217,7 @@
         </main>
     </div>
 
-    <!-- Widget de Alertas flotante (siempre visible) -->
-    <div class="alerts-floating" id="alerts-floating">
-        <div class="alerts-floating-header" onclick="toggleFloatingAlerts()" style="cursor: pointer;">
-            <i class="fas fa-bell"></i>
-            <strong>Alertas del Sistema</strong>
-            <span id="alerts-counter" class="alerts-counter">3</span>
-            <i class="fas fa-chevron-down" id="floating-alerts-toggle" style="margin-left: auto; transition: transform 0.3s;"></i>
-        </div>
-        <div class="alerts-floating-list" id="alerts-floating-list">
-            <div class="alert-floating-item success" data-alert-id="alert-1">
-                <i class="fas fa-check-circle"></i>
-                <div class="alert-content">
-                    <strong>Sistema Operativo</strong><br>
-                    <small>Todos los parámetros dentro del rango normal</small>
-                </div>
-                <button class="alert-dismiss-btn" onclick="marcarAlertaVista('alert-1')" title="Marcar como visto">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="alert-floating-item warning" data-alert-id="alert-3">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div class="alert-content">
-                    <strong>Temperatura Elevada</strong><br>
-                    <small>Biodigestor 2: 45.2°C (objetivo: 40-42°C)</small>
-                </div>
-                <button class="alert-dismiss-btn" onclick="marcarAlertaVista('alert-3')" title="Marcar como visto">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="alert-floating-item info" data-alert-id="alert-2">
-                <i class="fas fa-info-circle"></i>
-                <div class="alert-content">
-                    <strong>Predicción IA</strong><br>
-                    <small>Posible mantenimiento requerido en 5 días</small>
-                </div>
-                <button class="alert-dismiss-btn" onclick="marcarAlertaVista('alert-2')" title="Marcar como visto">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- Widget de Alertas del Sistema ELIMINADO - Ahora usa Sistema Unificado en Header -->
 
     <script>
         // Configuración Chart.js
@@ -6026,13 +6100,14 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
             
             try {
-                const response = await fetch('/asistente_ia', {
+                const response = await fetch('/asistente_ia_v2', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        pregunta: pregunta
+                        pregunta: pregunta,
+                        sintetizar: true
                     })
                 });
                 
@@ -11618,6 +11693,8 @@
                 console.log('📊 Datos del stock:', data);
                 
                 if (data.status === 'success' && data.materiales) {
+                    // CORREGIDO: Mantener array para usar reduce()
+                    const materialesArr = Array.isArray(data.materiales) ? data.materiales : Object.values(data.materiales || {});
                     const stockList = document.getElementById('stock-list');
                     console.log('📋 Elemento stock-list encontrado:', !!stockList);
                     
@@ -11669,7 +11746,8 @@
         async function cargarSensoresSistemas() {
             try {
                 console.log('🔄 Cargando sensores de sistemas auxiliares...');
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 console.log('📡 Datos recibidos:', data);
@@ -11834,7 +11912,8 @@
         async function depurarValoresSensores() {
             console.log('🔍 Depurando valores de sensores...');
             try {
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 console.log('📊 Datos completos del servidor:', data);
@@ -11863,7 +11942,8 @@
             try {
                 console.log('🌡️ Cargando datos de temperaturas...');
                 probarTarjetas(); // Verificar que los elementos existan
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 console.log('📊 Datos de sensores recibidos:', data);
@@ -11906,7 +11986,8 @@
             try {
                 console.log('📊 Cargando datos de niveles...');
                 probarTarjetas(); // Verificar que los elementos existan
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 console.log('📊 Datos de sensores recibidos:', data);
@@ -12058,7 +12139,8 @@
         // Cargar calidad de gas
         async function cargarCalidadGas() {
             try {
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 if (data && data.sensores) {
@@ -12201,7 +12283,8 @@
         // Cargar datos de sensores para KPIs
         async function cargarDatosSensoresKPIs() {
             try {
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 
                 console.log('🔍 Datos para KPIs:', data);
@@ -12238,7 +12321,8 @@
         async function probarSensores() {
             console.log('🧪 Probando endpoint de sensores...');
             try {
-                const response = await fetch('/sensores_criticos_resumen');
+                // Endpoint eliminado - retornando datos mock
+                const response = {ok: true, json: async () => ({sensores: {}})};
                 const data = await response.json();
                 console.log('📡 Respuesta completa:', data);
                 console.log('📊 Sensores disponibles:', Object.keys(data.sensores || {}));
@@ -12997,8 +13081,8 @@
                     const ctx = document.getElementById('trendsChart');
                     if (ctx && data.labels && data.generacion) {
                         // Destruir gráfico anterior si existe
-                        if (window.trendsChart) {
-                            window.trendsChart.destroy();
+                        if (window.trendsChart && typeof window.trendsChart.destroy === 'function') {
+                            try { window.trendsChart.destroy(); } catch(e) {}
                         }
                         
                         window.trendsChart = new Chart(ctx.getContext('2d'), {
@@ -13105,6 +13189,8 @@
                 console.log('📈 Rendimiento materiales:', data);
                 
                 if (data.status === 'success' && data.materiales) {
+                    // CORREGIDO: Mantener array para usar reduce()
+                    const materialesArr = Array.isArray(data.materiales) ? data.materiales : Object.values(data.materiales || {});
                     // Crear diseño consistente con el resto de la aplicación
                     let html = `
                         <div class="card" style="margin-bottom: 20px;">
@@ -13130,7 +13216,7 @@
                                         <div class="card bg-success text-white">
                                             <div class="card-body text-center">
                                                 <i class="fas fa-bolt fa-2x mb-2"></i>
-                                                <h4>${data.materiales.reduce((sum, m) => sum + m.kw_potencial_stock, 0).toLocaleString()}</h4>
+                                                <h4>${materialesArr.reduce((sum, m) => sum + (m.kw_potencial_stock || 0), 0).toLocaleString()}</h4>
                                                 <small>KW Potencial Total</small>
                                             </div>
                                         </div>
@@ -13139,7 +13225,7 @@
                                         <div class="card bg-info text-white">
                                             <div class="card-body text-center">
                                                 <i class="fas fa-percentage fa-2x mb-2"></i>
-                                                <h4>${(data.materiales.reduce((sum, m) => sum + m.eficiencia, 0) / data.materiales.length).toFixed(1)}%</h4>
+                                                <h4>${(materialesArr.reduce((sum, m) => sum + (m.eficiencia || 0), 0) / materialesArr.length).toFixed(1)}%</h4>
                                                 <small>Eficiencia Promedio</small>
                                             </div>
                                         </div>
@@ -13164,7 +13250,7 @@
                                         <tbody>
                     `;
                     
-                    data.materiales.forEach((material, index) => {
+                    materialesArr.forEach((material, index) => {
                         // Determinar clases Bootstrap según rendimiento
                         const kwPorTn = material.kw_por_tn;
                         const eficiencia = material.eficiencia;
@@ -13400,8 +13486,8 @@
                     const ctx = document.getElementById('eficienciaChart');
                     if (ctx && tendenciasData.labels && tendenciasData.eficiencia) {
                         // Destruir gráfico anterior si existe
-                        if (window.eficienciaChart) {
-                            window.eficienciaChart.destroy();
+                        if (window.eficienciaChart && typeof window.eficienciaChart.destroy === 'function') {
+                            try { window.eficienciaChart.destroy(); } catch(e) { console.warn('Error destruyendo gráfico:', e); }
                             window.eficienciaChart = null;
                         }
                         
@@ -21753,4 +21839,605 @@ async function verificarSincronizacion() {
 }
 </script>
 
+
+
+<script>
+  // ===== Menú CAMMESA sobre KPI de Inyectada en el header =====
+  (function initCammesaMenuOnHeader(){
+    // Crear menú flotante reutilizable
+    const menu = document.createElement('div');
+    menu.id = 'cammesa-menu';
+    Object.assign(menu.style, {
+      position: 'fixed',
+      display: 'none',
+      zIndex: 3000,
+      background: 'rgba(0,0,0,0.9)',
+      color: '#fff',
+      border: '1px solid rgba(255,255,255,0.15)',
+      borderRadius: '8px',
+      padding: '8px',
+      minWidth: '220px',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.35)'
+    });
+    menu.innerHTML = `
+      <div style="font-weight:600;color:#00d4ff;margin-bottom:6px">Inyectada • CAMMESA</div>
+      <button id="cmms-yesterday" class="btn btn-sm btn-secondary" style="width:100%;margin-bottom:6px">Reporte día anterior (CSV)</button>
+      <button id="cmms-today" class="btn btn-sm btn-info" style="width:100%;margin-bottom:6px">Reporte día actual (CSV)</button>
+      <button id="cmms-send" class="btn btn-sm btn-success" style="width:100%">Enviar a CAMMESA</button>
+    `;
+    document.body.appendChild(menu);
+
+    function hideMenu(){ menu.style.display='none'; }
+    function showMenu(x,y){ menu.style.left = x + 'px'; menu.style.top = y + 'px'; menu.style.display='block'; }
+    document.addEventListener('click', (e)=>{ if(!menu.contains(e.target)) hideMenu(); });
+    window.addEventListener('scroll', hideMenu);
+
+    // Acciones del menú
+    function descargar(day){
+      try{
+        const url = `${window.location.origin}/kpi/generacion/csv?day=${encodeURIComponent(day)}`;
+        window.open(url, '_blank');
+        if (typeof toastr !== 'undefined') toastr.success(`Descargando CSV (${day})`);
+      }catch(err){ console.error(err); if (typeof toastr !== 'undefined') toastr.error('No se pudo descargar el CSV'); }
+      hideMenu();
+    }
+    document.getElementById('cmms-yesterday').addEventListener('click', ()=>descargar('yesterday'));
+    document.getElementById('cmms-today').addEventListener('click', ()=>descargar('today'));
+    document.getElementById('cmms-send').addEventListener('click', async ()=>{
+      let email = localStorage.getItem('kpi_cammesa_email') || '';
+      if(!email){ email = prompt('Email destino para CAMMESA:',''); if(email) localStorage.setItem('kpi_cammesa_email', email); }
+      if(!email){ if (typeof toastr !== 'undefined') toastr.warning('Ingrese email destino'); return; }
+      try{
+        const resp = await fetch('/kpi/generacion/enviar', {
+          method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({day:'today', email})
+        });
+        const data = await resp.json();
+        if(resp.ok && data.status==='success'){
+          if (typeof toastr !== 'undefined') toastr.success(`Enviado a ${email}`);
+        }else{
+          if (typeof toastr !== 'undefined') toastr.error(data?.error||'Error de envío');
+        }
+      }catch(err){ console.error(err); if (typeof toastr !== 'undefined') toastr.error('No se pudo enviar el correo'); }
+      hideMenu();
+    });
+
+    // Resolver el elemento de Inyectada en el header y bindear menú
+    const candidates = [
+      '#kpi-inyectada',
+      '[data-kpi="inyectada"]',
+      '[id*="inyect"][class*="kpi"]',
+      '[class*="kpi"][class*="inyect"]'
+    ];
+    function findInyectada(){
+      for(const sel of candidates){ const el = document.querySelector(sel); if (el) return el; }
+      // fallback por texto
+      const nodes = Array.from(document.querySelectorAll('.kpi-card, .kpi-value, .kpi-header, [class*="kpi"], [id*="kpi"]'));
+      for(const n of nodes){ if((n.textContent||'').toLowerCase().includes('inyect')) return n; }
+      return null;
+    }
+    function bind(el){
+      if(!el || el.dataset.cammesaBound) return; el.dataset.cammesaBound='1';
+      el.style.cursor='pointer';
+      el.title = 'Acciones CAMMESA';
+      el.addEventListener('click', (ev)=>{ ev.preventDefault(); showMenu(ev.clientX+8, ev.clientY+8); });
+    }
+    const first = findInyectada(); if (first) bind(first);
+    const obs = new MutationObserver(()=>{ const el = findInyectada(); if (el) bind(el); });
+    obs.observe(document.body, { childList:true, subtree:true });
+  })();
+
+  function descargarKpi(day){
+    try{
+      day = (day||'today').toLowerCase();
+      const url = `${window.location.origin}/kpi/generacion/csv?day=${encodeURIComponent(day)}`;
+      window.open(url, '_blank');
+      if (typeof toastr !== 'undefined') toastr.success(`Descargando CSV (${day})`);
+    }catch(e){ console.error(e); if (typeof toastr !== 'undefined') toastr.error('No se pudo descargar el CSV'); }
+  }
+
+  async function enviarKpi(){
+    const email = document.getElementById('kpiEmail')?.value?.trim();
+    if(!email){ if (typeof toastr !== 'undefined') toastr.warning('Ingrese email destino'); return; }
+    try{
+      const day = 'today';
+      const resp = await fetch('/kpi/generacion/enviar',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({day, email})
+      });
+      const data = await resp.json();
+      if(resp.ok && data.status==='success'){
+        if (typeof toastr !== 'undefined') toastr.success(`Enviado a ${email}`);
+      }else{
+        console.error('Error envío', data);
+        if (typeof toastr !== 'undefined') toastr.error(data?.error||'Error de envío');
+      }
+    }catch(e){ console.error(e); if (typeof toastr !== 'undefined') toastr.error('No se pudo enviar el correo'); }
+  }
+</script>
+
+<!-- Widget de Alertas Predictivas ELIMINADO - Ahora usa Sistema Unificado en Header -->
+
+<script>
+  // ===== ML Alerts + Voz DESHABILITADO - Ahora usa Sistema Unificado =====
+  (function(){
+    const elBox = document.getElementById('ml-alerts');
+    const elList = document.getElementById('ml-alerts-list');
+    const elCount = document.getElementById('ml-alerts-count');
+    const btnHide = document.getElementById('ml-alerts-hide');
+    const btnShowWrap = document.getElementById('ml-alerts-show');
+    const btnConfig = document.getElementById('ml-config-btn');
+
+    // Helpers para marcar KPIs del header
+    function colorFor(level){ return level==='danger' ? '#dc3545' : level==='warning' ? '#ffc107' : '#17a2b8'; }
+    function setKpiBadge(kpiId, level, text){
+      const el = document.getElementById(kpiId); if(!el) return;
+      // Buscar/crear contenedor
+      const parent = el.parentElement || el;
+      let badge = parent.querySelector('.ml-badge');
+      if(level){
+        if(!badge){
+          badge = document.createElement('span');
+          badge.className = 'ml-badge';
+          badge.style.cssText = 'margin-left:6px; padding:2px 6px; border-radius:10px; font-size:10px; font-weight:700;';
+          parent.appendChild(badge);
+        }
+        const col = colorFor(level);
+        badge.textContent = level.toUpperCase();
+        badge.style.background = 'rgba(0,0,0,0.3)';
+        badge.style.border = `1px solid ${col}`;
+        badge.style.color = col;
+        badge.title = text||'';
+        el.style.textShadow = `0 0 6px ${col}`;
+      } else {
+        if(badge) badge.remove();
+        el.style.textShadow = '';
+      }
+    }
+
+    const defaults = {
+      h2s_warning_min: 150,
+      h2s_danger_min: 210,
+      ch4_warning_max: 55,
+      ch4_danger_max: 51,
+      horizon_minutes: 30,
+      polling_seconds: 60,
+      voice: true
+    };
+    const cfg = loadCfg();
+
+    function loadCfg(){
+      try{ const s = localStorage.getItem('ml_thresholds'); if(s) return {...defaults, ...JSON.parse(s)}; }catch(e){}
+      return {...defaults};
+    }
+    function saveCfg(){ localStorage.setItem('ml_thresholds', JSON.stringify(cfg)); }
+
+    function speak(text){
+      try{
+        if(!cfg.voice) return;
+        const synth = window.speechSynthesis; if(!synth) return;
+        const u = new SpeechSynthesisUtterance(text); u.lang='es-ES'; u.rate=1.0; synth.cancel(); synth.speak(u);
+      }catch(e){}
+    }
+
+    function ensureVisible(){ if(elBox.style.display==='none'){ elBox.style.display='block'; } }
+    function updateCount(){ elCount.textContent = elList.children.length; }
+    function addAlert(level, message){
+      ensureVisible();
+      const color = level==='danger' ? '#dc3545' : level==='warning' ? '#ffc107' : '#17a2b8';
+      const item = document.createElement('div');
+      item.style.cssText = 'display:flex; gap:8px; border-left:3px solid; padding:8px; background:rgba(255,255,255,0.06); border-radius:6px; font-size:12px;';
+      item.style.borderLeftColor = color;
+      item.innerHTML = `<span style="color:${color}; font-weight:700; text-transform:uppercase;">${level}</span><div style="flex:1; color:#fff;">${message}</div>`;
+      elList.prepend(item);
+      // Máximo 20
+      while(elList.children.length>20){ elList.lastChild.remove(); }
+      updateCount();
+    }
+
+    btnHide.addEventListener('click', ()=>{ elBox.style.display='none'; btnShowWrap.style.display='block'; });
+    btnShowWrap.querySelector('button').addEventListener('click', ()=>{ elBox.style.display='block'; btnShowWrap.style.display='none'; });
+    btnConfig.addEventListener('click', ()=>{
+      try{
+        const h2sW = prompt('H2S advertencia (ppm):', cfg.h2s_warning_min); if(h2sW!==null) cfg.h2s_warning_min = parseFloat(h2sW)||cfg.h2s_warning_min;
+        const h2sD = prompt('H2S alerta (ppm):', cfg.h2s_danger_min); if(h2sD!==null) cfg.h2s_danger_min = parseFloat(h2sD)||cfg.h2s_danger_min;
+        const ch4W = prompt('CH4 advertencia (<= %):', cfg.ch4_warning_max); if(ch4W!==null) cfg.ch4_warning_max = parseFloat(ch4W)||cfg.ch4_warning_max;
+        const ch4D = prompt('CH4 alerta (<= %):', cfg.ch4_danger_max); if(ch4D!==null) cfg.ch4_danger_max = parseFloat(ch4D)||cfg.ch4_danger_max;
+        const hz = prompt('Horizonte predicción H2S (min):', cfg.horizon_minutes); if(hz!==null) cfg.horizon_minutes = parseInt(hz)||cfg.horizon_minutes;
+        const ps = prompt('Pooling (segundos):', cfg.polling_seconds); if(ps!==null) cfg.polling_seconds = parseInt(ps)||cfg.polling_seconds;
+        const v = confirm('¿Activar voz de alertas? Aceptar=Sí / Cancelar=No'); cfg.voice = v; saveCfg();
+        addAlert('info', 'Configuración ML actualizada');
+      }catch(e){}
+    });
+
+    let timer = null; let running = false; let lastSpoken = '';
+    async function pollOnce(){
+      if(running) return; running = true;
+      try{
+        // Obtener CH4 del header si existe
+        let ch4 = null; const ch4El = document.getElementById('kpi-ch4');
+        if(ch4El){ const num = parseFloat((ch4El.textContent||'').replace(/[^0-9.,]/g,'')); if(!isNaN(num)) ch4 = num; }
+
+        // 1) Predicción H2S
+        let predH2S = null; let predAlertLevel = null; let predMsg = null; let anyAlert = false;
+        try{
+          const body = { horizon_minutes: cfg.horizon_minutes, features: {} };
+          if(ch4!=null) body.features.ch4 = ch4;
+          const resp = await fetch('/ml/h2s/predict', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+          const data = await resp.json();
+          if(resp.ok && data && data.status==='success'){
+            predH2S = data.prediction_ppm;
+            if(Array.isArray(data.alerts) && data.alerts.length){
+              const a = data.alerts[0]; predAlertLevel = a.level; predMsg = a.message;
+            } else if(predH2S!=null){
+              if(predH2S > cfg.h2s_danger_min){ predAlertLevel='danger'; predMsg = `H2S proyectado ${predH2S} ppm (> ${cfg.h2s_danger_min})`; }
+              else if(predH2S >= cfg.h2s_warning_min){ predAlertLevel='warning'; predMsg = `H2S proyectado ${predH2S} ppm (≥ ${cfg.h2s_warning_min})`; }
+            }
+          }
+        }catch(e){}
+
+        if(predAlertLevel && predMsg){
+          addAlert(predAlertLevel, `⏱ ${cfg.horizon_minutes} min • ${predMsg}`);
+          if(lastSpoken!==predMsg){ speak(predMsg); lastSpoken = predMsg; }
+          anyAlert = true;
+          // Marcar KPIs relacionados
+          setKpiBadge('kpi-eficiencia', predAlertLevel, predMsg);
+          setKpiBadge('kpi-ch4', predAlertLevel, predMsg);
+        }
+
+        // 2) Estado gas motor
+        try{
+          const params = new URLSearchParams(); if(ch4!=null) params.set('ch4', String(ch4));
+          if(predH2S!=null) params.set('h2s', String(predH2S));
+          const resp2 = await fetch(`/ml/gasmotor/status?${params.toString()}`);
+          const data2 = await resp2.json();
+          if(resp2.ok && data2 && data2.status==='success'){
+            if(data2.classification==='danger'){
+              const msg = `Riesgo gas motor: ${data2.reasons.join(', ')}`; addAlert('danger', msg); if(lastSpoken!==msg){ speak(msg); lastSpoken = msg; }
+              anyAlert = true; setKpiBadge('kpi-ch4', 'danger', msg);
+            } else if(data2.classification==='warning'){
+              const msg = `Advertencia gas motor: ${data2.reasons.join(', ')}`; addAlert('warning', msg); if(lastSpoken!==msg){ speak(msg); lastSpoken = msg; }
+              anyAlert = true; setKpiBadge('kpi-ch4', 'warning', msg);
+            } else {
+              // Ok
+              setKpiBadge('kpi-ch4', null);
+            }
+          }
+        }catch(e){}
+
+        // Si no hubo ninguna alerta en este ciclo, limpiar badges
+        if(!anyAlert){ setKpiBadge('kpi-eficiencia', null); }
+      } finally {
+        running = false;
+      }
+    }
+
+    function startPolling(){ if(timer) clearInterval(timer); timer = setInterval(pollOnce, Math.max(15, cfg.polling_seconds)*1000); pollOnce(); }
+    // Auto iniciar - DESHABILITADO - Ahora usa Sistema Unificado
+    // startPolling(); ensureVisible();
+    console.log('⚠️ ML Alerts antiguo deshabilitado - Usar Sistema Unificado en header');
+  })();
+</script>
+
+<script src="/static/js/stock_table.js?v=1"></script>
+
+<script>
+// ============================================
+// PREDICCIÓN DE FALLOS - VERSIÓN SIMPLE
+// ============================================
+
+function testPrediccionManual() {
+    const resultadoDiv = document.getElementById('resultado-prediccion-test');
+    resultadoDiv.innerHTML = '<div style="color: #00d4ff;"><i class="fas fa-spinner fa-spin"></i> Prediciendo...</div>';
+    
+    // Datos de prueba
+    const datos = {
+        co2_bio040_pct: 0.46,
+        co2_bio050_pct: 0.45,
+        o2_bio040_pct: 0.46,
+        o2_bio050_pct: 0.45,
+        caudal_chp_ls: 100.0
+    };
+    
+    fetch('/api/predecir-fallo', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(datos)
+    })
+    .then(response => response.json())
+    .then(resultado => {
+        if (resultado.status === 'success') {
+            const color = resultado.prediccion === 'critico' ? '#f56565' : 
+                         resultado.prediccion === 'alerta' ? '#ed8936' :
+                         resultado.prediccion === 'normal' ? '#4299e1' : '#48bb78';
+            
+            resultadoDiv.innerHTML = `
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border-left: 4px solid ${color};">
+                    <div style="font-size: 14px; font-weight: bold; color: ${color}; margin-bottom: 5px;">
+                        Estado: ${resultado.prediccion.toUpperCase()}
+                    </div>
+                    <div style="font-size: 12px; color: #cbd5e0;">
+                        Confianza: ${(resultado.confianza * 100).toFixed(1)}%
+                    </div>
+                    <div style="font-size: 11px; color: #a0aec0; margin-top: 8px;">
+                        ${resultado.recomendaciones[0]}
+                    </div>
+                </div>
+            `;
+        } else {
+            resultadoDiv.innerHTML = `<div style="color: #f56565;">${resultado.mensaje || 'Error'}</div>`;
+        }
+    })
+    .catch(error => {
+        resultadoDiv.innerHTML = `<div style="color: #f56565;">Error: ${error.message}</div>`;
+    });
+}
+
+console.log('✅ Widget de Predicción (simple) cargado');
+</script>
+
+<script>
+// ============================================
+// SISTEMA DE ALERTAS UNIFICADAS
+// ============================================
+
+let alertasUnificadasActivas = [];
+let panelAlertasAbierto = false;
+
+function togglePanelAlertas() {
+    const panel = document.getElementById('panel-alertas-unificadas');
+    panelAlertasAbierto = !panelAlertasAbierto;
+    panel.style.display = panelAlertasAbierto ? 'block' : 'none';
+    
+    if (panelAlertasAbierto) {
+        cargarAlertasUnificadas();
+    }
+}
+
+async function cargarAlertasUnificadas() {
+    try {
+        const response = await fetch('/api/alertas-unificadas');
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            alertasUnificadasActivas = data.alertas;
+            actualizarContadorAlertas(data.resumen);
+            renderizarAlertas(data.alertas, data.resumen);
+        } else {
+            console.error('Error al cargar alertas:', data.mensaje);
+            mostrarErrorAlertas();
+        }
+    } catch (error) {
+        console.error('Error al cargar alertas unificadas:', error);
+        mostrarErrorAlertas();
+    }
+}
+
+function actualizarContadorAlertas(resumen) {
+    const contador = document.getElementById('contador-alertas-header');
+    const btn = document.getElementById('btn-alertas-unificadas');
+    
+    if (!contador || !btn) return;
+    
+    const total = resumen.total;
+    contador.textContent = total;
+    
+    // Cambiar color según criticidad
+    if (resumen.critico > 0) {
+        btn.style.background = 'rgba(220, 53, 69, 0.3)';
+        btn.style.borderColor = '#dc3545';
+        contador.style.background = '#dc3545';
+        contador.style.animation = 'pulse 1s infinite';
+    } else if (resumen.alerta > 0) {
+        btn.style.background = 'rgba(237, 137, 54, 0.3)';
+        btn.style.borderColor = '#ed8936';
+        contador.style.background = '#ed8936';
+    } else if (total > 0) {
+        btn.style.background = 'rgba(251, 191, 36, 0.3)';
+        btn.style.borderColor = '#fbbf24';
+        contador.style.background = '#fbbf24';
+    } else {
+        btn.style.background = 'rgba(34, 197, 94, 0.3)';
+        btn.style.borderColor = '#22c55e';
+        contador.style.background = '#22c55e';
+    }
+}
+
+function renderizarAlertas(alertas, resumen) {
+    const contenedor = document.getElementById('contenido-alertas');
+    const resumenDiv = document.getElementById('resumen-alertas');
+    
+    if (!contenedor || !resumenDiv) return;
+    
+    // Renderizar resumen
+    resumenDiv.innerHTML = `
+        <div style="flex: 1; text-align: center; padding: 8px; background: rgba(220, 53, 69, 0.2); border-radius: 6px;">
+            <div style="font-size: 20px; font-weight: bold; color: #dc3545;">${resumen.critico}</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Críticas</div>
+        </div>
+        <div style="flex: 1; text-align: center; padding: 8px; background: rgba(237, 137, 54, 0.2); border-radius: 6px;">
+            <div style="font-size: 20px; font-weight: bold; color: #ed8936;">${resumen.alerta}</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Alertas</div>
+        </div>
+        <div style="flex: 1; text-align: center; padding: 8px; background: rgba(251, 191, 36, 0.2); border-radius: 6px;">
+            <div style="font-size: 20px; font-weight: bold; color: #fbbf24;">${resumen.advertencia}</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Advertencias</div>
+        </div>
+    `;
+    
+    // Renderizar alertas
+    if (alertas.length === 0) {
+        contenedor.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+                <i class="fas fa-check-circle" style="font-size: 48px; color: #22c55e;"></i>
+                <p style="margin-top: 16px; font-size: 16px; font-weight: bold;">Sistema Operando Normalmente</p>
+                <p style="font-size: 13px; margin-top: 8px;">No hay alertas activas en este momento</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Agrupar por nivel
+    const criticas = alertas.filter(a => a.nivel === 'critico');
+    const alertasNivel = alertas.filter(a => a.nivel === 'alerta');
+    const advertencias = alertas.filter(a => a.nivel === 'advertencia');
+    
+    let html = '';
+    
+    // Críticas
+    if (criticas.length > 0) {
+        html += `<div style="margin-bottom: 20px;">
+            <h4 style="color: #dc3545; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-exclamation-circle"></i> CRÍTICAS (${criticas.length})
+            </h4>`;
+        criticas.forEach(alerta => {
+            html += renderizarAlerta(alerta, '#dc3545');
+        });
+        html += '</div>';
+    }
+    
+    // Alertas
+    if (alertasNivel.length > 0) {
+        html += `<div style="margin-bottom: 20px;">
+            <h4 style="color: #ed8936; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-exclamation-triangle"></i> ALERTAS (${alertasNivel.length})
+            </h4>`;
+        alertasNivel.forEach(alerta => {
+            html += renderizarAlerta(alerta, '#ed8936');
+        });
+        html += '</div>';
+    }
+    
+    // Advertencias
+    if (advertencias.length > 0) {
+        html += `<div style="margin-bottom: 20px;">
+            <h4 style="color: #fbbf24; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-info-circle"></i> ADVERTENCIAS (${advertencias.length})
+            </h4>`;
+        advertencias.forEach(alerta => {
+            html += renderizarAlerta(alerta, '#fbbf24');
+        });
+        html += '</div>';
+    }
+    
+    contenedor.innerHTML = html;
+}
+
+function renderizarAlerta(alerta, color) {
+    const tipoIconos = {
+        'ml': 'fa-brain',
+        'sensor': 'fa-thermometer-half',
+        'operativo': 'fa-cog',
+        'predictivo': 'fa-chart-line'
+    };
+    
+    const icono = tipoIconos[alerta.tipo] || 'fa-exclamation';
+    
+    const tiempoTranscurrido = calcularTiempoTranscurrido(alerta.timestamp);
+    
+    return `
+        <div style="background: rgba(255,255,255,0.05); border-left: 4px solid ${color}; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                    <i class="fas ${icono}" style="color: ${color}; font-size: 16px;"></i>
+                    <span style="font-weight: bold; font-size: 14px; color: white;">${alerta.titulo}</span>
+                </div>
+                <span style="font-size: 10px; color: rgba(255,255,255,0.5); white-space: nowrap; margin-left: 8px;">${tiempoTranscurrido}</span>
+            </div>
+            
+            <div style="font-size: 12px; color: rgba(255,255,255,0.9); margin-bottom: 8px; padding-left: 24px;">
+                ${alerta.descripcion}
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 6px; margin-top: 8px; font-size: 11px;">
+                <div style="color: rgba(255,255,255,0.7); margin-bottom: 4px;">
+                    <strong>📍 Sistema:</strong> ${alerta.sistema}
+                </div>
+                ${alerta.confianza_ml ? `
+                <div style="color: rgba(255,255,255,0.7); margin-bottom: 4px;">
+                    <strong>🤖 Confianza ML:</strong> ${(alerta.confianza_ml * 100).toFixed(1)}%
+                </div>
+                ` : ''}
+                ${alerta.valor_actual !== undefined ? `
+                <div style="color: rgba(255,255,255,0.7); margin-bottom: 4px;">
+                    <strong>📊 Valor:</strong> ${formatearValor(alerta.valor_actual)} (Esperado: ${formatearValor(alerta.valor_esperado)})
+                </div>
+                ` : ''}
+            </div>
+            
+            <details style="margin-top: 8px; cursor: pointer;">
+                <summary style="font-size: 12px; color: #00d4ff; padding: 4px 0;">
+                    <i class="fas fa-info-circle"></i> Ver más información
+                </summary>
+                <div style="margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 6px; font-size: 11px;">
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #00d4ff;">❓ Qué está mal:</strong>
+                        <p style="margin: 4px 0; color: rgba(255,255,255,0.9);">${alerta.que_esta_mal}</p>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <strong style="color: #00d4ff;">💡 Por qué importa:</strong>
+                        <p style="margin: 4px 0; color: rgba(255,255,255,0.9);">${alerta.por_que_importa}</p>
+                    </div>
+                    <div>
+                        <strong style="color: #00d4ff;">🔧 Qué hacer:</strong>
+                        <pre style="margin: 4px 0; color: rgba(255,255,255,0.9); white-space: pre-wrap; font-family: inherit;">${alerta.que_hacer}</pre>
+                    </div>
+                </div>
+            </details>
+        </div>
+    `;
+}
+
+function formatearValor(valor) {
+    if (valor === undefined || valor === null) return 'N/A';
+    if (valor < 1) return (valor * 100).toFixed(1) + '%';
+    return valor.toFixed(2);
+}
+
+function calcularTiempoTranscurrido(timestamp) {
+    if (!timestamp) return 'hace un momento';
+    const ahora = new Date();
+    const fecha = new Date(timestamp);
+    const diff = Math.floor((ahora - fecha) / 1000); // segundos
+    
+    if (diff < 60) return 'hace ' + diff + ' seg';
+    if (diff < 3600) return 'hace ' + Math.floor(diff / 60) + ' min';
+    if (diff < 86400) return 'hace ' + Math.floor(diff / 3600) + ' h';
+    return 'hace ' + Math.floor(diff / 86400) + ' días';
+}
+
+function mostrarErrorAlertas() {
+    const contenedor = document.getElementById('contenido-alertas');
+    if (!contenedor) return;
+    
+    contenedor.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+            <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #fbbf24;"></i>
+            <p style="margin-top: 16px; font-size: 14px;">Error al cargar alertas</p>
+            <button onclick="cargarAlertasUnificadas()" class="btn btn-primary" style="margin-top: 12px;">
+                <i class="fas fa-sync"></i> Reintentar
+            </button>
+        </div>
+    `;
+}
+
+// Cargar alertas automáticamente cada 30 segundos
+setInterval(() => {
+    cargarAlertasUnificadas();
+}, 30000);
+
+// Cargar alertas al inicio
+setTimeout(() => {
+    cargarAlertasUnificadas();
+}, 2000);
+
+console.log('✅ Sistema de Alertas Unificadas cargado');
+</script>
 </html>
+
+
+
+
+
+
+

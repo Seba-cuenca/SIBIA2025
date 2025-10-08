@@ -1,9 +1,9 @@
 {
     "kw_objetivo": 28800.0,
     "num_biodigestores": 1,
-    "porcentaje_purin": 10.0,
-    "porcentaje_liquidos": 50.0,
-    "porcentaje_solidos": 50.0,
+    "porcentaje_purin": 0.1,
+    "porcentaje_liquidos": 0.5,
+    "porcentaje_solidos": 0.5,
     "porcentaje_sa7_reemplazo": 0.0,
     "kw_generacion_sa7": 694.0,
     "max_materiales_solidos": 8,

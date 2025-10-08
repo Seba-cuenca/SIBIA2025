@@ -1,0 +1,1071 @@
+Fecha ingreso,Semana,Sustrato,Proveedor,Observaciones,Transportista,Cantidad sustrato,Lugar de descarga,N° remito,Patente,ST (%) Análisis Planta,Responsable,Columna1,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16
+2023-05-29,22,Goma vegetal girasol,Agroindustria Menarba S.R.L.,,Mauro Traversaro,5030.0,Buffer,0,WTG 975,0.016,Sebastián,,,Cargill S.A.C.I.,,
+2023-06-08,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29292.0,Buffer,1,JXS011/GDF812,0.117,,,,S.A. Imp. y Exp. de la Patagonia,,1.0
+2023-06-09,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29422.0,Buffer,2,JXS011/GDF812,0.0839,,,,Frigorífico General Pico S.A.,,1.0
+2023-06-15,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28527.0,Buffer,3,JXS011/GDF812,0.1118,Cristián,,,Pelayo S.A.,,1.0
+2023-06-16,24,Lactosa,Remotti S.A.,,Federico Fogliatto,29003.0,Buffer,4,JXS011/GDF812,0.1076,Cristián,,,Remotti S.A.,,1.0
+2023-06-22,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28900.0,Buffer,5,NYX029/IED478,0.0655,Jason,,,Blessing Aceitera de Ameghino S.A.,,1.0
+2023-06-23,25,Lactosa,Remotti S.A.,,Federico Fogliatto,29940.0,Buffer,6,JXS011/GDF812,0.083,Jason,,,Bandagro S.A.,,1.0
+2023-06-28,26,Grasa DAF,Remotti S.A.,,Mauro Traversaro,5000.0,Buffer,7,WTG 975,0.469,Agustín,,,Maria Elena S.A.,,1.0
+2023-06-29,26,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,8,KKS989/HQK247,0.0693,Agustín,,,Nonna Pia S.R.L.,,1.0
+2023-06-30,26,Lactosa,Remotti S.A.,,Federico Fogliatto,27004.0,Buffer,9,VXV011/GDF812,0.0754,Agustín,,,,,1.0
+2023-07-06,27,Lactosa,Remotti S.A.,,Federico Fogliatto,26820.0,Buffer,10,NYX029/IED478, ,Leonardo,,,,,1.0
+2023-07-07,27,Lactosa,Remotti S.A.,,Federico Fogliatto,26653.0,Buffer,11,SXS011/GDF812,0.079,Cristián,,,,,1.0
+2023-07-20,29,trigo mal estado,Maria Elena S.A.,,Maria Elena S.A.,2800.0,Playón,589,,,Agustin ,,,,,578.0
+2023-07-21,29,Lactosa,Remotti S.A.,,Eduardo fernandez,30020.0,Buffer,12,KKS989/HQK247,0.0903,Agustín,,,,,-577.0
+2023-07-25,30,Contenido ruminal,Frigorífico General Pico S.A.,,Lopez Matias,23380.0,Playón,13,MBU036/AE080EF, ,Leonardo,,,,,1.0
+2023-07-27,30,Lactosa,Remotti S.A.,,Federico Fogliatto,30008.0,Buffer,14,SXS011/GDF812, ,Leonardo,,,,,1.0
+2023-07-28,30,Lactosa,Remotti S.A.,,Federico Fogliatto,31400.0,Buffer,15,AGO 01 MB/JFD 165, ,Leonardo,,,,,1.0
+2023-08-01,31,Estiercol (bovino),Tambo La Lucila ,,Mauro Traversaro,5000.0,Buffer,16,WTG 975, ,Cristián,,,,,1.0
+2023-08-02,31,Lactosa,Remotti S.A.,,Federico Fogliatto,30513.0,Buffer,17,AGO 01 MB/JFD 165, ,Cristián,,,,,1.0
+2023-08-03,31,Cebada,Maria Elena S.A.,,Maria Elena S.A.,5080.0,Playón,590,,,Agustin ,,,,,573.0
+2023-08-03,31,Lactosa,Remotti S.A.,,Federico Fogliatto,29420.0,Buffer,18,JXJ011/GDF812, ,Cristián,,,,,
+2023-08-04,31,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,58100.0,Playón,591,,,Agustin ,,,,,1.0
+2023-08-09,32,Lactosa,Remotti S.A.,,Federico Fogliatto,29340.0,Buffer,19,NYX029/IED478,,Jason,,,,,-572.0
+2023-08-10,32,Lactosa,Remotti S.A.,,Federico Fogliatto,29420.0,Buffer,20,JXJ011/GDF812,,Jason,,,,,1.0
+2023-08-14,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,21,JXJ011/GDF813,,Jason,,,,,1.0
+2023-08-15,33,Lactosa,Remotti S.A.,,Federico Fogliatto,23410.0,Buffer,22,5X5011/GDF011,0.0946,Agustín,,,,,1.0
+2023-08-16,33,Lactosa,Remotti S.A.,,Federico Fogliatto,31470.0,Buffer,23,AG001MB/JFD165,0.1126,Agustín,,,,,1.0
+2023-08-17,33,Lactosa,Remotti S.A.,,Federico Fogliatto,30008.0,Buffer,24,AG001MB/JFD165,,Agustín,,,,,1.0
+2023-08-18,33,Lactosa,Remotti S.A.,,Federico Fogliatto,31400.0,Buffer,25,AG001MB/JFD165,,Leonardo,,,,,1.0
+2023-08-22,34,Lactosa,Remotti S.A.,,Federico Fogliatto,27440.0,Buffer,26,AG001MB/JFD165,,Leonardo,,,,,1.0
+2023-08-23,34,Descarte de maíz duro,Cargill S.A.C.I.,,Faundes Sergio,7780.0,Playón,29,AG001MB/JFD165,,Leonardo,,,,,3.0
+2023-08-24,34,Lactosa,Remotti S.A.,,Federico Fogliatto,29500.0,Buffer,27,AG001MB/JFD166,,Cristián,,,,,-2.0
+2023-08-23,34,Lactosa,Remotti S.A.,,Federico Fogliatto,29380.0,Buffer,28,AG001MB/JFD165,,Leonardo,,,,,1.0
+2023-08-25,34,Lactosa,Remotti S.A.,,Federico Fogliatto,30260.0,Buffer,30,AG001MB/JFD165,,Cristián,,,,,2.0
+2023-08-28,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,31,AG001MB/JFD165,,Cristián,,,,,1.0
+2023-08-29,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27200.0,Buffer,32,AG001MB/JFD166,,Cristián,,,,,1.0
+2023-08-30,35,Lactosa,Remotti S.A.,,Federico Fogliatto,29300.0,Buffer,33,KKS989/GDF812,0.1025,Jason,,,,,1.0
+2023-08-31,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27980.0,Buffer,34,JXJ011/GDF812,0.0939,Jason,,,,,1.0
+2023-09-01,35,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,35,AG001MB/JFD165,"8,41% - 8,41",Jason,,,,,1.0
+2023-09-04,36,Lactosa,Remotti S.A.,,Federico Fogliatto,29520.0,Buffer,36,AG001MB/JFD165,,Jason,,,,,1.0
+2023-09-05,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,37,JXJ011/GDF812,,Cristián,,,,,1.0
+2023-09-06,36,Lactosa,Remotti S.A.,,Federico Fogliatto,29030.0,Buffer,38,SXS011/GDF812,"10,92% - 10,62%",Agustín,,,,,1.0
+2023-09-07,36,Lactosa,Remotti S.A.,,Federico Fogliatto,29110.0,Buffer,39,JXJ011/GDF812,"10,14% - 9,79%",Agustín,,,,,1.0
+2023-09-08,36,Lactosa,Remotti S.A.,,Federico Fogliatto,29030.0,Buffer,40,SXS011/GDF812,"9,68% - 9,68%",Agustín,,,,,1.0
+2023-09-11,37,Cebada,Maria Elena S.A.,,Maria Elena S.A.,5500.0,Playón,593,,,Agustin ,,,,,553.0
+2023-09-11,37,Lactosa,Remotti S.A.,,Federico Fogliatto,31060.0,Buffer,41,AG001MB/JFD165,,Leonardo,,,,,-552.0
+2023-09-12,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,42,SXS011/GDF812,"13,36% - 13,21%",Leonardo,,,,,1.0
+2023-09-13,37,Lactosa,Remotti S.A.,,Federico Fogliatto,30760.0,Buffer,43,SXS011/GDF812,0.1267,Leonardo,,,,,1.0
+2023-09-14,37,Lactosa,Remotti S.A.,,Federico Fogliatto,29500.0,Buffer,44,SXS011/GDF812,,Leonardo,,,,,1.0
+2023-09-15,37,Lactosa,Remotti S.A.,,Federico Fogliatto,29501.0,Buffer,45,SXS011/GDF812,,Leonardo,,,,,1.0
+2023-09-18,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28800.0,Buffer,46,JXJ011/GDF812,,Cristián,,,,,1.0
+2023-09-19,38,Lactosa,Remotti S.A.,,Federico Fogliatto,29960.0,Buffer,47,JXJ011/GDF812,,Cristián,,,,,1.0
+2023-09-20,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28400.0,Buffer,48,JXJ011/GDF812,,Gonzalo,,,,,1.0
+2023-09-21,38,Lactosa,Remotti S.A.,,Federico Fogliatto,30000.0,Buffer,49,JXJ011/GDF812,,Cristián,,,,,1.0
+2023-09-21,38,Contenido ruminal,Frigorífico General Pico S.A.,,Martín Francisco,31120.0,Playón,50,MRJ024/KRY814,,Gonzalo,,,,,1.0
+2023-09-27,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,51,AG001MB/JFD165,0.124,Jason,,,,,1.0
+2023-09-28,39,Lactosa,Remotti S.A.,,Federico Fogliatto,28900.0,Buffer,52,AG001MB/JFD165,,Jason,,,,,1.0
+2023-09-27,39,trigo mal estado,Maria Elena S.A.,,Maria Elena S.A.,2600.0,Playón,594,,,Agustin ,,,,,542.0
+2023-09-29,39,Lactosa,Remotti S.A.,,Federico Fogliatto,30760.0,Buffer,53,AG001MB/JFD165,0.124,Agustín,,,,,-541.0
+2023-10-02,40,Lactosa,Remotti S.A.,,Federico Fogliatto,30240.0,Buffer,55,NYX029/IED478,0.1308,Agustín,,,,,2.0
+2023-09-29,39,Contenido ruminal,Frigorífico General Pico S.A.,,Martín Francisco,23920.0,Playón,54,KRJ024/KRY814,0.3571,Agustín,,,,,-1.0
+2023-10-03,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27990.0,Buffer,57,AG001MB/JFD165,0.1206,Agustín,,,,,3.0
+2023-10-02,40,Grano descarte,Pelayo S.A.,,Pelayo,28620.0,Playón,56,HSF757/MCS520,0.1308,Agustín,,,,,-1.0
+2023-10-04,40,Lactosa,Remotti S.A.,,Federico Fogliatto,30710.0,Buffer,58,AG001MB/JFD166,0.1255,Agustín,,,,,2.0
+2023-10-05,40,Lactosa,Remotti S.A.,,Federico Fogliatto,30980.0,Buffer,60,AG001MB/JFD165,0.1241,Leonardo,,,,,2.0
+2023-10-06,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,61,AG001MB/JFD165,0.1221,Leonardo,,,,,1.0
+2023-10-04,40,Contenido ruminal,Frigorífico General Pico S.A.,,Martín Francisco,31120.0,Playón,59,KRJ024/KRY814,,Agustín,,,,,-2.0
+2023-10-06,40,Lactosa,Remotti S.A.,,Federico Fogliatto,28640.0,Buffer,62,NYW 968 / GOF 872,0.1236,Leonardo,,,,,3.0
+2023-10-07,40,Lactosa,Remotti S.A.,,Federico Fogliatto,29680.0,Buffer,63,AG001MB/JFD165,0.1266,Leonardo,,,,,1.0
+2023-10-09,41,Lactosa,Remotti S.A.,,Federico Fogliatto,28080.0,Buffer,64,AG001MB/JFD165,0.1215,Leonardo,,,,,1.0
+2023-10-10,41,Lactosa,Remotti S.A.,,Federico Fogliatto,29020.0,Buffer,65,AG001MB/JFD166,0.1236,Leonardo,,,,,1.0
+2023-10-11,41,Lactosa,Remotti S.A.,,Federico Fogliatto,30600.0,Buffer,66,NTT029/JFD 478,0.125,Cristián,,,,,1.0
+2023-10-12,41,Lactosa,Remotti S.A.,,Federico Fogliatto,30160.0,Buffer,67,AG001MB/JFD178,0.1306,Cristián,,,,,1.0
+2023-10-12,41,Lactosa,Remotti S.A.,,Federico Fogliatto,29540.0,Buffer,68,WYN968/GDF812,0.131,Agustín,,,,,1.0
+2023-10-13,41,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,69,WYN968/GDF812,0.126,Cristián,,,,,1.0
+2023-10-13,41,Lactosa,Remotti S.A.,,Federico Fogliatto,27150.0,Buffer,70,JXJ011/MQK247,0.1289,Leonardo,,,,,1.0
+2023-10-13,41,Contenido ruminal,Frigorífico General Pico S.A.,,Transcereal S.A,23500.0,Playón,71,4464BZM/AFO70MU,,Cristián,,,,,1.0
+2023-10-16,42,Lactosa,Remotti S.A.,,Federico Fogliatto,27950.0,Buffer,72,AC001MN/JFD165,0.1259,Cristián,,,,,1.0
+2023-10-17,42,Lactosa,Remotti S.A.,,Federico Fogliatto,29960.0,Buffer,73,AG001MB/GDF812,0.1233,Jason,,,,,1.0
+2023-10-18,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,74,AG001MB/JFD165,0.1254,Jason,,,,,1.0
+2023-10-19,42,Lactosa,Remotti S.A.,,Federico Fogliatto,27300.0,Buffer,75,AG001MB/JFD165,0.1247,Jason,,,,,1.0
+2023-10-20,42,Lactosa,Remotti S.A.,,Federico Fogliatto,26380.0,Buffer,76,AG001MB/JFD165,0.1232,Jason,,,,,1.0
+2023-10-20,42,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,77,NYW968/GDF812,0.1269,Jason,,,,,1.0
+2023-10-20,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28690.0,Buffer,78,NYW968/GDF812,0.1275,Cristián,,,,,1.0
+2023-10-25,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,79,NYW968/GDF812,0.1272,Jason,,,,,1.0
+2023-10-26,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28820.0,Buffer,80,AG001MB/JFD165,0.1264,Agustín,,,,,1.0
+2023-10-27,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,81,NYW968/GDF812,0.1245,Jason,,,,,1.0
+2023-10-27,43,Lactosa,Remotti S.A.,,Federico Fogliatto,30120.0,Buffer,82,AG001MB/JFD165,0.1252,Jason,,,,,1.0
+2023-10-28,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28180.0,Buffer,83,NYW968/GDF812,0.1243,Agustín,,,,,1.0
+2023-10-30,44,Lactosa,Remotti S.A.,,Federico Fogliatto,27500.0,Buffer,84,NYW968/GDF812,0.1248,Leonardo,,,,,1.0
+2023-10-31,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29480.0,Buffer,86,NYW968/GDF812,0.1203,Leonardo,,,,,2.0
+2023-10-30,44,Grano descarte,Pelayo S.A.,,juan jose peralta,17650.0,Playón,85,DID400/FWP294,,Jason,,,,,-1.0
+2023-11-01,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28840.0,Buffer,88,NYW968/GDF812,0.1267,Leonardo,,,,,3.0
+2023-10-31,44,Descarte de maíz duro,Cargill S.A.C.I.,,Maria Elena ,9720.0,Playón,87,IHJ417/LLV719,,Leonardo,,,,,-1.0
+2023-11-04,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28980.0,Buffer,89,NTT029/JFD 478,0.1325,Cristián,,,,,2.0
+2023-11-04,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28260.0,Buffer,91,AC001MN/JFD165,0.1322,Cristián,,,,,2.0
+2023-11-06,45,Lactosa,Remotti S.A.,,Federico Fogliatto,30040.0,Buffer,92,NYW 968 / GOF 812,0.1213,Cristián,,,,,1.0
+2023-11-07,45,Lactosa,Remotti S.A.,,Federico Fogliatto,27820.0,Buffer,93,NYW 968 / GOF 812,0.1252,Cristián,,,,,1.0
+2023-11-04,44,Caldera,SEEDS Energy Group S.A.,,,,,90,,,Cristián,,,,,-3.0
+2023-11-07,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29740.0,Buffer,94,NYW 968 / GOF 812,0.133,Leonardo,,,,,4.0
+2023-11-08,45,Lactosa,Remotti S.A.,,Federico Fogliatto,27980.0,Buffer,95,NYW 968 / GOF 812,0.1263,Cristián,,,,,1.0
+2023-11-08,45,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,96,NYW 968 / GOF 813,0.1294,Leonardo,,,,,1.0
+2023-11-09,45,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,97,NYW 968 / GOF 812,0.1263,Cristián,,,,,1.0
+2023-11-10,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29080.0,Buffer,98,NYW 968 / GOF 812,0.1268,Cristián,,,,,1.0
+2023-11-10,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29660.0,Buffer,99,AG001MB/JFD165,0.1276,Cristián,,,,,1.0
+2023-11-13,46,Lactosa,Remotti S.A.,,Remotti S.A.,27960.0,Buffer,100,AG001MB/JFD165,0.128,Jason,,,,,1.0
+2023-09-22,38,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,101,JXJ011/GDF812,,Cristián,,,,,1.0
+2023-11-13,46,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,4640.0,Buffer,103,WTG975,0.422,Jason,,,,,2.0
+2023-09-25,39,Lactosa,Remotti S.A.,,Federico Fogliatto,26860.0,Buffer,102,AG001MB/GDF812,0.122,Jason,,,,,-1.0
+2023-11-13,46,Lactosa,Remotti S.A.,,Remotti S.A.,29380.0,Buffer,104,NYW 968 /JFD165,0.1286,Cristián,,,,,2.0
+2023-11-14,46,Lactosa,Remotti S.A.,,Remotti S.A.,28500.0,Buffer,105,NJN969/JFD165,0.1253,Jason,,,,,1.0
+2023-11-15,46,Lactosa,Remotti S.A.,,Remotti S.A.,29720.0,Buffer,106,NYW968/HQK247,0.1139,Jason,,,,,1.0
+2023-11-15,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28860.0,Buffer,107,NYW968/HQK247,0.1184,Cristián,,,,,1.0
+2023-11-16,46,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,3180.0,Buffer,110,WTG975,0.7749,Cristián,,,,,3.0
+2023-11-16,46,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,108,NJN968/HDK247,0.1212,Agustín,,,,,-2.0
+2023-11-16,46,Lactosa,Remotti S.A.,,Federico Fogliatto,29060.0,Buffer,109,AG001MB/IJF185,0.1219,Agustín,,,,,1.0
+2023-11-17,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28860.0,Buffer,111,AG001MB/JFD165,0.1219,Agustín,,,,,2.0
+2023-11-20,47,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,112,NJN968/GDF812,0.1205,Jason,,,,,1.0
+2023-11-21,47,Lactosa,Remotti S.A.,,Federico Fogliatto,27720.0,Buffer,113,NYW 968 / GOF 812,0.1287,Agustín,,,,,1.0
+2023-11-22,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28620.0,Buffer,114,AG001MB/JFD165,0.1227,Leonardo,,,,,1.0
+2023-11-22,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28820.0,Buffer,115,NYW 968 / GOF 812,0.1239,Leonardo,,,,,1.0
+2023-11-23,47,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,4860.0,Buffer,116,WTG975,0.5221,Leonardo,,,,,1.0
+2023-11-23,47,Lactosa,Remotti S.A.,,Federico Fogliatto,29160.0,Buffer,117,JXJ011/JFD165,0.1237,Leonardo,,,,,1.0
+2023-11-24,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28780.0,Buffer,118,AG001MB/JFD165,0.1259,Leonardo,,,,,1.0
+2023-11-24,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,119,JXJ011/GDF812,0.1264,Agustín,,,,,1.0
+2023-11-25,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28840.0,Buffer,120,JXJ011/GDF812,0.123,Leonardo,,,,,1.0
+2023-11-27,48,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,4740.0,Buffer,122,WTG975,0.3303,Agustín,.,,,,2.0
+2023-11-27,48,Lactosa,Remotti S.A.,,Federico Fogliatto,26700.0,Buffer,121,AG001MB/JFD165,0.1287,Leonardo,.,,,,-1.0
+2023-11-28,48,Lactosa,Remotti S.A.,,Federico Fogliatto,27700.0,Buffer,123,AG001MB/JFD165,0.1217,Cristián,,,,,2.0
+2023-11-30,48,"maiz, harina, nucleo",Maria Elena S.A.,,Maria Elena S.A.,259.0,Playón,588,,,Agustin ,.,,,,465.0
+2023-11-30,48,Lactosa,Remotti S.A.,,Federico Fogliatto,28480.0,Buffer,124,JXJ011/GDF812,0.1205,Leonardo,.,,,,-464.0
+2023-12-02,48,Lactosa,Remotti S.A.,,Federico Fogliatto,26280.0,Buffer,125,JXJ011/GDF812,0.1211,Cristián,.,,,,1.0
+2023-12-04,49,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,3860.0,Buffer,127,WTG975,0.4512,Jason,,,,,2.0
+2023-12-04,49,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,126,AG001MB/JFD165,0.1149,Jason,.,,,,-1.0
+2023-12-05,49,Lactosa,Remotti S.A.,,Federico Fogliatto,28180.0,Buffer,128,AD001MB/JFD165,11.36%,Jason,.,,,,2.0
+2023-12-07,49,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5160.0,Buffer,131,WTG975,0.4261,Agustín,.,,,,3.0
+2023-12-07,49,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,129,AD001MB/JFD165,0.1162,Jason,.,,,,-2.0
+2023-12-07,49,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,130,JXJ011/GDF812,0.1177,Jason,.,,,,1.0
+2023-12-08,49,Lactosa,Remotti S.A.,,Federico Fogliatto,27140.0,Buffer,132,,0.1167,Cristián,,,,,2.0
+2023-12-08,49,Lactosa,Remotti S.A.,,Federico Fogliatto,28400.0,Buffer,133,JXJ011/GDF812,0.1188,Jason,.,,,,1.0
+2023-12-09,49,Lactosa,Remotti S.A.,,Federico Fogliatto,27560.0,Buffer,134,JXJ011/GDF812,0.1249,Leonardo,.,,,,1.0
+2023-12-11,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27760.0,Buffer,135,AG001MB/HGK247,0.1029,Agustín,.,,,,1.0
+2023-12-12,50,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5260.0,Buffer,137,WTG975,0.3668,Agustín,.,,,,2.0
+2023-12-12,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27840.0,Buffer,136,JXJ011/GDF812,0.112,Agustín,.,,,,-1.0
+2023-12-13,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27000.0,Buffer,138,JXJ011/GDF812,0.115,Agustín,.,,,,2.0
+2023-12-13,50,Lactosa,Remotti S.A.,,Federico Fogliatto,23480.0,Buffer,139,AG001MB/JFD165,0.1096,Agustín,,,,,1.0
+2023-12-14,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27440.0,Buffer,140,JXJ011/GDF812,0.1146,Agustín,.,,,,1.0
+2023-12-14,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27800.0,Buffer,141,AG001MB/JFD165,0.1042,Agustín,.,,,,1.0
+2023-12-16,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27350.0,Buffer,142,JXJ011/GDF812,0.1211,Leonardo,.,,,,1.0
+2023-12-18,51,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5100.0,Buffer,144,WTG975,0.4148,Leonardo,.,,,,2.0
+2023-12-18,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27840.0,Buffer,143,JXJ011/GDF812,0.1202,Leonardo,.,,,,-1.0
+2023-12-19,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27640.0,Buffer,145,JXJ011/GDF812,0.1198,Leonardo,,,,,2.0
+2023-12-19,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,146,JXJ011/HGK247,0.1151,Leonardo,.,,,,1.0
+2023-12-20,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27540.0,Buffer,147,AG001MB/JFD165,0.1169,,,,,,1.0
+2023-12-21,51,Lactosa,Remotti S.A.,,Federico Fogliatto,25160.0,Buffer,148,KKS989/GDF812,0.119,Leonardo,,,,,1.0
+2023-12-22,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27000.0,Buffer,149,AG001MB/JFD165,0.114,Cristián,.,,,,1.0
+2023-12-23,51,Goma vegetal ,América Pampa Agroind. ,,Federico Fogliatto,5300.0,Buffer,153,WTG975,,,.,,,,4.0
+2023-12-23,51,desc. trigo pan,Cargill S.A.C.I.,,Cargil saci america,6040.0,Playón,150,NBL471/AD327GQ,,Agustín,.,,,,-3.0
+2023-12-23,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27300.0,Buffer,151,AG001MB/JFD165,0.1191,Agustín,.,,,,1.0
+2023-12-23,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28040.0,Buffer,153,AG001MB/JFD165,0.1191,Cristián,.,,,,2.0
+2023-12-24,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,155,AG001MB/JFD165,0.1212,Cristián,.,,,,2.0
+2023-12-27,52,Lactosa,Remotti S.A.,,Federico Fogliatto,26940.0,Buffer,156,JXJ011/HGK247,0.1292,Cristián,.,,,,1.0
+2023-12-27,52,Lactosa,Remotti S.A.,,Federico Fogliatto,27000.0,Buffer,157,JXJ011/HGK247,0.121,Cristián,,,,,1.0
+2023-12-28,52,trigo mal estado,Maria Elena S.A.,,Maria Elena S.A.,3350.0,Playón,592,,,Agustin ,.,,,,435.0
+2023-12-28,52,Lactosa,Remotti S.A.,,Federico Fogliatto,27700.0,Buffer,158,AC001MN/JFD165,0.1128,Gustavo,,,,,
+2023-12-28,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28600.0,Buffer,159,NYW 968 / GOF 812,0.1175,Gustavo,,,,,1.0
+2023-12-29,52,Sangre,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,7560.0,Playón,162,JXQ918,0.2122,Gustavo,,,,,3.0
+2023-12-29,52,Lactosa,Remotti S.A.,,Federico Fogliatto,26060.0,Buffer,160,NYW 968 / GOF 812,0.1188,Gustavo,,,,,-2.0
+2023-12-29,52,Lactosa,Remotti S.A.,,Federico Fogliatto,26160.0,Buffer,161,AG001MB/JFD165,0.1221,Gustavo,,,,,1.0
+2023-12-30,52,Lactosa,Remotti S.A.,,Federico Fogliatto,29640.0,Buffer,163,NYW 968 / GOF 812,0.1157,Gustavo,,,,,2.0
+2023-12-31,53,Lactosa,Remotti S.A.,,Federico Fogliatto,27120.0,Buffer,164,AG001MB/JFD165,0.1178,Gustavo,,,,,1.0
+2024-01-02,1,Lactosa,Remotti S.A.,,Federico Fogliatto,25140.0,Buffer,165,AG001MB/JFD165,0.116,Gustavo,,,,,1.0
+2024-01-03,1,Lactosa,Remotti S.A.,,Federico Fogliatto,29260.0,Buffer,166,AG001MB/JFD166,0.1178,Agustín,,,,,1.0
+2024-01-03,1,Lactosa,Remotti S.A.,,Federico Fogliatto,29020.0,Buffer,167,JXJ011/GDF812,0.1223,Cristián,,,,,1.0
+2024-01-04,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28330.0,Buffer,168,JXJ011/GDF812,0.115,Agustín,,,,,1.0
+2024-01-04,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28300.0,Buffer,169,JXJ011/GDF812,0.1139,Cristián,,,,,1.0
+2024-01-05,1,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,170,JXJ011/GDF813,0.1215,Agustín,,,,,1.0
+2024-01-05,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28510.0,Buffer,171,AG001MB/JFD165,0.1133,Agustín,,,,,1.0
+2024-01-06,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,172,JXJ011/GDF813,0.117,Agustín,,,,,1.0
+2024-01-08,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28640.0,Buffer,173,JXJ011/GDF812,0.1139,Agustín,",",,,,1.0
+2024-01-09,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28600.0,Buffer,174,JXJ011/GDF814,0.1126,Leonardo,,,,,1.0
+2024-01-09,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28220.0,Buffer,175,JXJ011/GDF815,0.1126,Leonardo,,,,,1.0
+2024-01-10,2,Lactosa,Remotti S.A.,,Federico Fogliatto,29080.0,Buffer,176,JXJ011/GDF814,0.1168,Leonardo,.,,,,1.0
+2024-01-10,2,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,177,JXJ011/GDF815,0.1147,Leonardo,,,,,1.0
+2024-01-11,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28740.0,Buffer,178,JXJ011/GDF816,0.1137,Leonardo,,,,,1.0
+2024-01-12,2,Lactosa,Remotti S.A.,,Federico Fogliatto,29220.0,Playón,180,GDH812/NYW968,0.1147,Leonardo,,,,,2.0
+2024-01-12,2,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,31620.0,Playón,179,MYZ940/LJH045,0.247,Agustín,,,,,-1.0
+2024-01-13,2,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5500.0,Buffer,181,WTG975,0.806,Leonardo,.,,,,2.0
+2024-01-15,3,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,19660.0,Playón,182,FEJ852/LJH045,0.3249,Agustín,,,,,1.0
+2024-01-15,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28840.0,Buffer,183,AG001MB/JFD165,0.1133,Andrés,.,,,,1.0
+2024-01-15,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,184,AG001MB/JFD165,0.1134,Andrés,,,,,1.0
+2024-01-17,3,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25720.0,Playón,187,GVI255/AE310WL,0.4092,Andrés,,,,,3.0
+2024-01-17,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28740.0,buffer,185,JXJ011/GDF812,0.1078,Andrés,,,,,-2.0
+2024-01-17,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,buffer,186,AG001MB/IDF165,0.1089,Andrés,,,,,1.0
+2024-01-18,3,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5000.0,Buffer,190,WTG975,0.4614,Leonardo,.,,,,4.0
+2024-01-18,3,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,22800.0,Playón,189,FEJ852/LJH045,0.1652,Leonardo,,,,,-1.0
+2024-01-18,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27260.0,Buffer,188,JXJ011/GDF812,0.1106,Andrés,,,,,-1.0
+2024-01-18,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27310.0,Buffer,191,JXJ011/GDF812,0.1147,Leonardo,,,,,3.0
+2024-01-19,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,192,NYW 968 / JDF 812,0.1135,Andrés,,,,,1.0
+2024-01-20,3,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,22800.0,Playón,194,FEJ852/LJH045,0.3863,Cristián,,,,,2.0
+2024-01-20,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28400.0,Buffer,193,JXJ011/GDF812,0.1174,Cristián,,,,,-1.0
+2024-01-22,4,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5040.0,Buffer,197,WTG975,0.6232,Andrés,,,,,4.0
+2024-01-22,4,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,17240.0,Playón,195,FEJ852/LJH045,0.1458,Gustavo,,,,,-2.0
+2024-01-22,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28520.0,Buffer,196,jXJ011/GDF812,0.1143,Gustavo,,,,,
+2024-01-23,4,Cebada,Maria Elena S.A.,,Maria elena,11180.0,Playón,198,,,Andrés,,,,,3.0
+2024-01-23,4,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,11180.0,Playón,587,,,Agustin ,,,,,389.0
+2024-01-24,4,Lactosa,Remotti S.A.,,Federico Fogliatto,27860.0,Buffer,199,JXJ011/GDF812,0.1192,Gustavo,,,,,-388.0
+2024-01-25,4,desc.maiz.duro,Cargill S.A.C.I.,,obaya dario e.,11220.0,Playón,202,NBL471/LJP015,0.8988,Gustavo,,,,,3.0
+2024-01-25,4,Lactosa,Remotti S.A.,,Federico Fogliatto,27780.0,Buffer,200,JXJ011/GDF812,0.1232,Gustavo,,,,,-2.0
+2024-01-25,4,Lactosa,Remotti S.A.,,Federico Fogliatto,27280.0,Buffer,201,JXJ011/GDF812,0.1239,Gustavo,,,,,1.0
+2024-01-25,4,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,28620.0,Playón,203,fej852/ae310wl,0.1819,Andrés,,,,,2.0
+2024-01-26,4,Lactosa,Remotti S.A.,,Federico Fogliatto,27320.0,Buffer,205,JXJ011/GDF812,0.1177,Gustavo,,,,,2.0
+2024-01-26,4,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27620.0,Buffer,204,OEE858/BKM778,0.0555,Gustavo,,,,,-1.0
+2024-01-26,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,206,JXJ011/GDF812,0.1205,Andrés,,,,,2.0
+2024-01-27,4,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5600.0,Buffer,209,WTG975,0.6013,Agustín,,,,,3.0
+2024-01-27,4,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,11960.0,Playón,208,FEJ852/LJH045,0.2431,Andrés,,,,,-1.0
+2024-01-27,4,Lactosa,Remotti S.A.,,Federico Fogliatto,27300.0,Buffer,207,AG001MB/JFD165,0.1074,Agustín,,,,,-1.0
+2024-01-29,5,Lactosa,Remotti S.A.,,Federico Fogliatto,27500.0,Buffer,210,JXJ011/GDF812,0.1072,Agustín,,,,,3.0
+2024-01-29,5,Lactosa,Remotti S.A.,,Federico Fogliatto,26840.0,Buffer,211,AG001MB/IDF165,0.1089,Agustín,,,,,1.0
+2024-01-30,5,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28500.0,Buffer,212,OEE858/BKM778,0.0581,Agustín,,,,,1.0
+2024-01-31,5,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,19940.0,Playón,213,FEJ852/AE310WL,0.1723,Gustavo,,,,,1.0
+2024-01-31,5,Lactosa,Remotti S.A.,,Federico Fogliatto,26400.0,Buffer,214,JXJ011/GDF812,0.1235,Agustín,,,,,1.0
+2024-01-31,5,Lactosa,Remotti S.A.,,Federico Fogliatto,26280.0,Buffer,215,NYK029/IED478,0.1234,Gustavo,,,,,1.0
+2024-02-01,5,Lactosa,Remotti S.A.,,Federico Fogliatto,27360.0,Buffer,216,JXJ011/GDF812,0.1209,Agustín,,,,,1.0
+2024-02-01,5,Lactosa,Remotti S.A.,,Federico Fogliatto,26900.0,Buffer,217,JXJ011/GDF812,0.1143,Gustavo,,,,,1.0
+2024-02-02,5,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18440.0,Playón,221,FEJ852/LJH045,0.194,Gustavo,,,,,4.0
+2024-02-02,5,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27000.0,Buffer,218,OEE858/BKM778,0.0566,Leonardo,,,,,-3.0
+2024-02-02,5,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,219,JXJ011/GDF812,0.1189,Leonardo,,,,,1.0
+2024-02-02,5,Lactosa,Remotti S.A.,,Federico Fogliatto,28380.0,Buffer,220,JXJ011/GDF812,0.1214,Gustavo,,,,,1.0
+2024-02-03,5,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5200.0,Buffer,223,WTG975,0.5732,Leonardo,,,,,3.0
+2024-02-03,5,Lactosa,Remotti S.A.,,Federico Fogliatto,28480.0,Buffer,222,JXJ011/GDF812,0.115,Leonardo,,,,,-1.0
+2024-02-04,6,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27000.0,Buffer,224,OEE858/BKM778,0.0579,Leonardo,,,,,2.0
+2024-02-06,6,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,22060.0,Playón,225,FEJ852/AE310WL,0.1736,Leonardo,,,,,1.0
+2024-02-06,6,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,228,JXJ011/GDF812,0.1063,Andrés,,,,,3.0
+2024-02-06,6,Suero ,Nonna Pia S.R.L.,,Ernesto Martin,28680.0,Buffer,227,OEE858/BKM778,0.054,Andrés,,,,,-1.0
+2024-02-06,6,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29000.0,Buffer,226,AD603KH/A106225,0.0452,Andrés,,,,,-1.0
+2024-02-07,6,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18360.0,Playón,230,FEJ852/LJH045,0.2222,Andrés,,,,,4.0
+2024-02-07,6,Lactosa,Remotti S.A.,,Federico Fogliatto,26860.0,Buffer,229,JXJ011/GDF812,0.1261,Leonardo,,,,,-1.0
+2024-02-07,6,Lactosa,Remotti S.A.,,Federico Fogliatto,27380.0,Buffer,232,JXJ011/GDF812,0.1152,Andrés,,,,,3.0
+2024-02-07,6,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29980.0,Buffer,231,Ad063kh/aa062z5,0.0509,Andrés,,,,,-1.0
+2024-02-11,7,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,233,JXJ011/GDF812,0.1197,Leonardo,,,,,2.0
+2024-02-13,7,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,234,JXJ011/GDF813,0.1114,Leonardo,,,,,1.0
+2024-02-14,7,Goma vegetal ,América Pampa Agroind. ,,Mauro Traversaro,5480.0,Buffer,236,WTG975,0.5812,Gustavo,,,,,2.0
+2024-02-14,7,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,235,AG001MB/JFD165,0.1145,Gustavo,,,,,-1.0
+2024-02-14,7,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28000.0,Buffer,238,OEE858/BKM778,0.0558,Leonardo,,,,,3.0
+2024-02-14,7,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29000.0,Buffer,237,AD603KH/A106225,0.0523,Leonardo,,,,,-1.0
+2024-02-15,7,Lactosa,Remotti S.A.,,Federico Fogliatto,27180.0,Buffer,239,JXJ011/GDF812,0.1177,Gustavo,,,,,2.0
+2024-02-15,7,Lactosa,Remotti S.A.,,Federico Fogliatto,27540.0,Buffer,241,KKS989/HQK247,0.1099,Gustavo,,,,,2.0
+2024-02-15,7,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27600.0,Buffer,242,OEE858/BKM778,,Leonardo,,,,,1.0
+2024-02-15,7,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,31881.0,Playón,240,FEj852/ae310wl,0.1637,Gustavo,,,,,-2.0
+2024-02-16,7,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5080.0,Buffer,246,WTG975,0.4574,Gustavo,,,,,6.0
+2024-02-16,7,Suero,Nonna Pia S.R.L.,,Bertola Leandro,21320.0,Buffer,244,OEE858/BKY778,0.0522,Gustavo,,,,,-2.0
+2024-02-16,7,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,23120.0,Playón,248,FEJ852/LJH045,0.3537,Cristián,,,,,4.0
+2024-02-16,7,Suero,Nonna Pia S.R.L.,,Bertola Leandro,26040.0,Buffer,249,OEE858/BKY778,0.0564,Cristián,,,,,1.0
+2024-02-16,7,Lactosa,Remotti S.A.,,Federico Fogliatto,27700.0,Buffer,243,AG001MB/JFD165,0.0916,Gustavo,,,,,-6.0
+2024-02-16,7,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,247,JXJ011/GDF812,0.1199,Cristián,,,,,4.0
+2024-02-16,7,Suero,Nonna Pia S.R.L.,,Bertola Leandro,29010.0,Buffer,245,AD603KH/AA62ZS,0.065,Gustavo,,,,,-2.0
+2024-02-17,7,Lactosa,Remotti S.A.,,Federico Fogliatto,27790.0,Buffer,250,JXJ011/GDF812,0.1224,Gustavo,,,,,5.0
+2024-02-18,8,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,251,AG001MB/IDF165,0.1239,Gustavo,,,,,1.0
+2024-02-18,8,Suero,Nonna Pia S.R.L.,,Bertola Leandro,28260.0,Buffer,252,OEE858/BKY778,0.0584,Gustavo,,,,,1.0
+2024-02-19,8,Lactosa,Remotti S.A.,,Federico Fogliatto,27900.0,Buffer,253,JXJ011/GDF812,0.1205,Gustavo,,,,,1.0
+2024-02-19,8,Suero,Nonna Pia S.R.L.,,Bertola Leandro,28100.0,Buffer,254,AD603KH/AA62ZS,0.0531,Gustavo,,,,,1.0
+2024-02-20,8,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,2080.0,Buffer,259,WTG975,0.7043,Andrés/Agustín,,,,,5.0
+2024-02-20,3,Glicerol,América Pampa Agroind.,,Mauro Traversaro,3020.0,Buffer,258,WTG975,0.7043,Andrés/Agustín,,,,,-1.0
+2024-02-20,8,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,256,AG001MB/JFD165,0.1257,Andrés,,,,,-2.0
+2024-02-20,8,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,257,jXJ011/GDF812,0.1203,Andrés/Agustín,,,,,1.0
+2024-02-20,8,Suero,Nonna Pia S.R.L.,,Bertola Leandro,28420.0,Buffer,255,OEE858/BKM778,0.0563,Andrés/Agustín,,,,,-2.0
+2024-02-21,8,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,21740.0,Playón,260,FEJ852/LJH045,0.2963,Agustín,,,,,5.0
+2024-02-21,8,Lactosa,Remotti S.A.,,Federico Fogliatto,27500.0,Buffer,263,jxJ011/GDF812,0.0673,Andrés,,,,,3.0
+2024-02-21,8,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28040.0,Buffer,262,OEE858/BKM778,0.0563,Andrés,,,,,-1.0
+2024-02-21,8,Suero,Nonna Pia S.R.L.,,Bertola Leandro,28600.0,Buffer,261,AD603KH/AA62ZS,0.0418,,,,,,-1.0
+2024-02-22,8,Contenido ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,22520.0,Playón,265,FEJ852/LJH045,0.2186,Gustavo,,,,,4.0
+2024-02-22,8,Lactosa,Remotti S.A.,,Federico Fogliatto,29540.0,Buffer,264,AG001MB/JFD165,0.1312,Agustín,,,,,-1.0
+2024-02-23,8,Sangre,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18920.0,Buffer,267,JXQ918,0.0565,Gustavo,,,,,3.0
+2024-02-23,8,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,266,JXJ011/GDF812,0.1076,Gustavo,,,,,-1.0
+2024-02-24,8,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,2320.0,Buffer,270,WTG975,0.7107,Agustín,,,,,4.0
+2024-02-24,8,Glicerol,América Pampa Agroind.,,Mauro Traversaro,3300.0,Buffer,269,WTG975,0.5506,Agustín,,,,,-1.0
+2024-02-24,8,Lactosa,Remotti S.A.,,Federico Fogliatto,26440.0,Buffer,268,JXJ011/GDF812,0.1273,Agustín,,,,,-1.0
+2024-02-25,9,Lactosa,Remotti S.A.,,Federico Fogliatto,26660.0,Buffer,271,JXJ011/GDF812,0.1213,Agustín,,,,,3.0
+2024-02-25,9,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29000.0,Buffer,272,AD603KH/AA62ZS,0.0534,Agustín,,,,,1.0
+2024-02-26,9,Lactosa,Remotti S.A.,,Federico Fogliatto,23500.0,Buffer,275,JXJ011/GDF812,0.1133,Leonardo,,,,,3.0
+2024-02-26,9,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,26960.0,Playón,274,FEj852/ae310wl,0.1985,Leonardo,,,,,-1.0
+2024-02-26,9,Suero,Nonna Pia S.R.L.,,Bertola Leandro,29800.0,Buffer,276,AD603KH/AA62ZS,0.052,Gustavo,,,,,2.0
+2024-02-26,9,Suero,Nonna Pia S.R.L.,,Bertola Leandro,30400.0,Buffer,273,OEE858/BKM778,0.0488,Leonardo,,,,,-3.0
+2024-02-27,9,Lactosa,Remotti S.A.,,Federico Fogliatto,27360.0,Buffer,277,JXJ011/GDF812,0.1195,Leonardo,,,,,4.0
+2024-02-27,9,Lactosa,Remotti S.A.,,Federico Fogliatto,27860.0,Buffer,279,AG001MB/JFD165,0.1257,Gustavo,,,,,2.0
+2024-02-27,9,Suero,Nonna Pia S.R.L.,,Bertola Leandro,29760.0,Buffer,278,AD603KH/AA62ZS,0.0472,Leonardo,,,,,-1.0
+2024-02-28,9,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5260.0,Buffer,284,WTG975,0.6601,Agustín,,,,,6.0
+2024-02-28,9,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,13320.0,Playón,281,FEJ852/LJH045,0.29,Leonardo,,,,,-3.0
+2024-02-28,9,Lactosa,Remotti S.A.,,Federico Fogliatto,28220.0,Buffer,282,AG001MB/JFD165,0.1213,Leonardo,,,,,1.0
+2024-02-28,9,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,285,AG001MB/JFD165,0.1128,Agustín,,,,,3.0
+2024-02-28,9,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28740.0,Buffer,283,oee858/aa062es,0.0563,Leonardo,,,,,-2.0
+2024-02-28,9,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29780.0,Buffer,280,oee858/aa062es,0.0428,Andrés,,,,,-3.0
+2024-02-29,9,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,23260.0,Buffer,287,FOR947/NN914,0.0555,Agustín,,,,,7.0
+2024-02-29,9,Lactosa,Remotti S.A.,,Federico Fogliatto,27180.0,Buffer,286,JXJ011/GFD165,0.1113,Agustín,,,,,-1.0
+2024-03-01,9,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,288,JXJ011/GFD165,0.1192,Leonardo,,,,,2.0
+2024-03-01,9,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,28740.0,Playón,290,FEJ852/LJH045,0.2533,Leonardo,,,,,2.0
+2024-03-01,9,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,30140.0,Buffer,289,oee858/aa062es,0.0544,Leonardo,,,,,-1.0
+2024-03-03,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27860.0,Buffer,293,OEE858/EYN 411,0.0531,Agustín,,,,,4.0
+2024-03-03,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,291,JXJ011/GFD165,0.1123,Andrés,,,,,-2.0
+2024-03-03,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29560.0,Buffer,292,AD603KH/AA62ZS,0.0525,Agustín,,,,,1.0
+2024-03-04,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,21000.0,Buffer,294,fdr947/nnw914,0.0549,Andrés,,,,,2.0
+2024-03-04,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28580.0,Buffer,295,AD603KH/AA62ZS,0.0354,Andrés,,,,,1.0
+2024-03-05,10,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5660.0,buffer,296,WTG975,0.3799,Cristián,,,,,1.0
+2024-03-05,10,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,18800.0,Playón,298,LjH045,0.3761,Andrés,,,,,2.0
+2024-03-05,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,297,jxj011/GDF812,0.1235,Andrés,,,,,-1.0
+2024-03-05,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27830.0,Buffer,299,JXJ011/GFD165,0.1117,Andrés,,,,,2.0
+2024-03-05,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28700.0,Buffer,300,AG001MB/IDF165,0.0548,Andrés,,,,,1.0
+2024-03-05,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29000.0,Buffer,351,AD603KH/AA62ZS,0.0581,,,,,,51.0
+2024-03-06,10,Lactosa,Remotti S.A.,,Federico Fogliatto,28220.0,Buffer,301,AG001MB/IDF165,0.115,Cristián,,,,,-50.0
+2024-03-06,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27420.0,Buffer,302,ag001MB/JFD165,0.1227,Cristián,,,,,1.0
+2024-03-06,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29580.0,Buffer,303,oee858/aa062es,0.0484,Andrés,,,,,1.0
+2024-03-07,10,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,18640.0,Playón,304,FEJ852/LJH045,,Cristián,,,,,1.0
+2024-03-07,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27900.0,Buffer,305,,,Cristián,,,,,1.0
+2024-03-07,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28900.0,Buffer,306,dee858/eyn411,0.0609,Andrés,,,,,1.0
+2024-03-08,10,Centeno,Maria Elena S.A.,,Maria Elena S.A.,1750.0,playon,320,,0.8429,Agustín,,,,,14.0
+2024-03-08,10,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,11700.0,Playón,310,fbk151/ad50fj,0.8739,Andrés,,,,,-10.0
+2024-03-08,10,Centeno,Maria Elena S.A.,,Maria Elena S.A.,11740.0,Playón,320,,,Gustavo,,,,,10.0
+2024-03-08,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27860.0,Buffer,307,aG001MB/IDF165,0.1191,Cristián,,,,,-13.0
+2024-03-08,10,Lactosa,Remotti S.A.,,Federico Fogliatto,27480.0,Buffer,309,ag001MB/JFD165,0.1185,Cristián,,,,,2.0
+2024-03-08,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28660.0,Buffer,308,oee858/BKM778,0.0495,Cristián,,,,,-1.0
+2024-03-09,10,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5860.0,Buffer,313,WTG975,0.3105,Gustavo,,,,,5.0
+2024-03-09,10,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,312,AG001MB/JFD165,0.1197,Gustavo,,,,,-1.0
+2024-03-09,10,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29280.0,Buffer,311,OEE858/EYN411,0.0576,Agustín,,,,,-1.0
+2024-03-10,11,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,25980.0,Buffer,315,PBC854/GWR350,0.0589,Cristián,,,,,4.0
+2024-03-10,11,Lactosa,Remotti S.A.,,Federico Fogliatto,27320.0,Buffer,314,AG001MB/JFD165,0.1226,Gustavo,,,,,-1.0
+2024-03-11,11,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,15540.0,Playón,316,FEJ852/LJH045,0.0712,Gustavo,,,,,2.0
+2024-03-11,11,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28000.0,Buffer,317,PBC854/GWR350,0.0487,Cristián,,,,,1.0
+2024-03-11,11,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,28100.0,Buffer,318,PBC854/GWR350,0.0598,Agustín,,,,,1.0
+2024-03-12,11,Lactosa,Remotti S.A.,,Federico Fogliatto,27140.0,Buffer,319,AG001MB/JFD165,0.1233,Gustavo,,,,,1.0
+2024-03-12,11,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,321,AG001MB/JFD166,0.126,Cristián,,,,,2.0
+2024-03-12,11,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29000.0,Buffer,322,PBC854/GWR350,0.0546,Cristián,,,,,1.0
+2024-03-13,11,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,21180.0,Playón,324,FEJ852/AE310WL,0.2191,Gustavo,,,,,2.0
+2024-03-13,11,Lactosa,Remotti S.A.,,Federico Fogliatto,26000.0,Buffer,323,AG001MB/JFD165,0.1205,Gustavo,,,,,-1.0
+2024-03-13,11,Lactosa,Remotti S.A.,,Federico Fogliatto,26520.0,Buffer,325,AG001MB/JFD166,0.0519,Sebastián,,,,,2.0
+2024-03-14,11,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,19680.0,Playón,328,FEJ852/LJH045,,Sebastián,,,,,3.0
+2024-03-14,11,Lactosa,Remotti S.A.,,Federico Fogliatto,27840.0,Buffer,327,AG001MB/IDF165,0.116,Gustavo,,,,,-1.0
+2024-03-14,11,Lactosa,Remotti S.A.,,Federico Fogliatto,26000.0,Buffer,329,ag001MB/IDF165,0.0767,Sebastián,,,,,2.0
+2024-03-15,11,maiz en mal estado,Maria Elena S.A.,,Maria Elena S.A.,3500.0,Playón,367,,,Leonardo,,,,,38.0
+2024-03-15,11,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,331,AG001MB/JFD165,0.1214,Agustín,,,,,-36.0
+2024-03-15,11,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,27700.0,Buffer,330,jty448,0.0398,Andrés,,,,,-1.0
+2024-03-16,11,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5640.0,Buffer,333,WTG 975,0.3941,Agustín,,,,,3.0
+2024-03-16,11,Lactosa,Remotti S.A.,,Federico Fogliatto,26980.0,Buffer,332,AG001MB/JFD165,0.1177,Agustín,,,,,-1.0
+2024-03-17,12,Lactosa,Remotti S.A.,,Federico Fogliatto,26760.0,Buffer,335,AG001MB/JFD165,0.121,Agustín,,,,,3.0
+2024-03-17,12,Suero ,Nonna Pia S.R.L.,,Bertola Leandro,29180.0,Buffer,334,AD603KH/AA62ZS,0.0669,Andrés,,,,,-1.0
+2024-03-18,12,Lactosa,Remotti S.A.,,Federico Fogliatto,26880.0,Buffer,336,AG001MB/JFD165,0.1179,Agustín,,,,,2.0
+2024-03-19,12,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,2080.0,Buffer,340,WTG 975,0.6134,Gustavo,,,,,4.0
+2024-03-19,12,Glicerol,Galan carlos,,Mauro Traversaro,2820.0,Buffer,341,WTG 975,0.6135,Gustavo,,,,,1.0
+2024-03-19,12,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,9340.0,Playón,338,FBK151/AD510FJ,0.9054,Agustín,,,,,-3.0
+2024-03-19,12,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,23940.0,Playón,339,FEJ852/AE310WL,0.2106,Gustavo,,,,,1.0
+2024-03-19,12,Lactosa,Remotti S.A.,,Federico Fogliatto,27640.0,Buffer,337,AG001MB/JFD166,0.123,Agustín,,,,,-2.0
+2024-03-20,12,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,342,AG001MB/JFD165,0.1122,Agustín,,,,,5.0
+2024-03-20,12,Suero ,Nonna Pia S.R.L.,Laboulaye,Bertola Leandro,27440.0,Buffer,344,AD603KH/AA62ZS,0.0566,Gustavo,,,,,2.0
+2024-03-20,12,Lactosa,Remotti S.A.,,Federico Fogliatto,27640.0,Buffer,343,Ag001MB/JFD165,0.1108,Gustavo,,,,,-1.0
+2024-03-21,12,Glicerol,Galan carlos,,Mauro Traversaro,1940.0,Buffer,349,WTG 975,0.5394,Gustavo,,,,,6.0
+2024-03-21,12,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,3280.0,Buffer,348,WTG 975,0.5394,Gustavo,,,,,-1.0
+2024-03-21,12,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,16400.0,Playón,346,FEJ852/LJH045,0.5861,Leonardo/Andrés,,,,,-2.0
+2024-03-21,12,Lactosa,Remotti S.A.,,Federico Fogliatto,26460.0,Buffer,345,jxJ011/GDF812,0.1111,Leonardo/Andrés,,,,,-1.0
+2024-03-21,12,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,347,KSL184/IED478,0.1101,Gustavo,,,,,2.0
+2024-03-22,12,Grano mal estado,Bandagro S.A.,,Maria Elena S.A.,1740.0,Playón,366,,,Leonardo,,,,,
+2024-03-22,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,20940.0,playon,355,FBK 151 AD510 F5,,Leonardo,,,,,-11.0
+2024-03-22,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,22840.0,playon,358,FBK 151 AD510 F5,,Gustavo,,,,,3.0
+2024-03-22,12,Lactosa,Remotti S.A.,,Federico Fogliatto,28240.0,Buffer,350,AG001MB/JDF 165,0.1174,Leonardo,,,,,-8.0
+2024-03-22,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,27420.0,playon,359,LZA378/AFO70NW,,Gustavo,,,,,9.0
+2024-03-22,12,Lactosa,Remotti S.A.,,Federico Fogliatto,26820.0,Buffer,356,JXJ011/GFD165,0.11,Leonardo,,,,,-3.0
+2024-03-22,12,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,29540.0,Buffer,354,AD603 KM AA 062,0.0522,Leonardo,,,,,-2.0
+2024-03-22,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Maria Elena S.A.,29820.0,playon,353,MRYA / MWY598,,Leonardo,,,,,-1.0
+2024-03-22,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,30160.0,playon,357,AA648211/AF070NW,,Leonardo,,,,,4.0
+2024-03-23,12,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,2480.0,Buffer,362,WTG 975,0.5577,Leonardo,,,,,5.0
+2024-03-23,12,Glicerol,Galan carlos,,Mauro Traversaro,3260.0,Buffer,363,WTG 975,0.5577,Leonardo,,,,,1.0
+2024-03-23,12,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,360,AG001MB/JDF 165,0.1177,Leonardo,,,,,-3.0
+2024-03-23,12,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,28180.0,playon,361,AA648ZM / AFO70MW,0.8823,Leonardo,,,,,1.0
+2024-03-24,13,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,364,AG001MB/JDF 165,0.1155,Leonardo,,,,,3.0
+2024-03-24,13,Suero ,Nonna Pia S.R.L.,Laboulaye,Bertola Leandro,30120.0,Buffer,365,AD603KM/AA062ZS,0.053,Agustín,,,,,1.0
+2024-03-25,13,Desc. maiz duro ,Cargill S.A.C.I.,,Maria Elena S.A.,6080.0,Playón,369,NLB471/AD327GQ,0.4721,Agustín,,,,,4.0
+2024-03-25,13,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,22540.0,Playón,368,FEJ852/AE310WL,0.2818,Leonardo,,,,,-1.0
+2024-03-26,13,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,17560.0,Playón,373,LJH045/FEJ852,0.119,Agustín,,,,,5.0
+2024-03-26,13,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,22480.0,Buffer,372,AD603KM/AA062ZS,0.0516,Agustín,,,,,-1.0
+2024-03-26,13,Lactosa,Remotti S.A.,,Federico Fogliatto,27500.0,Buffer,371,JXJ011/GFD165,0.1175,Leonardo,,,,,-1.0
+2024-03-26,13,Lactosa,Remotti S.A.,,Federico Fogliatto,26140.0,Buffer,374,KKS989/AQK247,0.3556,Agustín,,,,,3.0
+2024-03-26,13,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,29460.0,Buffer,370,AD603KM/AA062ZS,0.0506,Gustavo,,,,,-4.0
+2024-03-27,13,Lactosa,Remotti S.A.,,Federico Fogliatto,27360.0,Buffer,375,KKS989/AQK247,0.123,Cristián,,,,,5.0
+2024-03-28,13,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,376,AG001MB/JDF 165,0.1245,Cristián,,,,,1.0
+2024-03-29,13,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5700.0,Buffer,379,WTG 975,0.4266,Cristián,,,,,3.0
+2024-03-29,13,Lactosa,Remotti S.A.,,Federico Fogliatto,27280.0,Buffer,377,AG001MB/JDF 165,0.1249,Cristián,,,,,-2.0
+2024-03-29,13,Contenido Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,30840.0,Playón,378,FEJ852/AE310WL,0.205,Gonzalo,,,,,1.0
+2024-03-30,13,Lactosa,Remotti S.A.,,Federico Fogliatto,26440.0,Buffer,380,AG001MB/JDF 165,0.1221,Cristián,,,,,2.0
+2024-03-31,14,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,6200.0,Playón,381,FBK151/AD510FJ,0.5923,Cristián,,,,,1.0
+2024-03-31,14,Lactosa,Remotti S.A.,,Federico Fogliatto,27060.0,Buffer,382,AG001MB/JDF 165,0.1246,Cristián,,,,,1.0
+2024-03-31,14,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,29720.0,Buffer,383,AD603KM/AA062ZS,0.0612,Leonardo,,,,,1.0
+2024-04-02,14,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,28660.0,Buffer,385,OEE858/AA062ZS,0.0542,Leonardo,,,,,2.0
+2024-04-02,14,Suero ,Nonna Pia S.R.L.,Rufino,Bertola Leandro,29380.0,Buffer,384,OEE858/AA062ZS,0.0585,Agustín,,,,,-1.0
+2024-04-04,14,Contenido Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,12920.0,playón,387,feJ852/AE310WL,0.175,gustavo,,,,,3.0
+2024-04-04,14,Lactosa,Remotti S.A.,,Federico Fogliatto,27440.0,Buffer,386,AG001MB/JDF 165,0.1202,Gustavo,,,,,-1.0
+2024-04-04,14,Lactosa,Remotti S.A.,,Federico Fogliatto,26000.0,Buffer,388,AG001MB/JDF 165,0.1294,Cristián,,,,,2.0
+2024-04-05,14,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,389,AG001MB/JDF 165,0.1253,Gustavo,,,,,1.0
+2024-04-05,14,Lactosa,Remotti S.A.,,Federico Fogliatto,29820.0,Buffer,390,KKS989/AQK247,0.1216,Gustavo,,,,,1.0
+2024-04-06,14,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5280.0,Buffer,393,WTG 975,0.3724,Gustavo,,,,,3.0
+2024-04-06,14,Contenido Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,22900.0,playón,392,fEJ852/AE310WL,0.2895,Gustavo,,,,,-1.0
+2024-04-06,14,Lactosa,Remotti S.A.,,Federico Fogliatto,27660.0,Buffer,391,aG001MB/JDF 165,0.127,Gustavo,,,,,-1.0
+2024-04-07,15,Suero ,Nonna Pia S.R.L.,Laboulaye,Bertola Leandro,19100.0,Buffer,395,TQB926/RGA103,0.055,Gustavo,,,,,4.0
+2024-04-07,15,Lactosa,Remotti S.A.,,Federico Fogliatto,27100.0,Buffer,394,KKS989/AQK247,0.1244,Gustavo,,,,,-1.0
+2024-04-08,15,Suero ,Nonna Pia S.R.L.,Laboulaye,Bertola Leandro,16940.0,Buffer,396,HQB926/BGA106,0.0618,Leonardo,,,,,2.0
+2024-04-08,15,Lactosa,Remotti S.A.,,Federico Fogliatto,27260.0,Buffer,397,HQB926/BGA106,0.1227,Agustín,,,,,1.0
+2024-04-09,15,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,6420.0,Playón,399,KGV403/MIZ425,0.6256,Agustín,,,,,2.0
+2024-04-09,15,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,10080.0,Playón,401,FEJ852/LJH045,0.2546,Cristián,,,,,2.0
+2024-04-09,15,Contenido ruminal ,Frigorífico General Pico S.A.,,F.H. S.A,11520.0,Playón,408,AG351GB,0.2019,Agustín,,,,,7.0
+2024-04-09,15,Suero ,Nonna Pia S.R.L.,Laboulaye,Bertola Leandro,26020.0,Buffer,398,HQB926/BGA106,0.0671,Leonardo,,,,,-10.0
+2024-04-09,15,Lactosa,Remotti S.A.,,Federico Fogliatto,27260.0,Buffer,400,AG001MB/JDF 165,0.1209,Agustín,,,,,2.0
+2024-04-09,15,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,402,AG001MB/JDF 165,0.1296,Cristián,,,,,2.0
+2024-04-10,15,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5280.0,Buffer,404,WTG 975,0.3475,Agustín,,,,,2.0
+2024-04-10,15,Lactosa,Remotti S.A.,,Federico Fogliatto,26980.0,Buffer,403,AG001MB/JDF 166,0.1267,Agustín,,,,,-1.0
+2024-04-10,15,Lactosa,Remotti S.A.,,Federico Fogliatto,27740.0,Buffer,405,aG001MB/JDF 165,0.1283,Gustavo,,,,,2.0
+2024-04-11,15,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,407,AG001MB/JDF 165,0.1231,Agustín,,,,,2.0
+2024-04-11,15,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,28580.0,Buffer,406,FEJ852/LJH045,0.0576,Leonardo,,,,,-1.0
+2024-04-17,16,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4940.0,Buffer,411,WTG 975,0.3734,Agustín,,,,,5.0
+2024-04-17,16,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,25530.0,Playón,413,FEJ82/AE310WL,0.1712,Agustín,,,,,2.0
+2024-04-17,16,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,25720.0,Buffer,412,FCX879/DU089,0.061,Agustín,,,,,-1.0
+2024-04-17,16,Lactosa,Remotti S.A.,,Federico Fogliatto,27220.0,Buffer,409,aG001MB/JDF 165,0.1208,Leonardo,,,,,-3.0
+2024-04-17,16,Lactosa,Remotti S.A.,,Federico Fogliatto,26420.0,Buffer,410,AG001MB/JDF 165,0.121,Agustín,,,,,1.0
+2024-04-18,16,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,7340.0,Playón,415,NLB471/AD327GQ,0.6112,Leonardo,,,,,5.0
+2024-04-18,16,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,19800.0,Playón,416,FEJ82/AE310WL,0.2238,Agustín,,,,,1.0
+2024-04-18,16,Lactosa,Remotti S.A.,,Federico Fogliatto,27220.0,Buffer,414,AG001MB/JDF 165,0.1202,Leonardo,,,,,-2.0
+2024-04-19,16,Lactosa,Remotti S.A.,,Federico Fogliatto,27420.0,Buffer,417,AG001MB/JDF 166,0.1212,Leonardo,,,,,3.0
+2024-04-19,16,Lactosa,Remotti S.A.,,Federico Fogliatto,27140.0,Buffer,418,NKK 989/HQK 247,0.1262,Agustín,,,,,1.0
+2024-04-20,16,Glicerol,Galan carlos,,Mauro Traversaro,2000.0,Buffer,421,WTG 976,0.3322,Cristián,,,,,3.0
+2024-04-20,16,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,2640.0,Buffer,420,WTG 975,0.3022,Cristián,,,,,-1.0
+2024-04-20,16,Lactosa,Remotti S.A.,,Federico Fogliatto,27320.0,Buffer,419,AG001MB/JDF 165,0.0534,Cristián,,,,,-1.0
+2024-04-21,17,Lactosa,Remotti S.A.,,Federico Fogliatto,26570.0,Buffer,423,NKK 989/HQK 247,0.1251,Gustavo,,,,,4.0
+2024-04-21,17,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,28440.0,Buffer,422,FSX879/DU089,0.0333,Gustavo,,,,,-1.0
+2024-04-23,17,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27240.0,Buffer,424,FSX879/DU089,0.0512,Leonardo,,,,,2.0
+2024-04-24,17,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4960.0,Buffer,426,WTG 975,0.2838,Cristián,,,,,2.0
+2024-04-24,17,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,24720.0,Buffer,429,FSX879/DU089,0.0766,Leonardo,,,,,3.0
+2024-04-24,17,Lactosa,Remotti S.A.,,Federico Fogliatto,26920.0,Buffer,425,AG001MB/JDF 165,0.1313,Cristián,,,,,-4.0
+2024-04-24,17,Lactosa,Remotti S.A.,,Federico Fogliatto,27160.0,Buffer,428,jfd165/ag001mb,0.1223,Leonardo,,,,,3.0
+2024-04-24,17,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,27560.0,Buffer,427,FEJ82/AE310WL,0.2523,Leonardo,,,,,-1.0
+2024-04-25,17,Lactosa,Remotti S.A.,,Federico Fogliatto,28200.0,Buffer,430,AG001MB/JDF 165,0.1242,Cristián,,,,,3.0
+2024-04-25,17,Lactosa,Remotti S.A.,,Federico Fogliatto,25000.0,Buffer,431,AG001MB/JDF 166,0.1201,Leonardo,,,,,1.0
+2024-04-26,17,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,15880.0,playón,434,fEJ852/LJH045,0.1709,Gustavo,,,,,3.0
+2024-04-26,17,Lactosa,Remotti S.A.,,Federico Fogliatto,25660.0,Buffer,432,KKS989/AQK942,0.1224,Agustín,,,,,-2.0
+2024-04-26,17,Lactosa,Remotti S.A.,,federico Fogliatto,28360.0,Buffer,433,KKS989/HQK247,0.1273,Gustavo,,,,,1.0
+2024-04-27,17,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,8780.0,playón,437,ILA200/AE447x,0.6855,Leonardo,,,,,4.0
+2024-04-27,17,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,10620.0,playón,438,aG001MB/JDF 165,0.7116,Leonardo,,,,,1.0
+2024-04-27,17,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,19880.0,playón,435,AA649IJ/AA976CW,0.7063,Gustavo,,,,,-3.0
+2024-04-27,17,Lactosa,Remotti S.A.,,Federico Fogliatto,27360.0,Buffer,436,aG001MB/JDF 165,0.1233,Gustavo,,,,,1.0
+2024-04-27,17,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,28260.0,Buffer,439,FSX879/DU089,0.0312,Leonardo,,,,,3.0
+2024-04-28,18,Lactosa,Remotti S.A.,,federico Fogliatto,26920.0,Buffer,440,aG001MB/JDF 165,0.1264,Gustavo,,,,,1.0
+2024-04-29,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,13740.0,Playón,443,NBL471/AD327GQ,0.7843,Cristián,,,,,3.0
+2024-04-29,18,Lactosa,Remotti S.A.,,Federico Fogliatto,23080.0,Buffer,441,AG001MB/JDF 165,0.1244,Gustavo,,,,,-2.0
+2024-04-29,18,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,24260.0,Playón,442,fEJ82/AE310WL,0.2713,Gustavo,,,,,1.0
+2024-04-29,18,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,28000.0,Buffer,444,FCX879/DU089,0.0536,Cristián,,,,,2.0
+2024-04-30,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,25300.0,Playón,446,AC185MF/AF337VV,0.7799,Cristián,,,,,2.0
+2024-04-30,18,Lactosa,Remotti S.A., ,Federico Fogliatto,28100.0,Buffer,445,aG001MB/JDF 165,0.1145,Gustavo,,,,,-1.0
+2024-05-01,18,Lactosa,Remotti S.A.,,Federico Fogliatto,27780.0,Buffer,447,aG001MB/JDF 165,0.1099,Gustavo,,,,,2.0
+2024-05-02,18,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,7500.0,Buffer,452,FCX879/DU090,0.0373,Cristián,,,,,5.0
+2024-05-02,18,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,16880.0,Playón,448,fEJ852/LJH045,0.2088,Agustín,,,,,-4.0
+2024-05-02,18,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,19000.0,Buffer,451,FCX879/DU089,0.0373,Cristián,,,,,3.0
+2024-05-02,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,23380.0,Playón,450,FBK151/510FJ,0.6413,Cristián,,,,,
+2024-05-02,18,Leche ácida,Remotti S.A.,,Federico Fogliatto,27120.0,Buffer,449,AG001MB/JDF 165,0.1085,Agustín,,,,,-1.0
+2024-05-02,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,28540.0,Playón,453,LZA378/AF070NW,0.7009,Cristián,,,,,4.0
+2024-05-03,18,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5580.0,Buffer,456,WTG 975,0.4343,Agustín,,,,,3.0
+2024-05-03,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,21460.0,Playón,454,FBK151/510FJ,0.773,Agustín,,,,,-2.0
+2024-05-03,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,25280.0,Playón,458,LZA378/AF070NW,0.7287,Cristián,,,,,4.0
+2024-05-03,18,Lactosa,Remotti S.A.,,Federico Fogliatto,26920.0,Buffer,455,AG001MB/JDF 165,0.1206,Agustín,,,,,-3.0
+2024-05-03,18,Lactosa,Remotti S.A.,,Federico Fogliatto,27040.0,Buffer,457,AG001MB/JDF 165,0.1195,Cristián,,,,,2.0
+2024-05-03,18,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,27420.0,Playón,459,FBK151/510FJ,0.7954,Cristián,,,,,2.0
+2024-05-04,18,Lactosa,Remotti S.A.,,Federico Fogliatto,27390.0,Buffer,460,KKS989/IED478,0.1245,Agustín,,,,,1.0
+2024-05-05,19,Suero ,Nonna Pia S.R.L.,Rufino/Laboulaye,Agustin Cabeza,22460.0,Buffer,461,FCX874/JUM089,0.0749,Leonardo,,,,,1.0
+2024-05-05,19,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,23640.0,Buffer,463,FCX874/DUH089,0.0459,Gustavo,,,,,2.0
+2024-05-05,19,Lactosa,Remotti S.A.,,Federico Fogliatto,27980.0,Buffer,462,KKS989/IED478,0.1211,Agustín,,,,,-1.0
+2024-05-07,19,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,23340.0,playón,467,feJ82/AE310WL,0.228,Gustavo,,,,,
+2024-05-07,19,Lactosa,Remotti S.A.,,Federico Fogliatto,27960.0,Buffer,464,AG001MB/JDF 165,0.1242,Agustín,,,,,-3.0
+2024-05-07,19,Suero ,Nonna Pia S.R.L.,Rufino/Laboulaye,Agustin Cabeza,26480.0,Buffer,466,F6X874/DUM089,0.0468,Agustín,,,,,2.0
+2024-05-07,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26300.0,Buffer,465,KKS989/JDF812,0.1213,Agustín,,,,,-1.0
+2024-05-08,19,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4720.0,Buffer,469,WTG 975,0.4012,Leonardo,,,,,4.0
+2024-05-08,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26240.0,Buffer,468,AG001MB/JDF 165,0.1218,Leonardo,,,,,-1.0
+2024-05-08,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26120.0,Buffer,470,AG001MB/JDF 165,0.1263,Gustavo,,,,,2.0
+2024-05-08,19,Suero ,Nonna Pia S.R.L.,Rufino/Laboulaye,Agustin Cabeza,28260.0,Buffer,471,F6X874/DUM089,0.0373,Gustavo,,,,,1.0
+2024-05-09,19,"maiz, harina, nucleo",Maria Elena S.A.,,Maria Elena S.A.,559.0,Playón,595,,,Agustin ,,,,,124.0
+2024-05-09,19,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,560.0,Playón,596,,,Agustin ,,,,,1.0
+2024-05-09,19,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,7020.0,Playón,474,NBL471/AD327GQ,0.9001,Leonardo,,,,,-122.0
+2024-05-09,19,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,16160.0,Playón,472,FEJ82/AE310WL,0.2316,Leonardo,,,,,-2.0
+2024-05-09,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26780.0,Buffer,473,AG001MB/JDF 165,0.1243,Leonardo,,,,,1.0
+2024-05-10,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26380.0,Buffer,475,AG001MB/JDF 165,0.1179,Leonardo,,,,,2.0
+2024-05-10,19,Lactosa,Remotti S.A.,,Federico Fogliatto,28340.0,Buffer,476,GDF812/KKS989,0.1222,Leonardo,,,,,1.0
+2024-05-11,19,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,22540.0,Buffer,478,FCX874/DUH089,0.062,Agustín,,,,,2.0
+2024-05-11,19,Lactosa,Remotti S.A.,,Federico Fogliatto,26620.0,Buffer,477,AG001MB/JDF 165,0.1239,Leonardo,,,,,-1.0
+2024-05-12,20,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27820.0,Buffer,479,FCX874/DUH089,0.0349,Leonardo,,,,,2.0
+2024-05-13,20,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,8000.0,Buffer,482,FCX874/DUH089,0.047,Agustín,,,,,3.0
+2024-05-13,20,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,19600.0,Buffer,483,FCX874/DUH089,0.041,Agustín,,,,,1.0
+2024-05-13,20,Lactosa,Remotti S.A.,,Federico Fogliatto,26960.0,Buffer,480,GDF812/KKS989,0.1295,Leonardo,,,,,-3.0
+2024-05-13,20,Lactosa,Remotti S.A.,,Federico Fogliatto,25240.0,Buffer,481,AG001DB/JDF165,0.1262,Leonardo,,,,,1.0
+2024-05-14,20,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,484,AG001MB/JDF 165,0.1391,Cristián,,,,,3.0
+2024-05-14,20,Lactosa,Remotti S.A.,,Federico Fogliatto,25960.0,Buffer,485,AG001MB/JDF 166,0.1253,Agustín,,,,,1.0
+2024-05-15,20,Lactosa,Remotti S.A.,,Federico Fogliatto,27780.0,Buffer,487,AG001MB/JDF 165,0.1313,Cristián,,,,,2.0
+2024-05-15,20,Lactosa,Remotti S.A.,,Federico Fogliatto,26120.0,Buffer,488,AG001MB/JDF 166,0.1276,Agustín,,,,,1.0
+2024-05-15,20,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,28740.0,Playón,486,FEJ82/AE310WL,0.2419,Cristián,,,,,-2.0
+2024-05-16,20,Lactosa,Remotti S.A.,,Federico Fogliatto,27000.0,Buffer,489,AG001MB/JDF 165,0.1259,Cristián,,,,,3.0
+2024-05-16,20,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27560.0,Buffer,491,FCX874/DUH089,0.0569,Gustavo,,,,,2.0
+2024-05-16,20,Lactosa,Remotti S.A.,,Federico Fogliatto,29040.0,Buffer,490,AG001MB/JDF 165,0.1282,Leonardo,,,,,-1.0
+2024-05-17,20,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,17060.0,Playón,492,FEJ852/LJH045,0.2052,Cristián,,,,,2.0
+2024-05-17,20,Lactosa,Remotti S.A.,,Federico Fogliatto,26780.0,Buffer,493,AG001MB/JDF 165,0.1284,Cristián,,,,,1.0
+2024-05-17,20,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,494,AG001MB/JDF 165,0.12,Leonardo,,,,,1.0
+2024-05-18,20,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5380.0,Buffer,496,WTG 975,0.3659,Cristián,,,,,2.0
+2024-05-18,20,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,25560.0,Buffer,497,FCX874/DUH089,0.0413,Leonardo,,,,,1.0
+2024-05-18,20,Lactosa,Remotti S.A.,,Federico Fogliatto,28140.0,Buffer,495,AG001MB/JDF 165,0.1285,Cristián,,,,,-2.0
+2024-05-19,21,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,28360.0,Buffer,499,FCX874/DUH089,0.0474,Cristián,,,,,4.0
+2024-05-19,21,Lactosa,Remotti S.A.,,Federico Fogliatto,30060.0,Buffer,498,AG001MB/JDF 165,0.1199,Cristián,,,,,-1.0
+2024-05-20,21,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,11220.0,Playón,502,AC185MF/AF337VV,0.6831,Leonardo,,,,,4.0
+2024-05-20,21,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,20520.0,Playón,501,FEJ852/LJH045,0.2814,Cristián,,,,,-1.0
+2024-05-20,21,Lactosa,Remotti S.A.,,Federico Fogliatto,25320.0,Buffer,500,AG001MB/JDF 165,0.1115,Cristián,,,,,-1.0
+2024-05-21,21,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,504,AG001MB/JDF 165,0.1201,Gustavo,,,,,4.0
+2024-05-21,21,Lactosa,Remotti S.A.,,Federico Fogliatto,27020.0,Buffer,505,AG001MB/JDF 166,0.1132,Leonardo,,,,,1.0
+2024-05-21,21,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27840.0,Buffer,503,FCX874/DUM083,0.0635,Agustín,,,,,-2.0
+2024-05-22,21,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,18280.0,Playón,507,FEJ852/LJH045,0.2618,Cristián,,,,,4.0
+2024-05-22,21,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,506,aG001MB/JDF 165,0.1258,Gustavo,,,,,-1.0
+2024-05-22,21,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27000.0,Buffer,509,FCX874/DUH089,0.0515,Cristián,,,,,3.0
+2024-05-22,21,Lactosa,Remotti S.A.,,Federico Fogliatto,25060.0,Buffer,508,aG001MB/JDF 166,0.1243,Cristián,,,,,-1.0
+2024-05-23,21,Lactosa,Remotti S.A.,,Federico Fogliatto,30000.0,Buffer,510,AG001DB/JDF165,0.1241,Gustavo,,,,,2.0
+2024-05-24,21,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,460.0,Playón,600,,,Agustin ,,,,,90.0
+2024-05-24,21,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4960.0,Buffer,515,WTG 975,0.3025,Gustavo,,,,,-85.0
+2024-05-24,21,Suero ,Nonna Pia S.R.L.,Rufino/Laboulaye,Agustin Cabeza,24820.0,Buffer,512,FCX874/DUH089,0.0445,Cristián,,,,,-3.0
+2024-05-24,21,Lactosa,Remotti S.A.,,Federico Fogliatto,28900.0,Buffer,511,AG001DB/JDF166,0.1231,Cristián,,,,,-1.0
+2024-05-24,21,Lactosa,Remotti S.A.,,Federico Fogliatto,28300.0,Buffer,513,JXJ011/IED478,0.1203,Gustavo,,,,,2.0
+2024-05-24,21,Lactosa,Remotti S.A.,,Federico Fogliatto,28280.0,Buffer,514,aG001MB/JDF 165,0.1258,Gustavo,,,,,1.0
+2024-05-25,21,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27840.0,Buffer,518,FCX874/DUM083,0.0683,Cristián,,,,,4.0
+2024-05-25,21,Lactosa,Remotti S.A.,,Federico Fogliatto,29200.0,Buffer,516,aG001DB/JDF165,0.1212,Gustavo,,,,,-2.0
+2024-05-26,22,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27980.0,Buffer,519,FCX874/DUM083,0.0523,Agustín,,,,,3.0
+2024-05-26,22,Lactosa,Remotti S.A.,,Federico Fogliatto,29900.0,Buffer,517,AG001DB/JDF165,0.1214,Agustín,,,,,-2.0
+2024-05-27,22,Cebada,Maria Elena S.A.,,Maria Elena S.A.,1860.0,Playón,597,,,Agustin ,,,,,80.0
+2024-05-27,22,Lactosa,Remotti S.A.,,Federico Fogliatto,25540.0,Buffer,520,AG001DB/JDF165,0.1234,Agustín,,,,,-77.0
+2024-05-28,22,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,25660.0,Playón,522,FEJ852/LJH045,0.2281,Agustín,,,,,2.0
+2024-05-28,22,Lactosa,Remotti S.A.,,Federico Fogliatto,26160.0,Buffer,521,AG001DB/JDF165,0.1253,Agustín,,,,,-1.0
+2024-05-28,22,Lactosa,Remotti S.A.,,Federico Fogliatto,25660.0,Buffer,523,aG001MB/JDF 165,0.1309,Gustavo,,,,,2.0
+2024-05-29,22,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,620.0,Playón,599,,,Agustin ,,,,,76.0
+2024-05-29,22,Cebada,Maria Elena S.A.,,Maria Elena S.A.,2260.0,Playón,598,,,Agustin ,,,,,-1.0
+2024-05-29,22,Lactosa,Remotti S.A.,,Federico Fogliatto,25680.0,Buffer,524,AG001DB/JDF165,0.1265,Agustín,,,,,-74.0
+2024-05-29,22,Lactosa,Remotti S.A.,,Federico Fogliatto,26520.0,Buffer,525,aG001DB/JDF165,0.1244,Gustavo,,,,,1.0
+2024-05-29,22,Suero ,Nonna Pia S.R.L.,Rufino/Laboulaye,Agustin Cabeza,28300.0,Buffer,526,FCX874/DUM083,0.038,Gustavo,,,,,1.0
+2024-05-30,22,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,18000.0,Playón,529,FEJ82/AE310WL,0.1676,Agustín,,,,,3.0
+2024-05-30,22,Lactosa,Remotti S.A.,,Federico Fogliatto,26120.0,Buffer,527,JXJ011/IED478,0.121,Agustín,,,,,-2.0
+2024-05-30,22,Lactosa,Remotti S.A.,,Federico Fogliatto,26060.0,Buffer,528,KKS 989/HQK247,0.1246,Agustín,,,,,1.0
+2024-05-31,22,Lactosa,Remotti S.A.,,Federico Fogliatto,29360.0,Buffer,531,AG001DB/JDF165,0.1263,Cristián,,,,,3.0
+2024-05-31,22,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,28520.0,Buffer,530,FCX874/DUM083,0.0571,Cristián,,,,,-1.0
+2024-05-31,22,Lactosa,Remotti S.A.,,Federico Fogliatto,24840.0,Buffer,532,KKS 989/H9K247,0.1252,Agustín,,,,,2.0
+2024-06-01,22,Lactosa,Remotti S.A.,,Federico Fogliatto,28760.0,Buffer,533,AG001DB/JDF165,0.1123,Gustavo,,,,,2.0
+2024-06-01,22,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5020.0,Buffer,534,WTG 975,0.3448,Gustavo,,,,,
+2024-06-01,22,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,17450.0,Buffer,535,fCX874/DUM083,0.0661,Gustavo,,,,,2.0
+2024-06-02,23,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27720.0,Buffer,537,fCX874/DUM083,0.0454,Leonardo,,,,,
+2024-06-02,23,Lactosa,Remotti S.A.,,Federico Fogliatto,28760.0,Buffer,536,AG001DB/JDF165,0.1075,Leonardo,,,,,
+2024-06-03,23,Lactosa,Remotti S.A.,,Federico Fogliatto,25980.0,Buffer,538,AG001DB/JDF165,0.1264,Leonardo,,,,,-1.0
+2024-06-04,23,Aceite(olio de margarina),Mauro traversaro,,Mauro Traversaro,1000.0,Buffer,543,WTG 975,0.977,Agustín,,,,,4.0
+2024-06-04,23,Lactosa,Remotti S.A.,,Federico Fogliatto,25980.0,Buffer,540,AG001DB/JDF165,0.1287,Leonardo,,,,,1.0
+2024-06-04,23,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,26840.0,Playón,541,FEJ852/AE310WL,0.2679,Leonardo,,,,,-2.0
+2024-06-04,23,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27288.0,Buffer,539,fCX874/DUM083,0.0886,Cristián,,,,,3.0
+2024-06-04,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29840.0,Buffer,542,SXJ011/IED978,0.1261,Agustín,,,,,3.0
+2024-06-05,23,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,8280.0,Playón,545,NBL471/AD327GQ,0.7235,Leonardo,,,,,2.0
+2024-06-05,23,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27840.0,Buffer,547,AGJ450,0.0577,Agustín,,,,,-3.0
+2024-06-05,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29220.0,Buffer,544,SXJ011/IED978,0.1266,Leonardo,,,,,2.0
+2024-06-05,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29000.0,Buffer,546,AG001DB/JDF165,0.1287,Agustín,,,,,3.0
+2024-06-06,23,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,22900.0,Playón,549,FEJ852/AE310WL,0.3648,Leonardo,,,,,2.0
+2024-06-06,23,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27500.0,Buffer,551,AG001DB/JDF165,0.0527,Agustín,,,,,-3.0
+2024-06-06,23,Lactosa,Remotti S.A.,,Federico Fogliatto,27860.0,Buffer,548,AG001DB/JDF165,0.116,Leonardo,,,,,2.0
+2024-06-06,23,Lactosa,Remotti S.A.,,Federico Fogliatto,28860.0,Buffer,550,jXJ011/HQK 297,0.1328,Agustín,,,,,4.0
+2024-06-07,23,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,23260.0,Playón,554,FEJ852/AE310WL,0.2848,Agustín,,,,,-2.0
+2024-06-07,23,Lactosa,Remotti S.A.,,Federico Fogliatto,27640.0,Buffer,552,jXJ011/HQK 297,0.1167,Gustavo,,,,,1.0
+2024-06-07,23,Lactosa,Remotti S.A.,,Federico Fogliatto,29180.0,Buffer,553,AG001DB/JDF165,0.1301,Cristián,,,,,2.0
+2024-06-07,23,Suero ,Nonna Pia S.R.L.,Laboulaye,Ing. lactea s.a,30700.0,Buffer,555,AE901WG/FBG933,0.066,Agustín,,,,,2.0
+2024-06-08,23,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5520.0,Buffer,557,WTG 975,0.6572,Cristián,,,,,-1.0
+2024-06-08,23,Lactosa,Remotti S.A.,,Federico Fogliatto,27140.0,Buffer,556,KKS 989/H9K165,0.1265,Cristián,,,,,2.0
+2024-06-08,23,Suero ,Nonna Pia S.R.L.,Laboulaye/rufino,Agustin Cabeza,27550.0,Buffer,558,fCX874/DUM083,0.0422,Agustín,,,,,2.0
+2024-06-09,24,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27350.0,Buffer,560,fCX874/DUM083,0.0538,Leonardo,,,,,-1.0
+2024-06-09,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,559,KKS 989/HQK247,0.1288,Cristián,,,,,
+2024-06-10,24,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27380.0,Buffer,563,fCX874/DUM083,0.0431,Leonardo,,,,,4.0
+2024-06-10,24,Lactosa,Remotti S.A.,,Federico Fogliatto,29100.0,Buffer,561,KKS 989/H9K165,0.1275,Cristián,,,,,-2.0
+2024-06-11,24,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,6920.0,Playón,565,AB706XB/AE014SA,0.8501,Leonardo,,,,,4.0
+2024-06-11,24,Lactosa,Remotti S.A.,,Federico Fogliatto,30100.0,Buffer,562,AG001DB/JDF165,0.1335,Cristián,,,,,-3.0
+2024-06-11,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28340.0,Buffer,564,AG001DB/JDF165,0.1314,Leonardo,,,,,2.0
+2024-06-12,24,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,,Transcereal S.A,13820.0,Playón,568,kwv336,0.8913,Leonardo,,,,,4.0
+2024-06-12,24,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,22680.0,Playón,567,FEJ852/AE310WL,0.2482,Cristián,,,,,-1.0
+2024-06-12,24,Lactosa,Remotti S.A.,,Federico Fogliatto,30560.0,Buffer,566,AG001DB/JDF165,0.1312,Cristián,,,,,-1.0
+2024-06-12,24,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27440.0,Buffer,570,SBB8585/AGJ450,0.0626,Agustín,,,,,4.0
+2024-06-12,24,Lactosa,Remotti S.A.,,Federico Fogliatto,27440.0,Buffer,569,SDF165/AG001MB,0.1237,Leonardo,,,,,-1.0
+2024-06-13,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,571,KKS989/JDF165,0.127,Gustavo,,,,,2.0
+2024-06-13,24,Lactosa,Remotti S.A.,,Federico Fogliatto,27100.0,Buffer,572,KKS989/JDF165,0.1267,Leonardo,,,,,1.0
+2024-06-14,24,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,25080.0,Playón,575,FEJ852/LJH045,0.2316,Gustavo,,,,,3.0
+2024-06-14,24,Lactosa,Remotti S.A.,,Federico Fogliatto,27380.0,Buffer,574,KKS989/JDF165,0.1216,Gustavo,,,,,-1.0
+2024-06-14,24,Suero ,Nonna Pia S.R.L.,Rufino,Agustin Cabeza,27580.0,Buffer,573,SBB8585/AGJ450,0.0589,Agustín,,,,,-1.0
+2024-06-14,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,576,KKS989/JDF165,0.1258,Leonardo,,,,,3.0
+2024-06-15,24,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,1230.0,Playón,602,,,Agustin ,,,,,26.0
+2024-06-15,24,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5080.0,Buffer,578,WTG 975,0.3378,Gustavo,,,,,-24.0
+2024-06-15,24,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,577,KKS989/JDF165,0.1215,Gustavo,,,,,-1.0
+2024-06-15,24,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,28000.0,Buffer,579,SBB8585/AGJ450,0.0642,Cristián,,,,,2.0
+2024-06-16,25,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27720.0,Buffer,581,SBB8585/AGJ450,0.0469,Gustavo,,,,,2.0
+2024-06-16,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28820.0,Buffer,580,JXJ011/HQK 297,0.1254,Gustavo,,,,,-1.0
+2024-06-17,25,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,582,KKS989/JDF165,0.1277,Gustavo,,,,,2.0
+2024-06-17,25,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27560.0,Buffer,583,SBB8585/AGJ450,0.0423,Cristián,,,,,1.0
+2024-06-18,25,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,16300.0,Playón,584,FEJ852/LJH045,0.3195,Gustavo,,,,,1.0
+2024-06-18,25,Lactosa,Remotti S.A.,,Federico Fogliatto,17480.0,Buffer,585,AG001DB/MQK247,0.1251,Gustavo,,,,,1.0
+2024-06-19,25,Lactosa,Remotti S.A.,,Federico Fogliatto,27860.0,Buffer,586,AG001MB/MAK247,0.1044,Agustin ,,,,,1.0
+2024-06-20,25,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5420.0,Buffer,604,WTG 975,0.3995,Agustin ,,,,,18.0
+2024-06-20,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,603,NXX029/IED478,0.1314,Agustin ,,,,,-1.0
+2024-06-20,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,605,NXX029/IED478,0.132,Cristián,,,,,2.0
+2024-06-21,25,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,22220.0,Playón,608,FEJ852/LJH045,0.3206,Agustin ,,,,,3.0
+2024-06-21,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28720.0,Buffer,606,KKS989/JDF165,0.1311,Leonardo,,,,,-2.0
+2024-06-21,25,Lactosa,Remotti S.A.,,Federico Fogliatto,28960.0,Buffer,607,AG001DB/JDF165,0.1299,Agustin ,,,,,1.0
+2024-06-22,25,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,1160.0,Playón,609,,0.807,Agustin ,,,,,2.0
+2024-06-25,26,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,4880.0,Playón,610,,0.9114,Leonardo,,,,,1.0
+2024-06-25,26,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,611,AG001DB/JDF165,0.1268,Leonardo,,,,,1.0
+2024-06-25,26,Lactosa,Remotti S.A.,,Federico Fogliatto,28060.0,Buffer,612,FEJ852/LJH045,0.1281,Leonardo,,,,,
+2024-06-26,26,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,19880.0,Playón,614,FEJ852/LJH045,0.2332,Leonardo,,,,,1.0
+2024-06-26,26,Lactosa,Remotti S.A.,,Federico Fogliatto,28280.0,Buffer,613,FEJ852/LJH045,0.126,Leonardo,,,,,1.0
+2024-06-26,26,Lactosa,Remotti S.A.,,Federico Fogliatto,26100.0,Buffer,615,FEJ852/LJH045,0.1282,Leonardo,,,,,2.0
+2024-06-27,26,"maiz, harina, premix",Maria Elena S.A.,,Maria Elena S.A.,420.0,Playón,617,,0.875,Agustin ,,,,,2.0
+2024-06-27,26,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,800.0,Playón,601,,0.807,Agustin ,,,,,-16.0
+2024-06-27,26,Maiz,Maria Elena S.A.,,Maria Elena S.A.,840.0,Playón,618,,0.8685,Agustin ,,,,,17.0
+2024-06-27,26,Purin(padrillera) ,Mauro Traversaro,,Mauro Traversaro,4980.0,Buffer,621,WTG 975,0.1915,Agustin ,,,,,3.0
+2024-06-27,26,Oleo de Margarina/purin(padrillera),Mauro Traversaro,,Mauro Traversaro,5000.0,Buffer,620,WTG 975,0.229,Agustin ,,,,,-1.0
+2024-06-27,26,Purin(padrillera) ,Mauro Traversaro,,Mauro Traversaro,5080.0,Buffer,622,WTG 975,0.1495,Agustin ,,,,,2.0
+2024-06-27,26,Lactosa,Remotti S.A.,,Federico Fogliatto,27260.0,Buffer,616,GDF812/KKS989,0.1223,Leonardo,,,,,-6.0
+2024-06-27,26,Lactosa,Remotti S.A.,,Federico Fogliatto,27540.0,Buffer,619,KKS 989/HQK147,0.131,Agustin ,,,,,3.0
+2024-06-28,26,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,26220.0,Playón,624,FEJ852/LJH045,0.2666,Leonardo,,,,,5.0
+2024-06-28,26,Lactosa,Remotti S.A.,,Federico Fogliatto,28480.0,Buffer,623,FEJ852/LJH045,0.1255,Leonardo,,,,,-1.0
+2024-06-28,26,Lactosa,Remotti S.A.,,Federico Fogliatto,27100.0,Buffer,625,JXJ011/GDF812,0.1306,Agustin ,,,,,
+2024-06-29,26,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4680.0,Buffer,627,WTG 975,0.5445,Leonardo,,,,,
+2024-06-29,26,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,626,JXJ011/GDF812,0.1332,Leonardo,,,,,
+2024-07-01,27,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,16000.0,Playón,628,FEJ852/LJH045,0.2484,Cristián,,,,,
+2024-07-03,27,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,27260.0,Playón,629,FEJ852/LJH045,0.2333,Cristián,,,,,
+2024-07-03,27,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Granada,Transcereal S.A,12600.0,Playón,630,AE527SN/AE378UO,0.8296,Leonardo,,,,,
+2024-07-03,27,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Granada,Transcereal S.A,8060.0,Playón,631,FBK151 / AD510FS,0.8382,Leonardo,,,,,
+2024-07-04,27,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,27520.0,Buffer,632,KKS989/JDF165,0.0579,Leonardo,,,,,
+2024-07-04,27,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,13180.0,Playón,633,FBK151 / AD510FS,0.8695,Leonardo,,,,,
+2024-07-05,27,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia mariana,17100.0,Playón,634,FEJ852/LJH045,0.2812,Cristián,,,,,
+2024-07-05,27,Barrido Cargil,Cargill S.A.C.I.,,Don Victor,7660.0,Playón,635,OWX854,0.8033,Cristián,,,,,
+2024-07-05,27,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4860.0,Buffer,636,WTG 975,0.5664,Leonardo,,,,,
+2024-07-06,27,Barrido Cargil,Cargill S.A.C.I.,,Don Victor,5800.0,Playón,637,ETC597/XIE425,,Cristián,,,,,
+2024-07-06,27,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,20000.0,Buffer,638,KKS989/JDF165,0.0663,Leonardo,,,,,
+2024-07-08,28,Lactosa,Remotti S.A.,,Federico Fogliatto,27760.0,Buffer,639,kkS989/JDF165,0.1314,Gustavo,,,,,
+2024-07-09,28,Suero ,Nonna Pia S.R.L.,Laboulaye/Rufino,Agustin Cabeza,29720.0,Buffer,640,SBB8585/AGJ450,0.0424,Gustavo,,,,,
+2024-07-09,28,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,19800.0,Playón,641,HKS375/NTK363,0.9504,Gustavo,,,,,
+2024-07-09,28,Lactosa,Remotti S.A.,,Federico Fogliatto,28180.0,Buffer,642,KKS 989/HQK147,0.126,Gustavo,,,,,
+2024-07-09,28,Lactosa,Remotti S.A.,,Federico Fogliatto,28470.0,Buffer,643,JXJ011/GDF812,0.1328,Gustavo,,,,,
+2024-07-10,28,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,644,AGOO1MB/JDF165,0.1289,Gustavo,,,,,
+2024-07-10,28,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4700.0,Buffer,645,WTG 975,0.3392,Cristián,,,,,
+2024-07-10,28,Suero ,Nonna Pia S.R.L.,Laboulaye/rufino,Agustin Cabeza,23600.0,Buffer,646,NYQ911/AGS450,0.0531,Cristián,,,,,
+2024-07-11,28,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,13840.0,Playón,647,FEJ852/LJH045,0.2465,Gustavo,,,,,
+2024-07-11,28,Lactosa,Remotti S.A.,,Federico Fogliatto,26200.0,Buffer,648,jXJ011/GDF812,0.1319,Cristián,,,,,
+2024-07-11,28,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4860.0,Buffer,649,WTG 975,0.3158,Cristián,,,,,
+2024-07-12,28,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,26060.0,Playón,650,FEJ852/AE310WL,0.2482,Cristián,,,,,
+2024-07-12,28,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,7640.0,Playón,651,AA649IJ/AA946CW,,Cristián,,,,,
+2024-07-12,28,lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,652,jXJ011/GDF812,0.1309,Cristián,,,,,
+2024-07-13,28,lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,653,jXJ011/GDF812,0.1213,Agustin ,,,,,
+2024-07-14,29,lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,654,jXJ011/GDF812,0.129,Agustin ,,,,,
+2024-07-15,29,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,15800.0,Playón,655,FEJ852/LJH045,0.2559,Agustin ,,,,,
+2024-07-15,29,Lactosa,Remotti S.A.,,Federico Fogliatto,29000.0,Buffer,656,jXJ011/GDF812,0.1264,Gustavo,,,,,
+2024-07-15,29,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,28000.0,Buffer,657,WYQ411/AGS450,0.0809,Leonardo,,,,,
+2024-07-16,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,658,jXJ011/GDF812,0.1149,Agustin ,,,,,
+2024-07-16,29,Purin(padrillera) ,Mauro Traversaro,,Mauro Traversaro,20000.0,Buffer,659,WTG 975,0.0461,Agustin ,,,,,
+2024-07-16,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28530.0,Buffer,660,jXJ011/GDF812,0.1277,Gustavo,,,,,
+2024-07-17,29,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,29040.0,Playón,661,FEJ852/AE310WL,0.3453,Agustin ,,,,,
+2024-07-17,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,662,jXJ011/GDF812,0.1315,Agustin ,,,,,
+2024-07-17,29,Suero ,Nonna Pia S.R.L.,laboulaye/Rufino,Agustin Cabeza,27640.0,Buffer,663,WYQ411/AGS450,0.0474,Gustavo,,,,,
+2024-07-18,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28600.0,Buffer,664,jXJ011/GDF812,0.0596,Agustin ,,,,,
+2024-07-18,29,Barrido Cargil,Cargill S.A.C.I.,,Don Victor,8060.0,Playón,665,AA648ZM/AF070NV,,Agustin ,,,,,
+2024-07-18,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28200.0,Buffer,666,JXJ011/GDF812,0.1291,Gustavo,,,,,
+2024-07-18,29,Suero ,Nonna Pia S.R.L.,Laboulaye/Rufino,Agustin Cabeza,27180.0,Buffer,667,WYQ411/AGS450,0.0423,Gustavo,,,,,
+2024-07-19,29,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,16440.0,Playón,668,FEJ852/AE310WL,0.2464,Leonardo,,,,,
+2024-07-19,29,Lactosa,Remotti S.A.,,Federico Fogliatto,28240.0,Buffer,669,JXJ011/GDF812,0.1304,Leonardo,,,,,
+2024-07-19,29,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4980.0,Buffer,670,WTG 975,0.5326,Leonardo,,,,,
+2024-07-19,29,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,2680.0,Playón,671,FBK151 / AD510FS,0.8764,Leonardo,,,,,
+2024-07-19,29,Suero ,Nonna Pia S.R.L.,Laboulaye/rufino,Agustin Cabeza,24880.0,Buffer,672,wYQ411/AGS450,0.0605,Gustavo,,,,,
+2024-07-19,29,Grasa,Gente de la Pampa S.A.,Catrilo,Transcereal S.A,39030.0,Playón,673,AA6482,0.9095,Gustavo,,,,,
+2024-07-20,29,Lactosa,Remotti S.A.,,Federico Fogliatto,30300.0,Buffer,674,JXJ011/GDF812,0.1269,Leonardo,,,,,
+2024-07-21,30,Lactosa,Remotti S.A.,,Federico Fogliatto,27760.0,Buffer,675,JXJ011/GDF812,0.1272,Leonardo,,,,,
+2024-07-22,30,Lactosa,Remotti S.A.,,Federico Fogliatto,28140.0,Buffer,676,JXJ011/GDF813,0.1329,Leonardo,,,,,
+2024-07-22,30,Suero ,Nonna Pia S.R.L.,Laboulaye/Rufino,Agustin Cabeza,27340.0,Buffer,677,WYQ411/AGS450,0.0666,Agustin ,,,,,
+2024-07-23,30,Lactosa,Remotti S.A.,,Federico Fogliatto,27380.0,Buffer,678,JXJ011/GDF812,0.1093,Leonardo,,,,,
+2024-07-23,30,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,29760.0,Playón,679,FEJ852/AE310WL,0.29,Leonardo,,,,,
+2024-07-23,30,Lactosa,Remotti S.A.,,Federico Fogliatto,27220.0,Buffer,680,VXV 011/ GDF 812,0.1148,Agustin ,,,,,
+2024-07-24,30,Lactosa,Remotti S.A.,,Federico Fogliatto,30340.0,Buffer,681,JXJ011/GDF813,0.1256,Leonardo,,,,,
+2024-07-24,30,Suero ,Nonna Pia S.R.L.,Laboulaye/Rufino,Agustin Cabeza,30940.0,Buffer,682,WYQ411/AGS450,0.07,Agustin ,,,,,
+2024-07-25,30,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18260.0,Playón,683,FEJ852/LJH045,0.2485,Cristián,,,,,
+2024-07-25,30,Lactosa,Remotti S.A.,,Federico Fogliatto,27780.0,Buffer,684,SXS011/JDF812,0.122,Agustin ,,,,,
+2024-07-25,30,Lactosa,Remotti S.A.,,Federico Fogliatto,29410.0,Buffer,685,KKS989/HQK297,0.1251,Agustin ,,,,,
+2024-07-26,30,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,686,AG001MB/UDF165,0.1187,Cristián,,,,,
+2024-07-26,30,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25280.0,Playón,687,FEJ852/LJH045,0.2615,Cristián,,,,,
+2024-07-26,30,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5540.0,Buffer,688,WTG 975,0.3061,Agustin ,,,,,
+2024-07-26,30,Suero ,Nonna Pia S.R.L.,Laboulaye/Rufino,Agustin Cabeza,30500.0,Buffer,689,WYQ411/AGS450,0.0477,Agustin ,,,,,
+2024-07-26,30,Purin(padrillera) ,Mauro Traversaro,,Mauro Traversaro,10000.0,Buffer,690,WTG 975,0.1839,Agustin ,,,,,
+2024-07-27,30,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,17860.0,Playón,691,KRQ062/NDN433,0.9563,Cristián,,,,,
+2024-07-27,30,Lactosa,Remotti S.A.,,Federico Fogliatto,30140.0,Buffer,692,HDG883/GDF812,0.1266,Cristián,,,,,
+2024-07-27,30,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,24496.0,Buffer,693,WYQ411/AGS450,0.0895,Leonardo,,,,,
+2024-07-28,31,Lactosa,Remotti S.A.,,Federico Fogliatto,28480.0,Buffer,694,HDG883/GDF812,0.1293,Cristián,,,,,
+2024-07-10,28,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,1620.0,Playón,695,,,Cristián,,,,,
+2024-07-11,28,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,2120.0,Playón,696,,,Cristián,,,,,
+2024-07-12,28,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,1740.0,Playón,697,,,Cristián,,,,,
+2024-07-15,29,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,1580.0,Playón,698,,,Cristián,,,,,
+2024-07-17,29,Descarte de maiz,Maria Elena S.A.,,Maria Elena S.A.,380.0,Playón,699,,,Cristián,,,,,
+2024-07-17,29,Descarte de trigo,Maria Elena S.A.,,Maria Elena S.A.,440.0,Playón,700,,,Cristián,,,,,
+2024-07-18,29,Descarte de trigo,Maria Elena S.A.,,Maria Elena S.A.,1960.0,Playón,701,,,Cristián,,,,,
+2024-07-23,30,Cebada,Maria Elena S.A.,,Maria Elena S.A.,2060.0,Playón,702,,,Cristián,,,,,
+2024-07-29,31,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,703,HDG883/GDF812,0.1345,Cristián,,,,,
+2024-07-29,31,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,3780.0,Playón,704,FBK151 / AD510FS,0.8371,Cristián,,,,,
+2024-07-30,31,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,705,HDG883/GDF812,0.1234,Cristián,,,,,
+2024-07-30,31,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,19680.0,Playón,706,GV1255/LJH045,0.2855,Cristián,,,,,
+2024-07-30,31,Lactosa,Remotti S.A.,,Federico Fogliatto,30120.0,Buffer,707,KKS989/HQK297,0.1179,Cristián,,,,,
+2024-07-30,31,Grasa,Gente de la Pampa S.A.,,Agricola camilletti,35160.0,Playón,708,ae762fc,0.7621,Cristián,,,,,
+2024-07-31,31,Lactosa,Remotti S.A.,,Federico Fogliatto,29040.0,Buffer,709,KKS989/HQK297,0.118,Leonardo,,,,,
+2024-07-31,31,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,20820.0,Playón,710,LL358 EVW176,0.95,Leonardo,,,,,
+2024-07-31,31,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,28160.0,Buffer,711,WYQ411/AGS450,0.0827,Leonardo,,,,,
+2024-08-01,31,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,712,HDG873/HQK247,0.1149,Gustavo,,,,,
+2024-08-01,31,Lactosa,Remotti S.A.,,Federico Fogliatto,28040.0,Buffer,713,HDG873/HQK248,0.1232,Leonardo,,,,,
+2024-08-01,31,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,22400.0,Buffer,714,WYQ411/AGS450,0.0779,Leonardo,,,,,
+2024-08-02,31,Lactosa,Remotti S.A.,,Federico Fogliatto,30480.0,Buffer,715,AG001MB/GDF812,0.1167,Gustavo,,,,,
+2024-08-02,31,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,24760.0,Playón,716,FEJ852/AE310WL,0.1854,Gustavo,,,,,
+2024-08-03,31,Lactosa,Remotti S.A.,,Federico Fogliatto,27740.0,Buffer,717,HDG873/HQK247,0.1268,Gustavo,,,,,
+2024-08-03,31,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4280.0,Buffer,718,WTG 975,0.4271,Cristián,,,,,
+2024-08-04,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28720.0,Buffer,719,AG001MB/GDF812,0.1241,Cristián,,,,,
+2024-08-05,32,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,14340.0,Playón,720,fEJ852/AE310WL,0.3533,Gustavo,,,,,
+2024-08-05,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,721,KKS989/GDF812,0.1229,Gustavo,,,,,
+2024-08-06,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28780.0,Buffer,722,HDG873/HQK247,0.1283,Agustin ,,,,,
+2024-08-06,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28060.0,Buffer,723,HDG873/HQK248,0.1264,Cristián,,,,,
+2024-08-07,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28340.0,Buffer,724,HDG873/HQK247,0.1261,Agustin ,,,,,
+2024-08-08,32,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,23550.0,Buffer,725,WYQ411/AGS450,0.0675,Gustavo,,,,,
+2024-08-08,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,726,HDG873/HQK247,0.1302,Gustavo,,,,,
+2024-08-09,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,727,HDG873/HQK247,0.1311,Leonardo,,,,,
+2024-08-09,32,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,30220.0,Playón,728,fEJ852/LJH045,0.4962,Gustavo,,,,,
+2024-08-09,32,Suero ,Nonna Pia S.R.L.,laboulaye,agustin Cabeza,19560.0,Buffer,729,wYQ411/AGS450,0.065,Gustavo,,,,,
+2024-08-10,32,Lactosa,Remotti S.A.,,Federico Fogliatto,28820.0,Buffer,730,hDG883/GDF812,0.121,Gustavo,,,,,
+2024-08-10,32,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4600.0,Buffer,731,wTG 975,0.3899,Gustavo,,,,,
+2024-08-11,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,732,HDG 873/GDF 812,0.1238,Agustin ,,,,,
+2024-08-12,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28120.0,Buffer,733,HDG 873/GDF 813,0.1266,Agustin ,,,,,
+2024-08-12,33,Purin(Granja),Mauro Traversaro,,mauro Traversaro,4.48,Buffer,734,WTG 975,0.0193,Agustin ,,,,,
+2024-08-12,33,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18880.0,Buffer,735,fEJ852/LJH045,0.5167,Gustavo,,,,,
+2024-08-13,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28260.0,Buffer,736,HDG 873/GDF 813,0.1246,Leonardo,,,,,
+2024-08-13,33,Lactosa,Remotti S.A.,,Federico Fogliatto,27700.0,Buffer,737,hDG 873/GDF 812,0.1195,Gustavo,,,,,
+2024-08-14,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,738,hDG 873/GDF 813,0.1233,Leonardo,,,,,
+2024-08-14,33,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,22080.0,Buffer,739,AXC019/AGJ050,0.0647,Agustin ,,,,,
+2024-08-15,33,Lactosa,Remotti S.A.,,Federico Fogliatto,27660.0,Buffer,741,hDG 873/GDF 813,0.1214,Leonardo,,,,,
+2024-08-15,33,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,740,KKS989/GDF812,0.1222,Agustin ,,,,,
+2024-08-16,33,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,30920.0,Playón,742,fEJ852/LJH045,0.2108,Leonardo,,,,,
+2024-08-16,33,Purin(Granja),Mauro Traversaro,"Factura, para la granja.",mauro Traversaro,24896.0,Buffer,SIN FACT,SIN FACT,0.059,Leonardo,,,,,
+2024-08-16,33,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,743,hDG 873/GDF 813,0.1168,Leonardo,,,,,
+2024-08-17,33,Lactosa,Remotti S.A.,,Federico Fogliatto,30620.0,Buffer,744,HDG873 JOF165,0.1175,Leonardo,,,,,
+2024-08-17,33,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4640.0,Buffer,745,WTG 975,0.7263,Agustin ,,,,,
+2024-08-18,34,Lactosa,Remotti S.A.,,Federico Fogliatto,28020.0,Buffer,746,HDG 873/GDF 812,0.1211,Gustavo,,,,,
+2024-08-19,34,Lactosa,Remotti S.A.,,Federico Fogliatto,30360.0,Buffer,747,hDG 873/GDF 812,0.1212,Gustavo,,,,,
+2024-08-19,34,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,16300.0,Playón,748,fEJ852/LJH045,0.2218,Cristián,,,,,
+2024-08-20,34,Lactosa,Remotti S.A.,,Federico Fogliatto,28200.0,Buffer,749,hDG 873/GDF 813,0.1111,Cristián,,,,,
+2024-08-20,34,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,750,hDG 873/GDF 812,0.1209,Leonardo,,,,,
+2024-08-21,34,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,751,hDG 873/GDF 813,0.1113,Cristián,,,,,
+2024-08-21,34,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,22960.0,Buffer,752,AXC019/AGJ050,0.0704,Leonardo,,,,,
+2024-08-22,34,Lactosa,Remotti S.A.,,Federico Fogliatto,28040.0,Buffer,753,AXC019/AGJ051,0.1267,Cristián,,,,,
+2024-08-22,34,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,27820.0,Playón,754,fEJ852/LJH045,0.274,Cristián,,,,,
+2024-08-22,34,Lactosa,Remotti S.A.,,Federico Fogliatto,29180.0,Buffer,755,AXC019/AGJ051,0.1253,Cristián,,,,,
+2024-08-23,34,Lactosa,Remotti S.A.,,Federico Fogliatto,27690.0,Buffer,756,hDG 873/GDF 813,0.1304,Leonardo,,,,,
+2024-08-23,34,Suero ,Nonna Pia S.R.L.,Laboulaye,Agustin Cabeza,23670.0,Buffer,757,AXC019/AGJ051,0.0688,Leonardo,,,,,
+2024-08-24,34,Lactosa,Remotti S.A.,,Federico Fogliatto,29240.0,Buffer,758,AXC019/AGJ051,0.1222,Gustavo,,,,,
+2024-08-24,34,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5340.0,Buffer,759,WTG 975,0.4174,Leonardo,,,,,
+2024-08-24,34,Purin(Padrillera),Mauro Traversaro,"Factura, para la granja.",mauro Traversaro,14829.0,Buffer,SIN FACT,SIN FACT,,Leonardo,,,,,
+2024-08-25,35,Lactosa,Remotti S.A.,,Federico Fogliatto,29180.0,Buffer,760,KKS989/HQK247,0.1261,Gustavo,,,,,
+2024-08-26,35,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,16640.0,Playón,761,fEJ852/LJH045,0.2403,Gustavo,,,,,
+2024-08-26,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27340.0,Buffer,762,kKS989/HQK247,0.1267,Gustavo,,,,,
+2024-08-26,35,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,24500.0,Playón,763,FBK151/AD510FJ,0.8525,Cristián,,,,,
+2024-08-27,35,Lactosa,Remotti S.A.,,Federico Fogliatto,28120.0,Buffer,764,hDG 873/GDF 812,0.1269,Gustavo,,,,,
+2024-08-27,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,765,hDG 873/GDF 812,0.1294,Cristián,,,,,
+2024-08-28,35,Lactosa,Remotti S.A.,,Federico Fogliatto,29160.0,Buffer,766,kKS989/HQK247,0.1272,Gustavo,,,,,
+2024-08-28,35,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,35120.0,Playón,767,fEJ852/LJH045,0.3033,Gustavo,,,,,
+2024-08-28,35,Lactosa,Remotti S.A.,,Federico Fogliatto,28220.0,Buffer,768,hDG 873/GDF 812,0.1233,Gustavo,,,,,
+2024-08-29,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27980.0,Buffer,769,GDF812/HDG875,0.1298,Cristián,,,,,
+2024-08-30,35,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,770,hDG 873/GDF 812,0.1225,Agustin ,,,,,
+2024-08-30,35,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,21260.0,Playón,771,fEJ852/LJH045,0.275,Agustin ,,,,,
+2024-09-02,36,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,772,GDF812/JXJ011,0.124,Agustin ,,,,,
+2024-09-02,36,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4720.0,Buffer,773,WTG 975,0.3816,Agustin ,,,,,
+2024-09-02,36,purin(Padrillera),Mauro Traversaro,"Factura, para la granja.",Mauro Traversaro,15000.0,Buffer,SIN FACT,WTG 976,0.0712,Gustavo,,,,,
+2024-09-02,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,774,gDF812/JXJ011,0.1128,Gustavo,,,,,
+2024-09-03,36,Lactosa,Remotti S.A.,,Federico Fogliatto,27800.0,Buffer,775,VXV247/HQK247,0.1248,Agustin ,,,,,
+2024-09-03,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,776,KKS989/GDF165,0.1213,Agustin ,,,,,
+2024-09-04,36,Lactosa,Remotti S.A.,,Federico Fogliatto,27420.0,Buffer,777,VXV247/HQK247,0.1217,Agustin ,,,,,
+2024-09-05,36,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,778,VXV247/HQK247,0.1201,Leonardo,,,,,
+2024-09-05,36,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,34240.0,Playón,779,fEJ852/LJH045,0.21,Leonardo,,,,,
+2024-09-05,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28860.0,Buffer,780,kKS989/HQK247,0.1218,Gustavo,,,,,
+2024-09-06,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28340.0,Buffer,781,kKS989/HQK247,0.1227,Leonardo,,,,,
+2024-09-06,36,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,16960.0,Playón,782,fEJ852/LJH045,0.2323,Leonardo,,,,,
+2024-09-07,36,Lactosa,Remotti S.A.,,Federico Fogliatto,28630.0,Buffer,783,kKS989/HQK247,0.1218,Leonardo,,,,,
+2024-09-07,36,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5160.0,Buffer,784,WTG 975,0.5564,Leonardo,,,,,
+2024-09-08,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28660.0,Buffer,785,GDF812/JXJ011,0.1238,Leonardo,,,,,
+2024-09-09,37,Lactosa,Remotti S.A.,,Federico Fogliatto,27760.0,Buffer,786,GDF812/JXJ011,0.1236,Leonardo,,,,,
+2024-09-10,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28160.0,Buffer,787,GDF812/JXJ011,0.1274,Leonardo,,,,,
+2024-09-10,37,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,15220.0,Playón,788,FBK151 / AD510FS,0.7336,Leonardo,,,,,
+2024-09-10,37,Lactosa,Remotti S.A.,,Federico Fogliatto,27600.0,Buffer,789,VXV011/GDF812,0.1343,Agustin ,,,,,
+2024-09-11,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,790,GDF812/JXJ011,0.1228,Cristián,,,,,
+2024-09-11,37,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,28320.0,Playón,791,fEJ852/LJH045,0.3371,Cristián,,,,,
+2024-09-12,37,Lactosa,Remotti S.A.,,Federico Fogliatto,29320.0,Buffer,792,GDF812/JXJ011,0.1355,Cristián,,,,,
+2024-09-12,37,Lactosa,Remotti S.A.,,Federico Fogliatto,27200.0,Buffer,793,KKS989/HQK247,0.1327,Cristián,,,,,
+2024-09-13,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28100.0,Buffer,794,hDG 873/GDF 812,0.1301,Cristián,,,,,
+2024-09-13,37,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,20080.0,Playón,795,fEJ852/LJH045,0.3882,Cristián,,,,,
+2024-09-13,37,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4300.0,Buffer,796,WTG 975,0.3882,Cristián,,,,,
+2024-09-14,37,Lactosa,Remotti S.A.,,Federico Fogliatto,28320.0,Buffer,797,hDG 873/GDF 812,0.1306,Cristián,,,,,
+2024-09-15,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28310.0,Buffer,798,hDG 873/GDF 812,0.132,Cristián,,,,,
+2024-09-16,38,Lactosa,Remotti S.A.,,Federico Fogliatto,26340.0,Buffer,799,hDG 873/JDF165,0.1294,Cristián,,,,,
+2024-09-17,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28660.0,Buffer,800,hDG 873/JDF165,0.1303,Cristián,,,,,
+2024-09-17,38,Lactosa,Remotti S.A.,,Federico Fogliatto,29160.0,Buffer,801,JXJ011/GDF812,0.1375,Cristián,,,,,
+2024-09-17,38,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25760.0,Playón,802,fEJ852/AE310WL,0.3242,Cristián,,,,,
+2024-09-18,38,Lactosa,Remotti S.A.,,Federico Fogliatto,27980.0,Buffer,803,hDG 873/GDF 812,0.1287,Gustavo,,,,,
+2024-09-18,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,804,hDG 873/GDF 812,0.1213,Leonardo,,,,,
+2024-09-19,38,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,13140.0,Playón,805,FEJ852/LJH045,0.3419,Gustavo,,,,,
+2024-09-19,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28660.0,Buffer,806,hDG 873/GDF 812,0.1198,Gustavo,,,,,
+2024-09-20,38,Lactosa,Remotti S.A.,,Federico Fogliatto,29200.0,Buffer,807,hDG 873/GDF 812,0.1313,Gustavo,,,,,
+2024-09-20,38,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5300.0,Buffer,808,WTG 975,0.4014,Gustavo,,,,,
+2024-09-21,38,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,809,hDG 873/GDF 812,0.1338,Gustavo,,,,,
+2024-09-22,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27120.0,Buffer,810,HDG 873/GDF 812,0.1279,Gustavo,,,,,
+2024-09-23,39,Lactosa,Remotti S.A.,,Federico Fogliatto,29860.0,Buffer,811,hDG 873/GDF 812,0.1335,Agustin ,,,,,
+2024-09-24,39,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,24360.0,Playón,812,FEJ852/LJH045,0.4232,Agustin ,,,,,
+2024-09-24,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,813,hDG 873/GDF 812,0.1303,Cristián,,,,,
+2024-09-24,39,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,7640.0,Playón,814,FBK151 / AD510FJ,,Cristián,,,,,
+2024-09-25,39,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,815,hDG 873/GDF 812,0.1199,Leonardo,,,,,
+2024-09-25,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,816,jxj011/jfd 165,0.1273,Agustin ,,,,,
+2024-09-25,39,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,17220.0,Playón,817,FEJ852/LJH045,0.248,Agustin ,,,,,
+2024-09-26,39,Lactosa,Remotti S.A.,,Federico Fogliatto,26600.0,buffer,818,AG001MB/JFD165,0.1214,Agustin ,,,,,
+2024-09-26,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27540.0,buffer,819,hDG 873/GDF 812,0.1295,Agustin ,,,,,
+2024-09-26,39,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5140.0,buffer,820,WTG 975,0.5804,Agustin ,,,,,
+2024-09-26,39,purin(Padrillera),Mauro Traversaro,"Factura, para la granja.",Mauro Traversaro,5000.0,buffer,SIN FACT,WTG 975,0.1077,Gustavo,,,,,
+2024-09-26,39,purin(Padrillera),Mauro Traversaro,"Factura, para la granja.",mauro Traversaro,5000.0,Buffer,SIN FACT,WTG 975,0.0675,Gustavo,,,,,
+2024-09-27,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27400.0,Buffer,821,jxj011,0.1255,Agustin ,,,,,
+2024-09-27,39,Dececho de girasol ,Blessing aceitera de ameghino,,Transcereal S.A,10540.0,Playón,822,FBK151 / AD510FJ,,Agustin ,,,,,
+2024-09-27,39,desechos de girasol,Blessing aceitera de ameghino,,Transcereal S.A,13760.0,Playón,823,KRQ062/NDN433,0.9365,Gustavo,,,,,
+2024-09-28,39,Lactosa,Remotti S.A.,,Federico Fogliatto,27800.0,Buffer,824,VXV011/GDF812,0.1289,Agustin ,,,,,
+2024-09-29,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27220.0,Buffer,825,GDF812/JXJ011,0.1289,Cristián,,,,,
+2024-09-30,40,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,21800.0,Playón,826,FEJ852/LJH045,0.256,Leonardo,,,,,
+2024-09-30,40,Lactosa,Remotti S.A.,,Federico Fogliatto,25180.0,Buffer,827,GDF812/JXJ011,0.1213,Leonardo,,,,,
+2024-10-01,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27200.0,Buffer,828,GDF812/JXJ011,0.1209,Cristián,,,,,
+2024-10-01,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27560.0,Buffer,829,GDF812/JXJ011,0.125,Leonardo,,,,,
+2024-10-01,40,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,21020.0,Playón,830,FEJ852/LJH045,0.2832,Leonardo,,,,,
+2024-10-02,40,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,831,hDG 873/GDF 812,0.1329,Leonardo,,,,,
+2024-10-03,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27240.0,Buffer,832,JXJ611/HFN3116,0.1168,Cristián,,,,,
+2024-10-03,40,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,29600.0,Playón,840,FEJ852/LJH045,0.2632,Cristián,,,,,
+2024-10-03,40,Lactosa,Remotti S.A.,,Federico Fogliatto,27960.0,Buffer,833,FEJ852/LJH045,0.1348,Leonardo,,,,,
+2024-10-04,40,Lactosa,Remotti S.A.,,Federico Fogliatto,28080.0,Buffer,835,JXJ611/HFN3116,0.1333,Gustavo,,,,,
+2024-10-04,40,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5380.0,Buffer,836,WTG 975,0.722,Leonardo,,,,,
+2024-10-05,40,Lactosa,Remotti S.A.,,Federico Fogliatto,28830.0,Buffer,837,JXJ611/HFN346,0.1323,Gustavo,,,,,
+2024-10-06,41,Lactosa,Remotti S.A.,,Federico Fogliatto,27900.0,Buffer,838,JXJ611/HFN346,0.1307,Gustavo,,,,,
+2024-10-07,41,Lactosa,Remotti S.A.,,Federico Fogliatto,25850.0,Buffer,839,jXJ611/HFN346,0.1233,Gustavo,,,,,
+2024-10-07,41,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,15120.0,Playón,840,FEJ852/LJH045,0.3068,Cristián,,,,,
+2024-10-08,41,Lactosa,Remotti S.A.,,Federico Fogliatto,30300.0,Buffer,841,jXJ611/HFN346,0.1346,Gustavo,,,,,
+2024-10-08,41,Lactosa,Remotti S.A.,,Federico Fogliatto,28690.0,Buffer,842,AG001MB/JFD165,0.132,Cristián,,,,,
+2024-10-08,41,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4800.0,buffer,843,WTG 975,0.6375,Leonardo,,,,,
+2024-10-09,41,Lactosa,Remotti S.A.,,Federico Fogliatto,29180.0,Buffer,844,AG001MB/JFD165,0.1307,Gustavo,,,,,
+2024-10-10,41,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,845,JXJ011/AFN396,0.1288,Agustin ,,,,,
+2024-10-10,41,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,30180.0,Playón,846,FEJ852/LJH045,0.2384,Cristián,,,,,
+2024-10-10,41,Lactosa,Remotti S.A.,,Federico Fogliatto,29110.0,Buffer,847,JXJ011/AFN396,0.1288,Cristián,,,,,
+2024-10-11,41,Lactosa,Remotti S.A.,,Federico Fogliatto,28580.0,Buffer,848,JXJ011/AFN397,0.1291,Agustin ,,,,,
+2024-10-12,41,Lactosa,Remotti S.A.,,Federico Fogliatto,28900.0,Buffer,849,jXJ611/HFN346,0.1194,Gustavo,,,,,
+2024-10-13,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28300.0,Buffer,851,jXJ611/HFN346,0.1241,Agustin ,,,,,
+2024-10-14,42,Lactosa,Remotti S.A.,,Federico Fogliatto,27950.0,buffer,852,HFN346/A66726Z,0.1261,Agustin ,,,,,
+2024-10-14,42,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,13200.0,Playón,853,fEJ852/LJH045,0.4703,Gustavo,,,,,
+2024-10-15,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28520.0,Buffer,854,AG672GZ/HFN346,0.122,Gustavo,,,,,
+2024-10-16,42,Lactosa,Remotti S.A.,,Federico Fogliatto,29180.0,Buffer,855,aG672GZ/HFN346,0.1193,Gustavo,,,,,
+2024-10-16,42,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4840.0,Buffer,856,WTG 975,0.4495,Gustavo,,,,,
+2024-10-17,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,857,AG672GZ/HFN346,0.127,Cristián,,,,,
+2024-10-17,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,858,AG672GZ/HFN347,0.1254,Leonardo,,,,,
+2024-10-17,42,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,31320.0,Playón,859,fEJ852/AE310WL,0.2402,Agustin ,,,,,
+2024-10-17,42,Barrido Cargil,Cargill S.A.C.I.,America,Transcereal S.A,14580.0,Playón,860,FBK151 / AD510FJ,0.7486,Agustin ,,,,,
+2024-10-18,42,Expeller de girasol,Blessing aceitera de Granada,Granada,Transcereal S.A,19020.0,Playón,861,FBK151 / AD510FJ,0.6238,Leonardo,,,,,
+2024-10-18,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28160.0,Buffer,862,JXJ011/AFN396,0.1225,Agustin ,,,,,
+2024-10-18,42,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18220.0,Playón,863,fEJ852/AE310WL,0.2273,Agustin ,,,,,
+2024-10-18,42,Expeller de girasol,Blessing aceitera de Granada,Granada,Transcereal S.A,22200.0,Playón,864,FBK151 / AD510FJ,0.6107,Agustin ,,,,,
+2024-10-19,42,Lactosa,Remotti S.A.,,Federico Fogliatto,28700.0,Buffer,865,JXJ011/AFN396,0.1176,Agustin ,,,,,
+2024-10-20,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28080.0,Buffer,866,JXJ011/AFN397,0.1251,Agustin ,,,,,
+2024-10-21,43,Lactosa,Remotti S.A.,,Federico Fogliatto,27220.0,Buffer,867,JXJ011/AFN398,0.1271,Leonardo,,,,,
+2024-10-21,43,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4500.0,Buffer,868,WTG 975,0.6961,Gustavo,,,,,
+2024-10-22,43,Lactosa,Remotti S.A.,,Federico Fogliatto,29400.0,Buffer,869,JXJ011/JFD185,0.1277,Agustin ,,,,,
+2024-10-22,43,Lactosa,Remotti S.A.,,Federico Fogliatto,29940.0,Buffer,870,A66726Z/HFN346,0.1242,Agustin ,,,,,
+2024-10-25,43,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4660.0,Buffer,871,WTG 975,0.705,Leonardo,,,,,
+2024-10-25,43,Lactosa,Remotti S.A.,,Federico Fogliatto,27800.0,Buffer,872,JXJ011/HFN346,0.1303,Agustin ,,,,,
+2024-10-26,43,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,873,JXJ011/HFN346,0.1323,Cristián,,,,,
+2024-10-27,44,Lactosa,Remotti S.A.,,Federico Fogliatto,26900.0,Buffer,874,JXJ011/HFN347,0.1367,Leonardo,,,,,
+2024-10-28,44,Lactosa,Remotti S.A.,,Federico Fogliatto,27940.0,Buffer,875,A66726Z/HFN346,0.1259,Gustavo,,,,,
+2024-10-28,44,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25640.0,Playón,876,fEJ852/AE310WL,0.2795,Leonardo,,,,,
+2024-10-28,44,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5260.0,Buffer,877,WTG 975,0.6797,Leonardo,,,,,
+2024-10-29,44,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,16920.0,Playón,879,fEJ852/AE310WL,0.4235,Cristián,,,,,
+2024-10-29,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29880.0,Buffer,879,A66726Z/HFN346,0.1321,Cristián,,,,,
+2024-10-30,44,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18880.0,Playón,882,fEJ852/AE310WL,0.2258,Cristián,,,,,
+2024-10-29,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29420.0,Buffer,880,A66726Z/HFN346,0.132,Cristián,,,,,
+2024-10-30,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28840.0,Buffer,881,a66726Z/HFN346,0.1286,Gustavo,,,,,
+2024-10-30,44,Grasa,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18900.0,Playón,883,fEJ852/AE310WL,0.7294,Agustin ,,,,,
+2024-10-31,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29500.0,Buffer,884,A66726Z/HFN346,0.1296,Gustavo,,,,,
+2024-10-31,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29380.0,Buffer,885,A66726Z/HFN346,0.1301,Cristián,,,,,
+2024-11-01,44,Lactosa,Remotti S.A.,,Federico Fogliatto,29260.0,Buffer,886,A66726Z/HFN346,0.1288,Gustavo,,,,,
+2024-11-01,44,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,27980.0,Playón,887,fEJ852/AE310WL,0.2727,Cristián,,,,,
+2024-11-01,44,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,16640.0,Playón,888,FBK151 / AD510FS,0.7323,Cristián,,,,,
+2024-11-01,44,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4620.0,Buffer,889,WTG 975,0.561,Cristián,,,,,
+2024-11-02,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28800.0,Buffer,890,AG672GZ/HFN346,0.1272,Gustavo,,,,,
+2024-11-02,44,Lactosa,Remotti S.A.,,Federico Fogliatto,28168.0,Buffer,891,AG672GZ/HFN347,0.1291,Leonardo,,,,,
+2024-11-05,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29060.0,Buffer,892,AG672GZ/HTN346,0.1276,Agustin ,,,,,
+2024-11-05,45,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,14000.0,Playón,893,FEJ852/AE310WL,0.2695,Gustavo,,,,,
+2024-11-05,45,Lactosa,Remotti S.A.,,Federico Fogliatto,28880.0,Buffer,894,AG672GZ/HFN346,0.1222,Gustavo,,,,,
+2024-11-06,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29220.0,Buffer,895,AG672GZ/HFN346,0.1239,Gustavo,,,,,
+2024-11-06,45,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4920.0,Buffer,896,WTG 975,0.4331,Gustavo,,,,,
+2024-11-07,45,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25140.0,Playón,897,FEJ852/AE310WL,0.2893,Gustavo,,,,,
+2024-11-07,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29960.0,Buffer,898,AG672GZ/HFN346,0.1211,Gustavo,,,,,
+2024-11-07,45,Lactosa,Remotti S.A.,,Federico Fogliatto,29040.0,Buffer,899,AG6873/HNT346FF,0.1176,Cristián,,,,,
+2024-11-08,45,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,14660.0,Playón,900,fEJ852/AE310WL,0.3097,Gustavo,,,,,
+2024-11-08,45,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,901,A66726Z/HFN346,0.1174,Gustavo,,,,,
+2024-11-09,45,Lactosa,Remotti S.A.,,Federico Fogliatto,28700.0,Buffer,902,AG672GZ/HFN346,0.1235,Gustavo,,,,,
+2024-11-10,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28740.0,Buffer,903,AG672GZ/HTN346,0.1257,Agustin ,,,,,
+2024-11-11,46,Lactosa,Remotti S.A.,,Federico Fogliatto,27380.0,Buffer,904,AG672GZ/HTN346,0.1201,Agustin ,,,,,
+2024-11-11,46,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5280.0,Buffer,905,WTG 975,0.4079,Agustin ,,,,,
+2024-11-12,46,Lactosa,Remotti S.A.,,Federico Fogliatto,29120.0,Buffer,906,AG672GZ/HTN346,0.122,Agustin ,,,,,
+2024-11-12,46,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,21420.0,Playón,907,FEJ852/AE310WL,0.2035,Agustin ,,,,,
+2024-11-12,46,Lactosa,Remotti S.A.,,Federico Fogliatto,29280.0,Buffer,908,AG672GZ/HNT346,0.1304,Agustin ,,,,,
+2024-11-13,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28760.0,Buffer,909,AG672GZ/HNT346,0.1302,Agustin ,,,,,
+2024-11-13,46,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,16560.0,Playón,910,FEJ852/AE310WL,0.254,Agustin ,,,,,
+2024-11-14,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28660.0,Buffer,911,AG672GZ/HNT346,0.131,Agustin ,,,,,
+2024-11-14,46,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5040.0,Buffer,912,WTG 975,0.6876,Agustin ,,,,,
+2024-11-14,46,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,22540.0,Playón,913,AC611K6/AC55512, ,Agustin ,,,,,
+2024-11-14,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28880.0,Buffer,914,AG672GZ/HNT346,0.1235,Agustin ,,,,,
+2024-11-14,46,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,20860.0,Playón,915,AE314EA/AO516YW,0.827,Agustin ,,,,,
+2024-11-15,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28080.0,Buffer,916,AG672GZ/HNT346,0.1201,Agustin ,,,,,
+2024-11-15,46,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,23780.0,Playón,917,AC611K6/AC55512,0.6922,Agustin ,,,,,
+2024-11-16,46,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,918,AG672GZ/HNT346,0.1336,Leonardo,,,,,
+2024-11-16,46,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,26000.0,Playón,919,AC611K6/AC55512,0.5574,Leonardo,,,,,
+2024-11-16,46,Lactosa,Remotti S.A.,,Federico Fogliatto,28120.0,Buffer,920,AG672GZ/HNT346,0.125,Gustavo,,,,,
+2024-11-18,47,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,20200.0,Playón,921,FEJ852/AE310WL,0.2804,Leonardo,,,,,
+2024-11-18,47,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,34820.0,Playón,922,AA648ZM/AF070NV,0.657,Agustin ,0.6834,,,,
+2024-11-19,47,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,923,AG672GZ/HNT346,0.1213,Leonardo,104220,,,,
+2024-11-19,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,924,AG672GZ/HNT346,0.131,Agustin ,,,,,
+2024-11-20,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,925,AG672GZ/HNT346,0.1325,Leonardo,,,,,
+2024-11-20,47,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5180.0,Buffer,926,WTG 975,0.4326,Leonardo,,,,,
+2024-11-21,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,927,AG672GZ/HNT346,0.1247,Gustavo,,,,,
+2024-11-21,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,928,AG672GZ/HNT347,0.1219,Leonardo,,,,,
+2024-11-22,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,929,AG672GZ/HNT348,0.1236,Cristián,,,,,
+2024-11-22,47,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,20200.0,Playón,930,FEJ852/AE310WL,0.253,Agustin ,,,,,
+2024-11-23,47,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,15480.0,Playón,931,FEJ852/AE310WL,0.3756,Cristián,,,,,
+2024-11-23,47,Lactosa,Remotti S.A.,,Federico Fogliatto,28400.0,Buffer,932,AG672GZ/HNT348,0.1225,Cristián,,,,,
+2024-11-24,48,Lactosa,Remotti S.A.,,Federico Fogliatto,29400.0,Buffer,933,aG672GZ/HNT346,0.1205,Gustavo,,,,,
+2024-11-26,48,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4580.0,Buffer,934,WTG 975,0.6649,Cristián,,,,,
+2024-11-27,48,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,25660.0,Playón,935,FEJ852/AE310WL,0.4683,Cristian,,,,,
+2024-11-27,48,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,14520.0,Playón,936,FBK151,0.8978,Cristian,,,,,
+2024-11-29,48,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,17880.0,Playón,937,FEJ852/AE310WL,0.3278,Gustavo,,,,,
+2024-11-30,48,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,5120.0,Buffer,938,WTG 975,0.7659,Gustavo,,,,,
+2024-10-28,48,Descarte de Maiz,Maria Elena S.A.,,Maria Elena S.A.,1120.0,Playón,939,,,Gustavo,,,,,
+2024-10-30,48,Descarte de Maiz,Maria Elena S.A.,,Maria Elena S.A.,600.0,Playón,940,,,Gustavo,,,,,
+2024-11-05,48,Descarte de Maiz,Maria Elena S.A.,,Maria Elena S.A.,300.0,Playón,941,,,Gustavo,,,,,
+2024-11-27,48,Descarte de Maiz,Maria Elena S.A.,,Maria Elena S.A.,700.0,Playón,942,,,Gustavo,,,,,
+2024-11-29,48,Descarte de Maiz,Maria Elena S.A.,,Maria Elena S.A.,800.0,Playón,943,,,Gustavo,,,,,
+2024-11-30,48,Descarte de Trigo,Maria Elena S.A.,,Maria Elena S.A.,1180.0,Playón,944,,,Gustavo,,,,,
+2024-11-02,48,Descarte de Trigo,Maria Elena S.A.,,Maria Elena S.A.,2400.0,Playón,945,,,Gustavo,,,,,
+2024-12-04,49,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,20660.0,Playón,946,FEJ852/AE310WL,0.3247,Agustin ,,,,,
+2024-12-04,49,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4560.0,Buffer,947,WTG 975,0.7276,Agustin ,,,,,
+2024-12-06,49,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,17300.0,Playón,948,fEJ852/AE310WL,0.4556,Gustavo,,,,,
+2024-11-09,50,Descarte de Trigo,Maria Elena S.A.,,Maria Elena S.A.,7540.0,Playón,949,,,Lautaro,peso neto de 3 remitos juntos (semanas anteriores),,,,
+2024-12-10,50,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4640.0,Buffer,950,WTG 975,0.5797,Lautaro,,,,,
+2024-12-11,50,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,951,AG672GZ/HFN346,0.1278,Lautaro,,,,,
+2024-12-11,50,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,28780.0,Playón,952,fEJ852/AE310WL,0.4556,Gustavo,,,,,
+2024-12-12,50,Lactosa,Remotti S.A.,,Federico Fogliatto,27680.0,Buffer,953,AG672GZ/HFN346,0.1312,Leonardo,,,,,
+2024-12-12,50,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,954,AG672GZ/HFN346,0.1243,Lautaro,,,,,
+2024-12-12,50,Descarte de Trigo,Maria Elena S.A.,,Maria Elena S.A.,2080.0,Playón,955,,0.9432,Lautaro,,,,,
+2024-12-12,50,Descarte de Trigo,Maria Elena S.A.,,Maria Elena S.A.,2346.0,Playón,956,,0.8979,Lautaro,,,,,
+2024-12-13,50,Lactosa,Remotti S.A.,,Federico Fogliatto,28580.0,Buffer,957,AG672GZ/HFN813,0.1218,Agustin ,,,,,
+2024-12-13,50,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,8460.0,Playón,958,FBK151/AD510FJ,0.8864,Agustin ,,,,,
+2024-12-13,50,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,14220.0,Playón,959,FEJ852/AE310WL,0.4923,Agustin ,,,,,
+2024-12-13,50,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,960,AG672GZ/HFN346,0.1219,Leonardo,,,,,
+2024-12-14,50,Goma Vegetal,América Pampa Agroind.,,mauro Traversaro,4920.0,Buffer,961,WTG 975,0.6467,Gustavo,,,,,
+2024-12-15,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,962,aG672GZ/HFN813,0.122,Gustavo,,,,,
+2024-12-16,51,Lactosa,Remotti S.A.,,Federico Fogliatto,27920.0,Buffer,963,AG672GZ/HFN346,0.1219,Agustin ,,,,,
+2024-12-17,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,964,AG672GZ/HFN813,0.1236,Gustavo,,,,,
+2024-12-17,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,965,AG672GZ/HFN813,0.1253,Cristian Lautaro ,,,,,
+2024-12-17,51,Goma Vegetal,América Pampa Agroind.,,Mauro Traversaro,4660.0,Buffer,966,WTG 975,0.6103,Cristian Lautaro ,,,,,
+2024-12-17,51,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,7720.0,Playón,967,HGF625/JVA641,0.9055,Agustin ,,,,,
+2024-12-17,51,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,25640.0,Playón,968,fEJ852/LJH045,0.4021,Cristian Lautaro ,,,,,
+2024-12-19,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28000.0,Buffer,969,JXJ011/HFN347,0.1214,Leonardo,,,,,
+2024-12-19,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28960.0,Buffer,970,AG672GZ/HFN813,0.125,Leonardo,,,,,
+2024-12-19,51,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,21020.0,Playón,971,FEJ852/AE310WL,0.4135,Leonardo,,,,,
+2024-12-20,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,972,AG672GZ/HFN813,0.122,Gustavo,,,,,
+2024-12-21,51,Lactosa,Remotti S.A.,,Federico Fogliatto,28590.0,Buffer,973,AG672GZ/HFN813,0.1237,Agustin ,,,,,
+2024-12-21,51,Goma Vegetal,América Pampa Agroind.,,mauro Traversaro,4600.0,Buffer,974,WTG 975,0.6317,Cristian Lautaro ,,,,,
+2024-12-22,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,975,AG672GZ/HFN813,0.1272,Leonardo,,,,,
+2024-12-23,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,976,AG672GZ/HFN813,0.1205,Agustin ,,,,,
+2024-12-23,52,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,10580.0,Playón,977,AG672GZ/HFN813,0.889,Agustin ,,,,,
+2024-12-24,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,978,AG672GZ/HFN813,0.1227,Agustin ,,,,,
+2024-12-24,52,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,979,JXJ011/GOF812,0.1245,Agustin ,,,,,
+2024-12-24,52,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,30200.0,Playón,980,fEJ852/AE310WL,0.4398,Gustavo,,,,,
+2024-12-25,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28740.0,Buffer,981,AG672GZ/HFN813,0.124,Cristian,,,,,
+2024-12-25,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28240.0,Buffer,982,AG672GZ/HFN813,0.1221,Cristian,,,,,
+2024-12-26,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,983,AG672GZ/HFN813,0.1223,Agustin ,,,,,
+2024-12-27,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,984,aG672GZ/HFN813,0.1205,Gustavo,,,,,
+2024-12-28,52,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,24408.0,Playón,985,fEJ852/AE310WL,0.253,Agustin ,,,,,
+2024-12-28,52,Lactosa,Remotti S.A.,,Federico Fogliatto,28560.0,Buffer,986,AG672GZ/HFN813,0.1269,Cristian,,,,,
+2024-12-29,53,Lactosa,Remotti S.A.,,Federico Fogliatto,28520.0,Buffer,987,AG672GZ/HFN813,0.1211,Agustin ,,,,,
+2024-12-30,53,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,988,AG672GZ/HFN813,0.1316,Leonardo Lautaro ,,,,,
+2024-12-31,53,Lactosa,Remotti S.A.,,Federico Fogliatto,28140.0,Buffer,989,AG672GZ/HFN813,0.1315,Leonardo,,,,,
+2024-12-31,53,Lactosa,Remotti S.A.,,Federico Fogliatto,28320.0,Buffer,990,AG672GZ/HFN813,0.1277,Agustin ,,,,,
+2025-01-01,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28321.0,Buffer,991,AG672GZ/HFN814,0.1244,Gustavo,,,,,
+2025-01-02,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,1001,AG672GZ/HFN813,0.1341,Lautaro,,,,,
+2025-01-02,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28500.0,Buffer,992,aG672GZ/HFN813,0.1267,Gustavo,,,,,
+2025-01-03,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,993,AG572GZ/GDF812,0.1236,Lautaro,,,,,
+2025-01-04,1,Lactosa,Remotti S.A.,,Federico Fogliatto,28140.0,Buffer,994,AG672GZ/HFN813,0.1214,Cristián,(Carga sin remito de Remotti),,,,
+2025-01-05,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28600.0,Buffer,995,AG672GZ/HFN814,0.1227,Cristián,,,,,
+2025-01-06,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,996,AG672GZ/HFN815,0.1041,Leonardo,,,,,
+2025-01-06,2,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,22080.0,Playón,997,FEJ852/AE310WL,0.2597,Leonardo,,,,,
+2025-01-06,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28680.0,Buffer,998,AG672GZ/HFN815,0.1053,Cristián,,,,,
+2025-01-07,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28260.0,Buffer,999,AGG7267/HFN813,0.123,Agustin ,,,,,
+2025-01-08,2,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,20220.0,Buffer,1002,FEJ852/AE310WL,0.312,Agustin ,,,,,
+2025-01-08,2,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Granada,Transcereal S.A,26860.0,Playón,1003,FVN779/AF024PT,0.7302,Agustin ,,,,,
+2025-01-08,2,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Granada,Transcereal S.A,23200.0,Playón,1004,BZ6008/AB79CP,0.8013,Agustin ,,,,,
+2025-01-09,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28520.0,Buffer,1005,AG672GZ/HFN813,0.1127,Lautaro,,,,,
+2025-01-09,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28420.0,Buffer,1006,AG672GZ/HFN814,0.114,Cristián,,,,,
+2025-01-10,2,Goma Vegetal,América Pampa Agroind.,,mauro Traversaro,4680.0,Buffer,1007,WTG 975,0.8241,Cristián,,,,,
+2025-01-10,2,Lactosa,Remotti S.A.,,Federico Fogliatto,28580.0,Buffer,1008,AG672GZ/HFN813,0.1219,Agustin ,,,,,
+2025-01-11,2,Lactosa,Remotti S.A.,,Federico Fogliatto,29120.0,Buffer,1009,AG672GZ/HFN814,0.1172,Leonardo,,,,,
+2025-01-12,3,Lactosa,Remotti S.A.,,Federico Fogliatto,29100.0,Buffer,1010,AG672GZ/HFN814,0.1216,David,,,,,
+2025-01-13,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28760.0,Buffer,1012,HFT813,0.1153,seba,,,,,
+2025-01-13,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,21600.0,Playón,1013,KNR,0.9387,seba,,,,,
+2025-01-13,3,Colza,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,23680.0,Playón,1014,MQN578,0.8919,seba,,,,,
+2025-01-13,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,20370.0,Playón,1015,,0.9434,seba,,,,,
+2025-01-13,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,18060.0,Playón,1016,ETE857-ETU 54,0.9433,Leonardo,,,,,
+2025-01-14,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28360.0,Buffer,1017,HFT813/AG672GZ,0.1203,Cristián,,,,,
+2025-01-14,3,Goma Vegetal,América Pampa Agroind.,,mauro Traversaro,5440.0,Buffer,1018,WTG 975,0.6103,Cristián,,,,,
+2025-01-14,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,17720.0,Playón,1019,AC611KG,0.6058,Cristián,,,,,
+2025-01-14,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,23380.0,Playón,1020,"AB962,YV",0.6623,Cristián,,,,,
+2025-01-14,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,23520.0,Playón,1021,ETE857-ETU 54,0.6549,Leonardo,,,,,
+2025-01-14,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27040.0,Buffer,1022,HFT813/AG672GZ,0.1105,Leonardo,,,,,
+2025-01-14,3,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,25900.0,Playón,1023,FEJ852/AE310WL,,Leonardo,,,,,
+2025-01-15,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27960.0,Buffer,1024,AG672GZ/HFN813,0.1226,Agustin ,,,,,
+2025-01-15,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,22640.0,Playón,1025,FBK151,,Lautaro,,,,,
+2025-01-14,3,Expeller de girasol,Blessing Aceitera de Ameghino S.A.,Ameghino,Transcereal S.A,20720.0,Playón,1029,HFT813/AG672GZ,,Leonardo,,,,,
+2025-01-15,3,Expeller de girasol,Expeller de girasol,,Transcereal S.A,22920.0,Playón,1026,ETE857-ETU 54,,Leonardo,,,,,
+2025-01-16,3,Lactosa,Remotti S.A.,,Federico Fogliatto,29480.0,Buffer,1027,AG672GZ/HFN813,0.124,Agustin ,,,,,
+2025-01-16,3,Lactosa,Remotti S.A.,,Federico Fogliatto,27880.0,Buffer,1028,,,Leonardo,,,,,
+2025-01-17,3,Contenido ruminal ,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,23580.0,Playón,1030,FEJ852/LJH045,,Lautaro,,,,,
+2025-01-17,3,Lactosa,Remotti S.A.,,Federico Fogliatto,28940.0,Buffer,1031,AG672GZ/HFN813,0.1209,Lautaro,,,,,
+2025-01-19,4,Lactosa,Remotti S.A.,,Federico Fogliatto,29120.0,Buffer,1032,AG672GZ/HFN813,0.1242,seba,,,,,
+2025-01-20,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28340.0,Buffer,1033,AG672GZ/HFN813,0.133,seba,,,,,
+2025-01-20,4,Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,18700.0,Playón,1034,FEJ852/LJH045,0.3039,seba,,,,,
+2025-01-20,4,Goma Vegetal,América Pampa Agroind.,America,mauro Traversaro,4720.0,Buffer,1035,WTG 975,0.5711,seba,,,,,
+2025-01-21,4,Lactosa,Remotti S.A.,,Federico Fogliatto,29140.0,Buffer,1036,AG672GZ/HFN813,0.118,Lautaro,,,,,
+2025-01-21,4,Barrido Cargil,Cargill S.A.C.I.,,Transcereal S.A,11760.0,Playón,1037,AG547OS/AF337VU,0.8851,Agustin ,,,,,
+2025-01-21,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28380.0,Buffer,1038,AG672GZ/HFN813,0.1211,Agustin ,,,,,
+2025-01-22,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,1039,AG672GZ/HFN813,,seba,,,,,
+2025-01-22,4,Grasa,S.A. Imp. y Exp. de la Patagonia,,Transcereal S.A,30040.0,Playón,1040,AA648ZM/AF070NV,0.5265,Agustin ,,,,,
+2025-01-22,4,Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,27640.0,Playón,1041,FEJ852/LJH045,0.4446,Agustin ,,,,,
+2025-01-23,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28660.0,Buffer,1042,AG672GZ/HFN396,0.1271,Agustin ,,,,,
+2025-01-23,4,Grasa,S.A. Imp. y Exp. de la Patagonia,,Transcereal S.A,27340.0,Playón,1043,AG547OS/AF337VU,0.7671,Agustin ,,,,,
+2025-01-23,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28460.0,Buffer,1044,AG672GZ/HFN346,0.1252,Gustavo,,,,,
+2025-01-24,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28440.0,Buffer,1045,AG672GZ/HFN396,0.121,Agustin ,,,,,
+2025-01-24,4,Goma Vegetal,América Pampa Agroind.,America,mauro Traversaro,4820.0,Buffer,1046,WTG 975,0.5443,Agustin ,,,,,
+2025-01-24,4,Ruminal,S.A. Imp. y Exp. de la Patagonia,,murcia Mariana,24520.0,Playón,1047,fEJ852/LJH045,0.2477,Gustavo,,,,,
+2025-01-25,4,Lactosa,Remotti S.A.,,Federico Fogliatto,28920.0,Buffer,1048,AG672GZ/HFN396,0.123,Agustin ,,,,,
+2025-01-25,4,Grasa,S.A. Imp. y Exp. de la Patagonia,,Transcereal S.A,27720.0,Playón,1049,AA648ZM/AF070NV,0.6639,Agustin ,,,,,
+2025-01-26,5,Lactosa,Remotti S.A.,,Federico Fogliatto,27580.0,Buffer,1050,AG672GZ/HFN396,0.1235,Agustin ,,,,,
+2025-01-27,5,Lactosa,Remotti S.A.,,Federico Fogliatto,27760.0,Buffer,1051,ag672GZ/HFN396,0.1222,Gustavo,,,,,
+2025-01-28,5,Ruminal,S.A. Imp. y Exp. de la Patagonia,,Murcia Mariana,28000.0,Playón,1054,FEJ852/LJH045,0.2076,Gustavo,,,,,
+2025-01-29,5,Lactosa,Remotti S.A.,,Federico Fogliatto,28540.0,Buffer,1055,AG672GZ/HFN346,0.132,Gustavo,,,,,
+2025-01-29,5,Lactosa,Remotti S.A.,,Federico Fogliatto,28580.0,Buffer,1056,AG672GZ/HFN347,,Lautaro,,,,,
+2025-01-29,5,Goma Vegetal,América Pampa Agroind.,America,mauro Traversaro,5200.0,Buffer,1057,WTG 975,,Lautaro,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,
+,0,,,,,,,,,,,,,,,

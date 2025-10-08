@@ -1,0 +1,12 @@
+{
+  "type": "numpy.lstsq",
+  "target": "caudal_chp_ls",
+  "intercept": 164.3130316742081,
+  "coefficients": {},
+  "metrics": {
+    "r2": -2.220446049250313e-16,
+    "mae": 35.57183404653196,
+    "n": 663
+  },
+  "features": []
+}

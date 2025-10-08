@@ -8,7 +8,7 @@ Módulo que integra el sistema de voz con la calculadora rápida y el asistente 
 import logging
 import json
 from typing import Dict, Any, Optional
-from voice_system_advanced import voice_system, speak, speak_calculator_result, speak_assistant_response
+from web_voice_system import web_voice_system, generate_voice_audio, VoiceEngine
 
 logger = logging.getLogger(__name__)
 
@@ -52,8 +52,11 @@ class VoiceIntegration:
         """Hablar resultado de la calculadora"""
         if not self.enabled or not self.calculator_voice:
             return False
-        
+
         try:
+            # Preferir Edge-TTS por naturalidad
+            web_voice_system.set_engine(VoiceEngine.EDGE_TTS)
+
             # Construir mensaje detallado del resultado
             totales = result.get('totales', {})
             kw_total = totales.get('kw_total_generado', 0)
@@ -62,43 +65,30 @@ class VoiceIntegration:
             tn_solidos = totales.get('tn_solidos', 0)
             tn_liquidos = totales.get('tn_liquidos', 0)
             tn_purin = totales.get('tn_purin', 0)
-            
-            # Mensaje principal
+
             message = f"Calculo completado exitosamente. "
-            
-            # Información energética
             if kw_total > 0:
                 message += f"Se generaran {kw_total:.0f} kilovatios. "
-            
             if metano > 0:
                 message += f"El contenido de metano sera del {metano:.1f} por ciento. "
-            
-            # Información volumétrica
             if tn_total > 0:
                 message += f"Se utilizaran {tn_total:.1f} toneladas de material: "
-                
                 if tn_solidos > 0:
                     pct_solidos = (tn_solidos / tn_total) * 100
                     message += f"{pct_solidos:.1f} por ciento solidos, "
-                
                 if tn_liquidos > 0:
                     pct_liquidos = (tn_liquidos / tn_total) * 100
                     message += f"{pct_liquidos:.1f} por ciento liquidos, "
-                
                 if tn_purin > 0:
                     pct_purin = (tn_purin / tn_total) * 100
                     message += f"{pct_purin:.1f} por ciento purin. "
-            
-            # Advertencias si las hay
             advertencias = result.get('advertencias', [])
             if advertencias:
-                message += "Advertencias: "
-                for advertencia in advertencias[:2]:  # Máximo 2 advertencias
-                    message += f"{advertencia}. "
-            
-            logger.info(f"Hablando resultado de calculadora: {message[:100]}...")
-            return voice_system.speak(message)
-            
+                message += "Advertencias: " + ". ".join(advertencias[:2]) + ". "
+
+            logger.info(f"Generando audio para resultado de calculadora")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando resultado de calculadora: {e}")
             return False
@@ -110,8 +100,9 @@ class VoiceIntegration:
         
         try:
             message = f"Error en el calculo: {error_message}"
-            logger.info(f"Hablando error de calculadora: {message}")
-            return voice_system.speak(message)
+            logger.info(f"Generando audio de error de calculadora")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando error de calculadora: {e}")
             return False
@@ -138,8 +129,9 @@ class VoiceIntegration:
             if len(message) > 500:
                 message = message[:500] + "..."
             
-            logger.info(f"Hablando respuesta del asistente: {message[:100]}...")
-            return voice_system.speak(message)
+            logger.info(f"Generando audio para respuesta del asistente")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
             
         except Exception as e:
             logger.error(f"Error hablando respuesta del asistente: {e}")
@@ -152,8 +144,9 @@ class VoiceIntegration:
         
         try:
             message = f"Notificacion: {notification}"
-            logger.info(f"Hablando notificacion: {message}")
-            return voice_system.speak(message)
+            logger.info(f"Generando audio de notificacion")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando notificacion: {e}")
             return False
@@ -169,8 +162,9 @@ class VoiceIntegration:
             else:
                 message = f"Calculando: {step}"
             
-            logger.info(f"Hablando progreso: {message}")
-            return voice_system.speak(message)
+            logger.info(f"Generando audio de progreso")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando progreso: {e}")
             return False
@@ -182,8 +176,9 @@ class VoiceIntegration:
         
         try:
             message = f"Recomendacion: {recommendation}"
-            logger.info(f"Hablando recomendacion: {message}")
-            return voice_system.speak(message)
+            logger.info(f"Generando audio de recomendacion")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando recomendacion: {e}")
             return False
@@ -195,8 +190,9 @@ class VoiceIntegration:
         
         try:
             message = "Bienvenido a SIBIA, tu asistente inteligente de biodigestores. Estoy listo para ayudarte con calculos y consultas."
-            logger.info("Hablando mensaje de bienvenida")
-            return voice_system.speak(message)
+            logger.info("Generando audio de bienvenida")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando mensaje de bienvenida: {e}")
             return False
@@ -208,8 +204,9 @@ class VoiceIntegration:
         
         try:
             message = "Gracias por usar SIBIA. Hasta la proxima!"
-            logger.info("Hablando mensaje de despedida")
-            return voice_system.speak(message)
+            logger.info("Generando audio de despedida")
+            audio_b64 = generate_voice_audio(message)
+            return bool(audio_b64)
         except Exception as e:
             logger.error(f"Error hablando mensaje de despedida: {e}")
             return False
@@ -234,12 +231,13 @@ class VoiceIntegration:
     
     def get_status(self) -> Dict[str, Any]:
         """Obtener estado de la integración de voz"""
-        return {
+        status = {
             'enabled': self.enabled,
             'calculator_voice': self.calculator_voice,
             'assistant_voice': self.assistant_voice,
-            'voice_system_status': voice_system.get_status()
+            'voice_system_status': web_voice_system.get_status()
         }
+        return status
 
 # Instancia global de integración de voz
 voice_integration = VoiceIntegration()

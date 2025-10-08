@@ -1,0 +1,100 @@
+========================================
+  PASOS PARA DESPLEGAR SIBIA A CLOUD
+========================================
+
+TUS DATOS:
+✓ Proyecto: warm-calculus-473421
+✓ Repo: Seba-cuenca/SIBIA2025
+✓ Errores en Windsurf: CORREGIDOS ✓
+
+========================================
+EJECUTAR EN ORDEN:
+========================================
+
+1. VERIFICAR GOOGLE CLOUD SDK
+   
+   gcloud --version
+   
+   Si no está instalado:
+   https://cloud.google.com/sdk/docs/install
+   Luego REINICIAR PowerShell
+
+2. EJECUTAR SCRIPT AUTOMÁTICO
+   
+   .\setup_seba_cuenca.ps1
+   
+   El script hace:
+   - Login a Google Cloud
+   - Habilita APIs
+   - Crea Service Account
+   - Genera credenciales
+
+3. CONFIGURAR SECRET EN GITHUB
+   
+   a) Abrir:
+      https://github.com/Seba-cuenca/SIBIA2025/settings/secrets/actions
+   
+   b) Click: New repository secret
+   
+   c) Agregar:
+      Name: GCP_SA_KEY
+      Value: [TODO el contenido de gcloud-key-sibia.json]
+   
+   Para copiar:
+   notepad gcloud-key-sibia.json
+   (Copiar desde { hasta } TODO el JSON)
+
+4. HACER PUSH (DEPLOY AUTOMÁTICO)
+   
+   git add .
+   git commit -m "feat: Deploy automatico a Cloud Run"
+   git push origin SIBIA_GITHUB
+   
+5. VER PROGRESO
+   
+   https://github.com/Seba-cuenca/SIBIA2025/actions
+   
+   Esperar ~5-10 min (primer deploy)
+
+6. OBTENER URL DE TU APP
+   
+   gcloud run services describe sibia-app --region us-central1 --format 'value(status.url)'
+
+========================================
+ARCHIVOS IMPORTANTES:
+========================================
+
+✓ PASOS_SEBA_CUENCA.md       - Guía completa con tus datos
+✓ setup_seba_cuenca.ps1       - Script automático
+✓ deploy-gcloud.yml           - GitHub Actions (corregido)
+✓ Dockerfile                  - Containerización
+✓ requirements.txt            - Dependencias
+
+========================================
+RESULTADO FINAL:
+========================================
+
+Código en Windsurf
+    ↓ git push
+GitHub Seba-cuenca/SIBIA2025
+    ↓ Deploy automático
+Google Cloud warm-calculus-473421
+    ↓
+https://sibia-app-xxxxx.run.app ← Tu app 24/7
+
+========================================
+AYUDA:
+========================================
+
+Ver logs:
+gcloud run services logs tail sibia-app --region us-central1
+
+Verificar todo:
+.\verificar_deploy.ps1
+
+Documentación completa:
+PASOS_SEBA_CUENCA.md
+
+========================================
+© 2025 AutoLinkSolutions SRL
+========================================

@@ -133,8 +133,8 @@ class WebVoiceSystem:
     def _select_default_engine(self):
         """Seleccionar motor por defecto basado en disponibilidad"""
         preferred_order = [
-            VoiceEngine.GTTS,        # Mejor para web
-            VoiceEngine.EDGE_TTS,    # Buena calidad
+            VoiceEngine.EDGE_TTS,    # Más natural (Microsoft Edge TTS)
+            VoiceEngine.GTTS,        # Alternativa basada en Google
             VoiceEngine.PYTTSX3,     # Local, puede no funcionar en servidor
         ]
         
