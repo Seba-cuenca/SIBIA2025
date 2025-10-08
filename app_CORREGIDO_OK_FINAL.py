@@ -298,6 +298,7 @@ import seaborn as sns
 import base64
 from temp_functions import REFERENCIA_MATERIALES
 import traceback
+import sys
 # from balance_volumetrico_sibia import obtener_balance_volumetrico_biodigestor  # ARCHIVO ELIMINADO
 # import balance_volumetrico_sibia  # ARCHIVO ELIMINADO
 
@@ -321,12 +322,23 @@ except ImportError:
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Configurar el manejador de archivos con rotación y codificación UTF-8
-handler = RotatingFileHandler('app.log', maxBytes=10000000, backupCount=5, encoding='utf-8')
-handler.setLevel(logging.INFO)
+# Configurar formatter
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+
+# Handler de consola
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.setLevel(logging.INFO)
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
+# Handler de archivo (con try-except para evitar errores de permisos)
+try:
+    file_handler = RotatingFileHandler('app.log', maxBytes=10000000, backupCount=5, encoding='utf-8')
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+except (PermissionError, OSError) as e:
+    print(f"⚠️ No se pudo crear archivo de log: {e}. Usando solo consola.")
 
 # Configuración de directorios
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -6075,8 +6075,22 @@
             return new Blob([byteArray], {type: mimeType});
         }
 
-        // Funciones de las tarjetas (tus funciones existentes)
+        // Funciones de las tarjetas - Integrado con JARVIS
         async function enviarPregunta() {
+            // Delegar a JARVIS si está disponible
+            if (typeof jarvisUI !== 'undefined' && jarvisUI) {
+                const input = document.getElementById('sibia-input-fullcard');
+                const pregunta = input.value.trim();
+                if (pregunta) {
+                    input.value = '';
+                    // Enviar a JARVIS
+                    jarvisUI.mostrarMensajeUsuario(pregunta);
+                    await jarvisUI.enviarMensaje(pregunta);
+                }
+                return;
+            }
+            
+            // Fallback al asistente viejo si JARVIS no está disponible
             const input = document.getElementById('sibia-input-fullcard');
             const pregunta = input.value.trim();
             if (!pregunta) {

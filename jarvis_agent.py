@@ -100,7 +100,7 @@ class JarvisAgent:
             return 'gestion_materiales'
         
         # Generación
-        if any(palabra en comando for palabra in ['generar', 'energía', 'kw', 'producción']):
+        if any(palabra in comando for palabra in ['generar', 'energía', 'kw', 'producción']):
             return 'consultar_generacion'
         
         # Reportes
