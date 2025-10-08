@@ -35,24 +35,24 @@ jobs:
         with:
           project_id: warm-calculus-473421-j7
       
-      - name: Configurar Docker para Cloud Run
+      - name: Configurar Docker para Artifact Registry
         run: |
-          gcloud auth configure-docker
+          gcloud auth configure-docker us-central1-docker.pkg.dev
       
       - name: Build imagen Docker
         run: |
-          docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
-          docker tag gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
+          docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:$GITHUB_SHA .
+          docker tag us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:$GITHUB_SHA us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:latest
       
-      - name: Push imagen a Google Container Registry
+      - name: Push imagen a Artifact Registry
         run: |
-          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
-          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
+          docker push us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:$GITHUB_SHA
+          docker push us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:latest
       
       - name: Deploy a Cloud Run
         run: |
           gcloud run deploy $SERVICE_NAME \
-            --image gcr.io/$PROJECT_ID/$SERVICE_NAME:latest \
+            --image us-central1-docker.pkg.dev/$PROJECT_ID/sibia-repo/$SERVICE_NAME:latest \
             --platform managed \
             --region $REGION \
             --allow-unauthenticated \
