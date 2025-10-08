@@ -1,5 +1,6 @@
 # GitHub Actions - Deploy automático a Google Cloud Run
 # Se ejecuta en cada push a main
+# Usa Artifact Registry (no gcr.io)
 
 name: Deploy to Google Cloud Run
 
