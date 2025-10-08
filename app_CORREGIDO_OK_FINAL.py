@@ -12637,6 +12637,120 @@ def pagina_analisis_economico():
     return render_template('analisis_economico.html')
 
 
+# ===== MÓDULO JARVIS - ASISTENTE INTELIGENTE =====
+
+# Importar JARVIS Agent
+try:
+    from jarvis_agent import jarvis
+    JARVIS_DISPONIBLE = True
+    logger.info("✅ JARVIS Agent cargado correctamente")
+except ImportError as e:
+    JARVIS_DISPONIBLE = False
+    logger.warning(f"⚠️ JARVIS Agent no disponible: {e}")
+
+@app.route('/api/jarvis/comando', methods=['POST'])
+def jarvis_comando():
+    """Endpoint principal para enviar comandos a JARVIS"""
+    if not JARVIS_DISPONIBLE:
+        return jsonify({
+            'status': 'error',
+            'mensaje': 'JARVIS no está disponible'
+        }), 503
+    
+    try:
+        data = request.json
+        comando = data.get('comando', '').strip()
+        
+        if not comando:
+            return jsonify({
+                'status': 'error',
+                'mensaje': 'Comando vacío'
+            }), 400
+        
+        # Obtener contexto actual de la planta
+        contexto = {
+            'bd1_presion': obtener_valor_sensor('040PT01') or 1.2,
+            'bd2_presion': obtener_valor_sensor('050PT01') or 1.3,
+            'bd1_nivel': obtener_valor_sensor('040LT01') or 85,
+            'bd2_nivel': obtener_valor_sensor('050LT01') or 87,
+            'potencia_kw': 1200,
+            'alertas': 0  # TODO: obtener de sistema de alertas
+        }
+        
+        # Procesar comando con JARVIS
+        resultado = jarvis.procesar_comando(comando, contexto)
+        
+        return jsonify(resultado)
+        
+    except Exception as e:
+        logger.error(f"Error en jarvis_comando: {e}", exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'mensaje': str(e)
+        }), 500
+
+@app.route('/api/jarvis/saludo')
+def jarvis_saludo():
+    """Saludo inicial de JARVIS"""
+    if not JARVIS_DISPONIBLE:
+        return jsonify({
+            'status': 'error',
+            'mensaje': 'JARVIS no disponible'
+        }), 503
+    
+    try:
+        nombre_usuario = request.args.get('nombre', None)
+        saludo = jarvis.saludar(nombre_usuario)
+        
+        return jsonify({
+            'status': 'success',
+            'mensaje': saludo,
+            'voz': jarvis.generar_respuesta_voz(saludo)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error en jarvis_saludo: {e}")
+        return jsonify({
+            'status': 'error',
+            'mensaje': str(e)
+        }), 500
+
+@app.route('/api/jarvis/proactivo')
+def jarvis_modo_proactivo():
+    """Modo proactivo: JARVIS analiza y alerta automáticamente"""
+    if not JARVIS_DISPONIBLE:
+        return jsonify({
+            'status': 'error',
+            'notificaciones': []
+        }), 503
+    
+    try:
+        # Obtener datos actuales de la planta
+        datos_planta = {
+            'bd1_presion': obtener_valor_sensor('040PT01') or 1.2,
+            'bd2_presion': obtener_valor_sensor('050PT01') or 1.3,
+            'bd1_nivel': obtener_valor_sensor('040LT01') or 85,
+            'bd2_nivel': obtener_valor_sensor('050LT01') or 87,
+            'utilidad_dia': 2500,  # TODO: obtener de análisis económico
+            'stock_critico': False  # TODO: verificar stock
+        }
+        
+        # Obtener notificaciones proactivas
+        notificaciones = jarvis.modo_proactivo(datos_planta)
+        
+        return jsonify({
+            'status': 'success',
+            'notificaciones': notificaciones
+        })
+        
+    except Exception as e:
+        logger.error(f"Error en jarvis_modo_proactivo: {e}")
+        return jsonify({
+            'status': 'error',
+            'notificaciones': []
+        }), 500
+
+
 # ===== RUTAS PARA MÓDULO DE MANTENIMIENTO =====
 
 @app.route('/programar_mantenimiento', methods=['POST'])
