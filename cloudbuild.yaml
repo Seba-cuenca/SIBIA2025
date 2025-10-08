@@ -1,0 +1,57 @@
+# Google Cloud Build - Deploy automático desde GitHub
+# Se usa cuando conectas GitHub directamente con Cloud Build
+# Proyecto: warm-calculus-473421-j7
+# Repo: Seba-cuenca/SIBIA2025
+
+steps:
+  # Build de la imagen Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/sibia-app:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/sibia-app:latest'
+      - '.'
+  
+  # Push a Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/sibia-app:$COMMIT_SHA'
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/sibia-app:latest'
+  
+  # Deploy a Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'sibia-app'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/sibia-app:latest'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '2Gi'
+      - '--cpu'
+      - '2'
+      - '--timeout'
+      - '300'
+
+images:
+  - 'gcr.io/$PROJECT_ID/sibia-app:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/sibia-app:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+timeout: '1200s'

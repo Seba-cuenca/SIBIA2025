@@ -161,3 +161,13 @@ sistema_*.py
 # Archivos de seguimiento
 seguimiento_*.json
 balance_*.json
+
+# Google Cloud credenciales (NUNCA SUBIR)
+gcloud-key.json
+gcloud-config.json
+*.json.key
+service-account*.json
+
+# Datos de entrenamiento ML
+ml_training_data/
+models/historial_reentrenamiento.json

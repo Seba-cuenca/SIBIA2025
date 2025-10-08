@@ -1,0 +1,44 @@
+# Archivos y directorios a ignorar en la imagen Docker
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.bak
+.DS_Store
+
+# Documentación
+*.md
+README*
+ANALISIS*
+
+# Scripts de desarrollo
+iniciar_sibia_ml.py
+INICIAR_SIBIA_ML.bat
+
+# Archivos locales
+stock_local.json
+parametros_local.json

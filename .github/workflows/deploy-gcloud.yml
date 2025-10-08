@@ -1,0 +1,69 @@
+# GitHub Actions - Deploy automático a Google Cloud Run
+# Se ejecuta en cada push a main
+
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - SIBIA_GITHUB  # Tu rama actual
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+env:
+  PROJECT_ID: warm-calculus-473421-j7
+  SERVICE_NAME: sibia-app
+  REGION: us-central1
+
+jobs:
+  deploy:
+    name: Deploy to Cloud Run
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Autenticar en Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: warm-calculus-473421-j7
+      
+      - name: Configurar Docker para Cloud Run
+        run: |
+          gcloud auth configure-docker
+      
+      - name: Build imagen Docker
+        run: |
+          docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
+          docker tag gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
+      
+      - name: Push imagen a Google Container Registry
+        run: |
+          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+          docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:latest
+      
+      - name: Deploy a Cloud Run
+        run: |
+          gcloud run deploy $SERVICE_NAME \
+            --image gcr.io/$PROJECT_ID/$SERVICE_NAME:latest \
+            --platform managed \
+            --region $REGION \
+            --allow-unauthenticated \
+            --memory 2Gi \
+            --cpu 2 \
+            --timeout 300 \
+            --max-instances 10 \
+            --set-env-vars PORT=8080,DEBUG=false
+      
+      - name: Obtener URL del servicio
+        run: |
+          SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --platform managed --region $REGION --format 'value(status.url)')
+          echo "🚀 Aplicación desplegada en: $SERVICE_URL"
+          echo "SERVICE_URL=$SERVICE_URL" >> $GITHUB_OUTPUT
