@@ -12754,7 +12754,15 @@ def jarvis_comando():
         try:
             # Ejecutar asistente inteligente
             respuesta_asistente = asistente_ia_v2()
+            
+            # Verificar que la respuesta sea válida
+            if respuesta_asistente is None:
+                raise ValueError("Asistente IA retornó None")
+            
             respuesta_data = respuesta_asistente.get_json()
+            
+            if respuesta_data is None:
+                raise ValueError("No se pudo obtener JSON de la respuesta")
             
         finally:
             request.get_json = original_json

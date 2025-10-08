@@ -18,26 +18,30 @@ class JarvisUI {
         
         console.log('🤖 Inicializando JARVIS...');
         
-        // Obtener elementos
-        this.orbe = document.getElementById('ai-orb');
-        this.chatbox = document.getElementById('asistente-chatbox');
-        this.inputUsuario = document.getElementById('input-usuario-asistente');
-        this.btnEnviar = document.getElementById('btn-enviar-asistente');
-        this.btnVoz = document.getElementById('btn-voz-asistente');
+        // Usar elementos existentes del dashboard
+        this.chatbox = document.getElementById('ai-messages');
+        this.inputUsuario = document.getElementById('sibia-input-fullcard');
         
-        // Configurar eventos
-        if (this.btnEnviar) {
-            this.btnEnviar.addEventListener('click', () => this.enviarMensaje());
+        // Si no hay elementos, salir silenciosamente
+        if (!this.chatbox || !this.inputUsuario) {
+            console.warn('⚠️ JARVIS: Elementos del chat no encontrados. JARVIS en espera.');
+            return;
         }
         
-        if (this.inputUsuario) {
-            this.inputUsuario.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') this.enviarMensaje();
+        // Crear botón de voz si no existe (agregar al lado del botón enviar)
+        const btnEnviarOriginal = this.inputUsuario.parentElement.querySelector('button');
+        if (btnEnviarOriginal && !document.getElementById('btn-jarvis-voz')) {
+            this.btnVoz = document.createElement('button');
+            this.btnVoz.id = 'btn-jarvis-voz';
+            this.btnVoz.innerHTML = '<i class="fas fa-microphone"></i>';
+            this.btnVoz.style.cssText = btnEnviarOriginal.style.cssText;
+            this.btnVoz.style.minWidth = '50px';
+            this.btnVoz.title = 'Activar reconocimiento de voz';
+            this.btnVoz.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggleReconocimientoVoz();
             });
-        }
-        
-        if (this.btnVoz) {
-            this.btnVoz.addEventListener('click', () => this.toggleReconocimientoVoz());
+            btnEnviarOriginal.parentElement.insertBefore(this.btnVoz, btnEnviarOriginal);
         }
         
         // Inicializar reconocimiento de voz
@@ -215,36 +219,28 @@ class JarvisUI {
     mostrarMensajeUsuario(texto) {
         if (!this.chatbox) return;
         
-        const div = document.createElement('div');
-        div.className = 'mensaje-usuario mb-3';
-        div.innerHTML = `
-            <div class="d-flex justify-content-end">
-                <div class="bg-primary text-white p-2 rounded" style="max-width: 70%;">
-                    <p class="mb-0">${this.escapeHtml(texto)}</p>
-                </div>
-            </div>
-        `;
-        
-        this.chatbox.appendChild(div);
+        const mensaje = document.createElement('div');
+        mensaje.className = 'ai-message ai-user';
+        mensaje.innerHTML = `<p>${this.escapeHtml(texto)}</p>`;
+        this.chatbox.appendChild(mensaje);
         this.chatbox.scrollTop = this.chatbox.scrollHeight;
-        this.chatbox.classList.add('has-messages');
-        this.ocultarOrbe();
     }
 
     mostrarMensajeAsistente(texto) {
         if (!this.chatbox) return;
         
-        const div = document.createElement('div');
-        div.className = 'mensaje-asistente mb-3';
-        div.innerHTML = `
-            <div class="d-flex justify-content-start">
-                <div class="bg-secondary text-white p-2 rounded" style="max-width: 70%;">
-                    <p class="mb-0">${this.escapeHtml(texto)}</p>
+        const mensaje = document.createElement('div');
+        mensaje.className = 'ai-message ai-assistant';
+        mensaje.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #00d4ff, #0099cc); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-robot" style="color: white; font-size: 16px;"></i>
                 </div>
+                <strong style="color: #00d4ff;">JARVIS</strong>
             </div>
+            <p style="margin: 0;">${this.escapeHtml(texto)}</p>
         `;
-        
-        this.chatbox.appendChild(div);
+        this.chatbox.appendChild(mensaje);
         this.chatbox.scrollTop = this.chatbox.scrollHeight;
     }
 
