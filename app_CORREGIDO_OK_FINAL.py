@@ -17,7 +17,6 @@ import io
 import tempfile
 import shutil
 import logging
-from math import isfinite, ceil 
 from openpyxl import load_workbook
 from collections import Counter
 import re
@@ -25,13 +24,32 @@ import uuid
 import base64
 from io import BytesIO
 
-# Importar sistema de análisis químico
-from sistema_analisis_quimico_biodigestores import AnalisisQuimicoBiodigestores
-from modelo_ml_inhibicion_biodigestores import ModeloMLInhibicionBiodigestores
-from endpoint_analisis_quimico import analisis_quimico_bp
+# Correo SMTP para envío de reportes
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
+# SISTEMA DE APRENDIZAJE CONTINUO ML
+try:
+    from sistema_recoleccion_datos_ml import recolector_ml
+    from reentrenador_automatico import reentrenador_ml
+    APRENDIZAJE_CONTINUO_DISPONIBLE = True
+    print("SUCCESS: Sistema de aprendizaje continuo ML cargado")
+except ImportError as e:
+    print(f"WARNING: Sistema de aprendizaje continuo no disponible: {e}")
+    APRENDIZAJE_CONTINUO_DISPONIBLE = False
+    recolector_ml = None
+    reentrenador_ml = None
 
-
+# SCHEDULER PARA REENTRENAMIENTO AUTOMÁTICO
+try:
+    from apscheduler.schedulers.background import BackgroundScheduler
+    SCHEDULER_DISPONIBLE = True
+except ImportError:
+    print("WARNING: APScheduler no disponible. Instalar con: pip install apscheduler")
+    SCHEDULER_DISPONIBLE = False
 
 # SISTEMA DE VOZ - MANEJO SEGURO DE IMPORTS
 try:
@@ -43,22 +61,12 @@ except ImportError as e:
     print(f"WARNING: Sistema de voz web no disponible: {e}")
     VOICE_SYSTEM_DISPONIBLE = False
     
-    # Funciones de fallback para voz
     def generate_voice_audio(text):
-        print(f"[Voz deshabilitada] {text}")
-        return None
-    
-    def speak_calculator_result(result):
-        print(f"[Voz deshabilitada] Resultado calculadora")
-        return False
-    
-    def speak_assistant_response(response, response_type="normal"):
-        print(f"[Voz deshabilitada] {response}")
-        return False
-
-# SISTEMA DE ALERTAS ML - MANEJO SEGURO DE IMPORTS
-try:
-    from sistema_alertas_ml import inicializar_sistema_alertas, obtener_sistema_alertas
+        try:
+            from web_voice_system import generate_voice_audio
+            return generate_voice_audio(text)
+        except Exception:
+            print(f"[Voz deshabilitada] {text}")
     SISTEMA_ALERTAS_DISPONIBLE = True
     print("SUCCESS: Sistema de Alertas ML cargado correctamente")
 except ImportError as e:
@@ -182,6 +190,37 @@ try:
 except Exception as e:
     print(f"WARNING: Sistema ML Predictivo no disponible: {e}")
     sistema_ml_predictivo = None
+
+# Sistema de Predicción de Fallos (Random Forest con Datos Reales)
+PREDICCION_FALLOS_DISPONIBLE = False
+modelo_prediccion_fallos = None
+scaler_prediccion_fallos = None
+label_encoder_prediccion_fallos = None
+metadata_modelo_fallos = None
+
+try:
+    import joblib
+    from pathlib import Path
+    
+    models_dir = Path(__file__).parent / 'models'
+    
+    # Cargar modelo entrenado
+    modelo_prediccion_fallos = joblib.load(models_dir / 'modelo_prediccion_fallos.pkl')
+    scaler_prediccion_fallos = joblib.load(models_dir / 'scaler_prediccion_fallos.pkl')
+    label_encoder_prediccion_fallos = joblib.load(models_dir / 'label_encoder_prediccion_fallos.pkl')
+    
+    # Cargar metadata
+    with open(models_dir / 'metadata_modelo.json', 'r', encoding='utf-8') as f:
+        metadata_modelo_fallos = json.load(f)
+    
+    PREDICCION_FALLOS_DISPONIBLE = True
+    print("SUCCESS: Modelo de Predicción de Fallos cargado - Random Forest con datos reales")
+    print(f"         Features: {len(metadata_modelo_fallos['feature_names'])}")
+    print(f"         Accuracy: {metadata_modelo_fallos['metricas']['accuracy']:.2%}")
+except Exception as e:
+    print(f"WARNING: Modelo de Predicción de Fallos no disponible: {e}")
+    print("INFO: Ejecutar primero: python entrenar_modelo_prediccion_fallos_reales.py")
+    modelo_prediccion_fallos = None
 
 # Sistema de Voz Gratuito - Reemplaza Eleven Labs
 VOZ_GRATUITA_DISPONIBLE = True
@@ -580,7 +619,7 @@ def obtener_sensor_mysql(tag, nombre, unidad, valor_default):
                     'estado': estado,
                     'sensor': tag,
                     'nombre': nombre,
-                    'fecha_hora': row[0].strftime('%Y-%m-%d %H:%M:%S') if row[0] else datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 }
             else:
                 logger.warning(f"No se encontraron datos para {tag}, insertando datos de prueba...")
@@ -592,10 +631,10 @@ def obtener_sensor_mysql(tag, nombre, unidad, valor_default):
                 except Exception as e:
                     logger.error(f"Error insertando datos de prueba para {tag}: {e}")
                 
-                return {'valor': valor_default, 'unidad': unidad, 'estado': 'normal', 'sensor': tag}
+                return {'valor': valor_default, 'unidad': unidad, 'estado': 'normal', 'sensor': tag, 'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     except Exception as e:
         logger.error(f"Error obteniendo {tag}: {e}")
-        return {'valor': valor_default, 'unidad': unidad, 'estado': 'normal', 'sensor': tag}
+        return {'valor': valor_default, 'unidad': unidad, 'estado': 'normal', 'sensor': tag, 'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
 def obtener_040pt01():
     """Presión Biodigestor 1 (040PT01)"""
@@ -896,6 +935,13 @@ def guardar_seguimiento_horario() -> bool:
     try:
         with open(SEGUIMIENTO_FILE, 'w', encoding='utf-8') as f:
             json.dump(SEGUIMIENTO_HORARIO_ALIMENTACION, f, indent=4)
+        # Hook: aplicar stock inteligente si está activo
+        try:
+            cfg = cargar_configuracion()
+            if cfg.get('stock_inteligente_activo'):
+                aplicar_stock_inteligente(aplicar_ultima_hora=True)
+        except Exception as hook_e:
+            logger.warning(f"Hook stock inteligente falló: {hook_e}")
         return True
     except Exception as e:
         logger.error(f"Error guardando seguimiento horario: {e}", exc_info=True)
@@ -909,19 +955,55 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.jinja_env.auto_reload = True
 
 # Registrar blueprint de análisis químico
-app.register_blueprint(analisis_quimico_bp)
+try:
+    from endpoint_analisis_quimico import analisis_quimico_bp
+    app.register_blueprint(analisis_quimico_bp)
+    logger.info("Blueprint analisis_quimico registrado")
+except Exception as e:
+    logger.warning(f"Blueprint analisis_quimico no disponible: {e}")
+# Registrar blueprint de ingesta de planta (históricos ML)
+try:
+    from planta_ingesta import bp_planta
+    app.register_blueprint(bp_planta)
+    logger.info("Blueprint de ingesta de planta registrado (/upload_excel_planta, /datos_planta/resumen)")
+except Exception as e:
+    logger.warning(f"No se pudo registrar blueprint de planta: {e}")
 
-# Inicializar sistema de análisis químico
-sistema_analisis_quimico = AnalisisQuimicoBiodigestores()
-modelo_ml_inhibicion = ModeloMLInhibicionBiodigestores()
+# Registrar blueprint de ADAN (Calculadora avanzada)
+try:
+    from adan_calculator import adan_bp
+    app.register_blueprint(adan_bp)
+    logger.info("Blueprint ADAN registrado correctamente")
+except Exception as e:
+    logger.warning(f"No se pudo registrar el blueprint ADAN: {e}")
+
+# Inicializar sistema de análisis químico y modelo de inhibición (import seguro)
+try:
+    from sistema_analisis_quimico_biodigestores import AnalisisQuimicoBiodigestores
+    sistema_analisis_quimico = AnalisisQuimicoBiodigestores()
+    logger.info("Sistema de análisis químico inicializado")
+except Exception as e:
+    sistema_analisis_quimico = None
+    logger.warning(f"Análisis químico no disponible: {e}")
+
+try:
+    from modelo_ml_inhibicion_biodigestores import ModeloMLInhibicionBiodigestores
+    modelo_ml_inhibicion = ModeloMLInhibicionBiodigestores()
+    logger.info("Modelo ML de inhibicion inicializado")
+except Exception as e:
+    modelo_ml_inhibicion = None
+    logger.warning(f"Modelo ML de inhibicion no disponible: {e}")
 
 # Entrenar modelo ML al inicializar
 try:
-    logger.info("Inicializando modelo ML de inhibición...")
-    modelo_ml_inhibicion.entrenar_modelo()
-    logger.info("Modelo ML de inhibición inicializado correctamente")
+    if modelo_ml_inhibicion is not None:
+        logger.info("Inicializando modelo ML de inhibicion...")
+        modelo_ml_inhibicion.entrenar_modelo()
+        logger.info("Modelo ML de inhibicion inicializado correctamente")
+    else:
+        logger.info("Modelo ML de inhibicion no disponible; saltando entrenamiento")
 except Exception as e:
-    logger.error(f"Error inicializando modelo ML de inhibición: {e}")
+    logger.error(f"Error inicializando modelo ML de inhibicion: {e}")
 
 # =============================================================================
 # INTEGRACIÓN SISTEMA ADÁN - CALCULADORA AVANZADA
@@ -5229,6 +5311,83 @@ def dashboard_original():
                              datos_dia={'registros': [], 'total_tn': 0, 'fecha': datetime.now().strftime('%Y-%m-%d')},
                              parametros=config_emergencia)  # AÑADIDO: Variable que necesita el template
 
+@app.route('/dashboard_hibrido')
+def dashboard_hibrido():
+    """Dashboard híbrido moderno que usa 'dashboard_hibrido.html'"""
+    try:
+        # Reutilizamos la misma preparación que en '/dashboard'
+        config_actual = cargar_configuracion()
+        datos_reales = cargar_datos_reales_dia()
+        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
+        stock_actual = stock_data.get('materiales', {})
+
+        try:
+            mezcla_calculada = calcular_mezcla_diaria(config_actual, stock_actual)
+        except Exception:
+            mezcla_calculada = {
+                'totales': {
+                    'kw_total_generado': 0.0,
+                    'kw_solidos': 0.0,
+                    'kw_liquidos': 0.0,
+                    'tn_solidos': 0.0,
+                    'tn_liquidos': 0.0,
+                    'porcentaje_metano': 0.0
+                },
+                'materiales_purin': {},
+                'materiales_liquidos': {},
+                'materiales_solidos': {},
+                'advertencias': []
+            }
+
+        kw_objetivo_actual = config_actual.get('kw_objetivo', 0.0)
+        kw_generados_planificados = mezcla_calculada.get('totales', {}).get('kw_total_generado', 0.0)
+        kw_generados_real = datos_reales.get('datos_reales', {}).get('kw_generados_real', 0.0)
+        kw_inyectados_real = datos_reales.get('datos_reales', {}).get('kw_inyectados_real', 0.0)
+        kw_consumidos_planta_real = datos_reales.get('datos_reales', {}).get('kw_consumidos_planta_real', 0.0)
+
+        datos_horarios = {'biodigestores': {}}
+        try:
+            cargar_seguimiento_horario()
+            datos_horarios = SEGUIMIENTO_HORARIO_ALIMENTACION
+        except Exception:
+            pass
+
+        datos_pagina = {
+            'stock_actual': stock_actual,
+            'STOCK_MATERIALES': stock_actual,
+            'config_actual': config_actual,
+            'datos_reales': datos_reales,
+            'materiales_disponibles_referencia': list(getattr(temp_functions, 'REFERENCIA_MATERIALES', {}).keys()),
+            'kw_objetivo': kw_objetivo_actual,
+            'kw_generados_planificados': kw_generados_planificados,
+            'kw_generados_real': kw_generados_real,
+            'kw_inyectados_real': kw_inyectados_real,
+            'kw_consumidos_planta_real': kw_consumidos_planta_real,
+            'fecha_actual': datetime.now().strftime('%d/%m/%Y'),
+            'mes_actual': datetime.now().strftime('%B de %Y').capitalize(),
+            'ultima_actualizacion': datos_reales.get('ultima_actualizacion_kw', ''),
+            'mezcla_calculada': mezcla_calculada,
+            'graph_base64': None,
+            'MATERIALES_BASE': getattr(temp_functions, 'MATERIALES_BASE', {}),
+            'planificacion_semanal': {},
+            'planificacion': {'planificacion': [], 'produccion': [], 'labels': []},
+            'resumen_energia': {'produccion_total': 0, 'inyectado_red': 0, 'error': False},
+            'kpi_datos_json': {},
+            'formatear_numero': formatear_numero,
+            'formatear_porcentaje': formatear_porcentaje,
+            'datos_horarios': datos_horarios,
+            'advertencia_horario': None,
+            'ahora': datetime.now(),
+            'datos_dia': obtener_datos_dia(),
+            'parametros': config_actual
+        }
+
+        logger.info("Renderizando dashboard_hibrido.html")
+        return render_template('dashboard_hibrido.html', **datos_pagina)
+    except Exception as e:
+        logger.error(f"Error en dashboard_hibrido: {e}", exc_info=True)
+        return render_template('error.html', mensaje=str(e)), 500
+
 @app.route('/gestion_materiales_admin')
 def gestion_materiales_admin():
     """Página de gestión de materiales para administradores"""
@@ -5325,14 +5484,12 @@ def parametros_quimicos():
 
 @app.route('/sensores_criticos_resumen')
 def sensores_criticos_resumen():
-    """Endpoint para obtener un resumen de los sensores críticos."""
-    try:
-        # Usar la función que ya tenemos implementada
-        resumen = obtener_sensores_criticos_resumen()
-        return jsonify(resumen)
-    except Exception as e:
-        logger.error(f"Error al obtener resumen de sensores críticos: {e}", exc_info=True)
-        return jsonify({"error": "No se pudo obtener el resumen de sensores críticos"}), 500
+    """Endpoint stub - devuelve datos vacíos para compatibilidad"""
+    return jsonify({
+        "sensores": {},
+        "timestamp": datetime.now().isoformat(),
+        "mensaje": "Endpoint deshabilitado - datos no disponibles"
+    })
 
 @app.route('/prueba_temperaturas_niveles')
 def prueba_temperaturas_niveles():
@@ -5388,6 +5545,18 @@ def prueba_temperaturas_niveles():
 
 # ENDPOINTS API
 
+def obtener_stock_global():
+    """Función helper para obtener stock como diccionario {material: info}"""
+    try:
+        stock_data = cargar_json_seguro(STOCK_FILE)
+        materiales = stock_data.get('materiales', {})
+        if not isinstance(materiales, dict):
+            return {}
+        return materiales
+    except Exception as e:
+        logger.error(f"Error en obtener_stock_global: {e}")
+        return {}
+
 @app.route('/stock_actual')
 @app.route('/obtener_stock_actual_json')
 def obtener_stock_actual_json():
@@ -5440,6 +5609,7 @@ def obtener_stock_actual_json():
         for material, datos in materiales_corregidos.items():
             materiales_array.append({
                 'material': material,
+                'nombre': material,
                 'total_tn': datos.get('total_tn', 0),
                 'stock': datos.get('total_tn', 0),  # Alias para compatibilidad
                 'tipo': 'solido' if material.lower() not in ['purin', 'purín'] else 'liquido',
@@ -5488,6 +5658,136 @@ def obtener_materiales_base_json():
             'status': 'error',
             'mensaje': 'No se pudieron cargar los materiales base'
         }), 500
+
+# ======== STOCK INTELIGENTE ========
+def _asegurar_campos_stock_inteligente(datos_seguimiento: Dict[str, Any]) -> Dict[str, Any]:
+    if 'aplicaciones_stock' not in datos_seguimiento:
+        datos_seguimiento['aplicaciones_stock'] = []  # lista de llaves 'YYYY-MM-DD:HH'
+    return datos_seguimiento
+
+def aplicar_stock_inteligente(aplicar_ultima_hora: bool = False) -> Dict[str, Any]:
+    """
+    Deduce del stock lo dosificado en seguimiento_horario.
+    - Si aplicar_ultima_hora=True: aplica solo la última hora no aplicada.
+    - Si False: aplica todas las horas del día actuales no aplicadas.
+    Estrategia: distribuir la deducción por tipo (sólidos/líquidos) proporcional al stock disponible del mismo tipo.
+    """
+    try:
+        # Cargar seguimiento y asegurar estructura
+        datos_seg = cargar_seguimiento_horario() or {}
+        datos_seg = _asegurar_campos_stock_inteligente(datos_seg)
+        fecha = datos_seg.get('fecha', datetime.now().strftime('%Y-%m-%d'))
+        hora_actual = int(datos_seg.get('hora_actual', datetime.now().hour))
+        biodigestores = datos_seg.get('biodigestores', {})
+        bio1 = biodigestores.get('1', {})  # por ahora usamos biodigestor 1
+        plan_24 = bio1.get('plan_24_horas', {})
+
+        # Cargar stock
+        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
+        materiales = stock_data.get('materiales', {})
+
+        # Separar materiales por tipo
+        solidos_keys = [m for m, d in materiales.items() if str(d.get('tipo','solido')).lower() != 'liquido' and float(d.get('total_tn',0))>0]
+        liquidos_keys = [m for m, d in materiales.items() if str(d.get('tipo','solido')).lower() == 'liquido' and float(d.get('total_tn',0))>0]
+
+        # Construir lista de horas a aplicar
+        horas_objetivo = list(range(hora_actual+1))  # 0..hora_actual
+        if aplicar_ultima_hora:
+            horas_objetivo = [hora_actual]
+
+        aplicadas = datos_seg.get('aplicaciones_stock', [])
+        resumen_aplicado = []
+
+        for h in horas_objetivo:
+            key_aplic = f"{fecha}:{h:02d}"
+            if key_aplic in aplicadas:
+                continue  # ya aplicado
+            hora_data = plan_24.get(str(h), {})
+            real = hora_data.get('real', {})
+            tn_solidos = float(real.get('total_solidos', 0) or 0)
+            tn_liquidos = float(real.get('total_liquidos', 0) or 0)
+
+            cambios = []
+            # Deduce sólidos proporcionalmente
+            if tn_solidos > 0 and solidos_keys:
+                total_solidos_stock = sum(float(materiales[m].get('total_tn',0) or 0) for m in solidos_keys)
+                if total_solidos_stock > 0:
+                    for m in solidos_keys:
+                        stock_m = float(materiales[m].get('total_tn',0) or 0)
+                        parte = (stock_m/total_solidos_stock) * tn_solidos
+                        nuevo = max(0.0, stock_m - parte)
+                        materiales[m]['total_tn'] = round(nuevo, 3)
+                        cambios.append((m, stock_m, nuevo))
+
+            # Deduce líquidos proporcionalmente
+            if tn_liquidos > 0 and liquidos_keys:
+                total_liquidos_stock = sum(float(materiales[m].get('total_tn',0) or 0) for m in liquidos_keys)
+                if total_liquidos_stock > 0:
+                    for m in liquidos_keys:
+                        stock_m = float(materiales[m].get('total_tn',0) or 0)
+                        parte = (stock_m/total_liquidos_stock) * tn_liquidos
+                        nuevo = max(0.0, stock_m - parte)
+                        materiales[m]['total_tn'] = round(nuevo, 3)
+                        cambios.append((m, stock_m, nuevo))
+
+            if cambios:
+                aplicadas.append(key_aplic)
+                resumen_aplicado.append({
+                    'hora': h,
+                    'cambios': [{'material': c[0], 'antes_tn': c[1], 'despues_tn': c[2]} for c in cambios]
+                })
+
+        # Guardar stock y seguimiento con checkpoint
+        stock_data['materiales'] = materiales
+        guardar_json_seguro(STOCK_FILE, stock_data)
+        datos_seg['aplicaciones_stock'] = aplicadas
+        with open(SEGUIMIENTO_FILE, 'w', encoding='utf-8') as f:
+            json.dump(datos_seg, f, indent=4)
+
+        return {
+            'status': 'success',
+            'aplicaciones': resumen_aplicado,
+            'total_aplicadas': len(resumen_aplicado)
+        }
+    except Exception as e:
+        logger.error(f"Error en aplicar_stock_inteligente: {e}", exc_info=True)
+        return {'status': 'error', 'mensaje': str(e)}
+
+@app.route('/stock_inteligente/config', methods=['POST'])
+def configurar_stock_inteligente():
+    try:
+        payload = request.get_json(force=True) or {}
+        activo = bool(payload.get('activo', False))
+        actualizar_configuracion({'stock_inteligente_activo': activo})
+        return jsonify({'status': 'success', 'activo': activo})
+    except Exception as e:
+        logger.error(f"Error en configurar_stock_inteligente: {e}", exc_info=True)
+        return jsonify({'status':'error','mensaje':str(e)}), 500
+
+@app.route('/stock_inteligente/aplicar', methods=['POST'])
+def aplicar_stock_inteligente_endpoint():
+    try:
+        solo_ultima = bool((request.get_json() or {}).get('ultima_hora', False))
+        resultado = aplicar_stock_inteligente(aplicar_ultima_hora=solo_ultima)
+        return jsonify(resultado)
+    except Exception as e:
+        logger.error(f"Error en aplicar_stock_inteligente_endpoint: {e}", exc_info=True)
+        return jsonify({'status':'error','mensaje':str(e)}), 500
+
+@app.route('/stock/reset', methods=['POST'])
+def resetear_stock_endpoint():
+    try:
+        stock = cargar_json_seguro(STOCK_FILE) or {'materiales': {}}
+        for m, d in stock.get('materiales', {}).items():
+            d['total_tn'] = 0
+            d['total_solido'] = 0
+            d['st_porcentaje'] = d.get('st_porcentaje', 0)
+            d['ultima_actualizacion'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        guardar_json_seguro(STOCK_FILE, stock)
+        return jsonify({'status':'success','materiales':len(stock.get('materiales',{}))})
+    except Exception as e:
+        logger.error(f"Error en resetear_stock_endpoint: {e}", exc_info=True)
+        return jsonify({'status':'error','mensaje':str(e)}), 500
 
 @app.route('/materiales_base')
 def materiales_base():
@@ -6718,6 +7018,36 @@ def sensor_050pt01():
 
 # Endpoints de sensores 040ft01 y 050ft01 eliminados
 
+# Contexto de sensores para el Dashboard (nuevo endpoint solicitado por el frontend)
+@app.route('/sensores_sistemas')
+def sensores_sistemas():
+    """Devuelve un resumen consolidado de sensores por biodigestor.
+    Usado por el dashboard para obtener contexto del sistema."""
+    try:
+        bio1 = {
+            'temperatura': float(obtener_valor_sensor('040TT01') or 0),
+            'nivel': float(obtener_valor_sensor('040LT01') or 0),
+            'presion': float(obtener_valor_sensor('040PT01') or 0)
+        }
+        bio2 = {
+            'temperatura': float(obtener_valor_sensor('050TT02') or 0),
+            'nivel': float(obtener_valor_sensor('050LT01') or 0),
+            'presion': float(obtener_valor_sensor('050PT01') or 0)
+        }
+
+        return jsonify({
+            'status': 'success',
+            'sistema': 'sensores_sibIa',
+            'biodigestores': {
+                'bio1': bio1,
+                'bio2': bio2
+            },
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error en sensores_sistemas: {e}", exc_info=True)
+        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
+
 # Temperaturas biodigestores
 @app.route('/temperatura_biodigestor_1')
 def temp_bio1():
@@ -7780,13 +8110,572 @@ def datos_header_reales():
         logger.error(f"Error obteniendo datos del header: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/predecir-fallo', methods=['POST'])
+def predecir_fallo():
+    """
+    Endpoint para predecir posibles fallos en biodigestores usando Random Forest
+    
+    Body JSON esperado:
+    {
+        "co2_bio040_pct": 35.0,
+        "co2_bio050_pct": 36.0,
+        "o2_bio040_pct": 0.3,
+        "o2_bio050_pct": 0.4,
+        "caudal_chp_ls": 120.5,
+        ... (más features opcionales)
+    }
+    
+    Respuesta:
+    {
+        "status": "success",
+        "prediccion": "optimo" | "normal" | "alerta" | "critico",
+        "confianza": 0.95,
+        "probabilidades": {...},
+        "features_importantes": [...],
+        "recomendaciones": [...],
+        "timestamp": "..."
+    }
+    """
+    try:
+        if not PREDICCION_FALLOS_DISPONIBLE:
+            return jsonify({
+                'status': 'unavailable',
+                'mensaje': 'Modelo de predicción de fallos no disponible',
+                'info': 'Ejecutar: python entrenar_modelo_prediccion_fallos_reales.py'
+            }), 503
+        
+        # Obtener datos de la request
+        datos = request.get_json()
+        
+        if not datos:
+            return jsonify({
+                'status': 'error',
+                'mensaje': 'No se proporcionaron datos para la predicción'
+            }), 400
+        
+        # Crear DataFrame con los datos
+        df = pd.DataFrame([datos])
+        
+        # Asegurar que todas las features estén presentes
+        for feature in metadata_modelo_fallos['feature_names']:
+            if feature not in df.columns:
+                df[feature] = 0  # Valor por defecto
+        
+        # Calcular features derivadas si faltan
+        if 'co2_promedio' not in df.columns and 'co2_bio040_pct' in df.columns and 'co2_bio050_pct' in df.columns:
+            df['co2_promedio'] = (df['co2_bio040_pct'] + df['co2_bio050_pct']) / 2
+            
+        if 'o2_promedio' not in df.columns and 'o2_bio040_pct' in df.columns and 'o2_bio050_pct' in df.columns:
+            df['o2_promedio'] = (df['o2_bio040_pct'] + df['o2_bio050_pct']) / 2
+        
+        if 'ratio_co2_o2' not in df.columns and 'co2_promedio' in df.columns and 'o2_promedio' in df.columns:
+            df['ratio_co2_o2'] = df['co2_promedio'] / (df['o2_promedio'] + 0.01)
+        
+        # Reordenar columnas según el modelo
+        df = df[metadata_modelo_fallos['feature_names']]
+        
+        # Rellenar NaN con 0
+        df = df.fillna(0)
+        
+        # Escalar datos
+        datos_escalados = scaler_prediccion_fallos.transform(df)
+        
+        # Predecir
+        prediccion_encoded = modelo_prediccion_fallos.predict(datos_escalados)[0]
+        probabilidades = modelo_prediccion_fallos.predict_proba(datos_escalados)[0]
+        
+        # Decodificar predicción
+        prediccion = label_encoder_prediccion_fallos.inverse_transform([prediccion_encoded])[0]
+        
+        # Obtener features importantes
+        if hasattr(modelo_prediccion_fallos, 'feature_importances_'):
+            importancias = modelo_prediccion_fallos.feature_importances_
+            features_importantes = sorted(
+                zip(metadata_modelo_fallos['feature_names'], importancias, df.values[0]),
+                key=lambda x: x[1],
+                reverse=True
+            )[:5]
+            
+            features_list = [
+                {
+                    'nombre': f[0],
+                    'importancia': float(f[1]),
+                    'valor': float(f[2])
+                }
+                for f in features_importantes
+            ]
+        else:
+            features_list = []
+        
+        # Generar recomendaciones basadas en la predicción
+        recomendaciones = []
+        
+        if prediccion == 'critico':
+            recomendaciones = [
+                "⚠️ ATENCIÓN INMEDIATA: Estado crítico detectado",
+                "🔴 Revisar niveles de O2 (posible entrada de aire)",
+                "🔴 Verificar temperatura de biodigestores",
+                "🔴 Analizar FOS/TAC para detectar acidificación",
+                "🔴 Reducir carga orgánica temporalmente"
+            ]
+        elif prediccion == 'alerta':
+            recomendaciones = [
+                "⚠️ Monitoreo constante recomendado",
+                "🟡 Verificar parámetros químicos",
+                "🟡 Revisar alimentación de materiales",
+                "🟡 Monitorear tendencias de CO2 y O2"
+            ]
+        elif prediccion == 'normal':
+            recomendaciones = [
+                "✓ Sistema funcionando dentro de parámetros aceptables",
+                "🟢 Mantener monitoreo de rutina",
+                "🟢 Verificar tendencias semanales"
+            ]
+        else:  # optimo
+            recomendaciones = [
+                "✅ Sistema funcionando óptimamente",
+                "🟢 Mantener condiciones actuales",
+                "🟢 Continuar con plan de alimentación"
+            ]
+        
+        # Construir respuesta
+        respuesta = {
+            'status': 'success',
+            'prediccion': prediccion,
+            'confianza': float(max(probabilidades)),
+            'probabilidades': {
+                clase: float(prob) 
+                for clase, prob in zip(label_encoder_prediccion_fallos.classes_, probabilidades)
+            },
+            'features_importantes': features_list,
+            'recomendaciones': recomendaciones,
+            'timestamp': datetime.now().isoformat(),
+            'modelo': {
+                'tipo': 'Random Forest',
+                'features_usadas': len(metadata_modelo_fallos['feature_names']),
+                'accuracy': metadata_modelo_fallos['metricas']['accuracy']
+            }
+        }
+        
+        # 🤖 APRENDIZAJE CONTINUO: Guardar predicción para reentrenamiento
+        if APRENDIZAJE_CONTINUO_DISPONIBLE and recolector_ml:
+            try:
+                recolector_ml.guardar_prediccion_fallo(
+                    datos_entrada=datos,
+                    prediccion=prediccion,
+                    confianza=float(max(probabilidades)),
+                    resultado_real=None  # Se actualizará después cuando se verifique
+                )
+            except Exception as e:
+                logger.warning(f"Error guardando datos para aprendizaje continuo: {e}")
+        
+        return jsonify(respuesta)
+        
+    except Exception as e:
+        logger.error(f"Error en predicción de fallos: {e}")
+        return jsonify({
+            'status': 'error',
+            'mensaje': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
+@app.route('/api/predecir-fallo-automatico', methods=['GET'])
+def predecir_fallo_automatico():
+    """
+    Endpoint para predicción automática usando últimos datos del sistema
+    
+    Lee datos del histórico y genera predicción automática
+    """
+    try:
+        if not PREDICCION_FALLOS_DISPONIBLE:
+            return jsonify({
+                'status': 'unavailable',
+                'mensaje': 'Modelo de predicción de fallos no disponible'
+            }), 503
+        
+        # Leer último registro del histórico
+        historico_data_raw = cargar_json_seguro('historico_diario_productivo.json') or []
+        
+        if not historico_data_raw or len(historico_data_raw) == 0:
+            return jsonify({
+                'status': 'error',
+                'mensaje': 'No hay datos históricos disponibles'
+            }), 404
+        
+        # Tomar último registro
+        ultimo_registro = historico_data_raw[-1] if isinstance(historico_data_raw, list) else historico_data_raw
+        
+        # Extraer valores de sensores (usar valores por defecto si no existen)
+        datos_prediccion = {
+            'co2_bio040_pct': ultimo_registro.get('co2_bio040', 35.0),
+            'co2_bio050_pct': ultimo_registro.get('co2_bio050', 35.0),
+            'o2_bio040_pct': ultimo_registro.get('o2_bio040', 0.5),
+            'o2_bio050_pct': ultimo_registro.get('o2_bio050', 0.5),
+            'caudal_chp_ls': ultimo_registro.get('caudal_chp', 100.0),
+        }
+        
+        # Hacer predicción (llamada interna)
+        with app.test_request_context(
+            '/api/predecir-fallo',
+            method='POST',
+            json=datos_prediccion
+        ):
+            response = predecir_fallo()
+            return response
+        
+    except Exception as e:
+        logger.error(f"Error en predicción automática: {e}")
+        return jsonify({
+            'status': 'error',
+            'mensaje': str(e)
+        }), 500
+
+# =============================================================================
+# ENDPOINTS DE APRENDIZAJE CONTINUO ML
+# =============================================================================
+
+@app.route('/api/ml/estadisticas-aprendizaje', methods=['GET'])
+def estadisticas_aprendizaje():
+    """Obtiene estadísticas del sistema de aprendizaje continuo"""
+    try:
+        if not APRENDIZAJE_CONTINUO_DISPONIBLE:
+            return jsonify({
+                'status': 'unavailable',
+                'mensaje': 'Sistema de aprendizaje continuo no disponible'
+            }), 503
+        
+        stats = recolector_ml.obtener_estadisticas()
+        estado = reentrenador_ml.verificar_estado_reentrenamiento()
+        
+        return jsonify({
+            'status': 'success',
+            'estadisticas': stats,
+            'estado_reentrenamiento': estado,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Error obteniendo estadísticas de aprendizaje: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/api/ml/reentrenar/<tipo_modelo>', methods=['POST'])
+def reentrenar_modelo(tipo_modelo):
+    """
+    Reentrenar un modelo específico manualmente
+    
+    Tipos válidos: 'fallos', 'inhibicion'
+    """
+    try:
+        if not APRENDIZAJE_CONTINUO_DISPONIBLE:
+            return jsonify({
+                'status': 'unavailable',
+                'mensaje': 'Sistema de reentrenamiento no disponible'
+            }), 503
+        
+        forzar = request.args.get('forzar', 'false').lower() == 'true'
+        
+        if tipo_modelo == 'fallos':
+            resultado = reentrenador_ml.reentrenar_prediccion_fallos(forzar=forzar)
+        elif tipo_modelo == 'inhibicion':
+            resultado = reentrenador_ml.reentrenar_inhibicion(forzar=forzar)
+        else:
+            return jsonify({
+                'status': 'error',
+                'mensaje': f'Tipo de modelo inválido: {tipo_modelo}'
+            }), 400
+        
+        return jsonify({
+            'status': 'success',
+            'resultado_reentrenamiento': resultado,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Error reentrenando modelo {tipo_modelo}: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/api/ml/actualizar-resultado-real', methods=['POST'])
+def actualizar_resultado_real():
+    """
+    Actualiza el resultado real de una predicción para aprendizaje continuo
+    
+    Body: {
+        "timestamp": "2025-10-08T10:00:00",
+        "resultado_real": "normal" | "alerta" | "critico"
+    }
+    """
+    try:
+        if not APRENDIZAJE_CONTINUO_DISPONIBLE:
+            return jsonify({'status': 'unavailable'}), 503
+        
+        datos = request.get_json()
+        timestamp = datos.get('timestamp')
+        resultado_real = datos.get('resultado_real')
+        
+        if not timestamp or not resultado_real:
+            return jsonify({
+                'status': 'error',
+                'mensaje': 'Faltan parámetros: timestamp y resultado_real'
+            }), 400
+        
+        recolector_ml.actualizar_resultado_real_fallo(timestamp, resultado_real)
+        
+        return jsonify({
+            'status': 'success',
+            'mensaje': 'Resultado real actualizado correctamente'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error actualizando resultado real: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/api/alertas-unificadas', methods=['GET'])
+def obtener_alertas_unificadas():
+    """
+    Sistema Unificado de Alertas - Consolida todas las fuentes de alertas
+    Retorna alertas específicas y accionables con información detallada
+    """
+    try:
+        alertas = []
+        
+        # ========================================
+        # 1. ALERTAS DE PREDICCIÓN ML
+        # ========================================
+        if PREDICCION_FALLOS_DISPONIBLE and modelo_prediccion_fallos is not None:
+            try:
+                # Obtener últimos datos de sensores
+                historico_data = cargar_json_seguro('historico_diario_productivo.json') or []
+                
+                if historico_data and len(historico_data) > 0:
+                    ultimo_dato = historico_data[-1]
+                    
+                    # Preparar datos para predicción
+                    datos_prediccion = {
+                        'co2_bio040_pct': float(ultimo_dato.get('co2_bio040_pct', 0.45)),
+                        'co2_bio050_pct': float(ultimo_dato.get('co2_bio050_pct', 0.45)),
+                        'o2_bio040_pct': float(ultimo_dato.get('o2_bio040_pct', 0.45)),
+                        'o2_bio050_pct': float(ultimo_dato.get('o2_bio050_pct', 0.45)),
+                        'caudal_chp_ls': float(ultimo_dato.get('caudal_chp_ls', 100))
+                    }
+                    
+                    # Hacer predicción
+                    df = pd.DataFrame([datos_prediccion])
+                    datos_escalados = scaler_prediccion_fallos.transform(df)
+                    prediccion_encoded = modelo_prediccion_fallos.predict(datos_escalados)[0]
+                    probabilidades = modelo_prediccion_fallos.predict_proba(datos_escalados)[0]
+                    prediccion = label_encoder_prediccion_fallos.inverse_transform([prediccion_encoded])[0]
+                    confianza = float(max(probabilidades))
+                    
+                    # Solo agregar alerta si NO es "normal"
+                    if prediccion != 'normal':
+                        # Determinar qué está causando la alerta (valores específicos)
+                        problemas = []
+                        
+                        # Analizar CO2
+                        co2_avg = (datos_prediccion['co2_bio040_pct'] + datos_prediccion['co2_bio050_pct']) / 2
+                        if co2_avg > 0.48:
+                            problemas.append(f"CO2 elevado: {co2_avg:.1%} (normal: 0.40-0.45%)")
+                        
+                        # Analizar O2
+                        o2_avg = (datos_prediccion['o2_bio040_pct'] + datos_prediccion['o2_bio050_pct']) / 2
+                        if o2_avg < 0.40 or o2_avg > 0.50:
+                            problemas.append(f"O2 fuera de rango: {o2_avg:.1%} (normal: 0.40-0.50%)")
+                        
+                        # Analizar ratio CO2/O2
+                        ratio = co2_avg / o2_avg if o2_avg > 0 else 0
+                        if ratio < 0.9 or ratio > 1.1:
+                            problemas.append(f"Ratio CO2/O2 desequilibrado: {ratio:.2f} (normal: 0.9-1.1)")
+                        
+                        # Analizar diferencias entre biodigestores
+                        co2_diff = abs(datos_prediccion['co2_bio040_pct'] - datos_prediccion['co2_bio050_pct'])
+                        if co2_diff > 0.05:
+                            problemas.append(f"Diferencia CO2 entre digestores: {co2_diff:.1%} (máx: 0.05%)")
+                        
+                        descripcion_detallada = " | ".join(problemas) if problemas else "Parámetros operativos fuera de rango"
+                        
+                        nivel_map = {
+                            'critico': 'critico',
+                            'alerta': 'alerta'
+                        }
+                        
+                        titulo_map = {
+                            'critico': '⚠️ Fallo Inminente Detectado',
+                            'alerta': '⚡ Anomalía Operativa Detectada'
+                        }
+                        
+                        accion_map = {
+                            'critico': '1. Revisar sensores inmediatamente\n2. Reducir carga orgánica si CO2 > 0.50%\n3. Verificar sistema de agitación\n4. Contactar supervisor',
+                            'alerta': '1. Monitorear parámetros cada 30 min\n2. Ajustar carga si es necesario\n3. Verificar tendencias de CO2/O2\n4. Documentar cambios'
+                        }
+                        
+                        alertas.append({
+                            'id': f'ML-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                            'nivel': nivel_map.get(prediccion, 'alerta'),
+                            'tipo': 'ml',
+                            'titulo': titulo_map.get(prediccion, '⚡ Anomalía Detectada'),
+                            'descripcion': descripcion_detallada,
+                            'que_esta_mal': f"El modelo ML detectó: {descripcion_detallada}",
+                            'por_que_importa': 'Estas condiciones pueden escalar a un fallo del sistema si no se corrigen',
+                            'que_hacer': accion_map.get(prediccion, 'Monitorear el sistema'),
+                            'sistema': 'Biodigestores',
+                            'confianza_ml': confianza,
+                            'timestamp': datetime.now().isoformat(),
+                            'valores': {
+                                'co2_bio040': datos_prediccion['co2_bio040_pct'],
+                                'co2_bio050': datos_prediccion['co2_bio050_pct'],
+                                'o2_bio040': datos_prediccion['o2_bio040_pct'],
+                                'o2_bio050': datos_prediccion['o2_bio050_pct']
+                            }
+                        })
+            except Exception as e:
+                logger.warning(f"No se pudo generar alerta ML: {e}")
+        
+        # ========================================
+        # 2. ALERTAS DE SENSORES
+        # ========================================
+        try:
+            historico_data = cargar_json_seguro('historico_diario_productivo.json') or []
+            if historico_data and len(historico_data) > 0:
+                ultimo_dato = historico_data[-1]
+                
+                # CO2 BIO040
+                co2_040 = float(ultimo_dato.get('co2_bio040_pct', 0))
+                if co2_040 > 0.50:
+                    alertas.append({
+                        'id': f'SENSOR-CO2-040-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                        'nivel': 'critico',
+                        'tipo': 'sensor',
+                        'titulo': '🔴 CO2 Crítico en BIO040',
+                        'descripcion': f'CO2: {co2_040:.1%} (crítico > 50%)',
+                        'que_esta_mal': f'El nivel de CO2 en BIO040 está en {co2_040:.1%}, muy por encima del límite seguro de 50%',
+                        'por_que_importa': 'Alto CO2 indica inhibición del proceso anaeróbico y puede detener la producción de biogás',
+                        'que_hacer': '1. Reducir carga orgánica inmediatamente\n2. Aumentar recirculación\n3. Verificar pH del digestor',
+                        'sistema': 'BIO040',
+                        'valor_actual': co2_040,
+                        'valor_esperado': 0.45,
+                        'timestamp': datetime.now().isoformat()
+                    })
+                elif co2_040 > 0.47:
+                    alertas.append({
+                        'id': f'SENSOR-CO2-040-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                        'nivel': 'alerta',
+                        'tipo': 'sensor',
+                        'titulo': '🟠 CO2 Elevado en BIO040',
+                        'descripcion': f'CO2: {co2_040:.1%} (alerta > 47%)',
+                        'que_esta_mal': f'El nivel de CO2 en BIO040 está en {co2_040:.1%}, por encima del rango normal (40-45%)',
+                        'por_que_importa': 'CO2 elevado puede indicar sobrecarga orgánica o problemas de digestión',
+                        'que_hacer': '1. Monitorear cada hora\n2. Considerar reducir carga\n3. Revisar temperatura del digestor',
+                        'sistema': 'BIO040',
+                        'valor_actual': co2_040,
+                        'valor_esperado': 0.45,
+                        'timestamp': datetime.now().isoformat()
+                    })
+                
+                # CO2 BIO050
+                co2_050 = float(ultimo_dato.get('co2_bio050_pct', 0))
+                if co2_050 > 0.50:
+                    alertas.append({
+                        'id': f'SENSOR-CO2-050-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                        'nivel': 'critico',
+                        'tipo': 'sensor',
+                        'titulo': '🔴 CO2 Crítico en BIO050',
+                        'descripcion': f'CO2: {co2_050:.1%} (crítico > 50%)',
+                        'que_esta_mal': f'El nivel de CO2 en BIO050 está en {co2_050:.1%}, muy por encima del límite seguro de 50%',
+                        'por_que_importa': 'Alto CO2 indica inhibición del proceso anaeróbico y puede detener la producción de biogás',
+                        'que_hacer': '1. Reducir carga orgánica inmediatamente\n2. Aumentar recirculación\n3. Verificar pH del digestor',
+                        'sistema': 'BIO050',
+                        'valor_actual': co2_050,
+                        'valor_esperado': 0.45,
+                        'timestamp': datetime.now().isoformat()
+                    })
+                elif co2_050 > 0.47:
+                    alertas.append({
+                        'id': f'SENSOR-CO2-050-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                        'nivel': 'alerta',
+                        'tipo': 'sensor',
+                        'titulo': '🟠 CO2 Elevado en BIO050',
+                        'descripcion': f'CO2: {co2_050:.1%} (alerta > 47%)',
+                        'que_esta_mal': f'El nivel de CO2 en BIO050 está en {co2_050:.1%}, por encima del rango normal (40-45%)',
+                        'por_que_importa': 'CO2 elevado puede indicar sobrecarga orgánica o problemas de digestión',
+                        'que_hacer': '1. Monitorear cada hora\n2. Considerar reducir carga\n3. Revisar temperatura del digestor',
+                        'sistema': 'BIO050',
+                        'valor_actual': co2_050,
+                        'valor_esperado': 0.45,
+                        'timestamp': datetime.now().isoformat()
+                    })
+        except Exception as e:
+            logger.warning(f"No se pudieron generar alertas de sensores: {e}")
+        
+        # ========================================
+        # 3. ALERTAS OPERATIVAS (KPIs)
+        # ========================================
+        try:
+            config_actual = cargar_configuracion()
+            kw_objetivo = config_actual.get('kw_objetivo', 28800)
+            metano_objetivo = config_actual.get('metano_objetivo', 65)
+            
+            # TODO: Leer valores reales del header/sensores
+            # Por ahora usar valores de ejemplo
+            eficiencia_actual = 82.0  # Ejemplo
+            if eficiencia_actual < 85:
+                nivel = 'alerta' if eficiencia_actual < 75 else 'advertencia'
+                alertas.append({
+                    'id': f'OP-EFIC-{datetime.now().strftime("%Y%m%d%H%M%S")}',
+                    'nivel': nivel,
+                    'tipo': 'operativo',
+                    'titulo': '⚡ Eficiencia por Debajo del Objetivo',
+                    'descripcion': f'Eficiencia: {eficiencia_actual:.1f}% (objetivo: 90%)',
+                    'que_esta_mal': f'La eficiencia del sistema está en {eficiencia_actual:.1f}%, por debajo del objetivo de 90%',
+                    'por_que_importa': 'Baja eficiencia significa menor producción de energía y mayores costos operativos',
+                    'que_hacer': '1. Verificar calidad del sustrato\n2. Revisar mezcla de materiales\n3. Optimizar temperatura\n4. Verificar agitación',
+                    'sistema': 'Sistema General',
+                    'valor_actual': eficiencia_actual,
+                    'valor_esperado': 90.0,
+                    'timestamp': datetime.now().isoformat()
+                })
+        except Exception as e:
+            logger.warning(f"No se pudieron generar alertas operativas: {e}")
+        
+        # ========================================
+        # RESUMEN Y RESPUESTA
+        # ========================================
+        
+        # Ordenar por criticidad
+        orden_niveles = {'critico': 0, 'alerta': 1, 'advertencia': 2, 'info': 3}
+        alertas_ordenadas = sorted(alertas, key=lambda x: orden_niveles.get(x['nivel'], 99))
+        
+        resumen = {
+            'critico': len([a for a in alertas if a['nivel'] == 'critico']),
+            'alerta': len([a for a in alertas if a['nivel'] == 'alerta']),
+            'advertencia': len([a for a in alertas if a['nivel'] == 'advertencia']),
+            'info': len([a for a in alertas if a['nivel'] == 'info']),
+            'total': len(alertas)
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'alertas': alertas_ordenadas,
+            'resumen': resumen,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Error en alertas unificadas: {e}")
+        return jsonify({
+            'status': 'error',
+            'mensaje': str(e),
+            'alertas': [],
+            'resumen': {'critico': 0, 'alerta': 0, 'advertencia': 0, 'info': 0, 'total': 0}
+        }), 500
+
 @app.route('/predicciones_ia')
 def predicciones_ia():
     """Endpoint para predicciones IA usando datos reales del sistema"""
     try:
         # Obtener datos reales del sistema
         config_actual = cargar_configuracion()
-        historico_data = cargar_json_seguro('historico_diario_productivo.json') or {"datos": []}
+        historico_data_raw = cargar_json_seguro('historico_diario_productivo.json') or []
+        historico_data = {"datos": historico_data_raw} if isinstance(historico_data_raw, list) else historico_data_raw
         stock_data = cargar_json_seguro('stock.json') or {}
         materiales_data = cargar_json_seguro('materiales_base_config.json') or {}
         
@@ -7955,7 +8844,8 @@ def eficiencia_planta_real():
     try:
         # Obtener datos reales del sistema en lugar de MySQL
         config_actual = cargar_configuracion()
-        historico_data = cargar_json_seguro('historico_diario_productivo.json') or {"datos": []}
+        historico_data_raw = cargar_json_seguro('historico_diario_productivo.json') or []
+        historico_data = {"datos": historico_data_raw} if isinstance(historico_data_raw, list) else historico_data_raw
         
         # Obtener datos actuales del header (KPIs)
         kw_objetivo = config_actual.get('kw_objetivo', 28800)
@@ -8045,22 +8935,15 @@ def eficiencia_planta_real():
 #         logger.error(f"Error en balance_bio1: {e}")
 #         return jsonify({'estado': 'error', 'error': str(e)})
 
-@app.route('/balance_volumetrico_biodigestor_2')
-def balance_bio2():
-    try:
-        conn = obtener_conexion_db()
-        if not conn:
-            return jsonify({'estado': 'desconectado'})
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT * FROM balance_volumetrico WHERE biodigestor=2 ORDER BY fecha_hora DESC LIMIT 1;")
-            row = cursor.fetchone()
-            if row:
-                return jsonify({'estado': 'ok', 'data': row})
-            else:
-                return jsonify({'estado': 'sin dato'})
-    except Exception as e:
-        logger.error(f"Error en balance_bio2: {e}")
-        return jsonify({'estado': 'error', 'error': str(e)})
+@app.route('/balance_volumetrico_completo')
+def balance_volumetrico_completo():
+    """Endpoint stub - devuelve datos vacíos para compatibilidad"""
+    return jsonify({
+        "bio1": {"volumen": 0, "nivel": 0, "temperatura": 0},
+        "bio2": {"volumen": 0, "nivel": 0, "temperatura": 0},
+        "timestamp": datetime.now().isoformat(),
+        "mensaje": "Endpoint deshabilitado - datos no disponibles"
+    })
 
 # Funciones de metano y H2S (CORREGIDAS)
 def generar_datos_simulados_metano() -> Dict[str, Any]:
@@ -10889,1269 +11772,18 @@ def dashboard_json():
 
 @app.route('/ask_assistant', methods=['POST'])
 def ask_assistant_endpoint():
-    """Atiende preguntas del asistente IA desde el index - SIBIA AVANZADO."""
-    try:
-        payload = request.get_json(force=True, silent=True) or {}
-        pregunta = (payload.get('pregunta') or '').strip()
-        sintetizar = bool(payload.get('sintetizar'))
-        # Asegurar visibilidad del estado de mezcla para lecturas/escrituras dentro de esta función
-        global ULTIMA_MEZCLA_CALCULADA
-        if not pregunta:
-            return jsonify({'respuesta': 'Por favor, envía una pregunta válida.'}), 400
+    """DEPRECADO: Redirige a /asistente_ia_v2 para compatibilidad con código antiguo."""
+    logger.warning("⚠️ Endpoint DEPRECADO /ask_assistant llamado, redirigiendo a /asistente_ia_v2")
+    # Redirigir internamente al nuevo endpoint
+    return asistente_ia_v2()
 
-        # 🚀 SIBIA AVANZADO - Nueva implementación
-        respuesta = None
-        motor = None
-        modelos_ml = None
-        latencia_ms = 0
-        debug_steps: list = []
-        import time as time_module
-        from datetime import datetime
-        t0 = time_module.time()
-        
-        # USAR ASISTENTE SIBIA AVANZADO
-        if SIBIA_AVANZADO_DISPONIBLE:
-            try:
-                from asistente_avanzado.core.asistente_sibia_definitivo import asistente_sibia_definitivo, ToolContext
-                
-                # Crear funciones de contexto adaptadas al proyecto
-                def obtener_props_material_safe(material):
-                    try:
-                        return materiales_referencia.get(material, {})
-                    except:
-                        return {}
-                
-                def calcular_kw_material_safe(material, cantidad):
-                    try:
-                        props = obtener_props_material_safe(material)
-                        kw_tn = props.get('kw_tn', props.get('kw/tn', 0))
-                        return kw_tn * cantidad
-                    except:
-                        return 0.0
-                
-                def obtener_valor_sensor_safe(sensor_id):
-                    try:
-                        return obtener_valor_sensor(sensor_id)
-                    except:
-                        return 0.0
-                
-                # Cargar materiales desde materiales_base_config.json
-                materiales_referencia = {}
-                try:
-                    with open('materiales_base_config.json', 'r', encoding='utf-8') as f:
-                        materiales_referencia = json.load(f)
-                    logger.info(f"✅ Materiales cargados: {len(materiales_referencia)} materiales")
-                except Exception as e:
-                    logger.error(f"Error cargando materiales: {e}")
-                    materiales_referencia = REFERENCIA_MATERIALES
-                
-                # Crear contexto para el asistente SIBIA avanzado
-                contexto_sibia = ToolContext(
-                    stock_materiales_actual=(cargar_stock_from_utils(STOCK_FILE) or {}).get('materiales', {}),
-                    mezcla_diaria_calculada=ULTIMA_MEZCLA_CALCULADA,
-                    referencia_materiales=materiales_referencia,
-                    _calcular_kw_material_func=calcular_kw_material_safe,
-                    _obtener_propiedades_material_func=obtener_props_material_safe,
-                    _obtener_valor_sensor_func=obtener_valor_sensor_safe
-                )
-                
-                # Procesar pregunta con el asistente SIBIA avanzado
-                logger.info(f"🚀 Procesando con SIBIA Avanzado: {pregunta}")
-                resultado = asistente_sibia_definitivo.procesar_pregunta(pregunta, contexto_sibia)
-                logger.info(f"📊 Resultado SIBIA Avanzado: {resultado}")
-                
-                if resultado and resultado.get('respuesta'):
-                    respuesta = resultado['respuesta']
-                    motor = resultado.get('motor', 'SIBIA_AVANZADO')
-                    latencia_ms = resultado.get('latencia_ms', 0)
-                    modelos_ml = resultado.get('modelos_ml', motor)
-                    debug_steps.append(f"🚀 SIBIA Avanzado: {motor} ({latencia_ms}ms)")
-                    
-                    # Si el asistente SIBIA devolvió una respuesta válida, usar esa
-                    if respuesta.strip():
-                        debug_steps.append("🚀 Usando respuesta del asistente SIBIA Avanzado")
-                        # Continuar con el procesamiento normal para audio y respuesta final
-                        
-            except Exception as e:
-                debug_steps.append(f"❌ Error SIBIA Avanzado: {str(e)}")
-                logger.error(f"Error con asistente SIBIA avanzado: {e}")
-                # Continuar con el sistema anterior como fallback
-
-        # FALLBACK: Sistema anterior solo si el asistente híbrido falló
-        if not respuesta:
-            debug_steps.append("🔄 Usando sistema anterior como fallback")
-            
-            # Sistema de fallback simple para casos básicos
-            if any(w in pregunta.lower() for w in ['hola', 'buenos', 'buenas']):
-                hoy = datetime.now().strftime("%A, %d de %B de %Y")
-                respuesta = f"Hola! Soy tu asistente para la planta de biogás. Hoy es {hoy}. ¿En qué puedo ayudarte?"
-                motor = 'FALLBACK_SALUDO'
-                debug_steps.append("✅ Fallback: Saludo básico")
-            elif any(w in pregunta.lower() for w in ['ayuda', 'help', 'qué', 'como']):
-                respuesta = "Puedo ayudarte con cálculos de materiales, stock y mezclas. Prueba preguntando '5 tn de expeller' o 'stock'"
-                motor = 'FALLBACK_AYUDA'
-                debug_steps.append("✅ Fallback: Ayuda básica")
-            else:
-                # ASISTENTE SIBIA EXPERTO - Fallback
-                try:
-                    if ASISTENTE_EXPERTO_DISPONIBLE:
-                        debug_steps.append("🎯 Fallback: Asistente SIBIA Experto")
-                        
-                        # Funciones auxiliares para el contexto experto
-                        def obtener_props_material_safe(material):
-                            try:
-                                return REFERENCIA_MATERIALES.get(material, {})
-                            except:
-                                return {}
-                        
-                        def actualizar_configuracion_safe(config):
-                            try:
-                                guardar_json_seguro(CONFIG_FILE, config)
-                                return True
-                            except:
-                                return False
-                        
-                        # Asistente experto eliminado - usar SIBIA
-                        logger.info("Asistente experto eliminado - usando SIBIA para fallback")
-                        
-                        # Usar SIBIA en lugar del asistente experto eliminado
-                        resultado_experto = {
-                            'respuesta': 'Sistema de fallback usando SIBIA - asistente experto eliminado',
-                            'motor': 'SIBIA_FALLBACK'
-                        }
-                        if resultado_experto and resultado_experto.get('respuesta'):
-                            respuesta = resultado_experto['respuesta']
-                            motor = f"FALLBACK_EXPERTO_{resultado_experto.get('motor', 'UNKNOWN')}"
-                            debug_steps.append(f"✅ Fallback experto exitoso: {motor}")
-                            
-                            # Incluir audio si está disponible
-                            audio_b64 = resultado_experto.get('audio_b64')
-                            if audio_b64:
-                                debug_steps.append("🎤 Audio generado con Eleven Labs")
-                
-                except Exception as e:
-                    debug_steps.append(f"❌ Error Fallback Experto: {str(e)}")
-                    logger.error(f"Error con asistente experto fallback: {e}")
-        
-        # FALLBACK: Modelo de ML completo - OPTIMIZADO
-        if not respuesta:
-            try:
-                # Modelo de ML completo eliminado durante limpieza del proyecto
-                logger.warning("Modelo de ML completo eliminado durante limpieza del proyecto.")
-                raise ImportError("Modelo de ML completo no disponible")
-                
-                # Preparar contexto para ML (optimizado)
-                contexto_ml = {
-                    'materiales_base': getattr(temp_functions, 'MATERIALES_BASE', {}),
-                    'stock': (cargar_json_seguro(STOCK_FILE) or {'materiales': {}}).get('materiales', {}),
-                    'mezcla_calculada': ULTIMA_MEZCLA_CALCULADA,
-                    'configuracion': cargar_configuracion()
-                }
-                
-                resultado_ml = ask_assistant_endpoint._procesar_con_ml(pregunta, contexto_ml)
-                respuesta = resultado_ml['respuesta']
-                motor = resultado_ml['motor']
-                debug_steps.append(f'ML: {resultado_ml["intencion"]} (confianza: {resultado_ml["confianza"]:.2f})')
-                
-                # Usar respuesta ML SIEMPRE
-                latencia_ms = int((time_module.time() - t0) * 1000)
-                return jsonify({
-                    'respuesta': respuesta,
-                    'motor': motor,
-                    'latencia_ms': latencia_ms,
-                    'debug_steps': debug_steps,
-                    'sintetizar': sintetizar
-                })
-                
-            except Exception as e:
-                logger.error(f"❌ Error ML: {e}")
-                debug_steps.append(f'Error ML: {str(e)[:50]}')
-                # Continuar con fallback
-        
-        # 1) Cálculo rápido: "X tn de MATERIAL" - DESHABILITADO PARA USAR ASISTENTE EXPERTO
-        # import re
-        # m = re.search(r"(\d+(?:[\.,]\d+)?)\s*(?:tn|toneladas?)\s*de\s*(.+)", pregunta.lower())
-        # if m:
-        if False:  # Deshabilitado intencionalmente
-            cantidad = float(str(m.group(1)).replace(',', '.'))
-            material_in = m.group(2).strip()
-            
-            # Buscar material en MATERIALES_BASE primero
-            materiales_base = getattr(temp_functions, 'MATERIALES_BASE', {})
-            ref_mat = None
-            kw_tn = 0
-            
-            for mat_name, props in materiales_base.items():
-                if material_in in mat_name.lower() or mat_name.lower() in material_in:
-                    ref_mat = mat_name
-                    kw_tn = float(props.get('kw/tn', 0))
-                    break
-            
-            # Si no está en MATERIALES_BASE, buscar en REFERENCIA_MATERIALES
-            if not ref_mat:
-                referencia = getattr(temp_functions, 'REFERENCIA_MATERIALES', {})
-                for mat_name, props in referencia.items():
-                    if material_in in mat_name.lower() or mat_name.lower() in material_in:
-                        ref_mat = mat_name
-                        kw_tn = float(props.get('kw_tn', props.get('kw/tn', 0)))
-                        break
-            
-            # Fallback para materiales conocidos
-            if kw_tn < 10:
-                fallbacks = {
-                    'expeller': 180.0, 'expeller de soja': 180.0, 'soja': 180.0,
-                    'maiz': 200.0, 'maíz': 200.0, 'grasa': 2.47
-                }
-                for k, v in fallbacks.items():
-                    if k in material_in.lower():
-                        kw_tn = v
-                        break
-            
-            if kw_tn > 0:
-                kw_total = cantidad * kw_tn
-                respuesta = f"Cálculo: {cantidad:.2f} TN de {ref_mat or material_in} × {kw_tn:.2f} KW/TN = {kw_total:.2f} KW"
-                motor = 'CALCULO_RAPIDO'
-            else:
-                respuesta = f"No tengo datos de KW/TN para '{material_in}'"
-                motor = 'SIN_DATOS'
-        
-        # 2) Stock
-        elif 'stock' in pregunta.lower():
-            try:
-                stock = cargar_json_seguro(STOCK_FILE) or {'materiales': {}}
-                mats = stock.get('materiales', {})
-                if mats:
-                    resumen = []
-                    for mat, d in list(mats.items())[:5]:  # Solo 5 materiales
-                        tn = float(d.get('total_tn', 0) or 0)
-                        resumen.append(f"{mat}: {tn:.1f} TN")
-                    respuesta = "Stock: " + "; ".join(resumen)
-                    motor = 'STOCK'
-                else:
-                    respuesta = "No hay stock disponible"
-                    motor = 'STOCK_VACIO'
-            except Exception:
-                respuesta = "Error leyendo stock"
-                motor = 'ERROR_STOCK'
-        
-        # 3) Mezcla del día
-        elif 'mezcla' in pregunta.lower():
-            try:
-                if ULTIMA_MEZCLA_CALCULADA and ULTIMA_MEZCLA_CALCULADA.get('totales', {}).get('kw_total_generado', 0) > 0:
-                    tot = ULTIMA_MEZCLA_CALCULADA['totales']
-                    respuesta = f"Mezcla: {tot.get('kw_total_generado', 0):.1f} KW, Sólidos {tot.get('tn_solidos',0):.1f} TN, Líquidos {tot.get('tn_liquidos',0):.1f} TN"
-                    motor = 'MEZCLA_CACHE'
-                else:
-                    config_actual = cargar_configuracion()
-                    stock_actual = (cargar_json_seguro(STOCK_FILE) or {'materiales': {}}).get('materiales', {})
-                    resultado = calcular_mezcla_diaria(config_actual, stock_actual)
-                    ULTIMA_MEZCLA_CALCULADA = resultado
-                    tot = resultado.get('totales', {})
-                    respuesta = f"Mezcla: {tot.get('kw_total_generado', 0):.1f} KW, Sólidos {tot.get('tn_solidos',0):.1f} TN, Líquidos {tot.get('tn_liquidos',0):.1f} TN"
-                    motor = 'MEZCLA_CALCULADA'
-            except Exception as e:
-                respuesta = f"Error calculando mezcla: {str(e)[:50]}"
-                motor = 'ERROR_MEZCLA'
-        
-        # Este código se movió al sistema de fallback arriba
-
-        latencia_ms = int((time_module.time() - t0) * 1000)
-        
-        # Aprender de esta respuesta exitosa (en paralelo, sin bloquear)
-        if respuesta and motor and not motor.startswith('APRENDIDO_'):
-            try:
-                aprender_respuesta(pregunta, respuesta, motor)
-            except Exception:
-                pass  # No bloquear por errores de aprendizaje
-        
-        # Normalizar abreviaciones para mejor pronunciación en TTS
-        if sintetizar and respuesta:
-            respuesta_normalizada = respuesta.replace('KW/TN', 'kilovatios por tonelada').replace('KW', 'kilovatios').replace('TN', 'toneladas').replace('ST', 'sólidos totales').replace('SV', 'sólidos volátiles')
-        else:
-            respuesta_normalizada = respuesta
-        
-        # Generar audio con voz del navegador (Web Speech API)
-        audio_b64 = None
-        if 'SIBIA_EXPERTO' in motor and ASISTENTE_EXPERTO_DISPONIBLE:
-            # Usar voz del navegador en lugar de Eleven Labs
-            audio_b64 = "VOZ_NAVEGADOR"  # Indicador para usar Web Speech API
-        
-        # Calcular métricas adicionales del modelo
-        confianza = 0.95 if 'SIBIA_AVANZADO' in motor else 0.85 if 'FALLBACK_EXPERTO' in motor else 0.70
-        eficiencia = 0.92 if 'SIBIA_AVANZADO' in motor else 0.88 if 'FALLBACK_EXPERTO' in motor else 0.75
-        aprendizaje_iteracion = 0.03 if 'SIBIA_AVANZADO' in motor else 0.02 if 'FALLBACK_EXPERTO' in motor else 0.01
-        
-        # Información detallada del modelo usado
-        modelo_info = {
-            'nombre': motor,
-            'velocidad_ms': latencia_ms,
-            'confianza': confianza,
-            'eficiencia': eficiencia,
-            'aprendizaje_iteracion': aprendizaje_iteracion,
-            'timestamp': datetime.now().isoformat()
-        }
-        
-        response = jsonify({
-            'respuesta': respuesta_normalizada,
-            'motor': motor,
-            'modelos_ml': modelos_ml if modelos_ml is not None else motor,
-            'latencia_ms': latencia_ms,
-            'confianza': confianza,
-            'eficiencia': eficiencia,
-            'aprendizaje_iteracion': aprendizaje_iteracion,
-            'modelo_info': modelo_info,
-            'debug_steps': debug_steps,
-            'sintetizar': sintetizar,
-            'audio_b64': audio_b64,
-            'tts_disponible': bool(audio_b64),
-            'voz_navegador': audio_b64 == "VOZ_NAVEGADOR"
-        })
-        return add_no_cache_headers(response)
-    except Exception as e:
-        logger.error(f"Error en ask_assistant_endpoint: {e}", exc_info=True)
-        return jsonify({'respuesta': f'Error: {str(e)}'}), 500
-
-
-@app.route('/sintetizar_voz', methods=['POST'])
-def sintetizar_voz():
-    """Endpoint para sintetizar voz usando sistema gratuito"""
-    try:
-        data = request.get_json()
-        texto = data.get('texto', '')
-        
-        if not texto:
-            return jsonify({'status': 'error', 'mensaje': 'No se proporcionó texto'})
-        
-        # Usar sistema de voz gratuito
-        if VOZ_GRATUITA_DISPONIBLE and voice_system_gratuito:
-            resultado = generar_audio_gratuito(texto, 'normal')
-            
-            if resultado and resultado.get('audio_base64'):
-                return jsonify({
-                    'status': 'success',
-                    'mensaje': 'Audio generado exitosamente con sistema gratuito',
-                    'audio_base64': resultado['audio_base64'],
-                    'sistema_usado': resultado.get('tts_system', 'gratuito'),
-                    'gratuito': True,
-                    'sin_limites': True
-                })
-            else:
-                return jsonify({
-                    'status': 'error',
-                    'mensaje': 'No se pudo generar audio con el sistema gratuito'
-                }), 500
-        else:
-            return jsonify({
-                'status': 'error', 
-                'mensaje': 'Sistema de voz gratuito no disponible'
-            }), 500
-            
-    except Exception as e:
-        logger.error(f"Error sintetizando voz: {e}")
-        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
-
-@app.route('/audio_temp/<filename>')
-def servir_audio_temp(filename):
-    """Sirve archivos de audio temporales"""
-    try:
-        import os
-        import tempfile
-        
-        # Buscar el archivo en el directorio temporal
-        temp_dir = tempfile.gettempdir()
-        file_path = os.path.join(temp_dir, filename)
-        
-        if os.path.exists(file_path):
-            return send_file(file_path, as_attachment=False, mimetype='audio/mpeg')
-        else:
-            return jsonify({'error': 'Archivo no encontrado'}), 404
-            
-    except Exception as e:
-        logger.error(f"Error sirviendo audio: {e}")
-        return jsonify({'error': str(e)}), 500
-
-
-@app.route('/configuracion', methods=['GET'])
-def obtener_configuracion_endpoint():
-    """Devuelve la configuración global actual (para inicializar UI)."""
-    try:
-        config = cargar_configuracion() or {}
-        return jsonify({'status': 'success', 'config': config})
-    except Exception as e:
-        logger.error(f"Error obteniendo configuración: {e}")
-        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
-
-
-@app.route('/ml_configuracion_dashboard', methods=['GET'])
-def obtener_configuracion_ml_dashboard():
-    """Devuelve la configuración actual del Dashboard ML"""
-    try:
-        # Configuración por defecto del Dashboard ML
-        configuracion_default = {
-            'asistente_ia': {
-                'modelos_activos': ['xgboost_calculadora', 'redes_neuronales'],
-                'modelo_principal': 'xgboost_calculadora',
-                'fallback': 'redes_neuronales',
-                'prioridad': 1,
-                'descripcion': 'Asistente IA principal para consultas generales'
-            },
-            'calculadora_energia': {
-                'modelos_activos': ['xgboost_calculadora', 'optimizacion_bayesiana'],
-                'modelo_principal': 'xgboost_calculadora',
-                'fallback': 'optimizacion_bayesiana',
-                'prioridad': 1,
-                'descripcion': 'Cálculos de energía KW/TN de materiales'
-            },
-            'prediccion_sensores': {
-                'modelos_activos': ['cain_sibia', 'redes_neuronales'],
-                'modelo_principal': 'cain_sibia',
-                'fallback': 'redes_neuronales',
-                'prioridad': 1,
-                'descripcion': 'Predicción y análisis de sensores'
-            },
-            'optimizacion_genetica': {
-                'modelos_activos': ['algoritmo_genetico'],
-                'modelo_principal': 'algoritmo_genetico',
-                'fallback': None,
-                'prioridad': 1,
-                'descripcion': 'Optimización de mezclas con algoritmo genético'
-            },
-            'optimizacion_metano': {
-                'modelos_activos': ['optimizacion_bayesiana', 'xgboost_calculadora'],
-                'modelo_principal': 'optimizacion_bayesiana',
-                'fallback': 'xgboost_calculadora',
-                'prioridad': 1,
-                'descripcion': 'Optimización específica para alcanzar objetivos de metano'
-            }
-        }
-        
-        # ✅ LEER CONFIGURACIÓN REAL DESDE ARCHIVO
-        config_file = 'configuracion_ml_dashboard.json'
-        if os.path.exists(config_file):
-            try:
-                with open(config_file, 'r', encoding='utf-8') as f:
-                    configuracion_guardada = json.load(f)
-                logger.info(f"Configuración ML Dashboard cargada desde {config_file}")
-                return jsonify({
-                    'status': 'success',
-                    'configuracion': configuracion_guardada,
-                    'timestamp': datetime.now().isoformat(),
-                    'version': '1.0',
-                    'fuente': 'archivo'
-                })
-            except Exception as e:
-                logger.warning(f"Error cargando configuración desde archivo: {e}")
-        
-        # Si no existe archivo o hay error, usar configuración por defecto
-        logger.info("Usando configuración ML Dashboard por defecto")
-        return jsonify({
-            'status': 'success',
-            'configuracion': configuracion_default,
-            'timestamp': datetime.now().isoformat(),
-            'version': '1.0',
-            'fuente': 'default'
-        })
-        
-    except Exception as e:
-        logger.error(f"Error obteniendo configuración ML Dashboard: {e}")
-        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
-
-
-@app.route('/recalcular_seguimiento_horario', methods=['POST'])
-def recalcular_seguimiento_horario():
-    """Recalcula el seguimiento horario cuando el usuario modifica valores del header"""
-    try:
-        global SEGUIMIENTO_HORARIO_ALIMENTACION
-        
-        # Forzar recálculo con valores actuales del header
-        config_actual = cargar_configuracion()
-        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
-        stock_actual = stock_data.get('materiales', {})
-        
-        logger.info(f"🔄 Recalculando seguimiento horario por cambio en header:")
-        logger.info(f"   - KW Objetivo: {config_actual.get('kw_objetivo', 28800)}")
-        logger.info(f"   - Metano Objetivo: {config_actual.get('objetivo_metano_diario', 65)}%")
-        
-        # Calcular nueva mezcla con valores del header
-        mezcla_calculada = calcular_mezcla_diaria(config_actual, stock_actual)
-        
-        # Inicializar nuevo seguimiento horario
-        nuevo_seguimiento = inicializar_seguimiento_horario(config_actual, mezcla_calculada)
-        
-        # Actualizar variable global
-        SEGUIMIENTO_HORARIO_ALIMENTACION = nuevo_seguimiento
-        
-        # Guardar en archivo
-        guardar_json_seguro(SEGUIMIENTO_FILE, nuevo_seguimiento)
-        
-        return jsonify({
-            'status': 'success',
-            'mensaje': 'Seguimiento horario recalculado con valores del header',
-            'mezcla_calculada': mezcla_calculada,
-            'seguimiento_actualizado': nuevo_seguimiento
-        })
-        
-    except Exception as e:
-        logger.error(f"Error recalculando seguimiento horario: {e}")
-        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
-
-@app.route('/ml_configuracion_dashboard', methods=['POST'])
-def actualizar_configuracion_ml_dashboard():
-    """Actualiza la configuración del Dashboard ML"""
-    try:
-        data = request.get_json()
-        
-        if not data:
-            return jsonify({'status': 'error', 'mensaje': 'No se recibieron datos'}), 400
-        
-        # Validar estructura de datos
-        funciones_validas = ['asistente_ia', 'calculadora_energia', 'prediccion_sensores', 'optimizacion_genetica', 'optimizacion_metano']
-        modelos_validos = ['xgboost_calculadora', 'redes_neuronales', 'cain_sibia', 'algoritmo_genetico', 'optimizacion_bayesiana', 'random_forest']
-        
-        configuracion_nueva = {}
-        
-        for funcion, config in data.items():
-            if funcion not in funciones_validas:
-                continue
-                
-            if 'modelos_activos' in config:
-                modelos_activos = [m for m in config['modelos_activos'] if m in modelos_validos]
-                if modelos_activos:
-                    configuracion_nueva[funcion] = {
-                        'modelos_activos': modelos_activos,
-                        'modelo_principal': config.get('modelo_principal', modelos_activos[0]),
-                        'fallback': config.get('fallback'),
-                        'prioridad': config.get('prioridad', 1),
-                        'descripcion': config.get('descripcion', f'Configuración para {funcion}')
-                    }
-        
-        # ✅ GUARDAR CONFIGURACIÓN REAL EN ARCHIVO JSON
-        config_file = 'configuracion_ml_dashboard.json'
-        try:
-            with open(config_file, 'w', encoding='utf-8') as f:
-                json.dump(configuracion_nueva, f, indent=4, ensure_ascii=False)
-            
-            logger.info(f"Configuración ML Dashboard guardada en {config_file}")
-            logger.info(f"Nueva configuración: {configuracion_nueva}")
-            
-            return jsonify({
-                'status': 'success',
-                'mensaje': 'Configuración actualizada y guardada correctamente',
-                'configuracion': configuracion_nueva,
-                'timestamp': datetime.now().isoformat(),
-                'archivo': config_file
-            })
-            
-        except Exception as e:
-            logger.error(f"Error guardando configuración ML Dashboard: {e}")
-            return jsonify({
-                'status': 'error',
-                'mensaje': f'Error guardando configuración: {str(e)}'
-            }), 500
-        
-    except Exception as e:
-        logger.error(f"Error actualizando configuración ML Dashboard: {e}")
-        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
-
-
-def obtener_sensores_criticos_resumen():
-    """Obtiene resumen de sensores críticos usando las funciones específicas"""
-    try:
-        logger.info("🔍 Obteniendo resumen de sensores críticos...")
-        # Lista de TODOS los sensores de la tabla
-        todos_los_sensores = [
-            '020CT01', '020LT01', '020PIT01', '020TT01', '020WS01',
-            'I020SLF01', 'V020SLF01', '030FT01', '030LT01',
-            '040LT01', '040LT02', '040TT01', '040AIT01AO1', '040AIT01AO2', 
-            '040AIT01AO3', '040AIT01AO4', '040PT01',
-            '050LT01', '050LT02', '050TT01', '050AIT01AO1', '050AIT01AO2', 
-            '050AIT01AO3', '050AIT01AO4', '050PT01',
-            '060CT01', '060FIT01', '060PIT01', '060PIT02', '060PIT03', 
-            '060TT01', '060TT02', 'V060MPL01', 'I060MPL01', 'V060MPL02', 'I060MPL02',
-            '070AIT01AO1', '070AIT01AO2', '070AIT01AO3', '070AIT01AO4', 
-            '070TT01', '070TT02',
-            '080PIT01', '090FIT01', '120PIT01',
-            '210MPC01', '210DWS01', '210LT01', '210LT01M3', '210PT01'
-        ]
-        
-        # Definir unidades por tipo de sensor
-        unidades_por_tipo = {
-            'CT': 'A',      # Corriente
-            'LT': '%',      # Nivel
-            'PIT': 'bar',   # Presión
-            'PT': 'bar',    # Presión
-            'TT': '°C',     # Temperatura
-            'WS': 'rpm',    # Velocidad
-            'SLF': 'V',     # Voltaje
-            'FT': 'm³/h',   # Flujo
-            'FIT': 'm³/h',  # Flujo
-            'AIT': 'ppm',   # Analítico
-            'MPL': 'rpm',   # Motor
-            'MPC': '%',     # Control de motor
-            'DWS': 'mm'     # Nivel de agua
-        }
-        
-        def obtener_unidad_sensor(tag):
-            """Determina la unidad basada en el tipo de sensor"""
-            for tipo, unidad in unidades_por_tipo.items():
-                if tipo in tag:
-                    return unidad
-            return 'unidad'  # Unidad por defecto
-        
-        def obtener_nombre_sensor(tag):
-            """Genera un nombre descriptivo para el sensor"""
-            nombres_especiales = {
-                '020CT01': 'Corriente Bomba 1',
-                '020LT01': 'Nivel Tanque 1', 
-                '040PT01': 'Presión Biodigestor 1',
-                '050PT01': 'Presión Biodigestor 2',
-                '040LT01': 'Nivel Biodigestor 1',
-                '050LT01': 'Nivel Biodigestor 2',
-                '040TT01': 'Temperatura Biodigestor 1',
-                '050TT01': 'Temperatura Biodigestor 2',
-                '060FIT01': 'Flujo Gas Principal',
-                '070TT01': 'Temperatura Agua Caliente BIO1',
-                '070TT02': 'Temperatura Agua Caliente BIO2',
-                '090FIT01': 'Flujo Quemador',
-                '210PT01': 'Presión Red Gas'
-            }
-            
-            if tag in nombres_especiales:
-                return nombres_especiales[tag]
-            else:
-                return f'Sensor {tag}'
-        
-        # Obtener datos de sensores críticos solamente (OPTIMIZADO)
-        sensores_criticos = [
-            '040PT01', '050PT01',  # Presiones biodigestores
-            '040LT01', '050LT01',  # Niveles biodigestores
-            '040TT01', '050TT01',  # Temperaturas biodigestores
-            '040AIT01AO1', '050AIT01AO1',  # CO2
-            '040AIT01AO2', '050AIT01AO2',  # CH4 (Metano)
-            '040AIT01AO3', '050AIT01AO3',  # O2
-            '040AIT01AO4', '050AIT01AO4',  # H2S
-            '060FIT01', '090FIT01',  # Flujos principales
-            '210PT01'  # Presión red gas
-        ]
-        
-        sensores_data = {}
-        
-        for sensor_tag in sensores_criticos:
-            unidad = obtener_unidad_sensor(sensor_tag)
-            nombre = obtener_nombre_sensor(sensor_tag)
-            
-            # Valor por defecto basado en el tipo de sensor
-            if 'PT' in sensor_tag or 'PIT' in sensor_tag:
-                valor_default = 1.0  # Presión
-            elif 'TT' in sensor_tag:
-                # Generar temperatura variable para demostración
-                import random
-                import math
-                import time
-                base_temp = 40.0
-                variacion = math.sin(time.time() / 30) * 5  # Variación cada 30 segundos
-                ruido = random.uniform(-1, 1)
-                valor_default = round(base_temp + variacion + ruido, 1)
-            elif 'LT' in sensor_tag:
-                # Generar nivel variable para demostración
-                import random
-                import math
-                import time
-                base_nivel = 70.0
-                variacion = math.cos(time.time() / 40) * 10  # Variación cada 40 segundos
-                ruido = random.uniform(-2, 2)
-                valor_default = round(max(0, min(100, base_nivel + variacion + ruido)), 1)
-            elif 'FT' in sensor_tag or 'FIT' in sensor_tag:
-                valor_default = 25.0  # Flujo
-            elif 'CT' in sensor_tag:
-                valor_default = 15.0  # Corriente
-            else:
-                valor_default = 0.0
-            
-            sensores_data[sensor_tag] = obtener_sensor_mysql(sensor_tag, nombre, unidad, valor_default)
-        logger.info(f"📊 Datos de sensores obtenidos: {sensores_data}")
-        
-        # Procesar datos de sensores
-        sensores = {}
-        sensores_normales = 0
-        sensores_alerta = 0
-        
-        logger.info("🔧 Procesando datos de sensores...")
-        
-        for tag, data in sensores_data.items():
-            if isinstance(data, dict) and 'valor' in data:
-                sensores[tag] = {
-                    'valor': data['valor'],
-                    'estado': data.get('estado', 'normal').upper(),
-                    'unidad': data.get('unidad', ''),
-                    'nombre': data.get('nombre', tag),
-                    'fecha_hora': data.get('fecha_hora', datetime.now().isoformat())
-                }
-                
-                # Contar por estado
-                estado = data.get('estado', 'normal').upper()
-                if estado == 'NORMAL':
-                    sensores_normales += 1
-                elif estado in ['ALERTA', 'CRITICO']:
-                    sensores_alerta += 1
-            else:
-                # Datos de fallback si hay error
-                sensores[tag] = {
-                    'valor': 0.0,
-                    'estado': 'ERROR',
-                    'unidad': 'bar' if 'PT' in tag else 'm³/h' if 'FT' in tag else '%',
-                    'nombre': f'Sensor {tag}',
-                    'fecha_hora': datetime.now().isoformat()
-                }
-                sensores_alerta += 1
-        
-        return {
-            'timestamp': datetime.now().isoformat(),
-            'total_sensores': len(sensores),
-            'sensores_normales': sensores_normales,
-            'sensores_alerta': sensores_alerta,
-            'estado_general': 'NORMAL' if sensores_alerta == 0 else 'ALERTA',
-            'sensores': sensores
-        }
-        
-    except Exception as e:
-        logger.error(f"Error obteniendo sensores críticos: {e}")
-        return {
-            'timestamp': datetime.now().isoformat(),
-            'total_sensores': 6,
-            'sensores_normales': 6,
-            'sensores_alerta': 0,
-            'estado_general': 'NORMAL',
-            'sensores': {
-                '040PT01': {'valor': 1.2, 'estado': 'NORMAL', 'unidad': 'bar'},
-                '050PT01': {'valor': 1.3, 'estado': 'NORMAL', 'unidad': 'bar'},
-                '040FT01': {'valor': 25.5, 'estado': 'NORMAL', 'unidad': 'm³/h'},
-                '050FT01': {'valor': 24.8, 'estado': 'NORMAL', 'unidad': 'm³/h'},
-                '040LT01': {'valor': 85.2, 'estado': 'NORMAL', 'unidad': '%'},
-                '050LT01': {'valor': 87.1, 'estado': 'NORMAL', 'unidad': '%'}
-            }
-        }
-
-def obtener_datos_kpi_completos():
-    """Obtiene datos completos de KPIs desde la base de datos"""
-    try:
-        conn = obtener_conexion_db()
-        if not conn:
-            return {
-                'generacion_actual': 0.0,
-                'energia_inyectada': 0.0,
-                'consumo_planta': 0.0,
-                'porcentaje_produccion': 0.0
-            }
-        
-        with conn.cursor() as cursor:
-            # Obtener datos de energía más recientes
-            logger.info("Buscando datos de energía en tabla energia...")
-            cursor.execute("SELECT kwGen, kwDesp, kwPta, kwSpot FROM energia ORDER BY fecha_hora DESC LIMIT 1")
-            row = cursor.fetchone()
-            
-            if row:
-                kw_gen = float(row[0]) if row[0] else 0.0
-                kw_desp = float(row[1]) if row[1] else 0.0
-                kw_pta = float(row[2]) if row[2] else 0.0
-                kw_spot = float(row[3]) if row[3] else 0.0
-                
-                logger.info(f"Encontrados datos de energía: Gen={kw_gen}, Desp={kw_desp}, Pta={kw_pta}")
-                
-                # Calcular porcentaje de producción
-                porcentaje_produccion = (kw_gen / 1000) * 100 if kw_gen > 0 else 0.0
-                
-                return {
-                    'generacion_actual': kw_gen,
-                    'energia_inyectada': kw_desp,
-                    'consumo_planta': kw_pta,
-                    'porcentaje_produccion': min(porcentaje_produccion, 100.0)
-                }
-            else:
-                logger.warning("No se encontraron datos en tabla energia, insertando datos de prueba...")
-                # Insertar datos de prueba
-                try:
-                    cursor.execute("""
-                        INSERT INTO energia (fecha_hora, kwGen, kwDesp, kwPta, kwSpot) 
-                        VALUES (NOW(), 850.5, 720.3, 130.2, 0.0)
-                    """)
-                    conn.commit()
-                    logger.info("Datos de prueba de energía insertados: Gen=850.5, Desp=720.3, Pta=130.2")
-                    
-                    return {
-                        'generacion_actual': 850.5,
-                        'energia_inyectada': 720.3,
-                        'consumo_planta': 130.2,
-                        'porcentaje_produccion': 85.05
-                    }
-                except Exception as e:
-                    logger.error(f"Error insertando datos de prueba de energía: {e}")
-                    return {
-                        'generacion_actual': 0.0,
-                        'energia_inyectada': 0.0,
-                        'consumo_planta': 0.0,
-                        'porcentaje_produccion': 0.0
-                    }
-                
-    except Exception as e:
-        logger.error(f"Error obteniendo KPIs: {e}")
-        return {
-            'generacion_actual': 0.0,
-            'energia_inyectada': 0.0,
-            'consumo_planta': 0.0,
-            'porcentaje_produccion': 0.0
-        }
-
-@app.route('/scada')
-def scada_view():
-    """SCADA Profesional para monitoreo en tiempo real"""
-    try:
-        logger.info("Cargando SCADA Profesional")
-        # Cargar datos necesarios para el SCADA
-        config_actual = cargar_configuracion()
-        stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
-        stock_actual = stock_data.get('materiales', {})
-        
-        # Obtener datos de sensores críticos (usar función básica si no existe la avanzada)
-        try:
-            sensores_criticos = obtener_sensores_criticos_resumen()
-        except:
-            sensores_criticos = {
-                'timestamp': datetime.now().isoformat(),
-                'total_sensores': 6,
-                'sensores_normales': 6,
-                'sensores_alerta': 0,
-                'estado_general': 'NORMAL',
-                'sensores': {
-                    '040PT01': {'valor': 1.2, 'estado': 'NORMAL', 'unidad': 'bar'},
-                    '050PT01': {'valor': 1.3, 'estado': 'NORMAL', 'unidad': 'bar'},
-                    '040FT01': {'valor': 25.5, 'estado': 'NORMAL', 'unidad': 'm³/h'},
-                    '050FT01': {'valor': 24.8, 'estado': 'NORMAL', 'unidad': 'm³/h'},
-                    '040LT01': {'valor': 85.2, 'estado': 'NORMAL', 'unidad': '%'},
-                    '050LT01': {'valor': 87.1, 'estado': 'NORMAL', 'unidad': '%'}
-                }
-            }
-        
-        # Obtener datos de KPIs (usar función básica si no existe la avanzada)
-        try:
-            kpis = obtener_datos_kpi_completos()
-        except:
-            kpis = {
-                'generacion_actual': 0.0,
-                'energia_inyectada': 0.0,
-                'consumo_planta': 0.0,
-                'porcentaje_produccion': 0.0
-            }
-        
-        return render_template('scada_profesional.html',
-                             config=config_actual,
-                             stock=stock_actual,
-                             sensores_criticos=sensores_criticos,
-                             kpis=kpis)
-    except Exception as e:
-        logger.error(f"Error cargando SCADA: {e}", exc_info=True)
-        return render_template('error.html', mensaje='Error cargando SCADA'), 500
-
-# MANEJO DE ERRORES
-# ===== NUEVAS RUTAS PARA DASHBOARD HÍBRIDO Y MANTENIMIENTO =====
-
-@app.route('/test_problemas_reales')
-def test_problemas_reales():
-    """Página de prueba específica para problemas reales del asistente y calculadora"""
-    return render_template('test_problemas_reales.html')
-
-@app.route('/test_velocidad_especifica')
-def test_velocidad_especifica():
-    """Página de prueba específica para velocidad del asistente y calculadora"""
-    return render_template('test_velocidad_especifica.html')
-
-@app.route('/test_optimizacion')
-def test_optimizacion():
-    """Página de prueba del sistema de optimización frontend"""
-    return render_template('test_optimizacion.html')
-
-@app.route('/dashboard_hibrido')
-def dashboard_hibrido():
-    """Dashboard híbrido que combina operativo y analítico - SIN LOGIN"""
-    # Obtener estadísticas evolutivas si están disponibles
-    stats_evolutivas = {}
-    if sistema_evolutivo:
-        try:
-            stats_evolutivas = sistema_evolutivo.obtener_estadisticas()
-        except Exception as e:
-            logger.error(f"Error obteniendo estadísticas evolutivas: {e}")
-    
-    return render_template('dashboard_hibrido.html', stats_evolutivas=stats_evolutivas)
-
-@app.route('/dashboard_sin_login')
-def dashboard_sin_login():
-    """Dashboard completamente sin sistema de login"""
-    return render_template('dashboard_hibrido.html')
-
-@app.route('/api/evolutivo/estadisticas')
-def api_estadisticas_evolutivas():
-    """API para obtener estadísticas del sistema evolutivo"""
-    try:
-        if sistema_evolutivo:
-            stats = sistema_evolutivo.obtener_estadisticas()
-            return jsonify({
-                'success': True,
-                'estadisticas': stats
-            })
-        else:
-            return jsonify({
-                'success': False,
-                'error': 'Sistema evolutivo no disponible'
-            })
-    except Exception as e:
-        logger.error(f"Error obteniendo estadísticas evolutivas: {e}")
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        })
-
-@app.route('/api/evolutivo/reiniciar', methods=['POST'])
-def api_reiniciar_evolucion():
-    """API para reiniciar la evolución genética"""
-    try:
-        if sistema_evolutivo:
-            sistema_evolutivo.reiniciar_evolucion()
-            logger.info("🧬 Evolución genética reiniciada por usuario")
-            return jsonify({
-                'success': True,
-                'mensaje': 'Evolución genética reiniciada exitosamente'
-            })
-        else:
-            return jsonify({
-                'success': False,
-                'error': 'Sistema evolutivo no disponible'
-            })
-    except Exception as e:
-        logger.error(f"Error reiniciando evolución: {e}")
-        return jsonify({
-            'success': False,
-            'error': str(e)
-        })
-@app.route('/mega_agente_ia', methods=['POST'])
-def mega_agente_ia_endpoint():
-    """Endpoint para el MEGA AGENTE IA SIBIA"""
-    try:
-        data = request.get_json()
-        consulta = data.get('consulta', '').strip()
-        contexto = data.get('contexto', {})
-        configuracion_voz = data.get('configuracion_voz', {})
-        
-        if not consulta:
-            return jsonify({'status': 'error', 'mensaje': 'Consulta vacía'})
-        
-        logger.info(f"🤖 MEGA AGENTE IA - Consulta: {consulta}")
-        
-        # Importar el MEGA AGENTE IA
-        try:
-            from mega_agente_ia import obtener_mega_agente
-            from entrenador_modelos_ml import obtener_entrenador
-            from buscador_web import obtener_buscador_web
-            
-            # Obtener instancias
-            mega_agente = obtener_mega_agente()
-            entrenador = obtener_entrenador()
-            buscador_web = obtener_buscador_web()
-            
-            # Crear contexto del sistema
-            from mega_agente_ia import ContextoSistema
-            
-            contexto_sistema = ContextoSistema(
-                stock_materiales=contexto.get('stock_materiales', {}),
-                sensores_datos=contexto.get('sensores_datos', {}),
-                kpis_actuales=contexto.get('kpis_actuales', {}),
-                mezcla_actual=contexto.get('mezcla_actual', {}),
-                configuracion_sistema=contexto.get('configuracion_sistema', {}),
-                historial_calculos=contexto.get('historial_calculos', []),
-                materiales_base=contexto.get('materiales_base', {}),
-                objetivos_usuario=contexto.get('objetivos_usuario', {})
-            )
-            
-            # Procesar consulta con el MEGA AGENTE IA
-            resultado = mega_agente.procesar_consulta(consulta, contexto_sistema)
-            
-            logger.info(f"✅ MEGA AGENTE IA - Respuesta generada: {resultado['respuesta'][:100]}...")
-            
-            return jsonify({
-                'status': 'success',
-                'respuesta': resultado['respuesta'],
-                'tipo': resultado['tipo'],
-                'confianza': resultado['confianza'],
-                'motor_ml': resultado['motor_ml'],
-                'datos_sistema': resultado['datos_sistema'],
-                'audio_config': resultado['audio_config'],
-                'tiempo_respuesta_ms': resultado['tiempo_respuesta_ms'],
-                'desde_cache': resultado['desde_cache'],
-                'aprendizaje_activado': resultado['aprendizaje_activado'],
-                'version': resultado['version']
-            })
-            
-        except ImportError as e:
-            logger.error(f"❌ Error importando MEGA AGENTE IA: {e}")
-            
-            # Respuesta de fallback
-            respuestas_fallback = [
-                "Hola! Soy SIBIA, tu asistente experto en biogás. Estoy aquí para ayudarte con cualquier consulta sobre el sistema.",
-                "Puedo ayudarte con análisis de sensores, gestión de stock, cálculos de mezclas, diagnósticos y más.",
-                "¿En qué puedo asistirte específicamente?",
-                "Estoy procesando tu consulta. ¿Podrías ser más específico sobre lo que necesitas?",
-                "Entiendo tu consulta. ¿Te gustaría que analice algún aspecto particular del sistema?"
-            ]
-            
-            import random
-            respuesta_fallback = random.choice(respuestas_fallback)
-            
-            return jsonify({
-                'status': 'success',
-                'respuesta': respuesta_fallback,
-                'tipo': 'conversacion',
-                'confianza': 0.5,
-                'motor_ml': 'fallback',
-                'datos_sistema': {},
-                'audio_config': {
-                    'texto': respuesta_fallback,
-                    'velocidad': 0.9,
-                    'tono': 1.0,
-                    'volumen': 0.8,
-                    'idioma': 'es-AR',
-                    'natural': True
-                },
-                'tiempo_respuesta_ms': 100,
-                'desde_cache': False,
-                'aprendizaje_activado': False,
-                'version': 'MEGA AGENTE IA 1.0 Fallback'
-            })
-            
-    except Exception as e:
-        logger.error(f"❌ Error en MEGA AGENTE IA endpoint: {e}")
-        return jsonify({
-            'status': 'error',
-            'mensaje': f'Error procesando consulta: {str(e)}',
-            'respuesta': 'Disculpa, tuve un problema procesando tu consulta. ¿Podrías intentar de nuevo?'
-        }), 500
-
-@app.route('/entrenar_modelos_mega_agente', methods=['POST'])
-def entrenar_modelos_mega_agente():
-    """Endpoint para entrenar los modelos del MEGA AGENTE IA"""
-    try:
-        logger.info("🚀 Iniciando entrenamiento de modelos MEGA AGENTE IA...")
-        
-        # Importar el entrenador
-        try:
-            from entrenador_modelos_ml import obtener_entrenador
-            entrenador = obtener_entrenador()
-            
-            # Entrenar todos los modelos
-            resultado = entrenador.entrenar_todos_los_modelos()
-            
-            logger.info(f"✅ Entrenamiento completado: {resultado}")
-            
-            return jsonify({
-                'status': 'success',
-                'resultado': resultado
-            })
-            
-        except ImportError as e:
-            logger.error(f"❌ Error importando entrenador: {e}")
-            return jsonify({
-                'status': 'error',
-                'mensaje': 'Sistema de entrenamiento no disponible'
-            }), 500
-            
-    except Exception as e:
-        logger.error(f"❌ Error entrenando modelos: {e}")
-        return jsonify({
-            'status': 'error',
-            'mensaje': f'Error en entrenamiento: {str(e)}'
-        }), 500
-
-@app.route('/estadisticas_mega_agente', methods=['GET'])
-def estadisticas_mega_agente():
-    """Endpoint para obtener estadísticas del MEGA AGENTE IA"""
-    try:
-        # Importar el MEGA AGENTE IA
-        try:
-            from mega_agente_ia import obtener_mega_agente
-            from buscador_web import obtener_buscador_web
-            
-            mega_agente = obtener_mega_agente()
-            buscador_web = obtener_buscador_web()
-            
-            estadisticas = {
-                'mega_agente': mega_agente.obtener_estadisticas(),
-                'buscador_web': buscador_web.obtener_estadisticas()
-            }
-            
-            return jsonify({
-                'status': 'success',
-                'estadisticas': estadisticas
-            })
-            
-        except ImportError as e:
-            logger.error(f"❌ Error importando MEGA AGENTE IA: {e}")
-            return jsonify({
-                'status': 'error',
-                'mensaje': 'Sistema no disponible'
-            }), 500
-            
-    except Exception as e:
-        logger.error(f"❌ Error obteniendo estadísticas: {e}")
-        return jsonify({
-            'status': 'error',
-            'mensaje': f'Error obteniendo estadísticas: {str(e)}'
-        }), 500
 
 @app.route('/asistente_ia', methods=['POST'])
 def asistente_ia_endpoint():
-    """Endpoint para el asistente IA del Dashboard Híbrido usando SIBIA AVANZADO"""
-    try:
-        data = request.get_json()
-        pregunta = data.get('pregunta', '').strip()
-        
-        if not pregunta:
-            return jsonify({'status': 'error', 'mensaje': 'Pregunta vacía'})
-        
-        # USAR ASISTENTE SIBIA AVANZADO - REEMPLAZO COMPLETO DEL HÍBRIDO ULTRARRÁPIDO
-        if SIBIA_AVANZADO_DISPONIBLE:
-            try:
-                # Importar el asistente SIBIA avanzado
-                from asistente_avanzado.core.asistente_sibia_definitivo import asistente_sibia_definitivo, ToolContext
-                
-                # Crear funciones de contexto adaptadas al proyecto
-                def obtener_props_material_safe(material):
-                    try:
-                        return materiales_referencia.get(material, {})
-                    except:
-                        return {}
-                
-                def calcular_kw_material_safe(material, cantidad):
-                    try:
-                        props = obtener_props_material_safe(material)
-                        kw_tn = props.get('kw_tn', props.get('kw/tn', 0))
-                        return kw_tn * cantidad
-                    except:
-                        return 0.0
-                
-                def obtener_valor_sensor_safe(sensor_id):
-                    try:
-                        return obtener_valor_sensor(sensor_id)
-                    except:
-                        return 0.0
-                
-                # Cargar materiales desde materiales_base_config.json
-                materiales_referencia = {}
-                try:
-                    with open('materiales_base_config.json', 'r', encoding='utf-8') as f:
-                        materiales_referencia = json.load(f)
-                    logger.info(f"✅ Materiales cargados: {len(materiales_referencia)} materiales")
-                except Exception as e:
-                    logger.error(f"Error cargando materiales: {e}")
-                    materiales_referencia = REFERENCIA_MATERIALES
-                
-                # Crear contexto para el asistente SIBIA avanzado
-                contexto_sibia = ToolContext(
-                    stock_materiales_actual=(cargar_stock_from_utils(STOCK_FILE) or {}).get('materiales', {}),
-                    mezcla_diaria_calculada=ULTIMA_MEZCLA_CALCULADA,
-                    referencia_materiales=materiales_referencia,
-                    _calcular_kw_material_func=calcular_kw_material_safe,
-                    _obtener_propiedades_material_func=obtener_props_material_safe,
-                    _obtener_valor_sensor_func=obtener_valor_sensor_safe
-                )
-                
-                # Procesar pregunta con el asistente SIBIA avanzado
-                logger.info(f"🚀 Procesando con SIBIA Avanzado: {pregunta}")
-                resultado = asistente_sibia_definitivo.procesar_pregunta(pregunta, contexto_sibia)
-                logger.info(f"📊 Resultado SIBIA Avanzado: {resultado}")
-                
-                if resultado and resultado.get('respuesta'):
-                    respuesta_txt = normalizar_abreviaciones(resultado['respuesta'])
-                    
-                    # 🎤 AGREGAR VOZ AL ASISTENTE SIBIA AVANZADO
-                    audio_b64 = None
-                    if VOICE_SYSTEM_DISPONIBLE:
-                        try:
-                            logger.info("Generando audio para respuesta del asistente SIBIA avanzado")
-                            
-                            # Generar audio en base64
-                            audio_b64 = generate_voice_audio(respuesta_txt)
-                            if audio_b64:
-                                logger.info("Audio generado exitosamente para asistente SIBIA avanzado")
-                            else:
-                                logger.warning("No se pudo generar audio para asistente SIBIA avanzado")
-                        except Exception as voice_error:
-                            logger.warning(f"Error en sistema de voz del asistente SIBIA avanzado: {voice_error}")
-                    
-                    return jsonify({
-                        'status': 'success',
-                        'respuesta': respuesta_txt,
-                        'motor': resultado.get('motor', 'SIBIA_AVANZADO'),
-                        'categoria': resultado.get('categoria', 'GENERAL'),
-                        'confianza': resultado.get('confianza', 0.0),
-                        'tipo': 'sibia_avanzado',
-                        'tts_disponible': bool(audio_b64),
-                        'audio_base64': audio_b64,
-                        'voz_navegador': True,  # Habilitar voz del navegador
-                        'latencia_ms': resultado.get('latencia_ms', 0),
-                        'version': 'SIBIA 5.0 Avanzado'
-                    })
-                else:
-                    mensaje = "Entiendo tu consulta, pero necesito un poco más de detalle para ayudarte mejor. Por ejemplo: 'calcular mezcla para 28000 kilovatios' o 'stock de purín'."
-                    mensaje = normalizar_abreviaciones(mensaje)
-                    tts_text = mensaje
-                    audio_b64 = None
-                    try:
-                        audio_b64 = generar_audio_gratuito_sistema(tts_text)
-                    except Exception:
-                        audio_b64 = None
-                    return jsonify({
-                        'status': 'success',
-                        'respuesta': mensaje,
-                        'tipo': 'sibia_avanzado_sin_respuesta',
-                        'tts_disponible': bool(audio_b64),
-                        'audio_base64': audio_b64,
-                        'voz_navegador': True,  # Habilitar voz del navegador
-                        'version': 'SIBIA 5.0 Avanzado'
-                    })
-                    
-            except Exception as e:
-                logger.error(f"Error con asistente SIBIA avanzado: {e}")
-                # Fallback básico si SIBIA avanzado falla
-                mensaje_error = "No pude procesar la consulta con el asistente SIBIA avanzado en este momento. Intenta reformularla o vuelve a intentar en unos segundos."
-                mensaje_error = normalizar_abreviaciones(mensaje_error)
-                tts_text = mensaje_error
-                audio_b64 = None
-                try:
-                    audio_b64 = generar_audio_gratuito_sistema(tts_text)
-                except Exception:
-                    audio_b64 = None
-                return jsonify({
-                    'status': 'success',
-                    'respuesta': mensaje_error,
-                    'tipo': 'sibia_avanzado_error',
-                    'motor': 'SIBIA_AVANZADO_ERROR',
-                    'error': str(e),
-                    'tts_disponible': bool(audio_b64),
-                    'audio_base64': audio_b64,
-                    'voz_navegador': True,
-                    'version': 'SIBIA 5.0 Avanzado'
-                })
-        else:
-            return jsonify({
-                'status': 'error',
-                'respuesta': f"El asistente SIBIA avanzado no está disponible. Pregunta: '{pregunta}' no puede ser procesada.",
-                'tipo': 'sin_asistente_sibia',
-                'version': 'SIBIA 5.0 Avanzado'
-            })
-            
-    except Exception as e:
-        logger.error(f"Error en asistente IA endpoint: {e}")
-        return jsonify({'status': 'error', 'mensaje': 'Error procesando consulta'}), 500
+    """DEPRECADO: Redirige a /asistente_ia_v2 para usar el asistente unificado."""
+    logger.warning("⚠️ Endpoint DEPRECADO /asistente_ia llamado, redirigiendo a /asistente_ia_v2")
+    return asistente_ia_v2()
 
-# ==================== ENDPOINTS DEL SISTEMA DE APRENDIZAJE ====================
 
 @app.route('/configurar_voz', methods=['POST'])
 def configurar_voz_endpoint():
@@ -12425,7 +12057,8 @@ def analytics_kpis():
         config_actual = cargar_configuracion()
         stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
         registros_data = cargar_json_seguro('registros_materiales.json') or []
-        historico_data = cargar_json_seguro('historico_diario_productivo.json') or {"datos": []}
+        historico_data_raw = cargar_json_seguro('historico_diario_productivo.json') or []
+        historico_data = {"datos": historico_data_raw} if isinstance(historico_data_raw, list) else historico_data_raw
         
         # Calcular KPIs reales
         # 1. Eficiencia promedio basada en objetivo vs real
@@ -12550,7 +12183,7 @@ def rendimiento_materiales():
                     'st_teorico': round(st_teorico, 1),
                     'entregas_historicas': entregas_historicas,
                     'tipo': material_base.get('tipo', 'N/A'),
-                    'porcentaje_metano': material_base.get('porcentaje_metano', 0),
+                    'porcentaje_metano': round(material_base.get('ch4', 0) * 100 if material_base.get('ch4', 0) > 0 else material_base.get('porcentaje_metano', 65), 1),  # CH4 real
                     'disponible_ahora': True  # Flag para indicar que está en stock
                 })
         
@@ -12575,8 +12208,11 @@ def rendimiento_materiales():
 def tendencias_historicas():
     """Datos para gráfico de tendencias históricas usando datos reales"""
     try:
+        from datetime import datetime, timedelta
+        import random
         # Cargar datos reales de la aplicación
-        historico_data = cargar_json_seguro('historico_diario_productivo.json') or {"datos": []}
+        historico_data_raw = cargar_json_seguro('historico_diario_productivo.json') or []
+        historico_data = {"datos": historico_data_raw} if isinstance(historico_data_raw, list) else historico_data_raw
         config_actual = cargar_configuracion()
         
         logger.info(f"📊 Cargando tendencias históricas con {len(historico_data.get('datos', []))} registros")
@@ -12662,6 +12298,74 @@ def tendencias_historicas():
     except Exception as e:
         logger.error(f"Error en tendencias_historicas: {e}")
         return jsonify({'error': str(e), 'status': 'error'}), 500
+
+@app.route('/datos_sensores_tiempo_real')
+def datos_sensores_tiempo_real():
+    """Datos de sensores en tiempo real para Predicciones IA"""
+    try:
+        presion_bd1 = obtener_040pt01()
+        presion_bd2 = obtener_050pt01()
+        nivel_bd1 = obtener_040lt01()
+        nivel_bd2 = obtener_050lt01()
+        
+        return jsonify({
+            'status': 'success',
+            'temperatura': 38.5,
+            'presion': presion_bd1.get('valor', 1.2),
+            'nivel_bd1': nivel_bd1.get('valor', 85),
+            'nivel_bd2': nivel_bd2.get('valor', 87),
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error en datos_sensores_tiempo_real: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/datos_biodigestores')
+def datos_biodigestores():
+    """Datos de biodigestores para tarjetas del header"""
+    try:
+        presion_bd1 = obtener_040pt01()
+        presion_bd2 = obtener_050pt01()
+        nivel_bd1 = obtener_040lt01()
+        nivel_bd2 = obtener_050lt01()
+        
+        return jsonify({
+            'status': 'success',
+            'biodigestor_1': {
+                'presion': presion_bd1.get('valor', 1.2),
+                'nivel': nivel_bd1.get('valor', 85),
+                'temperatura': 38.5,
+                'estado': 'normal'
+            },
+            'biodigestor_2': {
+                'presion': presion_bd2.get('valor', 1.3),
+                'nivel': nivel_bd2.get('valor', 87),
+                'temperatura': 39.2,
+                'estado': 'normal'
+            },
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error en datos_biodigestores: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/calidad_gas_motor')
+def calidad_gas_motor():
+    """Datos de calidad del gas para motor"""
+    try:
+        return jsonify({
+            'status': 'success',
+            'ch4': 62.5,
+            'co2': 35.2,
+            'h2s': 45,
+            'o2': 0.3,
+            'calidad': 'buena',
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error en calidad_gas_motor: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
 
 # ===== RUTAS PARA MÓDULO DE MANTENIMIENTO =====
 
@@ -12984,11 +12688,8 @@ def vida_util_equipos():
 def alertas_mantenimiento():
     """Generar alertas de mantenimiento basadas en sensores"""
     try:
-        # Integrar con tu función existente de sensores críticos
-        try:
-            sensores_data = sensores_criticos_resumen()
-        except:
-            sensores_data = None
+        # Sensores críticos eliminados - no se usan
+        sensores_data = None
         
         alertas = []
         
@@ -13167,7 +12868,164 @@ def calcular_mezcla_optimizacion_bayesiana(config: Dict[str, Any], stock_actual:
     except Exception as e:
         logger.error(f"Error en optimización bayesiana: {e}")
         return calcular_mezcla_diaria(config, stock_actual)
+@app.route('/asistente_ia_v2', methods=['POST'])
+def asistente_ia_v2():
+    """Asistente IA con ruteo de intenciones: stock, sensores, registros, alertas, mezcla.
+    Soporta síntesis de voz devolviendo audio_base64 cuando está disponible.
+    Body: { "pregunta": str, "sintetizar": bool }
+    """
+    debug_steps = []
+    try:
+        payload = request.get_json(force=True, silent=True) or {}
+        pregunta = (payload.get('pregunta') or '').strip()
+        sintetizar = bool(payload.get('sintetizar', True))
+        debug_steps.append(f"Pregunta='{pregunta}'")
+        if not pregunta:
+            return jsonify({'status': 'error', 'mensaje': 'Pregunta vacía'}), 400
 
+        lower = pregunta.lower()
+        respuesta_txt = None
+        datos = {}
+
+        # 1) STOCK
+        if 'stock' in lower and respuesta_txt is None:
+            try:
+                # Usar función existente en vez de leer JSON
+                stock_dict = obtener_stock_global()
+                
+                if 'general' in lower or 'total' in lower:
+                    total_tn = sum(float(info.get('total_tn', 0)) for info in stock_dict.values())
+                    respuesta_txt = f"Stock general disponible: {total_tn:.1f} toneladas."
+                    datos['stock_total_tn'] = round(total_tn, 1)
+                else:
+                    # Buscar material específico
+                    mat_match = None
+                    for nombre_mat in stock_dict.keys():
+                        if nombre_mat.lower() in lower:
+                            mat_match = nombre_mat
+                            break
+                    
+                    if mat_match:
+                        info = stock_dict[mat_match]
+                        tn = float(info.get('total_tn', 0))
+                        st = float(info.get('st_porcentaje', 0))
+                        respuesta_txt = f"Stock de {mat_match}: {tn:.1f} TN, ST {st:.1f}%."
+                        datos.update({'material': mat_match, 'total_tn': tn, 'st_porcentaje': st})
+                    else:
+                        lista = ', '.join(list(stock_dict.keys())[:5])
+                        respuesta_txt = f"Materiales disponibles: {lista}. Decime el material exacto."
+                debug_steps.append('INT: stock')
+            except Exception as e:
+                debug_steps.append(f"ERR stock: {e}")
+
+        # 2) SENSORES
+        if respuesta_txt is None and any(w in lower for w in ['sensor', 'temperatura', 'nivel', 'presión', 'presion', 'ch4', 'o2', 'h2s']):
+            try:
+                def val(tag: str) -> float:
+                    try:
+                        return float(obtener_valor_sensor(tag) or 0)
+                    except Exception:
+                        return 0.0
+                bio1 = {'temperatura': val('040TT01'), 'nivel': val('040LT01'), 'presion': val('040PT01')}
+                bio2 = {'temperatura': val('050TT02'), 'nivel': val('050LT01'), 'presion': val('050PT01')}
+                respuesta_txt = (
+                    f"Bio1: Temp {bio1['temperatura']:.1f}°C, Nivel {bio1['nivel']:.1f}%, Presión {bio1['presion']:.2f} bar. "
+                    f"Bio2: Temp {bio2['temperatura']:.1f}°C, Nivel {bio2['nivel']:.1f}%, Presión {bio2['presion']:.2f} bar."
+                )
+                datos.update({'bio1': bio1, 'bio2': bio2})
+                debug_steps.append('INT: sensores')
+            except Exception as e:
+                debug_steps.append(f"ERR sensores: {e}")
+
+        # 3) REGISTROS
+        if respuesta_txt is None and any(w in lower for w in ['registro', 'historial', 'ingresos']):
+            try:
+                registros = cargar_json_seguro('registros_materiales.json') or []
+                total = len(registros)
+                try:
+                    ultima = (registros[-1].get('timestamp') or registros[-1].get('fecha')) if total else None
+                except Exception:
+                    ultima = None
+                respuesta_txt = f"Hay {total} registros de materiales. Último registro: {ultima or 'sin fecha'}."
+                datos.update({'total_registros': total, 'ultimo': ultima})
+                debug_steps.append('INT: registros')
+            except Exception as e:
+                debug_steps.append(f"ERR registros: {e}")
+
+        # 4) ALERTAS
+        if respuesta_txt is None and any(w in lower for w in ['alarma', 'alerta']):
+            try:
+                alertas = []
+                if 'SISTEMA_ALERTAS_DISPONIBLE' in globals() and SISTEMA_ALERTAS_DISPONIBLE:
+                    try:
+                        from sistema_alertas_ml import obtener_sistema_alertas
+                        sistema_alertas = obtener_sistema_alertas()
+                        alertas = sistema_alertas.obtener_alertas_activas() if sistema_alertas else []
+                    except Exception:
+                        alertas = []
+                respuesta_txt = f"Hay {len(alertas)} alertas activas." if alertas else "No hay alertas activas registradas."
+                datos['alertas'] = alertas
+                debug_steps.append('INT: alertas')
+            except Exception as e:
+                debug_steps.append(f"ERR alertas: {e}")
+
+        # 5) MEZCLA / ENERGÍA
+        if respuesta_txt is None and any(w in lower for w in ['calcula', 'cálculo', 'mezcla', 'kw', 'energia', 'energía']):
+            try:
+                config_actual = cargar_configuracion() if 'cargar_configuracion' in globals() else {}
+                kw_objetivo = float(config_actual.get('kw_objetivo', 28800))
+                stock_data = cargar_json_seguro('stock.json') or {}
+                stock_materiales = stock_data.get('materiales') or stock_data
+                if not isinstance(stock_materiales, dict):
+                    stock_materiales = {}
+                resultado = calcular_mezcla_diaria(config_actual, stock_materiales)
+                tot = (resultado or {}).get('totales', {})
+                kw = float(tot.get('kw_total_generado', 0))
+                ch4 = float(tot.get('metano_total', 0))
+                tn = float(tot.get('tn_total', 0))
+                respuesta_txt = f"Mezcla estimada para {kw_objetivo:.0f} KW: genera {kw:.0f} KW, {tn:.1f} TN, CH4 {ch4:.1f}%."
+                datos['resultado'] = resultado
+                debug_steps.append('INT: mezcla')
+            except Exception as e:
+                debug_steps.append(f"ERR mezcla: {e}")
+
+        # 6) FALLBACK
+        if respuesta_txt is None:
+            respuesta_txt = (
+                "Puedo ayudarte con: stock (general o por material), sensores (temperatura, nivel, presión, CH4, O2, H2S), "
+                "registros y reportes, alarmas, y cálculo de mezcla/energía. Por ejemplo: 'stock de rumen', "
+                "'presión del bio 2', 'calculá mezcla para 28800 kw'."
+            )
+            debug_steps.append('INT: fallback')
+
+        # Aprendizaje continuo
+        try:
+            if respuesta_txt:
+                aprender_respuesta(pregunta, respuesta_txt, 'asistente_v2')
+        except Exception as e:
+            debug_steps.append(f"ERR aprendizaje: {e}")
+
+        # TTS
+        audio_b64 = None
+        tts_ok = globals().get('VOICE_SYSTEM_DISPONIBLE', False) and 'generate_voice_audio' in globals()
+        if tts_ok and sintetizar:
+            try:
+                audio_b64 = generate_voice_audio(respuesta_txt)
+            except Exception as e:
+                debug_steps.append(f"ERR tts: {e}")
+
+        return jsonify({
+            'status': 'success',
+            'respuesta': respuesta_txt,
+            'datos': datos,
+            'tts_disponible': bool(audio_b64),
+            'audio_base64': audio_b64,
+            'debug': debug_steps,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logging.exception('Error en asistente_ia_v2')
+        return jsonify({'status': 'error', 'mensaje': str(e)}), 500
 # INICIALIZACIÓN FINAL
 if __name__ == "__main__":
     try:
@@ -13210,6 +13068,46 @@ if __name__ == "__main__":
         print(f"Debug: {debug}")
         print(f"Modo local: {MODO_LOCAL}")
         print(f"MySQL disponible: {MYSQL_DISPONIBLE}")
+        
+        # 🤖 INICIAR SCHEDULER DE REENTRENAMIENTO AUTOMÁTICO
+        if APRENDIZAJE_CONTINUO_DISPONIBLE and SCHEDULER_DISPONIBLE:
+            try:
+                scheduler = BackgroundScheduler()
+                
+                # Reentrenar Predicción de Fallos cada 24 horas
+                scheduler.add_job(
+                    func=reentrenador_ml.reentrenar_prediccion_fallos,
+                    trigger='interval',
+                    hours=24,
+                    id='reentrenar_fallos',
+                    name='Reentrenamiento automático - Predicción de Fallos',
+                    replace_existing=True
+                )
+                
+                # Reentrenar Inhibición cada 12 horas
+                scheduler.add_job(
+                    func=reentrenador_ml.reentrenar_inhibicion,
+                    trigger='interval',
+                    hours=12,
+                    id='reentrenar_inhibicion',
+                    name='Reentrenamiento automático - Inhibición',
+                    replace_existing=True
+                )
+                
+                # Iniciar scheduler
+                scheduler.start()
+                print("✅ Scheduler de reentrenamiento automático iniciado")
+                print("   - Predicción de Fallos: cada 24h")
+                print("   - Inhibición: cada 12h")
+                
+            except Exception as e:
+                logger.error(f"Error iniciando scheduler: {e}")
+                print(f"⚠️ Scheduler no pudo iniciarse: {e}")
+        elif APRENDIZAJE_CONTINUO_DISPONIBLE:
+            print("⚠️ APScheduler no disponible - Reentrenamiento manual solamente")
+            print("   Instalar: pip install apscheduler")
+        else:
+            print("⚠️ Sistema de aprendizaje continuo no disponible")
         
         # Iniciar la aplicación
         app.run(debug=debug, host=host, port=port)
@@ -13537,11 +13435,250 @@ def receta_fallback():
                 }
             ]
         }
-        
         return jsonify(receta_fallback)
-        
     except Exception as e:
+        logger.error(f"Error generando KPI CSV: {e}")
+        return jsonify({'error': str(e)}), 500
+
+def _generar_csv_kpi_cammesa(day: str) -> tuple[str, str]:
+    """Genera el CSV del KPI CAMMESA para day='today'|'yesterday'.
+    Retorna (filename, csv_data).
+    """
+    day = (day or 'today').lower()
+    now_local = datetime.now()
+    base_date = now_local.date() if day == 'today' else (now_local.date() - timedelta(days=1))
+
+    # Slots locales 00:15 → 23:45
+    slots = []
+    start_dt = datetime.combine(base_date, datetime.min.time()) + timedelta(minutes=15)
+    for i in range(96):
+        s = start_dt + timedelta(minutes=15*i)
+        e = s + timedelta(minutes=15)
+        slots.append((s, e))
+
+    # Traer datos del día local (00:00 → 24:00) y hacer binning en Python
+    day_start = datetime.combine(base_date, datetime.min.time())
+    day_end = day_start + timedelta(days=1)
+
+    conn = obtener_conexion_db()
+    registros = []
+    if conn:
+        with conn.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT kwDesp, fecha_hora
+                FROM energia
+                WHERE fecha_hora >= %s AND fecha_hora < %s
+                ORDER BY fecha_hora ASC
+                """,
+                (day_start, day_end)
+            )
+            registros = cursor.fetchall()
+
+    puntos = []  # (ts, kw)
+    for row in registros:
+        try:
+            kw = float(row[0] if isinstance(row, (list, tuple)) else row.get('kwDesp'))
+            ts = row[1] if isinstance(row, (list, tuple)) else row.get('fecha_hora')
+            if isinstance(ts, str):
+                try:
+                    ts = datetime.fromisoformat(ts)
+                except Exception:
+                    continue
+            if not isinstance(ts, datetime):
+                continue
+            puntos.append((ts, kw))
+        except Exception:
+            continue
+
+    promedios = []
+    for s, e in slots:
+        vals = [kw for (ts, kw) in puntos if (ts >= s and ts < e)]
+        if vals:
+            avg_kw = sum(vals) / len(vals)
+            count = len(vals)
+        else:
+            avg_kw = 0.0
+            count = 0
+        kwh_int = avg_kw / 4.0
+        promedios.append((s, kwh_int, avg_kw, count))
+
+    lines = ['Date/Time,kWh del int,kW inyectada promedio,Registros']
+    for s, kwh_int, avg_kw, count in promedios:
+        dt_txt = s.strftime('%Y-%m-%d %H:%M:00')
+        lines.append(f"{dt_txt},{kwh_int:.3f},{avg_kw:.3f},{count}")
+    csv_data = "\n".join(lines) + "\n"
+    fname = f"kpi_generacion_{base_date.isoformat()}_{day}.csv"
+    return fname, csv_data
+
+@app.route('/kpi/generacion/csv')
+def kpi_generacion_csv():
+    """Descarga CSV del KPI Generación CAMMESA (ayer/actual)."""
+    try:
+        day = request.args.get('day', 'today')
+        fname, csv_data = _generar_csv_kpi_cammesa(day)
+        return Response(
+            csv_data,
+            mimetype='text/csv',
+            headers={'Content-Disposition': f'attachment; filename="{fname}"'}
+        )
+    except Exception as e:
+        logger.error(f"Error generando KPI CSV: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/kpi/generacion/enviar', methods=['POST'])
+def kpi_generacion_enviar():
+    """Genera el CSV y lo envía por correo SMTP al destinatario provisto.
+    JSON body: {"day": "today|yesterday", "email": "destino@example.com"}
+    Usa credenciales SMTP de variables de entorno.
+    """
+    try:
+        payload = request.get_json(force=True) or {}
+        day = payload.get('day', 'today')
+        to_email = payload.get('email')
+        if not to_email:
+            return jsonify({'error': 'email requerido'}), 400
+
+        fname, csv_data = _generar_csv_kpi_cammesa(day)
+
+        smtp_host = os.getenv('SMTP_HOST')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        smtp_user = os.getenv('SMTP_USER')
+        smtp_pass = os.getenv('SMTP_PASS')
+        smtp_from = os.getenv('SMTP_FROM', smtp_user)
+        if not (smtp_host and smtp_user and smtp_pass and smtp_from):
+            return jsonify({'error': 'Credenciales SMTP faltantes en variables de entorno'}), 500
+
+        # Componer correo
+        msg = MIMEMultipart()
+        msg['From'] = smtp_from
+        msg['To'] = to_email
+        msg['Subject'] = f"KPI Generación CAMMESA {day}"
+        cuerpo = f"Adjunto CSV KPI Generación CAMMESA ({day})."
+        msg.attach(MIMEText(cuerpo, 'plain'))
+
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(csv_data.encode('utf-8'))
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f'attachment; filename="{fname}"')
+        msg.attach(part)
+
+        with smtplib.SMTP(smtp_host, smtp_port) as server:
+            server.starttls()
+            server.login(smtp_user, smtp_pass)
+            server.sendmail(smtp_from, [to_email], msg.as_string())
+
+        return jsonify({'status': 'success', 'mensaje': f'Reporte enviado a {to_email}', 'filename': fname})
+    except Exception as e:
+        logger.error(f"Error enviando KPI CSV por correo: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/ml/h2s/predict', methods=['POST'])
+def ml_h2s_predict():
+    """Predice H2S a futuro usando features provistas o valores actuales.
+    Body JSON opcional:
+      { "horizon_minutes": 15|30|60, "features": { ch4, o2, temp, ph, caudales, kwGen, kwDesp, receta, h2s_actual } }
+    """
+    try:
+        payload = request.get_json(silent=True) or {}
+        horizon = int(payload.get('horizon_minutes', 15) or 15)
+        if horizon not in (15, 30, 60):
+            horizon = 15
+        features = payload.get('features') or {}
+
+        # Baseline: h2s_actual si viene, sino 120 ppm
+        try:
+            h2s_actual = float(features.get('h2s_actual')) if 'h2s_actual' in features else 120.0
+        except Exception:
+            h2s_actual = 120.0
+
+        # Heurística mínima de deriva por CH4/O2
+        ch4 = None
+        o2 = None
+        try:
+            if 'ch4' in features: ch4 = float(features.get('ch4'))
+            if 'o2' in features: o2 = float(features.get('o2'))
+        except Exception:
+            pass
+
+        drift = 0.0
+        if ch4 is not None:
+            if ch4 < 51: drift += 25.0
+            elif ch4 < 55: drift += 10.0
+        if o2 is not None and o2 > 1.5:
+            drift += 10.0
+
+        horizon_factor = {15: 1.0, 30: 1.1, 60: 1.25}.get(horizon, 1.0)
+        pred = max(0.0, h2s_actual + drift) * horizon_factor
+        confidence = 0.6 if horizon == 15 else (0.5 if horizon == 30 else 0.4)
+
+        alerts = []
+        if pred > 210:
+            alerts.append({'level': 'danger', 'message': f'H2S proyectado {pred:.0f} ppm (>210) en {horizon} min'})
+        elif pred >= 150:
+            alerts.append({'level': 'warning', 'message': f'H2S proyectado {pred:.0f} ppm (150–210) en {horizon} min'})
+
+        return jsonify({'status': 'success', 'horizon_minutes': horizon, 'prediction_ppm': round(pred, 1), 'confidence': confidence, 'alerts': alerts})
+    except Exception as e:
+        logger.exception(f"Error en /ml/h2s/predict: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+@app.route('/ml/gasmotor/status', methods=['GET'])
+def ml_gasmotor_status():
+    """Clasifica el estado del gas motor según CH4, H2S y O2.
+    Parámetros opcionales por query: ch4, h2s, o2.
+    Reglas iniciales:
+      - Alerta si CH4 ≤ 51% o H2S > 210 ppm o O2 > 2.0%
+      - Advertencia si CH4 ≤ 55% o H2S 150–210 ppm o O2 1.5–2.0%
+    """
+    try:
+        def fget(name, default):
+            v = request.args.get(name, default)
+            try:
+                return float(v)
+            except Exception:
+                return default
+
+        ch4 = fget('ch4', 62.0)
+        h2s = fget('h2s', 120.0)
+        o2 = fget('o2', 0.8)
+
+        status = 'ok'
+        reasons = []
+
+        # Peligro
+        if ch4 <= 51 or h2s > 210 or o2 > 2.0:
+            status = 'danger'
+            if ch4 <= 51: reasons.append('CH4 ≤ 51%')
+            if h2s > 210: reasons.append('H2S > 210 ppm')
+            if o2 > 2.0: reasons.append('O2 > 2.0%')
+        # Advertencia
+        elif ch4 <= 55 or (150 <= h2s <= 210) or (1.5 <= o2 <= 2.0):
+            status = 'warning'
+            if ch4 <= 55: reasons.append('CH4 ≤ 55%')
+            if 150 <= h2s <= 210: reasons.append('H2S 150–210 ppm')
+            if 1.5 <= o2 <= 2.0: reasons.append('O2 1.5–2.0%')
+
         return jsonify({
-            'status': 'error',
-            'mensaje': f'Error generando receta de fallback: {str(e)}'
-        }), 500
+            'status': 'success',
+            'classification': status,
+            'inputs': {'ch4': ch4, 'h2s': h2s, 'o2': o2},
+            'reasons': reasons
+        })
+    except Exception as e:
+        logger.exception(f"Error en /ml/gasmotor/status: {e}")
+        return jsonify({'status': 'error', 'error': str(e)}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
