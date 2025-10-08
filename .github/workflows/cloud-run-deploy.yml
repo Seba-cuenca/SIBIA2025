@@ -53,7 +53,7 @@ jobs:
             --cpu 2 \
             --timeout 300 \
             --max-instances 10 \
-            --set-env-vars PORT=8080,DEBUG=false \
+            --port 8080 \
             --quiet
       
       - name: Show Service URL
