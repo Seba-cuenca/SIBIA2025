@@ -10,30 +10,28 @@
 }
 
 .cards-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    grid-template-rows: 1fr !important; /* FORZAR una fila de altura 100% */
-    gap: 0 !important; /* SIN gaps */
+    display: block !important; /* Cambiar a block en vez de grid */
     width: 100% !important;
     height: 100% !important;
+    position: relative !important;
 }
 
-/* Tarjetas = 100% del content-area */
+/* Tarjetas = 100% del content-area, posicionadas absolutamente */
 .function-card {
-    display: flex !important;
-    flex-direction: column !important;
+    position: absolute !important; /* Posición absoluta para superposición */
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
-    height: 100% !important; /* 100% del content-area */
-    min-height: 100% !important; /* Forzar mínimo 100% */
+    height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden !important; /* SIN SCROLL */
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
     background: #1f2a3a !important;
-    border: none !important; /* Sin borde para que ocupe todo */
-    border-radius: 0 !important; /* Sin bordes redondeados */
+    border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    grid-row: 1 / -1 !important; /* Ocupar toda la fila del grid */
-    align-self: stretch !important; /* Estirarse para llenar el grid */
 }
 
 /* Contenido de tarjeta CON scroll interno si es necesario */
@@ -88,13 +86,7 @@
 }
 
 /* Asegurar que solo UNA tarjeta se muestre a la vez */
-.function-card[style*="display: none"] {
-    display: none !important;
-}
-
-.function-card[style*="display: flex"] {
-    display: flex !important;
-}
+/* Eliminar estas reglas que causan conflicto con JavaScript */
 
 /* CRÍTICO: Eliminar todos los espacios que impiden llenar 100% */
 body {
