@@ -36,7 +36,7 @@
             z-index: 2000;
             background: linear-gradient(180deg, #16243a 0%, #172a45 100%);
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            height: 210px; /* Altura optimizada */
+            height: 145px; /* Reducido - solo 1 fila de KPIs */
         }
 
         .header-left {
@@ -110,17 +110,17 @@
 
         /* Layout principal */
         .main-container { 
-            margin-top: 210px; 
+            margin-top: 145px; 
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 210px);
+            min-height: calc(100vh - 145px);
             position: relative;
         }
         
         .sidebar { 
             position: fixed; 
-            top: 210px; 
-            bottom: 60px; /* Espacio para footer */ 
+            top: 145px; 
+            bottom: 40px; /* Espacio para footer */ 
             width: 220px; 
             overflow-y: auto; 
             background: rgba(0, 0, 0, 0.2);
@@ -133,11 +133,11 @@
             flex: 1;
             padding: 0;
             overflow-y: auto;
-            padding-bottom: 80px; /* Espacio para footer */
+            padding-bottom: 50px; /* Espacio para footer */
             position: fixed;
-            top: 210px;
+            top: 145px;
             right: 0;
-            bottom: 60px;
+            bottom: 40px;
             z-index: 1000;
             width: calc(100vw - 220px);
             max-width: none;
@@ -175,10 +175,10 @@
             }
             .header-kpis .kpi-value { font-size: 11px; }
             .header-kpis .kpi-header { font-size: 7px; }
-            .header { height: 210px; }
-            .main-container { margin-top: 210px; }
-            .sidebar { top: 210px; z-index: 1500; }
-            .content-area { top: 210px; margin-left: 220px; z-index: 1000; width: calc(100vw - 220px); }
+            .header { height: 145px; }
+            .main-container { margin-top: 145px; }
+            .sidebar { top: 145px; z-index: 1500; }
+            .content-area { top: 145px; margin-left: 220px; z-index: 1000; width: calc(100vw - 220px); }
         }
         
         @media (max-width: 768px) {
@@ -196,10 +196,10 @@
             .header-kpis .kpi-header { font-size: 6px; }
             .header-kpis .kpi-fecha { font-size: 5px; }
             .cards-container { padding: 0 8px; }
-            .header { height: 250px; }
-            .main-container { margin-top: 250px; }
-            .sidebar { top: 250px; width: 200px; z-index: 1500; }
-            .content-area { top: 250px; margin-left: 200px; z-index: 1000; width: calc(100vw - 200px); }
+            .header { height: 160px; }
+            .main-container { margin-top: 160px; }
+            .sidebar { top: 160px; width: 200px; z-index: 1500; }
+            .content-area { top: 160px; margin-left: 200px; z-index: 1000; width: calc(100vw - 200px); }
         }
         
         /* Vista operativa con padding adicional para evitar solapamiento */
@@ -814,28 +814,27 @@
             100% { opacity: 0; transform: translateX(100%); }
         }
         
-        /* KPIs compactos en el header - 2 FILAS x 3 COLUMNAS */
+        /* KPIs en UNA SOLA FILA HORIZONTAL */
         .header-kpis {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 6px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
             align-items: stretch;
-            justify-content: center;
+            justify-content: space-between;
             margin: 6px 12px;
-            max-width: 700px;
-            width: auto;
+            width: calc(100% - 24px);
             padding: 0;
+            overflow-x: auto;
         }
         .header-kpis .kpi-card { 
-            padding: 12px 10px; 
+            padding: 10px 12px; 
             border-radius: 6px; 
             background: linear-gradient(135deg, #243449, #1a2a3e); 
             border: 1px solid rgba(0, 212, 255, 0.2); 
             box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
             transition: all 0.3s ease; 
-            min-width: 110px;
-            min-height: 65px;
+            flex: 1;
+            min-width: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -847,7 +846,7 @@
             box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3); 
         }
         .header-kpis .kpi-value { 
-            font-size: 15px; 
+            font-size: 16px; 
             font-weight: bold;
             color: #00d4ff;
             white-space: nowrap;
@@ -856,7 +855,7 @@
             text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
         }
         .header-kpis .kpi-header { 
-            font-size: 10px; 
+            font-size: 11px; 
             font-weight: 600;
             color: rgba(255, 255, 255, 0.8);
             white-space: nowrap;
@@ -866,7 +865,7 @@
         }
         .header-kpis .kpi-fecha { 
             display: block; 
-            font-size: 8px; 
+            font-size: 9px; 
             opacity: 0.7; 
             margin-top: 3px; 
             white-space: nowrap;
@@ -876,7 +875,7 @@
         }
         .header-kpis .kpi-estado { 
             display: block; 
-            font-size: 6px; 
+            font-size: 7px; 
             margin-top: 1px; 
         }
         
@@ -927,10 +926,10 @@
             }
             .header-kpis .kpi-value { font-size: 11px; }
             .header-kpis .kpi-header { font-size: 7px; }
-            .header { height: 210px; }
-            .main-container { margin-top: 210px; }
-            .sidebar { top: 210px; z-index: 1500; }
-            .content-area { top: 210px; margin-left: 220px; z-index: 1000; width: calc(100vw - 220px); }
+            .header { height: 145px; }
+            .main-container { margin-top: 145px; }
+            .sidebar { top: 145px; z-index: 1500; }
+            .content-area { top: 145px; margin-left: 220px; z-index: 1000; width: calc(100vw - 220px); }
         }
         
         @media (max-width: 768px) {
@@ -948,10 +947,10 @@
             .header-kpis .kpi-header { font-size: 6px; }
             .header-kpis .kpi-fecha { font-size: 5px; }
             .cards-container { padding: 0 8px; }
-            .header { height: 250px; }
-            .main-container { margin-top: 250px; }
-            .sidebar { top: 250px; width: 200px; z-index: 1500; }
-            .content-area { top: 250px; margin-left: 200px; z-index: 1000; width: calc(100vw - 200px); }
+            .header { height: 160px; }
+            .main-container { margin-top: 160px; }
+            .sidebar { top: 160px; width: 200px; z-index: 1500; }
+            .content-area { top: 160px; margin-left: 200px; z-index: 1000; width: calc(100vw - 200px); }
         }
         
         /* Estilos para secciones colapsables */
@@ -1433,17 +1432,31 @@
             background-color: #2c3e50 !important;
             color: #ecf0f1 !important;
             border-color: #4a5f7a !important;
+            font-size: 16px !important;
         }
         
         .card-header {
             background-color: #34495e !important;
             color: #ecf0f1 !important;
             border-bottom-color: #4a5f7a !important;
+            font-size: 18px !important;
+            padding: 15px !important;
         }
         
         .card-body {
             background-color: #2c3e50 !important;
             color: #ecf0f1 !important;
+            font-size: 16px !important;
+            padding: 20px !important;
+        }
+        
+        .card-body table {
+            font-size: 15px !important;
+        }
+        
+        .card-body td, .card-body th {
+            padding: 12px !important;
+            font-size: 15px !important;
         }
         
         .alert {
@@ -3170,17 +3183,17 @@
         </div>
         
         <!-- Footer con Copyright -->
-        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 10px 15px; margin-top: auto; margin-left: 220px; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center; position: relative; z-index: 10; max-width: calc(100vw - 240px);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px;">
-                <div style="color: rgba(255, 255, 255, 0.7);">
+        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 8px 12px; margin-top: auto; margin-left: 220px; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center; position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; width: calc(100vw - 220px);">
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; font-size: 10px;">
+                <div style="color: rgba(255, 255, 255, 0.6);">
                     <i class="fas fa-flask" style="color: #00d4ff;"></i> 
-                    <strong>SIBIA</strong> - Sistema Inteligente de Biogestión
+                    <strong>SIBIA</strong> v2.0
                 </div>
-                <div style="color: rgba(255, 255, 255, 0.7);">
-                    © 2025 <a href="https://autolinksolutions.com.ar" target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: 600;">AutoLinkSolutions</a>
+                <div style="color: rgba(255, 255, 255, 0.6);">
+                    © 2025 <a href="https://autolinksolutions.com.ar" target="_blank" style="color: #00d4ff; text-decoration: none;">AutoLinkSolutions</a>
                 </div>
-                <div style="color: rgba(255, 255, 255, 0.5); font-size: 10px;">
-                    v2.0 | AI & ML
+                <div style="color: rgba(255, 255, 255, 0.5);">
+                    AI & ML
                 </div>
             </div>
         </footer>
