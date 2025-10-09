@@ -19,10 +19,10 @@
 /* Tarjetas = 100% del content-area, posicionadas FIXED */
 .function-card {
     position: fixed !important; /* Fixed en vez de absolute */
-    top: 145px !important; /* Debajo del header */
+    top: 165px !important; /* Más abajo para no solapar con header */
     left: 260px !important; /* A la derecha del sidebar */
     right: 0 !important;
-    bottom: 50px !important; /* Encima del footer */
+    bottom: 35px !important; /* Más cerca del footer */
     width: auto !important; /* Auto para que funcione con left/right */
     height: auto !important; /* Auto para que funcione con top/bottom */
     margin: 0 !important;
