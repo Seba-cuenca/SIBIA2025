@@ -22,7 +22,7 @@
     top: 165px !important; /* Perfecto para no solapar con header */
     left: 260px !important; /* A la derecha del sidebar */
     right: 0 !important;
-    bottom: 50px !important; /* Hasta el footer (footer tiene 50px de altura) */
+    bottom: 0 !important; /* HASTA EL FONDO - sin espacio */
     width: auto !important; /* Auto para que funcione con left/right */
     height: auto !important; /* Auto para que funcione con top/bottom */
     margin: 0 !important;
@@ -40,10 +40,11 @@
 /* Contenido de tarjeta CON scroll interno si es necesario */
 .function-card .card-content {
     flex: 1 !important;
-    overflow-y: auto !important; /* CON SCROLL interno */
-    overflow-x: hidden !important;
+    overflow-y: auto !important; /* CON SCROLL vertical */
+    overflow-x: auto !important; /* CON SCROLL horizontal para tablas grandes */
     padding: 20px !important;
     min-height: 0 !important; /* Importante para que funcione flex + scroll */
+    max-width: 100% !important; /* No puede salirse del contenedor */
 }
 
 /* Header de tarjeta */
@@ -109,12 +110,21 @@ body {
     box-sizing: border-box !important;
 }
 
-/* Tablas adaptables */
+/* Tablas adaptables - con límites estrictos */
 .function-card .data-table,
 .function-card table {
     width: 100% !important;
-    table-layout: fixed !important;
+    table-layout: auto !important; /* Auto para que se ajuste al contenido */
+    max-width: 100% !important; /* No puede ser más ancha que el contenedor */
     overflow: hidden !important;
+    display: table !important; /* Asegurar comportamiento de tabla */
+}
+
+/* Wrapper de tablas para scroll horizontal */
+.function-card .table-responsive,
+.function-card .card-content > div {
+    max-width: 100% !important;
+    overflow-x: auto !important;
 }
 
 /* Inputs y formularios adaptables */
