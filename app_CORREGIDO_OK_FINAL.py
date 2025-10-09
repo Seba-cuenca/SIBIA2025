@@ -12657,24 +12657,116 @@ def pagina_analisis_economico():
 
 # ===== MÓDULO JARVIS - ASISTENTE INTELIGENTE =====
 
+# Función helper para procesar consultas sin Flask request
+def procesar_consulta_ia_directa(pregunta: str, contexto: dict = None) -> dict:
+    """Procesa consulta de IA sin necesitar Flask request - Para uso de JARVIS"""
+    try:
+        lower = pregunta.lower()
+        respuesta_txt = None
+        datos = {}
+        
+        # STOCK
+        if 'stock' in lower:
+            stock_dict = obtener_stock_global()
+            if 'general' in lower or 'total' in lower:
+                total_tn = sum(float(info.get('total_tn', 0)) for info in stock_dict.values())
+                respuesta_txt = f"Señor, disponemos de {total_tn:.1f} toneladas en stock total."
+                datos['stock_total_tn'] = round(total_tn, 1)
+            else:
+                # Buscar material específico
+                for nombre_mat in stock_dict.keys():
+                    if nombre_mat.lower() in lower:
+                        info = stock_dict[nombre_mat]
+                        tn = float(info.get('total_tn', 0))
+                        st = float(info.get('st_porcentaje', 0))
+                        respuesta_txt = f"Stock de {nombre_mat}: {tn:.1f} toneladas disponibles, con {st:.1f}% de sólidos totales, señor."
+                        datos.update({'material': nombre_mat, 'total_tn': tn, 'st_porcentaje': st})
+                        break
+        
+        # SENSORES (presión, nivel, temperatura, CH4, etc.)
+        elif any(x in lower for x in ['presión', 'presion', 'nivel', 'temperatura', 'temp', 'ch4', 'metano', 'bio']):
+            if 'bio' in lower or 'biodigestor' in lower:
+                # Determinar cuál biodigestor
+                bio_num = '040' if 'bio 1' in lower or 'biodigestor 1' in lower or 'bd1' in lower else '050'
+                
+                valores = {
+                    'presión': obtener_valor_sensor(f'{bio_num}PT01'),
+                    'nivel': obtener_valor_sensor(f'{bio_num}LT01'),
+                    'temperatura': obtener_valor_sensor(f'{bio_num}TT01')
+                }
+                
+                bio_nombre = "Biodigestor 1" if bio_num == '040' else "Biodigestor 2"
+                respuesta_txt = f"Señor, {bio_nombre}: "
+                
+                partes = []
+                if valores['temperatura'] and valores['temperatura'].get('valor'):
+                    temp = valores['temperatura']['valor']
+                    partes.append(f"temperatura {temp:.1f}°C")
+                    
+                if valores['nivel'] and valores['nivel'].get('valor'):
+                    nivel = valores['nivel']['valor']
+                    partes.append(f"nivel {nivel:.1f}%")
+                    
+                if valores['presión'] and valores['presión'].get('valor'):
+                    presion = valores['presión']['valor']
+                    partes.append(f"presión {presion:.2f} bar")
+                
+                respuesta_txt += ", ".join(partes) if partes else "sin datos disponibles"
+                respuesta_txt += "."
+                datos['biodigestor'] = bio_nombre
+                datos['valores'] = {k: v.get('valor') if v else None for k, v in valores.items()}
+        
+        # CÁLCULO DE MEZCLA (usar Adán)
+        elif any(x in lower for x in ['calcul', 'mezcla', 'kw', 'kilowatt']):
+            # Extraer KW objetivo de la pregunta
+            import re
+            match = re.search(r'(\d+)\s*kw', lower)
+            kw_objetivo = int(match.group(1)) if match else contexto.get('kw_objetivo', 28800)
+            
+            # Usar configuración actual
+            config = cargar_configuracion()
+            config['kw_objetivo'] = kw_objetivo
+            stock_dict = obtener_stock_global()
+            
+            # Calcular mezcla
+            resultado = calcular_mezcla_diaria(config, stock_dict)
+            
+            if resultado and resultado.get('totales'):
+                totales = resultado['totales']
+                kw_gen = totales.get('kw_total_generado', 0)
+                tn_total = totales.get('tn_solidos', 0) + totales.get('tn_liquidos', 0)
+                ch4 = totales.get('porcentaje_metano', 0)
+                
+                respuesta_txt = f"Señor, para generar {kw_objetivo:,} KW, el sistema Adán calcula: {kw_gen:,.0f} KW generados con {tn_total:,.1f} toneladas de mezcla y {ch4:.1f}% de metano."
+                datos = {'kw_objetivo': kw_objetivo, 'kw_generado': kw_gen, 'tn_total': tn_total, 'ch4': ch4}
+            else:
+                respuesta_txt = "No pude calcular la mezcla óptima, señor. Verificando parámetros..."
+        
+        # RESPUESTA GENERAL si no detectó intención
+        if not respuesta_txt:
+            respuesta_txt = "Disculpe, señor. ¿Podría ser más específico? Puedo ayudarle con stock de materiales, estado de sensores o cálculos de mezcla."
+        
+        return {
+            'status': 'success',
+            'respuesta': respuesta_txt,
+            'datos': datos
+        }
+        
+    except Exception as e:
+        logger.error(f"Error en procesar_consulta_ia_directa: {e}", exc_info=True)
+        return {
+            'status': 'error',
+            'respuesta': f"He tenido un problema técnico, señor: {str(e)}"
+        }
+
 # Importar JARVIS Agent y conectar con mega_agente_ia
 try:
     from jarvis_agent import JarvisAgent
     
-    # Función wrapper para que JARVIS llame al mega_agente_ia
-    def jarvis_mega_agente_wrapper(prompt: str, contexto: dict):
-        """Wrapper para que JARVIS use mega_agente_ia"""
-        try:
-            respuesta = procesar_consulta_ia_completa(prompt, contexto)
-            return respuesta
-        except Exception as e:
-            logger.error(f"Error en jarvis_mega_agente_wrapper: {e}")
-            return {'status': 'error', 'respuesta': 'Error procesando consulta'}
-    
-    # Crear instancia de JARVIS con mega_agente
-    jarvis = JarvisAgent(mega_agente_callable=jarvis_mega_agente_wrapper)
+    # Crear instancia de JARVIS con función helper
+    jarvis = JarvisAgent(mega_agente_callable=procesar_consulta_ia_directa)
     JARVIS_DISPONIBLE = True
-    logger.info("✅ JARVIS Agent cargado y conectado con mega_agente_ia")
+    logger.info("✅ JARVIS Agent cargado y conectado con IA")
 except ImportError as e:
     JARVIS_DISPONIBLE = False
     jarvis = None
