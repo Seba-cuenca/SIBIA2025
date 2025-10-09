@@ -3549,7 +3549,7 @@
             
             // Mostrar solo la tarjeta seleccionada
             document.querySelectorAll('.function-card').forEach(card => {
-                card.style.display = card.id === `card-${cardId}` ? 'block' : 'none';
+                card.style.display = card.id === `card-${cardId}` ? 'flex' : 'none';
             });
             
             // Asegurar que estamos en vista operativa
@@ -22333,7 +22333,7 @@ let panelAlertasAbierto = false;
 function togglePanelAlertas() {
     const panel = document.getElementById('panel-alertas-unificadas');
     panelAlertasAbierto = !panelAlertasAbierto;
-    panel.style.display = panelAlertasAbierto ? 'block' : 'none';
+    panel.style.display = panelAlertasAbierto ? 'flex' : 'none';
     
     if (panelAlertasAbierto) {
         cargarAlertasUnificadas();
@@ -22584,6 +22584,7 @@ console.log('✅ Sistema de Alertas Unificadas cargado');
 <script src="/static/js/jarvis.js?v={{ timestamp }}"></script>
 
 </html>
+
 
 
 
