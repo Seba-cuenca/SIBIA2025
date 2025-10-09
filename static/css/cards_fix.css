@@ -16,13 +16,15 @@
     position: relative !important;
 }
 
-/* Tarjetas = 100% del content-area, posicionadas absolutamente */
+/* Tarjetas = 100% del content-area, posicionadas FIXED */
 .function-card {
-    position: absolute !important; /* Posición absoluta para superposición */
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    position: fixed !important; /* Fixed en vez de absolute */
+    top: 145px !important; /* Debajo del header */
+    left: 260px !important; /* A la derecha del sidebar */
+    right: 0 !important;
+    bottom: 50px !important; /* Encima del footer */
+    width: auto !important; /* Auto para que funcione con left/right */
+    height: auto !important; /* Auto para que funcione con top/bottom */
     margin: 0 !important;
     padding: 0 !important;
     display: flex !important;
@@ -32,6 +34,7 @@
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    z-index: 5 !important; /* Por encima del contenido normal */
 }
 
 /* Contenido de tarjeta CON scroll interno si es necesario */
