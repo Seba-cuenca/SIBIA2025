@@ -1962,7 +1962,6 @@
                     <li><a href="#" onclick="showAnalytics('tendencias')">Tendencias</a></li>
                     <li><a href="#" onclick="showAnalytics('materiales')">Rendimiento Materiales</a></li>
                     <li><a href="#" onclick="showAnalytics('eficiencia')">Eficiencia</a></li>
-                    <li><a href="#" onclick="showAnalytics('predicciones')">Predicciones IA</a></li>
                     <li><a href="#" onclick="showAnalytics('gestion_materiales')">Gestión de Materiales</a></li>
                     <li><a href="#" onclick="switchView('reports')">Reportes</a></li>
                 </ul>
@@ -3053,31 +3052,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Predicción de Fallos ML -->
-                    <div class="function-card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <i class="fas fa-shield-alt"></i>
-                                Predicción de Fallos ML
-                            </div>
-                        </div>
-                        <div class="card-content" id="prediccion-fallos-container">
-                            <div style="padding: 15px; text-align: center;">
-                                <div style="font-size: 48px; margin-bottom: 10px;">🛡️</div>
-                                <div style="font-size: 16px; color: #00d4ff; margin-bottom: 10px;">
-                                    <strong>Modelo de Predicción Activo</strong>
-                                </div>
-                                <div style="font-size: 13px; color: #a0aec0; margin-bottom: 15px;">
-                                    Random Forest con datos reales
-                                </div>
-                                <button onclick="testPrediccionManual()" class="btn btn-primary" style="margin: 5px;">
-                                    <i class="fas fa-flask"></i> Probar Predicción
-                                </button>
-                                <div id="resultado-prediccion-test" style="margin-top: 15px;"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -3104,45 +3078,6 @@
                         </div>
                     </div>
 
-                    <!-- Predicciones IA -->
-                    <div class="function-card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <i class="fas fa-brain"></i>
-                                Predicciones IA
-                            </div>
-                        </div>
-                        <div class="card-content" id="predicciones-container">
-                            <div class="alert-item alert-info">
-                                <i class="fas fa-spinner fa-spin"></i> Cargando predicciones IA...
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Predicción de Fallos ML -->
-                    <div class="function-card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <i class="fas fa-shield-alt"></i>
-                                Predicción de Fallos ML
-                            </div>
-                        </div>
-                        <div class="card-content" id="prediccion-fallos-container">
-                            <div style="padding: 15px; text-align: center;">
-                                <div style="font-size: 48px; margin-bottom: 10px;">🛡️</div>
-                                <div style="font-size: 16px; color: #00d4ff; margin-bottom: 10px;">
-                                    <strong>Modelo de Predicción Activo</strong>
-                                </div>
-                                <div style="font-size: 13px; color: #a0aec0; margin-bottom: 15px;">
-                                    Random Forest con datos reales
-                                </div>
-                                <button onclick="testPrediccionManual()" class="btn btn-primary" style="margin: 5px;">
-                                    <i class="fas fa-flask"></i> Probar Predicción
-                                </button>
-                                <div id="resultado-prediccion-test" style="margin-top: 15px;"></div>
-                            </div>
-                        </div>
-                    </div>
                 <!-- Tabla de Rendimiento por Materiales -->
                 <div class="function-card full-width">
                     <div class="card-header">

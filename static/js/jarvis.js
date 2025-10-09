@@ -18,15 +18,21 @@ class JarvisUI {
         
         console.log('🤖 Inicializando JARVIS...');
         
-        // Usar elementos existentes del dashboard
-        this.chatbox = document.getElementById('ai-messages');
+        // Usar elementos existentes del dashboard (probar varios IDs)
+        this.chatbox = document.getElementById('sibia-messages-fullcard') || document.getElementById('ai-messages');
         this.inputUsuario = document.getElementById('sibia-input-fullcard');
         
         // Si no hay elementos, salir silenciosamente
         if (!this.chatbox || !this.inputUsuario) {
-            console.warn('⚠️ JARVIS: Elementos del chat no encontrados. JARVIS en espera.');
+            console.warn('⚠️ JARVIS: Elementos del chat no encontrados.');
+            console.warn('chatbox:', this.chatbox);
+            console.warn('inputUsuario:', this.inputUsuario);
             return;
         }
+        
+        console.log('✅ JARVIS: Elementos encontrados');
+        console.log('chatbox:', this.chatbox.id);
+        console.log('input:', this.inputUsuario.id);
         
         // Crear botón de voz si no existe (agregar al lado del botón enviar)
         const btnEnviarOriginal = this.inputUsuario.parentElement.querySelector('button');
@@ -220,8 +226,8 @@ class JarvisUI {
         if (!this.chatbox) return;
         
         const mensaje = document.createElement('div');
-        mensaje.className = 'ai-message ai-user';
-        mensaje.innerHTML = `<p>${this.escapeHtml(texto)}</p>`;
+        mensaje.style.cssText = 'background: rgba(0,212,255,0.2); padding: 12px; border-radius: 12px; border-left: 3px solid #00d4ff; margin-left: auto; max-width: 70%;';
+        mensaje.innerHTML = `<p style="margin: 0; color: white; font-size: 14px;"><strong>Tú:</strong> ${this.escapeHtml(texto)}</p>`;
         this.chatbox.appendChild(mensaje);
         this.chatbox.scrollTop = this.chatbox.scrollHeight;
     }
@@ -230,16 +236,8 @@ class JarvisUI {
         if (!this.chatbox) return;
         
         const mensaje = document.createElement('div');
-        mensaje.className = 'ai-message ai-assistant';
-        mensaje.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #00d4ff, #0099cc); display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-robot" style="color: white; font-size: 16px;"></i>
-                </div>
-                <strong style="color: #00d4ff;">JARVIS</strong>
-            </div>
-            <p style="margin: 0;">${this.escapeHtml(texto)}</p>
-        `;
+        mensaje.style.cssText = 'background: rgba(0,212,255,0.1); padding: 12px; border-radius: 12px; border-left: 3px solid #00d4ff; max-width: 70%;';
+        mensaje.innerHTML = `<p style="margin: 0; color: white; font-size: 14px;"><strong>🤖 JARVIS:</strong> ${this.escapeHtml(texto)}</p>`;
         this.chatbox.appendChild(mensaje);
         this.chatbox.scrollTop = this.chatbox.scrollHeight;
     }

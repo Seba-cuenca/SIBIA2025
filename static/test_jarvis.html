@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test JARVIS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .ai-messages {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 300px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+        }
+        .ai-message {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+        .ai-message.ai-user {
+            background: rgba(52, 211, 153, 0.14);
+            border-left-color: #34d399;
+        }
+        .ai-message.ai-assistant {
+            background: rgba(56, 189, 248, 0.14);
+            border-left-color: #38bdf8;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input, button {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #0f3460;
+            background: #16213e;
+            color: white;
+        }
+        input {
+            flex: 1;
+        }
+        button {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            cursor: pointer;
+            border: none;
+            min-width: 50px;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        #status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #16213e;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 Test de JARVIS</h1>
+    <div id="status">Inicializando...</div>
+    
+    <div id="ai-messages" class="ai-messages">
+        <p style="opacity: 0.5;">Esperando mensajes...</p>
+    </div>
+    
+    <div class="input-container">
+        <input type="text" id="sibia-input-fullcard" placeholder="Escribe un comando para JARVIS...">
+        <button onclick="testEnviar()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+    
+    <script src="/static/js/jarvis.js"></script>
+    <script>
+        // Esperar a que JARVIS se inicialice
+        setTimeout(() => {
+            const status = document.getElementById('status');
+            if (window.jarvisUI) {
+                status.innerHTML = '✅ JARVIS cargado correctamente';
+                status.style.background = '#065f46';
+                
+                // Mostrar info de JARVIS
+                console.log('JARVIS UI:', jarvisUI);
+                console.log('Inicializado:', jarvisUI.inicializado);
+                console.log('Chatbox:', jarvisUI.chatbox);
+                console.log('Input:', jarvisUI.inputUsuario);
+                console.log('Botón voz:', jarvisUI.btnVoz);
+            } else {
+                status.innerHTML = '❌ JARVIS NO se cargó';
+                status.style.background = '#7f1d1d';
+            }
+        }, 1000);
+        
+        function testEnviar() {
+            const input = document.getElementById('sibia-input-fullcard');
+            const mensaje = input.value.trim();
+            if (!mensaje) return;
+            
+            console.log('Enviando:', mensaje);
+            
+            if (window.jarvisUI) {
+                jarvisUI.mostrarMensajeUsuario(mensaje);
+                jarvisUI.enviarMensaje(mensaje);
+                input.value = '';
+            } else {
+                alert('JARVIS no está disponible');
+            }
+        }
+    </script>
+</body>
+</html>
