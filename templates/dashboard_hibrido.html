@@ -151,6 +151,36 @@
             padding: 10px;
             width: 100%;
         }
+
+        /* Las tarjetas deben llenar todo el espacio disponible */
+        .cards-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .cards-grid {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .function-card {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .function-card .card-content {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
         
         /* Grid de tarjetas funcionales */
         .cards-grid {
@@ -197,6 +227,36 @@
             .header-kpis .kpi-header { font-size: 6px; }
             .header-kpis .kpi-fecha { font-size: 5px; }
             .cards-container { padding: 0 8px; }
+
+        /* Las tarjetas deben llenar todo el espacio disponible */
+        .cards-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .cards-grid {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .function-card {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .function-card .card-content {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
             .header { height: 160px; }
             .main-container { margin-top: 160px; }
             .sidebar { top: 160px; width: 200px; z-index: 1500; }
@@ -889,6 +949,36 @@
             padding: 10px;
             width: 100%;
         }
+
+        /* Las tarjetas deben llenar todo el espacio disponible */
+        .cards-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .cards-grid {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .function-card {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .function-card .card-content {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
         
         /* Grid de tarjetas funcionales */
         .cards-grid {
@@ -948,6 +1038,36 @@
             .header-kpis .kpi-header { font-size: 6px; }
             .header-kpis .kpi-fecha { font-size: 5px; }
             .cards-container { padding: 0 8px; }
+
+        /* Las tarjetas deben llenar todo el espacio disponible */
+        .cards-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .cards-grid {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .function-card {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .function-card .card-content {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
             .header { height: 160px; }
             .main-container { margin-top: 160px; }
             .sidebar { top: 160px; width: 200px; z-index: 1500; }
@@ -1604,17 +1724,20 @@
         }
 
         .content-area {
-            position: relative !important;
-            top: auto !important; right: auto !important; bottom: auto !important;
-            margin-left: var(--sidebar-w) !important;
-            padding: 0 !important;
-            padding-top: 200px !important;
-            overflow: visible !important;
+            position: fixed !important;
+            top: 145px !important;
+            left: var(--sidebar-w) !important;
+            right: 0 !important;
+            bottom: 50px !important;
+            margin-left: 0 !important;
+            padding: 15px !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
             background: linear-gradient(180deg, rgba(17,24,39,0.35), rgba(17,24,39,0.0));
-            min-height: calc(100vh - var(--header-h));
-            scroll-behavior: smooth !important;
             width: calc(100vw - var(--sidebar-w)) !important;
             max-width: none !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
         
         /* Asegurar que el contenido siempre esté centrado */
@@ -1634,6 +1757,36 @@
             padding: 10px !important; 
             width: 100% !important;
             margin: 0 !important;
+        }
+
+        /* Las tarjetas deben llenar todo el espacio disponible */
+        .cards-container {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .cards-grid {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+
+        .function-card {
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
+        .function-card .card-content {
+            flex: 1 !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
         }
         .cards-grid { 
             grid-template-columns: 1fr !important; 
@@ -22434,6 +22587,8 @@ console.log('✅ Sistema de Alertas Unificadas cargado');
 <script src="/static/js/jarvis.js?v={{ timestamp }}"></script>
 
 </html>
+
+
 
 
 
