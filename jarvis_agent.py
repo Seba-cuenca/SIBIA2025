@@ -13,8 +13,18 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# Importar sistema de memoria
+try:
+    from jarvis_memory import jarvis_memory
+    MEMORIA_DISPONIBLE = True
+    logger.info("✅ Sistema de memoria JARVIS cargado")
+except ImportError as e:
+    MEMORIA_DISPONIBLE = False
+    jarvis_memory = None
+    logger.warning(f"⚠️ Sistema de memoria no disponible: {e}")
+
 class JarvisAgent:
-    """Agente de IA estilo JARVIS para SIBIA - Usa mega_agente_ia para respuestas reales"""
+    """Agente de IA estilo JARVIS para SIBIA - Aprende de conversaciones y usa mega_agente_ia"""
     
     def __init__(self, mega_agente_callable=None):
         self.nombre = "JARVIS"
@@ -26,6 +36,7 @@ class JarvisAgent:
         self.contexto_conversacion = []
         self.mega_agente = mega_agente_callable  # Función para llamar al mega agente
         self.nombre_usuario = None  # Nombre del usuario para personalizar
+        self.memoria = jarvis_memory if MEMORIA_DISPONIBLE else None
         self.capacidades = [
             "monitoreo_planta",
             "analisis_economico",
@@ -35,7 +46,8 @@ class JarvisAgent:
             "reportes_ejecutivos",
             "calculos_adan",
             "busqueda_internet",
-            "lectura_sensores_real"
+            "lectura_sensores_real",
+            "aprendizaje_continuo"  # Nueva capacidad
         ]
         
     def saludar(self, nombre_usuario: str = None) -> str:
@@ -56,14 +68,29 @@ class JarvisAgent:
             return f"{momento}. Soy JARVIS, tu asistente para SIBIA. Todos los sistemas operativos. ¿Cómo te llamás?"
     
     def procesar_comando(self, comando: str, contexto: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Procesa comandos de voz o texto con IA avanzada usando mega_agente_ia"""
+        """Procesa comandos de voz o texto con IA avanzada usando mega_agente_ia + memoria"""
         comando_lower = comando.lower().strip()
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+        
+        # Buscar conversaciones similares en la memoria
+        contexto_historico = ""
+        conversaciones_similares = []
+        if self.memoria:
+            try:
+                conversaciones_similares = self.memoria.buscar_conversaciones_similares(comando, limite=3)
+                if conversaciones_similares:
+                    contexto_historico = "\n=== MEMORIA DE CONVERSACIONES PREVIAS ===\n"
+                    for i, conv in enumerate(conversaciones_similares[:2], 1):
+                        contexto_historico += f"\n{i}. Usuario preguntó antes: '{conv['pregunta']}'\n"
+                        contexto_historico += f"   JARVIS respondió: '{conv['respuesta'][:150]}...'\n"
+                    logger.info(f"🧠 Encontradas {len(conversaciones_similares)} conversaciones similares")
+            except Exception as e:
+                logger.error(f"Error buscando en memoria: {e}")
         
         # Si tenemos mega_agente, usarlo para respuesta real
         if self.mega_agente:
             try:
-                # Agregar personalidad JARVIS ARGENTINO al prompt
-                tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+                # Agregar personalidad JARVIS ARGENTINO al prompt + MEMORIA
                 prompt_jarvis = f"""Eres JARVIS (Just A Rather Very Intelligent System), asistente de IA adaptado para SIBIA en Argentina.
 
 Personalidad ARGENTINA:
@@ -74,15 +101,19 @@ Personalidad ARGENTINA:
 - Sos proactivo y sugerís soluciones
 - Ejemplos: "Che {tratamiento}, mirá...", "Dale {tratamiento}, te cuento...", "Bueno {tratamiento}, acá está..."
 
+{contexto_historico}
+
 Pregunta del usuario: {comando}
 
 Instrucciones:
-1. Si es cálculo de mezcla, usá el sistema Adán y devolvé resultado completo
-2. Si pregunta por sensores, leé valores reales de la base de datos
-3. Si pregunta por stock, consultá inventario actual
-4. Respondé natural, como JARVIS argentino conversando
-5. Si necesitás más info, preguntále
-6. Usá datos reales, no inventes
+1. Si hay conversaciones previas similares, usá ese contexto para dar respuestas más personalizadas
+2. Si es cálculo de mezcla, usá el sistema Adán y devolvé resultado completo
+3. Si pregunta por sensores, leé valores reales de la base de datos
+4. Si pregunta por stock, consultá inventario actual
+5. Respondé natural, como JARVIS argentino conversando
+6. Si necesitás más info, preguntále
+7. Usá datos reales, no inventes
+8. Recordá info de conversaciones previas cuando sea relevante
 
 Respondé como JARVIS argentino, natural y amigable."""
 
@@ -93,13 +124,28 @@ Respondé como JARVIS argentino, natural y amigable."""
                     respuesta = respuesta_ia.get('respuesta', '')
                     intencion = self._detectar_intencion(comando_lower)
                     
-                    # Agregar al contexto
+                    # Guardar en memoria persistente
+                    if self.memoria:
+                        try:
+                            self.memoria.agregar_conversacion(
+                                usuario=self.nombre_usuario or "usuario",
+                                pregunta=comando,
+                                respuesta=respuesta,
+                                intencion=intencion,
+                                contexto=contexto,
+                                feedback=None  # Se puede agregar feedback después
+                            )
+                        except Exception as e:
+                            logger.error(f"Error guardando en memoria: {e}")
+                    
+                    # Agregar al contexto de sesión actual
                     self.contexto_conversacion.append({
                         'timestamp': datetime.now().isoformat(),
                         'comando': comando,
                         'intencion': intencion,
                         'respuesta': respuesta,
-                        'usa_ia_real': True
+                        'usa_ia_real': True,
+                        'uso_memoria': len(conversaciones_similares) > 0
                     })
                     
                     return {
@@ -108,7 +154,8 @@ Respondé como JARVIS argentino, natural y amigable."""
                         'respuesta': respuesta,
                         'accion': self._determinar_accion(intencion),
                         'timestamp': datetime.now().isoformat(),
-                        'datos': respuesta_ia.get('datos', {})
+                        'datos': respuesta_ia.get('datos', {}),
+                        'memoria_utilizada': len(conversaciones_similares) > 0
                     }
             except Exception as e:
                 logger.error(f"Error llamando a mega_agente: {e}")
