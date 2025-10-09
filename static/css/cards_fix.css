@@ -14,12 +14,12 @@
     width: 100% !important;
 }
 
-/* Tarjetas individuales - flexible verticalmente */
+/* Tarjetas individuales - SIEMPRE ocupan TODO el espacio disponible */
 .function-card {
     display: flex !important;
     flex-direction: column !important;
-    min-height: 400px !important;
-    max-height: calc(100vh - 280px) !important;
+    height: calc(100vh - 280px) !important; /* Altura FIJA, no mínima */
+    min-height: 500px !important; /* Mínimo para pantallas muy chicas */
     overflow: hidden !important;
     background: #1f2a3a !important;
     border: 1px solid rgba(255,255,255,0.06) !important;
@@ -60,4 +60,25 @@
 .analytics-view {
     width: 100% !important;
     min-height: 100% !important;
+}
+
+/* Tarjetas con contenido vacío - centrar mensaje */
+.function-card .card-content:empty::after {
+    content: "No hay datos disponibles en este momento";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+    font-weight: 300;
+}
+
+/* Asegurar que solo UNA tarjeta se muestre a la vez */
+.function-card[style*="display: none"] {
+    display: none !important;
+}
+
+.function-card[style*="display: flex"] {
+    display: flex !important;
 }
