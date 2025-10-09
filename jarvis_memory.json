@@ -1,0 +1,1786 @@
+{
+  "conversaciones": [
+    {
+      "timestamp": "2025-10-09T12:12:14.254645",
+      "usuario": "Buenos",
+      "pregunta": "BUENOS DIAS",
+      "respuesta": "Buenas tardes, señor. JARVIS a su servicio. ¿En qué puedo asistirle hoy?",
+      "intencion": "conversacion_general",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093773,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093774,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093775,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093776,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093777,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093778,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 1
+    },
+    {
+      "timestamp": "2025-10-09T12:12:34.088096",
+      "usuario": "Buenos",
+      "pregunta": "CALCULO PARA 23000 KW",
+      "respuesta": "Señor, el sistema Adán ha calculado la mezcla óptima: para 23,000 KW objetivo, generaremos 22,976 KW con 981,588.6 toneladas de sustrato y 54.8% de metano.",
+      "intencion": "consultar_generacion",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093793,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093794,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093795,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093796,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093796,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093797,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 2
+    },
+    {
+      "timestamp": "2025-10-09T12:12:51.359409",
+      "usuario": "Buenos",
+      "pregunta": "DETALLE DE MATERIALES",
+      "respuesta": "Señor, materiales: 123123.0 toneladas con 121.0% de sólidos totales.",
+      "intencion": "gestion_materiales",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093810,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093811,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093812,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093813,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093814,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093815,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 3
+    },
+    {
+      "timestamp": "2025-10-09T12:13:16.528032",
+      "usuario": "Buenos",
+      "pregunta": "PRESION DE BIO 2",
+      "respuesta": "Señor, Biodigestor 2: temperatura 42.8°C, nivel 86.1%, presión 1.33 bar.",
+      "intencion": "conversacion_general",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093833,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093834,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093835,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093835,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093836,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093837,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 4
+    },
+    {
+      "timestamp": "2025-10-09T12:13:32.317649",
+      "usuario": "Buenos",
+      "pregunta": "QUE DIA ES HOY",
+      "respuesta": "Disculpe, señor. No estoy seguro de entender su solicitud. Puedo ayudarle con: estado de biodigestores, stock de materiales, cálculos de mezcla con Adán, o monitoreo de sensores. ¿Qué desea consultar?",
+      "intencion": "conversacion_general",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093851,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093852,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093853,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093854,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093855,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093856,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 5
+    },
+    {
+      "timestamp": "2025-10-09T12:13:50.064956",
+      "usuario": "Buenos",
+      "pregunta": "COMO TE LLAMAS",
+      "respuesta": "Disculpe, señor. No estoy seguro de entender su solicitud. Puedo ayudarle con: estado de biodigestores, stock de materiales, cálculos de mezcla con Adán, o monitoreo de sensores. ¿Qué desea consultar?",
+      "intencion": "conversacion_general",
+      "contexto": {
+        "bd1_presion": {
+          "estado": "ok",
+          "valor": 1.34,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093869,
+          "es_reciente": false
+        },
+        "bd2_presion": {
+          "estado": "ok",
+          "valor": 1.33,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093870,
+          "es_reciente": false
+        },
+        "bd1_nivel": {
+          "estado": "ok",
+          "valor": 82.27,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093871,
+          "es_reciente": false
+        },
+        "bd2_nivel": {
+          "estado": "ok",
+          "valor": 86.14,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093872,
+          "es_reciente": false
+        },
+        "bd1_temp": {
+          "estado": "ok",
+          "valor": 43.04,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093873,
+          "es_reciente": false
+        },
+        "bd2_temp": {
+          "estado": "ok",
+          "valor": 42.81,
+          "fecha": "2025-09-26 20:22:36",
+          "fecha_hora": "2025-09-26 20:22:36",
+          "segundos_desde_lectura": 1093874,
+          "es_reciente": false
+        },
+        "stock_actual": {
+          "ultima_actualizacion": "2025-09-28T19:15:13.570300",
+          "materiales": {
+            "Rumen": {
+              "total_tn": 171924.0,
+              "total_solido": 68769.6,
+              "st_porcentaje": 35.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1104,
+              "sv_porcentaje": 96.67,
+              "ch4_porcentaje": 58.428846153846145,
+              "m3_tnsv": 865.77
+            },
+            "Grasa - Frigorifico La Anonima": {
+              "total_tn": 26291.0,
+              "total_solido": 7624.389999999999,
+              "st_porcentaje": 36.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.2512,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1591.77
+            },
+            "Gomas vegetales": {
+              "total_tn": 34242609.0,
+              "total_solido": 18833425.700000003,
+              "st_porcentaje": 55.00000000000001,
+              "ultima_actualizacion": "2025-09-24 14:46:49",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.441,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.20466321243524,
+              "m3_tnsv": 1239.79
+            },
+            "SA 7": {
+              "total_tn": 291371.0,
+              "total_solido": 115091.545,
+              "st_porcentaje": 34.0,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.0852,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 763.08
+            },
+            "Maiz": {
+              "total_tn": 26246.0,
+              "total_solido": 19684.5,
+              "st_porcentaje": 40.0,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1515,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.526710402999065,
+              "m3_tnsv": 917.79
+            },
+            "Expeller": {
+              "total_tn": 26246.0,
+              "total_solido": 14697.76,
+              "st_porcentaje": 56.00000000000001,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.3231,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 66.70520231213874,
+              "m3_tnsv": 933.53
+            },
+            "Decomiso mucanga": {
+              "total_tn": 729279.0,
+              "total_solido": 292661.8889,
+              "st_porcentaje": 37.67,
+              "ultima_actualizacion": "2025-09-25 19:26:32",
+              "kw_tn": 0.2472,
+              "tipo": "solido",
+              "densidad": 1.0,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 68.29622458857696,
+              "m3_tnsv": 1421.11
+            },
+            "Descarte de grano": {
+              "total_tn": 3466658.0,
+              "total_solido": 1759328.9349999998,
+              "st_porcentaje": 50.74999999999999,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.2292,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 54.390243902439025,
+              "m3_tnsv": 876.63
+            },
+            "SA5-SA6 20-80": {
+              "total_tn": 23001.0,
+              "total_solido": 4945.215,
+              "st_porcentaje": 21.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.0342,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 54.90334428764741,
+              "m3_tnsv": 777.59
+            },
+            "Silaje de Maiz": {
+              "total_tn": 69023.0,
+              "total_solido": 34166.385,
+              "st_porcentaje": 49.5,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "kw_tn": 0.1904,
+              "densidad": 1.0,
+              "tipo": "solido",
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Lactosa": {
+              "total_tn": 25468805.0,
+              "st_porcentaje": 12.0,
+              "total_solido": 3371712.25,
+              "ultima_actualizacion": "2025-10-02 13:51:02",
+              "tipo": "liquido",
+              "densidad": 1.03,
+              "kw_tn": 0.0118,
+              "sv_porcentaje": 95.83,
+              "ch4_porcentaje": 59.627906976744185,
+              "m3_tnsv": 741.19
+            },
+            "Silaje de Maiz A5": {
+              "total_tn": 3434.0,
+              "st_porcentaje": 40.0,
+              "total_solido": 1167.5600000000002,
+              "ultima_actualizacion": "2025-09-23 13:15:57",
+              "tipo": "solido",
+              "densidad": 1.0,
+              "kw_tn": 0.1193,
+              "sv_porcentaje": 95.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0
+            },
+            "Purin": {
+              "total_tn": 57118910.0,
+              "total_solido": 13741734.49,
+              "st_porcentaje": 4.0,
+              "ultima_actualizacion": "2025-10-01 15:32:33",
+              "kw_tn": 0.0018,
+              "tipo": "liquido",
+              "densidad": 1.05,
+              "sv_porcentaje": 74.0,
+              "ch4_porcentaje": 69.21875,
+              "m3_tnsv": 1259.05
+            },
+            "materiales": {
+              "total_tn": 123123.0,
+              "st_porcentaje": 121.0,
+              "total_solido": 148978.83,
+              "ultima_actualizacion": "2025-09-25 16:05:51",
+              "kw_tn": 0.9908,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de perro": {
+              "total_tn": 23.0,
+              "st_porcentaje": 67.0,
+              "total_solido": 15.41,
+              "ultima_actualizacion": "2025-09-25 16:55:27",
+              "kw_tn": 0.3129,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "nuevo_material": {
+              "total_tn": 1266231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 569803.9500000001,
+              "ultima_actualizacion": "2025-10-06 08:07:36",
+              "kw_tn": 0.1324,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "caca de gato": {
+              "total_tn": 121231.0,
+              "st_porcentaje": 45.0,
+              "total_solido": 54553.950000000004,
+              "ultima_actualizacion": "2025-09-25 17:01:27",
+              "kw_tn": 0.1245,
+              "sv_porcentaje": 90.0,
+              "ch4_porcentaje": 65.0,
+              "m3_tnsv": 300.0,
+              "tipo": "solido",
+              "densidad": 1.0
+            },
+            "Vinasa": {
+              "total_tn": 345678.0,
+              "st_porcentaje": 5.0,
+              "total_solido": 17283.9,
+              "ultima_actualizacion": "2025-09-29 08:34:25",
+              "tipo": "liquido",
+              "densidad": 1.02,
+              "kw_tn": 0.0007
+            }
+          }
+        },
+        "config": {
+          "kw_objetivo": 28800.0,
+          "num_biodigestores": 1,
+          "porcentaje_purin": 0.1,
+          "porcentaje_liquidos": 0.5,
+          "porcentaje_solidos": 0.5,
+          "porcentaje_sa7_reemplazo": 0.0,
+          "kw_generacion_sa7": 694.0,
+          "max_materiales_solidos": 8,
+          "min_materiales_solidos": 2,
+          "max_porcentaje_material": 0.6,
+          "factor_correccion_purin": 0.8,
+          "factor_correccion_formato_numerico": 0.001,
+          "consumo_chp_global": 505.0,
+          "compensacion_automatica_diaria": false,
+          "objetivo_metano_diario": 65.0,
+          "usar_optimizador_metano": true,
+          "consumo_chp": 175.0
+        },
+        "kw_objetivo": 28800.0
+      },
+      "feedback": null,
+      "id": 6
+    }
+  ],
+  "preferencias_usuario": {},
+  "patrones_aprendidos": {},
+  "contexto_frecuente": {},
+  "estadisticas": {
+    "total_conversaciones": 6,
+    "temas_mas_consultados": {
+      "conversacion_general": 4,
+      "consultar_generacion": 1,
+      "gestion_materiales": 1
+    },
+    "tiempo_promedio_respuesta": 0
+  }
+}

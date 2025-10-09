@@ -1,0 +1,63 @@
+/* Fix para tarjetas que no aparecen - Sobreescribe estilos conflictivos */
+
+/* Contenedor de tarjetas - DEBE usar grid */
+.cards-container {
+    padding: 15px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.cards-grid {
+    display: grid !important;  /* IMPORTANTE: GRID, no flex */
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+}
+
+/* Tarjetas individuales - flexible verticalmente */
+.function-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 400px !important;
+    max-height: calc(100vh - 280px) !important;
+    overflow: hidden !important;
+    background: #1f2a3a !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25) !important;
+}
+
+/* Contenido de tarjeta con scroll */
+.function-card .card-content {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 20px !important;
+}
+
+/* Header de tarjeta */
+.function-card .card-header {
+    background: #243449 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    padding: 15px 20px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Content-area debe ser scrollable */
+.content-area {
+    position: fixed !important;
+    top: 145px !important;
+    left: var(--sidebar-w, 260px) !important;
+    right: 0 !important;
+    bottom: 50px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 0 !important;
+}
+
+/* Vistas operativa y analítica */
+.operational-view,
+.analytics-view {
+    width: 100% !important;
+    min-height: 100% !important;
+}
