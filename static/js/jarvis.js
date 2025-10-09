@@ -11,6 +11,8 @@ class JarvisUI {
         this.btnEnviar = null;
         this.btnVoz = null;
         this.inicializado = false;
+        this.nombreUsuario = localStorage.getItem('jarvis_nombre_usuario') || null;
+        this.esperandoNombre = false;
     }
 
     inicializar() {
@@ -139,16 +141,36 @@ class JarvisUI {
 
     async saludarUsuario() {
         try {
-            const response = await fetch('/api/jarvis/saludo');
-            const data = await response.json();
-            
-            if (data.status === 'success') {
-                this.mostrarMensajeAsistente(data.mensaje);
-                this.hablar(data.mensaje);
+            // Si ya tenemos nombre, saludar con él
+            if (this.nombreUsuario) {
+                const response = await fetch('/api/jarvis/saludo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre_usuario: this.nombreUsuario })
+                });
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    this.mostrarMensajeAsistente(data.mensaje);
+                    this.hablar(data.mensaje);
+                }
+            } else {
+                // Preguntar el nombre
+                const hora = new Date().getHours();
+                let momento = 'Buen día';
+                if (hora >= 12 && hora < 20) momento = 'Buenas tardes';
+                else if (hora >= 20) momento = 'Buenas noches';
+                
+                const mensaje = `${momento}! Soy JARVIS, tu asistente inteligente para SIBIA. ¿Cómo te llamás?`;
+                this.mostrarMensajeAsistente(mensaje);
+                this.hablar(mensaje);
+                this.esperandoNombre = true;
             }
         } catch (error) {
             console.error('Error en saludo:', error);
-            this.mostrarMensajeAsistente('Buenas tardes. JARVIS a su servicio.');
+            const mensaje = 'Hola! Soy JARVIS, tu asistente para SIBIA. ¿Cómo te llamás?';
+            this.mostrarMensajeAsistente(mensaje);
+            this.esperandoNombre = true;
         }
     }
 
@@ -165,6 +187,18 @@ class JarvisUI {
         // Mostrar mensaje del usuario
         this.mostrarMensajeUsuario(mensaje);
         
+        // Si estamos esperando el nombre, guardarlo
+        if (this.esperandoNombre) {
+            this.nombreUsuario = mensaje.split(' ')[0]; // Primer palabra del nombre
+            localStorage.setItem('jarvis_nombre_usuario', this.nombreUsuario);
+            this.esperandoNombre = false;
+            
+            const respuesta = `Perfecto, ${this.nombreUsuario}! Un placer. Estoy acá para ayudarte con SIBIA. ¿En qué te puedo ayudar?`;
+            this.mostrarMensajeAsistente(respuesta);
+            this.hablar(respuesta);
+            return;
+        }
+        
         // Activar orbe pensando
         this.activarOrbePensando();
         
@@ -175,7 +209,8 @@ class JarvisUI {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    comando: mensaje
+                    comando: mensaje,
+                    nombre_usuario: this.nombreUsuario
                 })
             });
             
@@ -198,7 +233,7 @@ class JarvisUI {
         } catch (error) {
             console.error('Error comunicando con JARVIS:', error);
             this.desactivarOrbePensando();
-            this.mostrarMensajeAsistente('Disculpe, he tenido un problema procesando su solicitud.');
+            this.mostrarMensajeAsistente('Disculpe, he tenido un problema procesando tu solicitud.');
         }
     }
 

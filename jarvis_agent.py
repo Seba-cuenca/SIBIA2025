@@ -19,12 +19,13 @@ class JarvisAgent:
     def __init__(self, mega_agente_callable=None):
         self.nombre = "JARVIS"
         self.personalidad = {
-            "tono": "profesional, cortés y británico",
-            "estilo": "preciso, eficiente y con toque de humor sutil",
-            "tratamiento": "Señor/Señora"
+            "tono": "profesional, amigable y argentino",
+            "estilo": "preciso, eficiente y directo, con toque de cercanía",
+            "tratamiento": "informal argentino (vos, che)"
         }
         self.contexto_conversacion = []
         self.mega_agente = mega_agente_callable  # Función para llamar al mega agente
+        self.nombre_usuario = None  # Nombre del usuario para personalizar
         self.capacidades = [
             "monitoreo_planta",
             "analisis_economico",
@@ -38,20 +39,21 @@ class JarvisAgent:
         ]
         
     def saludar(self, nombre_usuario: str = None) -> str:
-        """Saludo personalizado estilo JARVIS"""
+        """Saludo personalizado estilo JARVIS argentino"""
         hora = datetime.now().hour
         
         if 5 <= hora < 12:
-            momento = "Buenos días"
+            momento = "Buen día"
         elif 12 <= hora < 20:
             momento = "Buenas tardes"
         else:
             momento = "Buenas noches"
         
         if nombre_usuario:
-            return f"{momento}, {nombre_usuario}. Soy JARVIS, su asistente inteligente para SIBIA. ¿En qué puedo ayudarle hoy?"
+            self.nombre_usuario = nombre_usuario
+            return f"{momento}, {nombre_usuario}! Soy JARVIS, tu asistente inteligente para SIBIA. ¿En qué te puedo ayudar?"
         else:
-            return f"{momento}. JARVIS a su servicio. Todos los sistemas están operativos y funcionando correctamente."
+            return f"{momento}. Soy JARVIS, tu asistente para SIBIA. Todos los sistemas operativos. ¿Cómo te llamás?"
     
     def procesar_comando(self, comando: str, contexto: Dict[str, Any] = None) -> Dict[str, Any]:
         """Procesa comandos de voz o texto con IA avanzada usando mega_agente_ia"""
@@ -60,27 +62,29 @@ class JarvisAgent:
         # Si tenemos mega_agente, usarlo para respuesta real
         if self.mega_agente:
             try:
-                # Agregar personalidad JARVIS al prompt
-                prompt_jarvis = f"""Eres JARVIS (Just A Rather Very Intelligent System), el asistente de IA de Tony Stark adaptado para SIBIA.
+                # Agregar personalidad JARVIS ARGENTINO al prompt
+                tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+                prompt_jarvis = f"""Eres JARVIS (Just A Rather Very Intelligent System), asistente de IA adaptado para SIBIA en Argentina.
 
-Personalidad:
-- Tono profesional, cortés y con acento británico
-- Preciso, eficiente y con humor sutil
-- Llamas "Señor" o "Señora" al usuario
-- Das respuestas naturales y conversacionales
-- Eres proactivo y sugieres soluciones
+Personalidad ARGENTINA:
+- Tono profesional pero amigable y cercano
+- Hablás como argentino: usá "vos", "che", "bueno", "dale"
+- Llamás al usuario por su nombre: "{tratamiento}"
+- Respuestas naturales y conversacionales, sin ser formal en exceso
+- Sos proactivo y sugerís soluciones
+- Ejemplos: "Che {tratamiento}, mirá...", "Dale {tratamiento}, te cuento...", "Bueno {tratamiento}, acá está..."
 
 Pregunta del usuario: {comando}
 
 Instrucciones:
-1. Si es un cálculo de mezcla, USA el sistema Adán y devuelve el resultado COMPLETO con todos los detalles
-2. Si pregunta por sensores, LEE los valores reales de la base de datos
-3. Si pregunta por stock, consulta el inventario actual
-4. Responde de forma natural, como si fueras JARVIS conversando
-5. Si necesitas más información, pregúntale al usuario
-6. Usa datos reales, no inventes valores
+1. Si es cálculo de mezcla, usá el sistema Adán y devolvé resultado completo
+2. Si pregunta por sensores, leé valores reales de la base de datos
+3. Si pregunta por stock, consultá inventario actual
+4. Respondé natural, como JARVIS argentino conversando
+5. Si necesitás más info, preguntále
+6. Usá datos reales, no inventes
 
-Responde como JARVIS de manera natural y conversacional."""
+Respondé como JARVIS argentino, natural y amigable."""
 
                 # Llamar al mega agente
                 respuesta_ia = self.mega_agente(prompt_jarvis, contexto or {})
@@ -284,14 +288,15 @@ Simplemente pregunte lo que necesite, señor."""
         return acciones.get(intencion, None)
     
     def generar_respuesta_voz(self, texto: str) -> Dict[str, Any]:
-        """Genera parámetros para síntesis de voz estilo JARVIS"""
+        """Genera parámetros para síntesis de voz estilo JARVIS argentino"""
         return {
             'texto': texto,
-            'voz': 'es-GB-RyanNeural',  # Voz británica masculina
-            'velocidad': 1.0,
-            'tono': 1.0,
+            'voz': 'es-AR-TomasNeural',  # Voz argentina masculina
+            'velocidad': 0.95,  # Ligeramente más lento para naturalidad
+            'tono': 1.05,  # Tono ligeramente más alto
             'volumen': 0.9,
-            'estilo': 'professional'
+            'estilo': 'friendly',  # Estilo amigable
+            'pitch': '+5Hz'  # Pitch para sonido más natural
         }
     
     def generar_notificacion(self, tipo: str, mensaje: str, prioridad: str = "normal") -> Dict[str, Any]:

@@ -12906,27 +12906,21 @@ def sintetizar_voz_google_tts(texto: str) -> Optional[str]:
         # Configurar entrada de texto
         synthesis_input = texttospeech.SynthesisInput(text=texto)
         
-        # Configurar voz británica masculina (estilo JARVIS)
+        # Configurar voz ARGENTINA masculina (estilo JARVIS argentino)
+        # Usar voz de Latinoamérica que suena más natural
         voice = texttospeech.VoiceSelectionParams(
-            language_code="en-GB",  # Inglés británico
-            name="en-GB-Neural2-B",  # Voz masculina neural
+            language_code="es-US",  # Español latinoamericano (más neutro/argentino)
+            name="es-US-Neural2-B",  # Voz masculina neural de Latinoamérica
             ssml_gender=texttospeech.SsmlVoiceGender.MALE
         )
         
-        # Si el texto está en español, usar voz española
-        if any(c in texto for c in ['á', 'é', 'í', 'ó', 'ú', 'ñ', '¿', '¡']):
-            voice = texttospeech.VoiceSelectionParams(
-                language_code="es-ES",  # Español de España
-                name="es-ES-Neural2-B",  # Voz masculina neural
-                ssml_gender=texttospeech.SsmlVoiceGender.MALE
-            )
-        
-        # Configurar audio
+        # Configurar audio para sonido más NATURAL y argentino
         audio_config = texttospeech.AudioConfig(
             audio_encoding=texttospeech.AudioEncoding.MP3,
-            speaking_rate=1.0,  # Velocidad normal
-            pitch=0.0,  # Tono normal
-            volume_gain_db=0.0  # Volumen normal
+            speaking_rate=0.95,  # Ligeramente más lento para naturalidad
+            pitch=-1.0,  # Tono ligeramente más grave (más natural)
+            volume_gain_db=1.0,  # Volumen ligeramente más alto
+            effects_profile_id=['headphone-class-device']  # Optimizado para audífonos
         )
         
         # Sintetizar
@@ -12961,6 +12955,11 @@ def jarvis_comando():
         data = request.json
         comando = data.get('comando', '').strip()
         sintetizar_voz = data.get('sintetizar_voz', True)
+        nombre_usuario = data.get('nombre_usuario', None)
+        
+        # Actualizar nombre del usuario en JARVIS si existe
+        if nombre_usuario:
+            jarvis.nombre_usuario = nombre_usuario
         
         if not comando:
             return jsonify({
@@ -13003,7 +13002,7 @@ def jarvis_comando():
             'respuesta': 'Disculpe, señor. He tenido un problema técnico procesando su solicitud.'
         }), 500
 
-@app.route('/api/jarvis/saludo')
+@app.route('/api/jarvis/saludo', methods=['GET', 'POST'])
 def jarvis_saludo():
     """Saludo inicial de JARVIS"""
     if not JARVIS_DISPONIBLE:
@@ -13013,7 +13012,17 @@ def jarvis_saludo():
         }), 503
     
     try:
-        nombre_usuario = request.args.get('nombre', None)
+        # Obtener nombre del usuario desde GET o POST
+        if request.method == 'POST':
+            data = request.json or {}
+            nombre_usuario = data.get('nombre_usuario', None)
+        else:
+            nombre_usuario = request.args.get('nombre', None)
+        
+        # Guardar nombre en la instancia de JARVIS si existe
+        if nombre_usuario:
+            jarvis.nombre_usuario = nombre_usuario
+        
         saludo = jarvis.saludar(nombre_usuario)
         
         return jsonify({

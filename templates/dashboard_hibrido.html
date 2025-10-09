@@ -819,52 +819,56 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            gap: 8px;
-            align-items: center;
+            gap: 6px;
+            align-items: stretch;
             justify-content: center;
-            margin: 8px auto 8px auto;
-            max-width: 900px;
-            width: 100%;
-            padding: 0 15px;
+            margin: 6px 12px;
+            max-width: 700px;
+            width: auto;
+            padding: 0;
         }
         .header-kpis .kpi-card { 
-            padding: 10px 14px; 
-            border-radius: 8px; 
+            padding: 12px 10px; 
+            border-radius: 6px; 
             background: linear-gradient(135deg, #243449, #1a2a3e); 
             border: 1px solid rgba(0, 212, 255, 0.2); 
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
             transition: all 0.3s ease; 
-            min-width: 140px;
+            min-width: 110px;
+            min-height: 65px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .header-kpis .kpi-card:hover { 
             background: linear-gradient(135deg, #2a3d54, #1f3245); 
             border: 1px solid rgba(0, 212, 255, 0.5); 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3); 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3); 
         }
         .header-kpis .kpi-value { 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: bold;
             color: #00d4ff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
         }
         .header-kpis .kpi-header { 
-            font-size: 11px; 
+            font-size: 10px; 
             font-weight: 600;
             color: rgba(255, 255, 255, 0.8);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .header-kpis .kpi-fecha { 
             display: block; 
-            font-size: 9px; 
+            font-size: 8px; 
             opacity: 0.7; 
-            margin-top: 4px; 
+            margin-top: 3px; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1784,63 +1788,53 @@
 </head>
 <body>
     <header class="header">
-        <!-- Fila 1: Logo + Nav-tabs + Controles -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 15px; gap: 20px;">
+        <!-- Fila 1: Logo + Nav-tabs + Alertas -->
+        <div style="display: flex; justify-content: flex-start; align-items: center; padding: 8px 12px; gap: 12px; max-width: 100%;">
             <!-- Logo -->
             <div class="logo-container" onclick="abrirAgenteSIBIA()" style="cursor: pointer; flex-shrink: 0;" title="Abrir SIBIA - Asistente IA">
                 <img src="/static/icon-192x192.png" alt="SIBIA Logo" class="app-logo" onerror="this.style.display='none'">
             </div>
             
-            <!-- Sección Central: Nav-tabs y Objetivos -->
-            <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
-                <!-- Nav-tabs -->
-                <div class="nav-tabs" style="display: flex; gap: 10px;">
-                    <a href="#" class="nav-tab active" onclick="switchView('operational')">Control Operativo</a>
-                    <a href="#" class="nav-tab" onclick="openMantenimiento()">Mantenimiento</a>
+            <!-- Sección Central: Nav-tabs y Objetivos (mismo ancho que logo) -->
+            <div style="display: flex; flex-direction: column; gap: 5px; max-width: 600px;">
+                <!-- Nav-tabs + Botón Alertas -->
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <a href="#" class="nav-tab active" onclick="switchView('operational')" style="padding: 5px 10px; font-size: 11px; white-space: nowrap;">Control Operativo</a>
+                    <a href="#" class="nav-tab" onclick="openMantenimiento()" style="padding: 5px 10px; font-size: 11px; white-space: nowrap;">Mantenimiento</a>
+                    
+                    <!-- Botón de Alertas -->
+                    <button id="btn-alertas-unificadas" onclick="togglePanelAlertas()" style="padding: 5px 10px; background: rgba(220, 53, 69, 0.2); border: 2px solid #dc3545; border-radius: 5px; color: white; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
+                        <i class="fas fa-bell" style="font-size: 10px;"></i>
+                        <span style="font-weight: bold; font-size: 10px;">ALERTAS</span>
+                        <span id="contador-alertas-header" style="background: #dc3545; padding: 1px 4px; border-radius: 8px; font-size: 9px; font-weight: bold;">0</span>
+                    </button>
                 </div>
                 
                 <!-- Objetivos Editables - DEBAJO de nav-tabs -->
-                <div style="display: flex; gap: 15px; padding: 6px 10px; background: rgba(255,255,255,0.05); border-radius: 6px; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <label style="font-size: 11px; opacity: 0.8; white-space: nowrap;">KW Objetivo:</label>
-                        <input type="number" id="kw-objetivo-header" value="28800" style="width: 75px; padding: 3px 6px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 11px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="KW Objetivo">
-                        <span style="font-size: 11px;">kW</span>
+                <div style="display: flex; gap: 8px; padding: 4px 6px; background: rgba(255,255,255,0.05); border-radius: 4px; flex-wrap: wrap; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 3px;">
+                        <label style="font-size: 9px; opacity: 0.8; white-space: nowrap;">KW:</label>
+                        <input type="number" id="kw-objetivo-header" value="28800" style="width: 55px; padding: 2px 3px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 3px; font-size: 9px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="KW Objetivo">
                     </div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <label style="font-size: 11px; opacity: 0.8; white-space: nowrap;">Metano Objetivo:</label>
-                        <input type="number" id="metano-objetivo-header" value="65" style="width: 55px; padding: 3px 6px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 4px; font-size: 11px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="Metano Objetivo">
-                        <span style="font-size: 11px;">%</span>
+                    <div style="display: flex; align-items: center; gap: 3px;">
+                        <label style="font-size: 9px; opacity: 0.8; white-space: nowrap;">CH4:</label>
+                        <input type="number" id="metano-objetivo-header" value="65" style="width: 40px; padding: 2px 3px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; border-radius: 3px; font-size: 9px;" onchange="actualizarObjetivos()" onkeypress="if(event.key==='Enter') actualizarObjetivos()" title="Metano Objetivo">
+                        <span style="font-size: 9px;">%</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <label style="font-size: 11px; opacity: 0.8;">Modo:</label>
-                        <span id="modo-calculo-header" onclick="alternarModoCalculo()" style="padding: 3px 8px; background: rgba(40, 167, 69, 0.3); color: #28a745; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer;" title="Clic para cambiar">⚡ Energético</span>
+                    <div style="display: flex; align-items: center; gap: 3px;">
+                        <label style="font-size: 9px; opacity: 0.8;">Modo:</label>
+                        <span id="modo-calculo-header" onclick="alternarModoCalculo()" style="padding: 2px 5px; background: rgba(40, 167, 69, 0.3); color: #28a745; border-radius: 3px; font-size: 9px; font-weight: bold; cursor: pointer;" title="Clic para cambiar">⚡ Energ.</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <label style="font-size: 11px; opacity: 0.8;">Consumo CHP:</label>
+                    <div style="display: flex; align-items: center; gap: 3px;">
+                        <label style="font-size: 9px; opacity: 0.8;">CHP:</label>
                         <input type="number" id="consumo-chp-input" value="170" min="100" max="1000" step="1" 
-                               style="width: 55px; padding: 3px 6px; border-radius: 3px; border: 1px solid #ccc; font-size: 11px;"
+                               style="width: 40px; padding: 2px 3px; border-radius: 3px; border: 1px solid #ccc; font-size: 9px;"
                                onchange="actualizarConsumoCHP(this.value)" 
                                onkeypress="if(event.key==='Enter') actualizarConsumoCHP(this.value)"
-                               title="Consumo CHP para cálculos KW/TN">
-                        <span style="font-size: 11px;">L/s</span>
+                               title="Consumo CHP">
+                        <span style="font-size: 9px;">L/s</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Controles Derecha -->
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
-                <!-- Status del sistema -->
-                <div class="status-indicator" id="status-sistema" style="background: rgba(34, 211, 238, 0.2); border: 1px solid #22d3ee; padding: 4px 10px;">
-                    <div style="width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite;"></div>
-                    <span id="texto-sistema" style="font-size: 11px;">Sistema Actualizado</span>
-                </div>
-                
-                <!-- Botón de Alertas -->
-                <button id="btn-alertas-unificadas" onclick="togglePanelAlertas()" style="padding: 6px 12px; background: rgba(220, 53, 69, 0.2); border: 2px solid #dc3545; border-radius: 6px; color: white; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-                    <i class="fas fa-bell" style="font-size: 12px;"></i>
-                    <span style="font-weight: bold; font-size: 11px;">ALERTAS</span>
-                    <span id="contador-alertas-header" style="background: #dc3545; padding: 2px 6px; border-radius: 10px; font-size: 10px; font-weight: bold;">0</span>
-                </button>
             </div>
         </div>
         
@@ -3176,17 +3170,17 @@
         </div>
         
         <!-- Footer con Copyright -->
-        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 12px 20px; margin-top: auto; margin-left: 220px; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center; position: relative; z-index: 10;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px;">
+        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 10px 15px; margin-top: auto; margin-left: 220px; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center; position: relative; z-index: 10; max-width: calc(100vw - 240px);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px;">
+                <div style="color: rgba(255, 255, 255, 0.7);">
                     <i class="fas fa-flask" style="color: #00d4ff;"></i> 
-                    <strong>SIBIA</strong> - Sistema Inteligente de Biogestión de Plantas de Biogás
+                    <strong>SIBIA</strong> - Sistema Inteligente de Biogestión
                 </div>
-                <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px;">
-                    © 2025 <a href="https://autolinksolutions.com.ar" target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: 600;">AutoLinkSolutions SRL</a> - Todos los derechos reservados
+                <div style="color: rgba(255, 255, 255, 0.7);">
+                    © 2025 <a href="https://autolinksolutions.com.ar" target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: 600;">AutoLinkSolutions</a>
                 </div>
-                <div style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">
-                    v2.0 | Powered by AI & ML
+                <div style="color: rgba(255, 255, 255, 0.5); font-size: 10px;">
+                    v2.0 | AI & ML
                 </div>
             </div>
         </footer>
