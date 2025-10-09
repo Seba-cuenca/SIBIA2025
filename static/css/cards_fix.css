@@ -1,38 +1,44 @@
 /* Fix para tarjetas que no aparecen - Sobreescribe estilos conflictivos */
 
-/* Contenedor de tarjetas - DEBE usar grid */
+/* Contenedor de tarjetas SIN padding - 100% del espacio */
 .cards-container {
-    padding: 15px !important;
+    padding: 0 !important;
+    margin: 0 !important;
     width: 100% !important;
+    height: 100% !important;
     max-width: none !important;
 }
 
 .cards-grid {
-    display: grid !important;  /* IMPORTANTE: GRID, no flex */
+    display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 20px !important;
+    gap: 0 !important; /* SIN gaps */
     width: 100% !important;
+    height: 100% !important;
 }
 
-/* Tarjetas individuales - SIEMPRE ocupan TODO el espacio disponible */
+/* Tarjetas = 100% del content-area */
 .function-card {
     display: flex !important;
     flex-direction: column !important;
-    height: calc(100vh - 280px) !important; /* Altura FIJA, no mínima */
-    min-height: 500px !important; /* Mínimo para pantallas muy chicas */
-    overflow: hidden !important;
+    width: 100% !important;
+    height: 100% !important; /* 100% del content-area */
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important; /* SIN SCROLL */
     background: #1f2a3a !important;
-    border: 1px solid rgba(255,255,255,0.06) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.25) !important;
+    border: none !important; /* Sin borde para que ocupe todo */
+    border-radius: 0 !important; /* Sin bordes redondeados */
+    box-shadow: none !important;
 }
 
-/* Contenido de tarjeta con scroll */
+/* Contenido de tarjeta SIN scroll - se adapta automáticamente */
 .function-card .card-content {
     flex: 1 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important; /* SIN SCROLL */
     padding: 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 /* Header de tarjeta */
@@ -43,23 +49,26 @@
     flex-shrink: 0 !important;
 }
 
-/* Content-area debe ser scrollable */
+/* Content-area SIN scroll - altura exacta entre header y footer */
 .content-area {
     position: fixed !important;
     top: 145px !important;
     left: var(--sidebar-w, 260px) !important;
     right: 0 !important;
     bottom: 50px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important; /* SIN SCROLL */
     padding: 0 !important;
+    height: calc(100vh - 195px) !important; /* 145px header + 50px footer */
 }
 
-/* Vistas operativa y analítica */
+/* Vistas operativa y analítica - 100% sin scroll */
 .operational-view,
 .analytics-view {
     width: 100% !important;
-    min-height: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Tarjetas con contenido vacío - centrar mensaje */
@@ -81,4 +90,37 @@
 
 .function-card[style*="display: flex"] {
     display: flex !important;
+}
+
+/* Elementos internos adaptables - sin overflow */
+.function-card .card-content * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Tablas adaptables */
+.function-card .data-table,
+.function-card table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    overflow: hidden !important;
+}
+
+/* Inputs y formularios adaptables */
+.function-card input,
+.function-card select,
+.function-card textarea {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Rows y columnas adaptables */
+.function-card .row {
+    margin: 0 !important;
+    padding: 10px 0 !important;
+}
+
+.function-card .col,
+.function-card [class*="col-"] {
+    padding: 5px !important;
 }
