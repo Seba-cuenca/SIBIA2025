@@ -3423,28 +3423,43 @@
         }
 
         function showCard(cardId) {
-            // Actualizar menú
-            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
-            event.target.classList.add('active');
+            console.log('📋 showCard llamado:', cardId);
             
-            // Mostrar solo la tarjeta seleccionada
-            document.querySelectorAll('.function-card').forEach(card => {
-                card.style.display = card.id === `card-${cardId}` ? 'flex' : 'none';
+            // Actualizar menú
+            document.querySelectorAll('.sidebar-menu a').forEach(a => {
+                a.classList.remove('active');
+                const onclick = a.getAttribute('onclick');
+                if (onclick && onclick.includes("'" + cardId + "'")) {
+                    a.classList.add('active');
+                }
             });
             
-            // Asegurar que estamos en vista operativa
+            // Mostrar solo la tarjeta seleccionada
+            let tarjetaEncontrada = false;
+            document.querySelectorAll('.function-card').forEach(card => {
+                const shouldShow = card.id === 'card-' + cardId;
+                card.style.display = shouldShow ? 'flex' : 'none';
+                if (shouldShow) {
+                    tarjetaEncontrada = true;
+                    console.log('✅ Mostrando:', card.id);
+                }
+            });
+            
+            if (!tarjetaEncontrada) {
+                console.error('❌ No encontrada: card-' + cardId);
+            }
+            
+            // Asegurar vista operativa
             document.getElementById('operational-view').style.display = 'block';
             document.getElementById('analytics-view').style.display = 'none';
             
-            // Centrar automáticamente el contenido
+            // Scroll al inicio
             setTimeout(() => {
                 const contentArea = document.querySelector('.content-area');
-                if (contentArea) {
-                    contentArea.scrollTop = 0;
-                }
+                if (contentArea) contentArea.scrollTop = 0;
             }, 100);
             
-            // Cargar datos específicos según la tarjeta
+            // Cargar datos específicos
             switch(cardId) {
                 case 'bombas':
                 case 'agua':
@@ -3468,9 +3483,6 @@
                     break;
                 case 'seguimiento-horario':
                     cargarSeguimientoHorario();
-                    break;
-                case 'generacion-tiempo-real':
-                    cargarGeneracionTiempoReal();
                     break;
                 case 'analisis-historico':
                     cargarAnalisisHistorico();
