@@ -105,6 +105,7 @@
         .main-container { 
             margin-top: 180px; 
             display: flex;
+            flex-direction: column;
             min-height: calc(100vh - 180px);
             position: relative;
         }
@@ -1902,6 +1903,7 @@
     </div>
 
     <div class="main-container">
+        <div style="display: flex; flex: 1;">
         <aside class="sidebar">
             <div class="sidebar-scroll">
             <!-- Sección Operativa -->
@@ -3150,6 +3152,23 @@
                 </div>
             </div>
         </main>
+        </div>
+        
+        <!-- Footer con Copyright -->
+        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 15px 30px; margin-top: auto; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px;">
+                    <i class="fas fa-flask" style="color: #00d4ff;"></i> 
+                    <strong>SIBIA</strong> - Sistema Inteligente de Biogestión de Plantas de Biogás
+                </div>
+                <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px;">
+                    © 2025 <a href="https://autolinksolutions.com.ar" target="_blank" style="color: #00d4ff; text-decoration: none; font-weight: 600;">AutoLinkSolutions SRL</a> - Todos los derechos reservados
+                </div>
+                <div style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">
+                    v2.0 | Powered by AI & ML
+                </div>
+            </div>
+        </footer>
     </div>
 
     <!-- Widget de Alertas del Sistema ELIMINADO - Ahora usa Sistema Unificado en Header -->
@@ -12034,10 +12053,9 @@
                     const timestampElement = document.getElementById('biodigestores-timestamp');
                     const timestampElement2 = document.getElementById('biodigestor2-timestamp');
                     
+                    // Parsear fecha correctamente (la BD ya devuelve hora local)
                     const fechaReal = new Date(data.fecha_ultima_lectura);
-                    // Ajustar zona horaria: restar 3 horas (UTC a hora local Argentina)
-                    fechaReal.setHours(fechaReal.getHours() - 3);
-                    const fechaLocal = fechaReal.toLocaleString('es-ES', {
+                    const fechaLocal = fechaReal.toLocaleString('es-AR', {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
@@ -12049,20 +12067,20 @@
                     
                     if (timestampElement) {
                         timestampElement.textContent = `Última actualización: ${fechaLocal}`;
-                        console.log('✅ Timestamp biodigestor 1 actualizado:', fechaLocal);
+                        console.log('✅ Timestamp biodigestor 1:', fechaLocal);
                     }
                     
                     if (timestampElement2) {
                         timestampElement2.textContent = `Última actualización: ${fechaLocal}`;
-                        console.log('✅ Timestamp biodigestor 2 actualizado:', fechaLocal);
+                        console.log('✅ Timestamp biodigestor 2:', fechaLocal);
                     }
                 } else {
-                    // Fallback: usar hora actual si no hay datos
+                    // Fallback: usar hora actual
                     const timestampElement = document.getElementById('biodigestores-timestamp');
                     const timestampElement2 = document.getElementById('biodigestor2-timestamp');
                     
                     const ahora = new Date();
-                    const fechaLocal = ahora.toLocaleString('es-ES', {
+                    const fechaLocal = ahora.toLocaleString('es-AR', {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
