@@ -8249,15 +8249,12 @@
                 // Enviar consulta al backend
                 const contexto = obtenerContextoSistema();
                 
-                const response = await fetch('/mega_agente_ia', {
+                const response = await fetch('/api/jarvis/comando', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        consulta: pregunta,
-                        contexto: contexto
-                    })
+                    body: JSON.stringify({ comando: pregunta, sintetizar_voz: false, nombre_usuario: null })
                 });
                 
                 // Eliminar indicador de procesamiento
@@ -22587,6 +22584,8 @@ console.log('✅ Sistema de Alertas Unificadas cargado');
 <script src="/static/js/jarvis.js?v={{ timestamp }}"></script>
 
 </html>
+
+
 
 
 
