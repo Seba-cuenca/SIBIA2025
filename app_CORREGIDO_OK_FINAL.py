@@ -5403,7 +5403,8 @@ def dashboard_hibrido():
             'advertencia_horario': None,
             'ahora': datetime.now(),
             'datos_dia': obtener_datos_dia(),
-            'parametros': config_actual
+            'parametros': config_actual,
+            'timestamp': int(datetime.now().timestamp())
         }
 
         logger.info("Renderizando dashboard_hibrido.html")
