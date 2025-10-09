@@ -7049,15 +7049,24 @@ def sensores_sistemas():
     """Devuelve un resumen consolidado de sensores por biodigestor.
     Usado por el dashboard para obtener contexto del sistema."""
     try:
+        # obtener_valor_sensor devuelve un dict con 'valor', extraerlo correctamente
+        temp1 = obtener_valor_sensor('040TT01')
+        nivel1 = obtener_valor_sensor('040LT01')
+        presion1 = obtener_valor_sensor('040PT01')
+        
+        temp2 = obtener_valor_sensor('050TT02')
+        nivel2 = obtener_valor_sensor('050LT01')
+        presion2 = obtener_valor_sensor('050PT01')
+        
         bio1 = {
-            'temperatura': float(obtener_valor_sensor('040TT01') or 0),
-            'nivel': float(obtener_valor_sensor('040LT01') or 0),
-            'presion': float(obtener_valor_sensor('040PT01') or 0)
+            'temperatura': float(temp1.get('valor') or 0) if isinstance(temp1, dict) else 0,
+            'nivel': float(nivel1.get('valor') or 0) if isinstance(nivel1, dict) else 0,
+            'presion': float(presion1.get('valor') or 0) if isinstance(presion1, dict) else 0
         }
         bio2 = {
-            'temperatura': float(obtener_valor_sensor('050TT02') or 0),
-            'nivel': float(obtener_valor_sensor('050LT01') or 0),
-            'presion': float(obtener_valor_sensor('050PT01') or 0)
+            'temperatura': float(temp2.get('valor') or 0) if isinstance(temp2, dict) else 0,
+            'nivel': float(nivel2.get('valor') or 0) if isinstance(nivel2, dict) else 0,
+            'presion': float(presion2.get('valor') or 0) if isinstance(presion2, dict) else 0
         }
 
         return jsonify({
