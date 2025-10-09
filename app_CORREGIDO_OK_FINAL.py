@@ -333,7 +333,8 @@ logger.addHandler(console_handler)
 
 # Handler de archivo (con try-except para evitar errores de permisos)
 try:
-    file_handler = RotatingFileHandler('app.log', maxBytes=10000000, backupCount=5, encoding='utf-8')
+    # Usar FileHandler simple sin rotación para evitar conflictos con múltiples procesos
+    file_handler = logging.FileHandler('app.log', mode='a', encoding='utf-8')
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)

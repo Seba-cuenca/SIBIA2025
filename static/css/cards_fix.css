@@ -12,6 +12,7 @@
 .cards-grid {
     display: grid !important;
     grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr !important; /* FORZAR una fila de altura 100% */
     gap: 0 !important; /* SIN gaps */
     width: 100% !important;
     height: 100% !important;
@@ -23,6 +24,7 @@
     flex-direction: column !important;
     width: 100% !important;
     height: 100% !important; /* 100% del content-area */
+    min-height: 100% !important; /* Forzar mínimo 100% */
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important; /* SIN SCROLL */
@@ -30,6 +32,8 @@
     border: none !important; /* Sin borde para que ocupe todo */
     border-radius: 0 !important; /* Sin bordes redondeados */
     box-shadow: none !important;
+    grid-row: 1 / -1 !important; /* Ocupar toda la fila del grid */
+    align-self: stretch !important; /* Estirarse para llenar el grid */
 }
 
 /* Contenido de tarjeta CON scroll interno si es necesario */
