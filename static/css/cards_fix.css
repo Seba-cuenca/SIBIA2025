@@ -32,13 +32,13 @@
     box-shadow: none !important;
 }
 
-/* Contenido de tarjeta SIN scroll - se adapta automáticamente */
+/* Contenido de tarjeta CON scroll interno si es necesario */
 .function-card .card-content {
     flex: 1 !important;
-    overflow: hidden !important; /* SIN SCROLL */
+    overflow-y: auto !important; /* CON SCROLL interno */
+    overflow-x: hidden !important;
     padding: 20px !important;
-    display: flex !important;
-    flex-direction: column !important;
+    min-height: 0 !important; /* Importante para que funcione flex + scroll */
 }
 
 /* Header de tarjeta */
@@ -92,6 +92,18 @@
     display: flex !important;
 }
 
+/* CRÍTICO: Eliminar todos los espacios que impiden llenar 100% */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.main-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 /* Elementos internos adaptables - sin overflow */
 .function-card .card-content * {
     max-width: 100% !important;
@@ -123,4 +135,32 @@
 .function-card .col,
 .function-card [class*="col-"] {
     padding: 5px !important;
+}
+
+/* FORZAR: Stack completo de contenedores al 100% */
+.content-area > * {
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.operational-view > *,
+.analytics-view > * {
+    height: 100% !important;
+}
+
+.cards-container,
+.cards-grid {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Para que funcione el 100% en toda la cadena */
+html, body {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+main {
+    height: 100% !important;
 }
