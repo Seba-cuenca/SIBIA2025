@@ -14,9 +14,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 class JarvisAgent:
-    """Agente de IA estilo JARVIS para SIBIA"""
+    """Agente de IA estilo JARVIS para SIBIA - Usa mega_agente_ia para respuestas reales"""
     
-    def __init__(self):
+    def __init__(self, mega_agente_callable=None):
         self.nombre = "JARVIS"
         self.personalidad = {
             "tono": "profesional, cortés y británico",
@@ -24,13 +24,17 @@ class JarvisAgent:
             "tratamiento": "Señor/Señora"
         }
         self.contexto_conversacion = []
+        self.mega_agente = mega_agente_callable  # Función para llamar al mega agente
         self.capacidades = [
             "monitoreo_planta",
             "analisis_economico",
             "prediccion_fallos",
             "gestion_materiales",
             "control_biodigestores",
-            "reportes_ejecutivos"
+            "reportes_ejecutivos",
+            "calculos_adan",
+            "busqueda_internet",
+            "lectura_sensores_real"
         ]
         
     def saludar(self, nombre_usuario: str = None) -> str:
@@ -50,21 +54,71 @@ class JarvisAgent:
             return f"{momento}. JARVIS a su servicio. Todos los sistemas están operativos y funcionando correctamente."
     
     def procesar_comando(self, comando: str, contexto: Dict[str, Any] = None) -> Dict[str, Any]:
-        """Procesa comandos de voz o texto con IA avanzada"""
+        """Procesa comandos de voz o texto con IA avanzada usando mega_agente_ia"""
         comando_lower = comando.lower().strip()
         
-        # Análisis de intención
-        intencion = self._detectar_intencion(comando_lower)
+        # Si tenemos mega_agente, usarlo para respuesta real
+        if self.mega_agente:
+            try:
+                # Agregar personalidad JARVIS al prompt
+                prompt_jarvis = f"""Eres JARVIS (Just A Rather Very Intelligent System), el asistente de IA de Tony Stark adaptado para SIBIA.
+
+Personalidad:
+- Tono profesional, cortés y con acento británico
+- Preciso, eficiente y con humor sutil
+- Llamas "Señor" o "Señora" al usuario
+- Das respuestas naturales y conversacionales
+- Eres proactivo y sugieres soluciones
+
+Pregunta del usuario: {comando}
+
+Instrucciones:
+1. Si es un cálculo de mezcla, USA el sistema Adán y devuelve el resultado COMPLETO con todos los detalles
+2. Si pregunta por sensores, LEE los valores reales de la base de datos
+3. Si pregunta por stock, consulta el inventario actual
+4. Responde de forma natural, como si fueras JARVIS conversando
+5. Si necesitas más información, pregúntale al usuario
+6. Usa datos reales, no inventes valores
+
+Responde como JARVIS de manera natural y conversacional."""
+
+                # Llamar al mega agente
+                respuesta_ia = self.mega_agente(prompt_jarvis, contexto or {})
+                
+                if respuesta_ia and respuesta_ia.get('status') == 'success':
+                    respuesta = respuesta_ia.get('respuesta', '')
+                    intencion = self._detectar_intencion(comando_lower)
+                    
+                    # Agregar al contexto
+                    self.contexto_conversacion.append({
+                        'timestamp': datetime.now().isoformat(),
+                        'comando': comando,
+                        'intencion': intencion,
+                        'respuesta': respuesta,
+                        'usa_ia_real': True
+                    })
+                    
+                    return {
+                        'status': 'success',
+                        'intencion': intencion,
+                        'respuesta': respuesta,
+                        'accion': self._determinar_accion(intencion),
+                        'timestamp': datetime.now().isoformat(),
+                        'datos': respuesta_ia.get('datos', {})
+                    }
+            except Exception as e:
+                logger.error(f"Error llamando a mega_agente: {e}")
         
-        # Generar respuesta según intención
+        # Fallback a respuestas básicas si no hay mega_agente
+        intencion = self._detectar_intencion(comando_lower)
         respuesta = self._generar_respuesta(intencion, comando_lower, contexto)
         
-        # Agregar al contexto
         self.contexto_conversacion.append({
             'timestamp': datetime.now().isoformat(),
             'comando': comando,
             'intencion': intencion,
-            'respuesta': respuesta
+            'respuesta': respuesta,
+            'usa_ia_real': False
         })
         
         return {

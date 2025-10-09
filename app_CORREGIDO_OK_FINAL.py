@@ -12657,13 +12657,27 @@ def pagina_analisis_economico():
 
 # ===== MÓDULO JARVIS - ASISTENTE INTELIGENTE =====
 
-# Importar JARVIS Agent
+# Importar JARVIS Agent y conectar con mega_agente_ia
 try:
-    from jarvis_agent import jarvis
+    from jarvis_agent import JarvisAgent
+    
+    # Función wrapper para que JARVIS llame al mega_agente_ia
+    def jarvis_mega_agente_wrapper(prompt: str, contexto: dict):
+        """Wrapper para que JARVIS use mega_agente_ia"""
+        try:
+            respuesta = procesar_consulta_ia_completa(prompt, contexto)
+            return respuesta
+        except Exception as e:
+            logger.error(f"Error en jarvis_mega_agente_wrapper: {e}")
+            return {'status': 'error', 'respuesta': 'Error procesando consulta'}
+    
+    # Crear instancia de JARVIS con mega_agente
+    jarvis = JarvisAgent(mega_agente_callable=jarvis_mega_agente_wrapper)
     JARVIS_DISPONIBLE = True
-    logger.info("✅ JARVIS Agent cargado correctamente")
+    logger.info("✅ JARVIS Agent cargado y conectado con mega_agente_ia")
 except ImportError as e:
     JARVIS_DISPONIBLE = False
+    jarvis = None
     logger.warning(f"⚠️ JARVIS Agent no disponible: {e}")
 
 # Google Cloud Text-to-Speech
@@ -12731,8 +12745,14 @@ def sintetizar_voz_google_tts(texto: str) -> Optional[str]:
 
 @app.route('/api/jarvis/comando', methods=['POST'])
 def jarvis_comando():
-    """Endpoint principal para enviar comandos a JARVIS - Conectado con IA completa"""
+    """Endpoint principal para enviar comandos a JARVIS - Usa mega_agente_ia completo"""
     try:
+        if not JARVIS_DISPONIBLE:
+            return jsonify({
+                'status': 'error',
+                'mensaje': 'JARVIS no disponible'
+            }), 503
+        
         data = request.json
         comando = data.get('comando', '').strip()
         sintetizar_voz = data.get('sintetizar_voz', True)
@@ -12743,70 +12763,32 @@ def jarvis_comando():
                 'mensaje': 'Comando vacío'
             }), 400
         
-        # USAR EL ASISTENTE IA COMPLETO (con ML y toda la inteligencia)
-        # Crear request simulado para asistente_ia_v2
-        from flask import Request
-        
-        # Llamar directamente a la lógica del asistente inteligente
-        payload_asistente = {
-            'pregunta': comando,
-            'sintetizar': False  # JARVIS manejará la síntesis con Google TTS
+        # Obtener contexto real de sensores y sistema
+        contexto = {
+            'bd1_presion': obtener_valor_sensor('040PT01'),
+            'bd2_presion': obtener_valor_sensor('050PT01'),
+            'bd1_nivel': obtener_valor_sensor('040LT01'),
+            'bd2_nivel': obtener_valor_sensor('050LT01'),
+            'bd1_temp': obtener_valor_sensor('040TT01'),
+            'bd2_temp': obtener_valor_sensor('050TT01'),
+            'stock_actual': cargar_json_seguro(STOCK_FILE),
+            'config': cargar_configuracion(),
+            'kw_objetivo': cargar_configuracion().get('kw_objetivo', 28800)
         }
         
-        # Usar asistente_ia_v2 que tiene toda la inteligencia
-        original_json = request.get_json
-        request.get_json = lambda force=False, silent=False: payload_asistente
-        
-        try:
-            # Ejecutar asistente inteligente
-            respuesta_asistente = asistente_ia_v2()
-            
-            # Verificar que la respuesta sea válida
-            if respuesta_asistente is None:
-                raise ValueError("Asistente IA retornó None")
-            
-            respuesta_data = respuesta_asistente.get_json()
-            
-            if respuesta_data is None:
-                raise ValueError("No se pudo obtener JSON de la respuesta")
-            
-        finally:
-            request.get_json = original_json
-        
-        # Obtener la respuesta del asistente inteligente
-        mensaje_respuesta = respuesta_data.get('respuesta', 'Lo siento, no pude procesar esa solicitud.')
-        
-        # Agregar personalidad JARVIS a la respuesta
-        if JARVIS_DISPONIBLE:
-            contexto = {
-                'bd1_presion': obtener_valor_sensor('040PT01') or 1.2,
-                'bd2_presion': obtener_valor_sensor('050PT01') or 1.3,
-                'bd1_nivel': obtener_valor_sensor('040LT01') or 85,
-                'bd2_nivel': obtener_valor_sensor('050LT01') or 87
-            }
-            
-            # Procesar con personalidad JARVIS
-            resultado_jarvis = jarvis.procesar_comando(comando, contexto)
-            intencion = resultado_jarvis.get('intencion')
-            accion = resultado_jarvis.get('accion')
-        else:
-            intencion = 'conversacion_general'
-            accion = None
+        # JARVIS procesa el comando usando mega_agente_ia
+        resultado = jarvis.procesar_comando(comando, contexto)
         
         # Sintetizar con Google Cloud TTS si está disponible
         audio_base64 = None
-        if sintetizar_voz:
-            audio_base64 = sintetizar_voz_google_tts(mensaje_respuesta)
+        if sintetizar_voz and resultado.get('status') == 'success':
+            respuesta_texto = resultado.get('respuesta', '')
+            audio_base64 = sintetizar_voz_google_tts(respuesta_texto)
         
-        return jsonify({
-            'status': 'success',
-            'respuesta': mensaje_respuesta,
-            'intencion': intencion,
-            'accion': accion,
-            'audio_base64': audio_base64,
-            'datos': respuesta_data.get('datos', {}),
-            'timestamp': datetime.now().isoformat()
-        })
+        # Agregar audio a la respuesta
+        resultado['audio_base64'] = audio_base64
+        
+        return jsonify(resultado)
         
     except Exception as e:
         logger.error(f"Error en jarvis_comando: {e}", exc_info=True)
