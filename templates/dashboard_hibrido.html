@@ -2081,7 +2081,7 @@
                 <div class="cards-container">
                 <div class="cards-grid">
                     <!-- Biodigestores -->
-                    <div class="function-card" id="card-biodigestores">
+                    <div class="function-card" id="card-biodigestores" style="display: flex;">
                         <div class="card-header" onclick="expandCard('card-biodigestores')" style="cursor: pointer;">
                             <div class="card-title">
                                 <i class="fas fa-flask"></i>
@@ -2153,7 +2153,7 @@
                     </div>
 
                     <!-- Adán - Calculadora Avanzada -->
-                    <div class="function-card" id="card-adan-calculator">
+                    <div class="function-card" id="card-adan-calculator" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-calculator"></i>
@@ -2450,7 +2450,7 @@
                     </div>
 
                     <!-- Registro de Materiales -->
-                    <div class="function-card" id="card-registro-materiales">
+                    <div class="function-card" id="card-registro-materiales" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-truck-loading"></i>
@@ -2504,7 +2504,7 @@
                     </div>
 
                     <!-- Registro de Parámetros Químicos -->
-                    <div class="function-card" id="card-analisis-quimico">
+                    <div class="function-card" id="card-analisis-quimico" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-flask"></i>
@@ -2637,7 +2637,7 @@
                     </div>
 
                     <!-- Generación en Tiempo Real -->
-                    <div class="function-card" id="card-generacion-tiempo-real">
+                    <div class="function-card" id="card-generacion-tiempo-real" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-chart-line"></i>
@@ -2677,7 +2677,7 @@
                     </div>
 
                     <!-- Stock Actual -->
-                    <div class="function-card" id="card-stock-actual">
+                    <div class="function-card" id="card-stock-actual" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-boxes"></i>
@@ -2812,7 +2812,7 @@
                     </div>
 
                     <!-- Alertas -->
-                    <div class="function-card" id="card-alertas">
+                    <div class="function-card" id="card-alertas" style="display: none;">
                         <div class="card-header" onclick="expandCard('card-alertas')" style="cursor: pointer;">
                             <div class="card-title">
                                 <i class="fas fa-bell"></i>
@@ -2884,7 +2884,7 @@
                     </div>
 
                     <!-- Seguimiento Horario -->
-                    <div class="function-card" id="card-seguimiento-horario">
+                    <div class="function-card" id="card-seguimiento-horario" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-clock"></i>
@@ -2899,7 +2899,7 @@
                     </div>
 
                     <!-- Calidad Gas Motor -->
-                    <div class="function-card" id="card-calidad-gas">
+                    <div class="function-card" id="card-calidad-gas" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-engine"></i>
@@ -2961,7 +2961,7 @@
                     </div>
                     
                     <!-- Análisis Histórico -->
-                    <div class="function-card" id="card-analisis-historico">
+                    <div class="function-card" id="card-analisis-historico" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-chart-line"></i>
@@ -3000,7 +3000,7 @@
                     </div>
                     
                     <!-- Temperaturas -->
-                    <div class="function-card" id="card-temperaturas">
+                    <div class="function-card" id="card-temperaturas" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-thermometer-half"></i>
@@ -3028,7 +3028,7 @@
                     </div>
                     
                     <!-- Niveles Biodigestores -->
-                    <div class="function-card" id="card-niveles">
+                    <div class="function-card" id="card-niveles" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-tint"></i>
@@ -3066,7 +3066,7 @@
                     </div>
                     
                     <!-- Sala de Bombas -->
-                    <div class="function-card" id="card-bombas">
+                    <div class="function-card" id="card-bombas" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-pump"></i>
@@ -3083,7 +3083,7 @@
                     </div>
                     
                     <!-- Agua Caliente -->
-                    <div class="function-card" id="card-agua">
+                    <div class="function-card" id="card-agua" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-thermometer-full"></i>
@@ -3100,7 +3100,7 @@
                     </div>
                     
                     <!-- Otros Sistemas -->
-                    <div class="function-card" id="card-otros-sistemas">
+                    <div class="function-card" id="card-otros-sistemas" style="display: none;">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-cogs"></i>
@@ -3438,10 +3438,13 @@
             let tarjetaEncontrada = false;
             document.querySelectorAll('.function-card').forEach(card => {
                 const shouldShow = card.id === 'card-' + cardId;
-                card.style.display = shouldShow ? 'flex' : 'none';
+                // Usar setProperty con priority para sobrescribir !important del CSS
                 if (shouldShow) {
+                    card.style.setProperty('display', 'flex', 'important');
                     tarjetaEncontrada = true;
                     console.log('✅ Mostrando:', card.id);
+                } else {
+                    card.style.setProperty('display', 'none', 'important');
                 }
             });
             
