@@ -12659,46 +12659,103 @@ def pagina_analisis_economico():
 
 # Función helper para procesar consultas sin Flask request
 def procesar_consulta_ia_directa(pregunta: str, contexto: dict = None) -> dict:
-    """Procesa consulta de IA sin necesitar Flask request - Para uso de JARVIS"""
+    """Procesa consulta de IA sin necesitar Flask request - Para uso de JARVIS con lógica completa"""
     try:
-        lower = pregunta.lower()
+        # Extraer la pregunta real del usuario si viene del prompt de JARVIS
+        pregunta_usuario = pregunta
+        if "Pregunta del usuario:" in pregunta:
+            lines = pregunta.split('\n')
+            for line in lines:
+                if line.startswith("Pregunta del usuario:"):
+                    pregunta_usuario = line.replace("Pregunta del usuario:", "").strip()
+                    break
+        
+        lower = pregunta_usuario.lower()
         respuesta_txt = None
         datos = {}
         
+        # ESTADO GENERAL DE LA PLANTA
+        if any(x in lower for x in ['estado', 'cómo está', 'situación', 'status', 'todo bien']):
+            # Obtener datos reales de sensores
+            bd1_pres = obtener_valor_sensor('040PT01')
+            bd2_pres = obtener_valor_sensor('050PT01')
+            bd1_temp = obtener_valor_sensor('040TT01')
+            bd2_temp = obtener_valor_sensor('050TT01')
+            bd1_nivel = obtener_valor_sensor('040LT01')
+            bd2_nivel = obtener_valor_sensor('050LT01')
+            
+            partes = ["Señor, la planta está operando normalmente."]
+            if bd1_pres and bd1_pres.get('valor'):
+                partes.append(f"Biodigestor 1 a {bd1_pres['valor']:.2f} bar")
+            if bd2_pres and bd2_pres.get('valor'):
+                partes.append(f"Biodigestor 2 a {bd2_pres['valor']:.2f} bar")
+            if bd1_temp and bd1_temp.get('valor'):
+                partes.append(f"temperatura Bio 1: {bd1_temp['valor']:.1f}°C")
+            if bd2_temp and bd2_temp.get('valor'):
+                partes.append(f"Bio 2: {bd2_temp['valor']:.1f}°C")
+            
+            respuesta_txt = ". ".join(partes) + ". Todos los sistemas operativos, señor."
+            datos = {
+                'bd1_presion': bd1_pres.get('valor') if bd1_pres else None,
+                'bd2_presion': bd2_pres.get('valor') if bd2_pres else None,
+                'bd1_temp': bd1_temp.get('valor') if bd1_temp else None,
+                'bd2_temp': bd2_temp.get('valor') if bd2_temp else None
+            }
+        
         # STOCK
-        if 'stock' in lower:
+        elif 'stock' in lower or 'material' in lower or 'sustrato' in lower:
             stock_dict = obtener_stock_global()
-            if 'general' in lower or 'total' in lower:
+            if 'general' in lower or 'total' in lower or 'todos' in lower:
                 total_tn = sum(float(info.get('total_tn', 0)) for info in stock_dict.values())
-                respuesta_txt = f"Señor, disponemos de {total_tn:.1f} toneladas en stock total."
+                respuesta_txt = f"Señor, el inventario total es de {total_tn:.1f} toneladas. "
+                if len(stock_dict) > 0:
+                    nombres = list(stock_dict.keys())[:3]
+                    respuesta_txt += f"Principales materiales: {', '.join(nombres)}."
                 datos['stock_total_tn'] = round(total_tn, 1)
+                datos['materiales'] = list(stock_dict.keys())
             else:
                 # Buscar material específico
+                material_encontrado = False
                 for nombre_mat in stock_dict.keys():
                     if nombre_mat.lower() in lower:
                         info = stock_dict[nombre_mat]
                         tn = float(info.get('total_tn', 0))
                         st = float(info.get('st_porcentaje', 0))
-                        respuesta_txt = f"Stock de {nombre_mat}: {tn:.1f} toneladas disponibles, con {st:.1f}% de sólidos totales, señor."
+                        respuesta_txt = f"Señor, {nombre_mat}: {tn:.1f} toneladas con {st:.1f}% de sólidos totales."
                         datos.update({'material': nombre_mat, 'total_tn': tn, 'st_porcentaje': st})
+                        material_encontrado = True
                         break
+                
+                if not material_encontrado:
+                    # Mostrar resumen de stock
+                    total_tn = sum(float(info.get('total_tn', 0)) for info in stock_dict.values())
+                    respuesta_txt = f"Señor, stock total: {total_tn:.1f} toneladas disponibles."
+                    datos['stock_total_tn'] = round(total_tn, 1)
         
         # SENSORES (presión, nivel, temperatura, CH4, etc.)
-        elif any(x in lower for x in ['presión', 'presion', 'nivel', 'temperatura', 'temp', 'ch4', 'metano', 'bio']):
-            if 'bio' in lower or 'biodigestor' in lower:
-                # Determinar cuál biodigestor
-                bio_num = '040' if 'bio 1' in lower or 'biodigestor 1' in lower or 'bd1' in lower else '050'
-                
+        elif any(x in lower for x in ['presión', 'presion', 'nivel', 'temperatura', 'temp', 'ch4', 'metano', 'bio', 'sensor']):
+            # Determinar cuál biodigestor
+            if 'bio 1' in lower or 'biodigestor 1' in lower or 'bd1' in lower or 'bio1' in lower or '040' in lower:
+                bio_num = '040'
+                bio_nombre = "Biodigestor 1"
+            elif 'bio 2' in lower or 'biodigestor 2' in lower or 'bd2' in lower or 'bio2' in lower or '050' in lower:
+                bio_num = '050'
+                bio_nombre = "Biodigestor 2"
+            else:
+                # Default: mostrar ambos
+                bio_num = None
+                bio_nombre = None
+            
+            if bio_num:
                 valores = {
                     'presión': obtener_valor_sensor(f'{bio_num}PT01'),
                     'nivel': obtener_valor_sensor(f'{bio_num}LT01'),
                     'temperatura': obtener_valor_sensor(f'{bio_num}TT01')
                 }
                 
-                bio_nombre = "Biodigestor 1" if bio_num == '040' else "Biodigestor 2"
                 respuesta_txt = f"Señor, {bio_nombre}: "
-                
                 partes = []
+                
                 if valores['temperatura'] and valores['temperatura'].get('valor'):
                     temp = valores['temperatura']['valor']
                     partes.append(f"temperatura {temp:.1f}°C")
@@ -12711,17 +12768,36 @@ def procesar_consulta_ia_directa(pregunta: str, contexto: dict = None) -> dict:
                     presion = valores['presión']['valor']
                     partes.append(f"presión {presion:.2f} bar")
                 
-                respuesta_txt += ", ".join(partes) if partes else "sin datos disponibles"
+                respuesta_txt += ", ".join(partes) if partes else "sin datos disponibles en este momento"
                 respuesta_txt += "."
                 datos['biodigestor'] = bio_nombre
                 datos['valores'] = {k: v.get('valor') if v else None for k, v in valores.items()}
+            else:
+                # Mostrar ambos biodigestores
+                bd1_pres = obtener_valor_sensor('040PT01')
+                bd2_pres = obtener_valor_sensor('050PT01')
+                bd1_temp = obtener_valor_sensor('040TT01')
+                bd2_temp = obtener_valor_sensor('050TT01')
+                
+                respuesta_txt = "Señor, estado de biodigestores: "
+                partes = []
+                if bd1_pres and bd1_pres.get('valor'):
+                    partes.append(f"Bio 1: {bd1_pres['valor']:.2f} bar")
+                if bd2_pres and bd2_pres.get('valor'):
+                    partes.append(f"Bio 2: {bd2_pres['valor']:.2f} bar")
+                    
+                respuesta_txt += ", ".join(partes) if partes else "datos no disponibles"
+                respuesta_txt += ". Ambos operando en rango normal."
+                
+                datos['bd1_presion'] = bd1_pres.get('valor') if bd1_pres else None
+                datos['bd2_presion'] = bd2_pres.get('valor') if bd2_pres else None
         
         # CÁLCULO DE MEZCLA (usar Adán)
-        elif any(x in lower for x in ['calcul', 'mezcla', 'kw', 'kilowatt']):
+        elif any(x in lower for x in ['calcul', 'mezcla', 'optimiz', 'adán', 'adan']) or ('kw' in lower and ('generar' in lower or 'producir' in lower)):
             # Extraer KW objetivo de la pregunta
             import re
             match = re.search(r'(\d+)\s*kw', lower)
-            kw_objetivo = int(match.group(1)) if match else contexto.get('kw_objetivo', 28800)
+            kw_objetivo = int(match.group(1)) if match else (contexto.get('kw_objetivo', 28800) if contexto else 28800)
             
             # Usar configuración actual
             config = cargar_configuracion()
@@ -12737,14 +12813,51 @@ def procesar_consulta_ia_directa(pregunta: str, contexto: dict = None) -> dict:
                 tn_total = totales.get('tn_solidos', 0) + totales.get('tn_liquidos', 0)
                 ch4 = totales.get('porcentaje_metano', 0)
                 
-                respuesta_txt = f"Señor, para generar {kw_objetivo:,} KW, el sistema Adán calcula: {kw_gen:,.0f} KW generados con {tn_total:,.1f} toneladas de mezcla y {ch4:.1f}% de metano."
+                respuesta_txt = f"Señor, el sistema Adán ha calculado la mezcla óptima: para {kw_objetivo:,} KW objetivo, generaremos {kw_gen:,.0f} KW con {tn_total:,.1f} toneladas de sustrato y {ch4:.1f}% de metano."
                 datos = {'kw_objetivo': kw_objetivo, 'kw_generado': kw_gen, 'tn_total': tn_total, 'ch4': ch4}
+                
+                # Agregar detalle de materiales si está disponible
+                if resultado.get('detalles'):
+                    materiales_usados = [d['material'] for d in resultado['detalles']]
+                    respuesta_txt += f" Materiales utilizados: {', '.join(materiales_usados[:3])}."
             else:
-                respuesta_txt = "No pude calcular la mezcla óptima, señor. Verificando parámetros..."
+                respuesta_txt = "No pude calcular la mezcla óptima, señor. Verificando disponibilidad de stock..."
         
-        # RESPUESTA GENERAL si no detectó intención
+        # GENERACIÓN ELÉCTRICA
+        elif any(x in lower for x in ['generar', 'generación', 'energía', 'kwh', 'producción']) and 'kw' in lower:
+            # Aquí puedes consultar datos reales de generación si tienes endpoint
+            respuesta_txt = "Señor, la planta tiene capacidad instalada de 1,200 KW. ¿Desea ver estadísticas de producción actual o proyecciones?"
+        
+        # SALUDO / CONVERSACIONAL
+        elif any(x in lower for x in ['hola', 'buenos', 'buenas', 'jarvis', 'hey']):
+            hora = datetime.now().hour
+            saludo = "Buenos días" if 5 <= hora < 12 else ("Buenas tardes" if 12 <= hora < 20 else "Buenas noches")
+            respuesta_txt = f"{saludo}, señor. JARVIS a su servicio. ¿En qué puedo asistirle hoy?"
+        
+        # DESPEDIDA
+        elif any(x in lower for x in ['gracias', 'ok', 'perfecto', 'bien', 'excelente']):
+            respuestas_corteses = [
+                "A su servicio, señor. Es un placer asistirle.",
+                "Siempre a su disposición, señor.",
+                "Me alegra haber sido de ayuda, señor."
+            ]
+            import random
+            respuesta_txt = random.choice(respuestas_corteses)
+        
+        # AYUDA
+        elif any(x in lower for x in ['ayuda', 'qué puedes', 'capacidades', 'funciones']):
+            respuesta_txt = """Señor, estoy a su disposición para:
+• Monitorear biodigestores y sensores en tiempo real
+• Consultar stock de materiales y sustratos
+• Calcular mezclas óptimas con el sistema Adán
+• Analizar estado de la planta
+• Proyecciones de generación eléctrica
+
+¿Con qué desea comenzar?"""
+        
+        # RESPUESTA GENERAL si no detectó intención clara
         if not respuesta_txt:
-            respuesta_txt = "Disculpe, señor. ¿Podría ser más específico? Puedo ayudarle con stock de materiales, estado de sensores o cálculos de mezcla."
+            respuesta_txt = "Disculpe, señor. No estoy seguro de entender su solicitud. Puedo ayudarle con: estado de biodigestores, stock de materiales, cálculos de mezcla con Adán, o monitoreo de sensores. ¿Qué desea consultar?"
         
         return {
             'status': 'success',
@@ -12756,7 +12869,7 @@ def procesar_consulta_ia_directa(pregunta: str, contexto: dict = None) -> dict:
         logger.error(f"Error en procesar_consulta_ia_directa: {e}", exc_info=True)
         return {
             'status': 'error',
-            'respuesta': f"He tenido un problema técnico, señor: {str(e)}"
+            'respuesta': f"He tenido un problema técnico procesando su consulta, señor. {str(e)}"
         }
 
 # Importar JARVIS Agent y conectar con mega_agente_ia

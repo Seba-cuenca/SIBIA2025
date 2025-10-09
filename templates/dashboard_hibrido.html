@@ -36,7 +36,7 @@
             z-index: 2000;
             background: linear-gradient(180deg, #16243a 0%, #172a45 100%);
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            height: 180px; /* Altura aumentada del header */
+            height: 230px; /* Altura aumentada para 2 filas de KPIs */
         }
 
         .header-left {
@@ -56,10 +56,16 @@
         }
 
         .app-logo {
-            width: 60px !important;
-            height: 60px !important;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+            width: 85px !important;
+            height: 85px !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.5);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .app-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.7);
         }
 
         .header-right {
@@ -103,16 +109,16 @@
 
         /* Layout principal */
         .main-container { 
-            margin-top: 180px; 
+            margin-top: 230px; 
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 180px);
+            min-height: calc(100vh - 230px);
             position: relative;
         }
         
         .sidebar { 
             position: fixed; 
-            top: 180px; 
+            top: 230px; 
             bottom: 0; 
             width: 220px; 
             overflow-y: auto; 
@@ -807,54 +813,60 @@
             100% { opacity: 0; transform: translateX(100%); }
         }
         
-        /* KPIs compactos en el header - Adaptación automática */
+        /* KPIs compactos en el header - 2 FILAS x 3 COLUMNAS */
         .header-kpis {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 4px;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
             align-items: center;
             justify-content: center;
-            margin: 4px auto 6px auto;
-            max-width: 100%;
+            margin: 12px auto 8px auto;
+            max-width: 900px;
             width: 100%;
         }
         .header-kpis .kpi-card { 
-            padding: 4px; 
-            border-radius: 4px; 
-            background: #243449; 
-            border: 1px solid rgba(255,255,255,0.08); 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.25); 
+            padding: 10px 14px; 
+            border-radius: 8px; 
+            background: linear-gradient(135deg, #243449, #1a2a3e); 
+            border: 1px solid rgba(0, 212, 255, 0.2); 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3); 
             transition: all 0.3s ease; 
-            min-width: 80px;
-            max-width: 120px;
+            min-width: 140px;
         }
         .header-kpis .kpi-card:hover { 
-            background: #2a3d54; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+            background: linear-gradient(135deg, #2a3d54, #1f3245); 
+            border: 1px solid rgba(0, 212, 255, 0.5); 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3); 
         }
         .header-kpis .kpi-value { 
-            font-size: 12px; 
+            font-size: 16px; 
             font-weight: bold;
+            color: #00d4ff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
         }
         .header-kpis .kpi-header { 
-            font-size: 8px; 
+            font-size: 11px; 
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 4px;
         }
         .header-kpis .kpi-fecha { 
             display: block; 
-            font-size: 6px; 
-            opacity: 0.75; 
-            margin-top: 1px; 
+            font-size: 9px; 
+            opacity: 0.7; 
+            margin-top: 4px; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: rgba(255, 255, 255, 0.5);
         }
         .header-kpis .kpi-estado { 
             display: block; 
@@ -1772,7 +1784,7 @@
     <header class="header">
         <div class="header-left">
             <div class="logo-container" onclick="abrirAgenteSIBIA()" style="cursor: pointer;" title="Abrir SIBIA - Asistente IA">
-                <img src="/static/icon-192x192.png" alt="SIBIA Logo" class="app-logo" onerror="this.style.display='none'" style="width: 60px; height: 60px;">
+                <img src="/static/icon-192x192.png" alt="SIBIA Logo" class="app-logo" onerror="this.style.display='none'">
             </div>
         </div>
         <div class="header-right">
@@ -3155,7 +3167,7 @@
         </div>
         
         <!-- Footer con Copyright -->
-        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 15px 30px; margin-top: auto; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center;">
+        <footer style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 15px 30px; margin-top: auto; margin-left: 220px; border-top: 1px solid rgba(0, 212, 255, 0.2); text-align: center;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <div style="color: rgba(255, 255, 255, 0.7); font-size: 13px;">
                     <i class="fas fa-flask" style="color: #00d4ff;"></i> 
