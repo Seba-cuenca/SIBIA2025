@@ -186,93 +186,103 @@ Respondé como JARVIS argentino, natural y amigable."""
             'conversacion_general': self._respuesta_general(comando)
         }
         
-        return respuestas.get(intencion, "Disculpe, no he comprendido del todo. ¿Podría reformular su consulta?")
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+        return respuestas.get(intencion, f"Eh {tratamiento}, no te entendí bien. ¿Me lo decís de otra forma?")
     
     def _respuesta_estado_planta(self, contexto: Dict = None) -> str:
         """Respuesta sobre estado de la planta"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if not contexto:
-            return "Todos los sistemas están operativos. Biodigestores funcionando en parámetros normales. ¿Desea detalles específicos?"
+            return f"Todo operando bien {tratamiento}! Los biodigestores están funcionando bárbaro. ¿Querés que te cuente algo en particular?"
         
         # Analizar datos del contexto
-        estado = "óptimo" if contexto.get('alertas', 0) == 0 else "con alertas"
-        return f"La planta está en estado {estado}. Biodigestor 1 a {contexto.get('bd1_presion', 'N/A')} bar, Biodigestor 2 a {contexto.get('bd2_presion', 'N/A')} bar. Todos los parámetros dentro de rango aceptable."
+        estado = "óptimo" if contexto.get('alertas', 0) == 0 else "con algunas alertas"
+        return f"Mirá {tratamiento}, la planta está {estado}. El BD1 está en {contexto.get('bd1_presion', 'N/A')} bar y el BD2 en {contexto.get('bd2_presion', 'N/A')} bar. Todo dentro de lo normal, tranqui."
     
     def _respuesta_biodigestores(self, contexto: Dict = None) -> str:
         """Respuesta sobre biodigestores"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if not contexto:
-            return "Los biodigestores están operando normalmente. ¿Desea información específica de BD1 o BD2?"
+            return f"Los biodigestores están joya {tratamiento}. ¿Querés info del BD1 o del BD2?"
         
         bd1_presion = contexto.get('bd1_presion', 1.2)
         bd2_presion = contexto.get('bd2_presion', 1.3)
         bd1_nivel = contexto.get('bd1_nivel', 85)
         bd2_nivel = contexto.get('bd2_nivel', 87)
         
-        return f"Biodigestor 1: Presión {bd1_presion} bar, Nivel {bd1_nivel}%. Biodigestor 2: Presión {bd2_presion} bar, Nivel {bd2_nivel}%. Ambos operando dentro de parámetros óptimos."
+        return f"Dale {tratamiento}, te cuento: BD1 está en {bd1_presion} bar de presión y {bd1_nivel}% de nivel. El BD2 tiene {bd2_presion} bar y {bd2_nivel}% de nivel. Los dos andando de diez."
     
     def _respuesta_analisis_economico(self, contexto: Dict = None) -> str:
         """Respuesta sobre análisis económico"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if not contexto:
-            return "Ejecutando análisis económico completo. La planta genera aproximadamente $4,800 USD diarios a 1200 KW. ¿Desea ver el desglose detallado de costos y ahorros?"
+            return f"Mirá {tratamiento}, la planta está generando unos 4.800 dólares por día a 1200 KW. ¿Querés que te muestre el detalle de costos y ahorros?"
         
         ingresos = contexto.get('ingresos_dia', 4800)
         utilidad = contexto.get('utilidad_dia', 2500)
         ahorro_sa7 = contexto.get('ahorro_sa7', 800)
         
-        return f"Análisis económico actualizado: Ingresos diarios ${ingresos:,.0f} USD, Utilidad neta ${utilidad:,.0f} USD. Ahorro por reemplazo de SA7: ${ahorro_sa7:,.0f} USD diarios. Excelente rendimiento financiero."
+        return f"Dale {tratamiento}, acá está: Estamos facturando ${ingresos:,.0f} dólares por día, con una utilidad neta de ${utilidad:,.0f}. Y nos ahorramos ${ahorro_sa7:,.0f} diarios al no usar SA7. Está re bien el número eh!"
     
     def _respuesta_prediccion_fallos(self, contexto: Dict = None) -> str:
         """Respuesta sobre predicción de fallos"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if not contexto or not contexto.get('predicciones'):
-            return "No se detectan fallos inminentes en los sistemas monitoreados. Todos los equipos operando dentro de parámetros normales."
+            return f"Tranqui {tratamiento}, no veo ningún problema por ahora. Todos los equipos andando bien."
         
         predicciones = contexto.get('predicciones', [])
         if predicciones:
             equipo = predicciones[0].get('equipo', 'Equipo')
             probabilidad = predicciones[0].get('probabilidad', 0) * 100
-            return f"Atención: {equipo} muestra {probabilidad:.1f}% de probabilidad de fallo en las próximas 48 horas. Recomiendo programar inspección preventiva."
+            return f"Che {tratamiento}, ojo acá: {equipo} tiene {probabilidad:.1f}% de chances de tener un problema en las próximas 48 horas. Yo que vos programa una inspección ya."
         
-        return "Sistema de predicción activo. No se detectan anomalías en este momento."
+        return f"El sistema de predicción está activo {tratamiento}. Todo normal por ahora."
     
     def _respuesta_materiales(self, contexto: Dict = None) -> str:
         """Respuesta sobre materiales"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if not contexto:
-            return "Gestión de materiales disponible. ¿Desea consultar stock actual, consumo diario o planificación de mezcla?"
+            return f"Dale {tratamiento}, ¿qué querés saber? ¿Stock actual, consumo diario o planificación de mezcla?"
         
-        return "Stock de materiales actualizado. Purín disponible en cantidad suficiente. Niveles de sólidos óptimos para operación continua."
+        return f"Mirá {tratamiento}, el stock está actualizado. Tenemos purín de sobra y los niveles de sólidos están perfectos para seguir operando."
     
     def _respuesta_generacion(self, contexto: Dict = None) -> str:
         """Respuesta sobre generación eléctrica"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         potencia = contexto.get('potencia_kw', 1200) if contexto else 1200
         horas = 24
         energia_dia = potencia * horas / 1000  # MWh
         
-        return f"Generación actual: {potencia} KW de potencia instalada. Producción diaria estimada: {energia_dia:.1f} MWh. Sistema operando a capacidad nominal."
+        return f"Che {tratamiento}, ahora estamos generando {potencia} KW. La producción diaria viene siendo de {energia_dia:.1f} MWh. Está andando a full el sistema."
     
     def _respuesta_reporte(self, contexto: Dict = None) -> str:
         """Respuesta para generar reportes"""
-        return "¿Qué tipo de reporte desea generar? Puedo crear: Reporte Diario de Operaciones, Análisis Económico, Resumen de Alertas, o Proyección Mensual."
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+        return f"Dale {tratamiento}, ¿qué reporte querés? Puedo hacer: Reporte Diario, Análisis Económico, Resumen de Alertas, o Proyección Mensual."
     
     def _respuesta_ayuda(self) -> str:
         """Respuesta de ayuda"""
-        return """Estoy aquí para asistirle con:
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
+        return f"""Dale {tratamiento}, te puedo ayudar con:
         
-• Monitoreo de biodigestores y sensores
-• Análisis económico y financiero
-• Predicción de fallos y mantenimiento
+• Ver cómo andan los biodigestores y sensores
+• Análisis económico y guita
+• Predecir problemas y mantenimiento
 • Gestión de materiales y stock
-• Control de generación eléctrica
-• Reportes ejecutivos personalizados
+• Controlar la generación eléctrica
+• Hacer reportes personalizados
 
-Simplemente pregunte lo que necesite, señor."""
+Preguntame lo que necesites!"""
     
     def _respuesta_general(self, comando: str) -> str:
         """Respuesta general conversacional"""
+        tratamiento = self.nombre_usuario if self.nombre_usuario else "che"
         if 'gracias' in comando:
-            return "A su servicio, siempre es un placer ayudar."
+            return f"De nada {tratamiento}, para eso estoy!"
         elif 'bien' in comando or 'perfecto' in comando:
-            return "Me alegra que todo esté en orden. ¿Algo más en lo que pueda asistir?"
+            return f"Joya {tratamiento}! ¿Algo más que necesites?"
         else:
-            return "Entendido. ¿Hay algo específico en lo que pueda ayudarle con la planta?"
+            return f"Dale {tratamiento}, ¿hay algo puntual de la planta que quieras saber?"
     
     def _determinar_accion(self, intencion: str) -> Optional[str]:
         """Determina acción a ejecutar en el sistema"""
@@ -327,7 +337,7 @@ Simplemente pregunte lo que necesite, señor."""
             notificaciones.append(
                 self.generar_notificacion(
                     'alerta',
-                    'Señor, la presión del Biodigestor 1 está elevada. Recomiendo verificar válvulas de alivio.',
+                    'Che, ojo que la presión del BD1 está alta. Yo que vos reviso las válvulas de alivio.',
                     'alta'
                 )
             )
@@ -337,7 +347,7 @@ Simplemente pregunte lo que necesite, señor."""
             notificaciones.append(
                 self.generar_notificacion(
                     'economico',
-                    'La utilidad diaria está por debajo del objetivo. Sugiero optimizar mezcla de sustratos.',
+                    'Che, la utilidad del día está medio floja. Habría que optimizar la mezcla de sustratos.',
                     'media'
                 )
             )
@@ -347,7 +357,7 @@ Simplemente pregunte lo que necesite, señor."""
             notificaciones.append(
                 self.generar_notificacion(
                     'alerta',
-                    'Niveles de stock bajos detectados. Recomiendo coordinar suministro con proveedores.',
+                    'Che, el stock está bajo. Coordiná con los proveedores ya.',
                     'alta'
                 )
             )

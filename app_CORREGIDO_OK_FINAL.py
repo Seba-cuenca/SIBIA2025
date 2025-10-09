@@ -12907,20 +12907,19 @@ def sintetizar_voz_google_tts(texto: str) -> Optional[str]:
         synthesis_input = texttospeech.SynthesisInput(text=texto)
         
         # Configurar voz ARGENTINA masculina (estilo JARVIS argentino)
-        # Usar voz de Latinoamérica que suena más natural
+        # Usar voz argentina nativa de Google
         voice = texttospeech.VoiceSelectionParams(
-            language_code="es-US",  # Español latinoamericano (más neutro/argentino)
-            name="es-US-Neural2-B",  # Voz masculina neural de Latinoamérica
+            language_code="es-AR",  # Español argentino 
             ssml_gender=texttospeech.SsmlVoiceGender.MALE
         )
         
         # Configurar audio para sonido más NATURAL y argentino
         audio_config = texttospeech.AudioConfig(
             audio_encoding=texttospeech.AudioEncoding.MP3,
-            speaking_rate=0.95,  # Ligeramente más lento para naturalidad
-            pitch=-1.0,  # Tono ligeramente más grave (más natural)
-            volume_gain_db=1.0,  # Volumen ligeramente más alto
-            effects_profile_id=['headphone-class-device']  # Optimizado para audífonos
+            speaking_rate=1.0,  # Velocidad normal argentina
+            pitch=-2.0,  # Tono más grave para sonar más argentino/natural
+            volume_gain_db=2.0,  # Volumen más alto
+            effects_profile_id=['large-home-entertainment-class-device']  # Optimizado para mejor calidad
         )
         
         # Sintetizar
