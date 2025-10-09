@@ -149,11 +149,7 @@ body {
     height: 100% !important;
 }
 
-.cards-container,
-.cards-grid {
-    display: flex !important;
-    flex-direction: column !important;
-}
+/* NO sobrescribir el display: grid de cards-grid */
 
 /* Para que funcione el 100% en toda la cadena */
 html, body {
