@@ -5359,10 +5359,15 @@ def dashboard_hibrido():
             }
 
         kw_objetivo_actual = config_actual.get('kw_objetivo', 0.0)
-        kw_generados_planificados = mezcla_calculada.get('totales', {}).get('kw_total_generado', 0.0)
-        kw_generados_real = datos_reales.get('datos_reales', {}).get('kw_generados_real', 0.0)
-        kw_inyectados_real = datos_reales.get('datos_reales', {}).get('kw_inyectados_real', 0.0)
-        kw_consumidos_planta_real = datos_reales.get('datos_reales', {}).get('kw_consumidos_planta_real', 0.0)
+        
+        # Protección contra None en diccionarios anidados
+        totales = mezcla_calculada.get('totales') or {}
+        datos_reales_dict = datos_reales.get('datos_reales') or {}
+        
+        kw_generados_planificados = totales.get('kw_total_generado', 0.0)
+        kw_generados_real = datos_reales_dict.get('kw_generados_real', 0.0)
+        kw_inyectados_real = datos_reales_dict.get('kw_inyectados_real', 0.0)
+        kw_consumidos_planta_real = datos_reales_dict.get('kw_consumidos_planta_real', 0.0)
 
         datos_horarios = {'biodigestores': {}}
         try:
