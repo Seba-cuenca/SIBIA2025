@@ -28,7 +28,4 @@ RUN mkdir -p ml_training_data models logs reportes
 
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8080/health', timeout=5)"
-
-CMD exec gunicorn --bind :$PORT --workers 2 --threads 4 --timeout 300 --access-logfile - --error-logfile - --log-level info app_CORREGIDO_OK_FINAL:app
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 4 --timeout 600 --access-logfile - --error-logfile - --log-level info app_CORREGIDO_OK_FINAL:app
