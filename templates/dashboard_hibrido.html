@@ -3232,6 +3232,44 @@
                 </div>
             </div>
         </footer>
+
+        <script>
+        (function ensureLayoutVars() {
+            function setVars() {
+                const root = document.documentElement;
+                const sidebar = document.querySelector('.sidebar');
+                const footer = document.querySelector('footer');
+
+                // Sidebar width: priorizar el margin-left del footer (que refleja el layout real)
+                let sidebarW = 220;
+                if (footer) {
+                    const fcs = getComputedStyle(footer);
+                    const ml = parseInt(fcs.marginLeft || '0', 10);
+                    if (!isNaN(ml) && ml > 0) sidebarW = ml;
+                }
+                if ((!footer || sidebarW === 0) && sidebar) {
+                    sidebarW = sidebar.offsetWidth || 220;
+                }
+
+                // Footer height con mayor precisión
+                let footerH = 40;
+                if (footer) {
+                    const rect = footer.getBoundingClientRect();
+                    footerH = Math.round(rect.height);
+                }
+
+                // Header fijo al valor acordado visualmente
+                const headerH = 165;
+
+                root.style.setProperty('--sidebar-w', sidebarW + 'px');
+                root.style.setProperty('--footer-h', footerH + 'px');
+                root.style.setProperty('--header-h', headerH + 'px');
+            }
+            window.addEventListener('load', setVars);
+            window.addEventListener('resize', setVars);
+            document.addEventListener('DOMContentLoaded', setVars);
+        })();
+        </script>
     </div>
 
     <!-- Widget de Alertas del Sistema ELIMINADO - Ahora usa Sistema Unificado en Header -->

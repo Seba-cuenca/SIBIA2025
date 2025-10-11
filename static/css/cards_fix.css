@@ -1,4 +1,9 @@
 /* Fix para tarjetas que no aparecen - Sobreescribe estilos conflictivos */
+:root {
+    --header-h: 165px;   /* se recalcula por JS */
+    --footer-h: 40px;    /* se recalcula por JS */
+    --sidebar-w: 220px;  /* se recalcula por JS */
+}
 
 /* Contenedor de tarjetas SIN padding - 100% del espacio */
 .cards-container {
@@ -19,10 +24,10 @@
 /* Tarjetas = 100% del content-area, posicionadas FIXED */
 .function-card {
     position: fixed !important; /* Fixed en vez de absolute */
-    top: 165px !important; /* Perfecto para no solapar con header */
-    left: 260px !important; /* A la derecha del sidebar */
+    top: var(--header-h) !important;
+    left: var(--sidebar-w) !important;
     right: 0 !important;
-    bottom: 0 !important; /* HASTA EL FONDO - sin espacio */
+    bottom: calc(var(--footer-h) - 1px) !important; /* tocar borde superior del footer */
     width: auto !important; /* Auto para que funcione con left/right */
     height: auto !important; /* Auto para que funcione con top/bottom */
     margin: 0 !important;
@@ -39,12 +44,49 @@
 
 /* Contenido de tarjeta CON scroll interno si es necesario */
 .function-card .card-content {
-    flex: 1 !important;
+    flex: 1 1 auto !important;
     overflow-y: auto !important; /* CON SCROLL vertical */
     overflow-x: auto !important; /* CON SCROLL horizontal para tablas grandes */
-    padding: 20px !important;
+    padding: 16px 16px 0 16px !important; /* sin padding inferior */
     min-height: 0 !important; /* Importante para que funcione flex + scroll */
     max-width: 100% !important; /* No puede salirse del contenedor */
+    box-sizing: border-box !important;
+}
+
+/* Eliminar margen inferior del último bloque dentro de la tarjeta */
+.function-card .card-content > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Eliminar márgenes inferiores residuales de utilidades Bootstrap en el último bloque */
+.function-card .card-content > .mb-1:last-child,
+.function-card .card-content > .mb-2:last-child,
+.function-card .card-content > .mb-3:last-child,
+.function-card .card-content > .mb-4:last-child,
+.function-card .card-content > .mb-5:last-child,
+.function-card .card-content > .pb-1:last-child,
+.function-card .card-content > .pb-2:last-child,
+.function-card .card-content > .pb-3:last-child,
+.function-card .card-content > .pb-4:last-child,
+.function-card .card-content > .pb-5:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Tablas/containers no agreguen espacio al final */
+.function-card .table-responsive,
+.function-card table,
+.function-card .row:last-child,
+.function-card .section:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Quitar relleno reservado para footer en layouts antiguos */
+.content,
+.content-area,
+#operational-view,
+#analytics-view {
+    padding-bottom: 0 !important;
 }
 
 /* Header de tarjeta */
@@ -56,15 +98,18 @@
 }
 
 /* Content-area SIN scroll - altura exacta entre header y footer */
+/* IMPORTANTE: la content-area no debe reservar espacio hasta el footer,
+   la tarjeta usa position:fixed y se ancla con variables. */
 .content-area {
-    position: fixed !important;
-    top: 145px !important;
-    left: var(--sidebar-w, 260px) !important;
-    right: 0 !important;
-    bottom: 50px !important;
-    overflow: hidden !important; /* SIN SCROLL */
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    overflow: visible !important;
     padding: 0 !important;
-    height: calc(100vh - 195px) !important; /* 145px header + 50px footer */
+    margin: 0 !important;
+    height: auto !important;
 }
 
 /* Vistas operativa y analítica - 100% sin scroll */
@@ -108,6 +153,7 @@ body {
 .function-card .card-content * {
     max-width: 100% !important;
     box-sizing: border-box !important;
+    overflow: hidden; /* Evita desbordes visuales de textos/largas cadenas */
 }
 
 /* Tablas adaptables - con límites estrictos */
