@@ -5336,7 +5336,7 @@ def dashboard_hibrido():
     """Dashboard híbrido moderno que usa 'dashboard_hibrido.html'"""
     try:
         # Reutilizamos la misma preparación que en '/dashboard'
-        config_actual = cargar_configuracion()
+        config_actual = cargar_configuracion() or {}
         datos_reales = cargar_datos_reales_dia() or {}
         stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
         stock_actual = stock_data.get('materiales', {})
@@ -5403,7 +5403,7 @@ def dashboard_hibrido():
             'datos_horarios': datos_horarios,
             'advertencia_horario': None,
             'ahora': datetime.now(),
-            'datos_dia': obtener_datos_dia(),
+            'datos_dia': (obtener_datos_dia() or {'registros': [], 'total_tn': 0, 'fecha': datetime.now().strftime('%Y-%m-%d')}),
             'parametros': config_actual,
             'timestamp': int(datetime.now().timestamp())
         }
