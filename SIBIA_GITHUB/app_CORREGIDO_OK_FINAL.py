@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 import os
 from dotenv import load_dotenv
 import calendar
@@ -5407,12 +5407,13 @@ def dashboard_hibrido():
             'parametros': config_actual,
             'timestamp': int(datetime.now().timestamp())
         }
-
+        
         logger.info("Renderizando dashboard_hibrido.html")
         return render_template('dashboard_hibrido.html', **datos_pagina)
     except Exception as e:
         logger.error(f"Error en dashboard_hibrido: {e}", exc_info=True)
-        return render_template('error.html', mensaje=str(e)), 500
+        detalle = traceback.format_exc()
+        return render_template('error.html', mensaje=f"{e}\n\n{detalle}"), 200
 
 @app.route('/gestion_materiales_admin')
 def gestion_materiales_admin():
