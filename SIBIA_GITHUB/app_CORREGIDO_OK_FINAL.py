@@ -5337,7 +5337,7 @@ def dashboard_hibrido():
     try:
         # Reutilizamos la misma preparación que en '/dashboard'
         config_actual = cargar_configuracion()
-        datos_reales = cargar_datos_reales_dia()
+        datos_reales = cargar_datos_reales_dia() or {}
         stock_data = cargar_json_seguro(STOCK_FILE) or {"materiales": {}}
         stock_actual = stock_data.get('materiales', {})
 
@@ -5362,8 +5362,8 @@ def dashboard_hibrido():
         kw_objetivo_actual = config_actual.get('kw_objetivo', 0.0)
         
         # Protección contra None en diccionarios anidados
-        totales = mezcla_calculada.get('totales') or {}
-        datos_reales_dict = datos_reales.get('datos_reales') or {}
+        totales = (mezcla_calculada or {}).get('totales') or {}
+        datos_reales_dict = (datos_reales or {}).get('datos_reales') or {}
         
         kw_generados_planificados = totales.get('kw_total_generado', 0.0)
         kw_generados_real = datos_reales_dict.get('kw_generados_real', 0.0)
