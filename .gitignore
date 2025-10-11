@@ -1,6 +1,13 @@
 # SIBIA - Archivos a subir a GitHub
 # Copyright © 2025 AutoLinkSolutions SRL
 
+# REGLA GLOBAL: ignorar todo excepto lo explícitamente permitido
+*
+!.gitignore
+!.github/**
+!SIBIA_GITHUB/**
+!README.md
+
 # ARCHIVOS ESENCIALES PARA LA APLICACIÓN (SÍ SUBIR)
 # app_CORREGIDO_OK_FINAL.py
 # requirements_production.txt
